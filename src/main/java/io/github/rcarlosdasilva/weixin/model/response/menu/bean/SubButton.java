@@ -1,0 +1,47 @@
+package io.github.rcarlosdasilva.weixin.model.response.menu.bean;
+
+import java.util.List;
+
+import com.google.gson.annotations.SerializedName;
+
+public class SubButton {
+
+  private String name;
+  private String type;
+  private String key;
+  private String url;
+  @SerializedName("media_id")
+  private String mediaId;
+  @SerializedName("list")
+  private List<SubButton> buttons;
+
+  /** 菜单标题. */
+  public String getName() {
+    return name;
+  }
+
+  /** 菜单的响应动作类型. */
+  public String getType() {
+    return type;
+  }
+
+  /** 菜单KEY值，用于消息接口推送. */
+  public String getKey() {
+    return key;
+  }
+
+  /** 网页链接，用户点击菜单可打开链接. */
+  public String getUrl() {
+    return url;
+  }
+
+  /** 调用新增永久素材接口返回的合法media_id. */
+  public String getMediaId() {
+    return mediaId;
+  }
+
+  public List<SubButton> getButtons() {
+    return buttons;
+  }
+
+}

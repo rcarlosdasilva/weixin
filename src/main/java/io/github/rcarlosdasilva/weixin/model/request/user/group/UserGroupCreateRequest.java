@@ -1,0 +1,30 @@
+package io.github.rcarlosdasilva.weixin.model.request.user.group;
+
+import java.util.Map;
+
+import com.google.common.collect.Maps;
+
+import io.github.rcarlosdasilva.weixin.common.ApiAddress;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+
+/**
+ * 创建用户组请求模型
+ * 
+ * @author Dean Zhao (rcarlosdasilva@qq.com)
+ */
+public class UserGroupCreateRequest extends BasicRequest {
+
+  private Map<String, String> group = Maps.newHashMap();
+
+  public UserGroupCreateRequest() {
+    this.path = ApiAddress.URL_USER_GROUP_CREATE;
+  }
+
+  /**
+   * 组名.
+   */
+  public void setGroupName(String groupName) {
+    group.put("name", groupName);
+  }
+
+}
