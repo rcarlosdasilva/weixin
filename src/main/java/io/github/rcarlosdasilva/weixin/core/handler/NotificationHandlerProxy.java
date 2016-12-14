@@ -29,6 +29,8 @@ public class NotificationHandlerProxy {
 
   private static final Logger logger = LoggerFactory.getLogger(NotificationHandlerProxy.class);
 
+  private static NotificationHandlerProxy instance = null;
+
   private NotificationHandler handler;
 
   private NotificationHandlerProxy(NotificationHandler handler) {
@@ -41,11 +43,19 @@ public class NotificationHandlerProxy {
    * 
    * @param handler
    *          {@link NotificationHandler}
+   */
+  public static void proxy(NotificationHandler handler) {
+    instance = new NotificationHandlerProxy(handler);
+  }
+
+  /**
+   * 获取单例代理.
    * 
    * @return {@link NotificationHandlerProxy}
    */
-  public static NotificationHandlerProxy proxy(NotificationHandler handler) {
-    return new NotificationHandlerProxy(handler);
+  public static NotificationHandlerProxy instance() {
+    Preconditions.checkNotNull(instance);
+    return instance;
   }
 
   /**

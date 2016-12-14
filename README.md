@@ -1,6 +1,15 @@
 #Aha-Weixin
 微信API的封装，支持多个公众号同时使用，操作简单。
 
+Maven仓库
+```
+    <dependency>
+      <groupId>io.github.rcarlosdasilva</groupId>
+      <artifactId>weixin</artifactId>
+      <version>0.1</version>
+    </dependency>
+```
+
 ##注册公众号信息
 使用前，需要先将公众号注册一下
 ```
@@ -66,4 +75,11 @@
     String plainText = NotificationParser.toXml(response); // 获取到加密前的回复xml
     String encrypted = Encryptor.encrypt(account.getAppId(), account.getToken(), account.getAesKey(), plainText); // 对回复加密
     return encrypted;
+```
+以上代码只能认为判断微信消息的类型与各种不同情况，为了方便处理微信发送的各种不同的消息，提供了NotificationHandlerProxy代理类与NotificationHandler接口，来代替上面的解析方案。NotificationHandler定义了所有微信可能的消息类型，可以实现该接口，并在各种不同的消息对应的方法中实现自己的流程。DefaultNotificationHandler是NotificationHandler的默认实现。
+```
+假设已经有实现NotificationHandler接口的类，并实例化为变量handler：
+    NotificationHandlerProxy.proxy(handler); // 指定代理
+    return NotificationHandlerProxy.instance().process(body); // 处理明文模式
+    return NotificationHandlerProxy.instance().process(body, signature, timestamp, nonce); // 处理安全或兼容模式
 ```
