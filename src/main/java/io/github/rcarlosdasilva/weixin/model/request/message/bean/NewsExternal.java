@@ -14,6 +14,9 @@ public class NewsExternal implements Message {
 
   /**
    * 添加.
+   * 
+   * @param article
+   *          {@link Article}
    */
   public void addArticle(Article article) {
     if (this.articles == null) {

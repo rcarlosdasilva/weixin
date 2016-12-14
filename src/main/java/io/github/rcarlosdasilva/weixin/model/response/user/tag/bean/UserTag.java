@@ -8,6 +8,8 @@ public class UserTag {
 
   /**
    * 标签id.
+   * 
+   * @return id
    */
   public int getId() {
     return id;
@@ -15,6 +17,8 @@ public class UserTag {
 
   /**
    * 标签名.
+   * 
+   * @return name
    */
   public String getName() {
     return name;
@@ -22,6 +26,8 @@ public class UserTag {
 
   /**
    * 标签下用户数.
+   * 
+   * @return count
    */
   public int getCount() {
     return count;

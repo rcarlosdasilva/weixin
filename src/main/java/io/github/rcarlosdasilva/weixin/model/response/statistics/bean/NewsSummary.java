@@ -39,6 +39,8 @@ public class NewsSummary {
 
   /**
    * 数据的日期.
+   * 
+   * @return time
    */
   public String getDate() {
     return date;
@@ -46,6 +48,8 @@ public class NewsSummary {
 
   /**
    * 数据的小时，包括从000到2300，分别代表的是[000,100)到[2300,2400)，即每日的第1小时和最后1小时.
+   * 
+   * @return hour
    */
   public int getHour() {
     return hour;
@@ -55,6 +59,8 @@ public class NewsSummary {
    * 请注意：这里的msgid实际上是由msgid（图文消息id，这也就是群发接口调用后返回的msg_data_id）和index（消息次序索引）组成，
    * 例如12003_3， 其中12003是msgid，即一次群发的消息的id；
    * 3为index，假设该次群发的图文消息共5个文章（因为可能为多图文），3表示5个中的第3个.
+   * 
+   * @return message id
    */
   public String getMessageId() {
     return messageId;
@@ -62,6 +68,8 @@ public class NewsSummary {
 
   /**
    * 图文消息的标题.
+   * 
+   * @return title
    */
   public String getTitle() {
     return title;
@@ -69,6 +77,8 @@ public class NewsSummary {
 
   /**
    * 获取详细信息.
+   * 
+   * @return list of {@link NewsDetail}
    */
   public List<NewsDetail> getDetails() {
     return details;
@@ -76,6 +86,8 @@ public class NewsSummary {
 
   /**
    * 在获取图文阅读分时数据时才有该字段，代表用户从哪里进入来阅读该图文。0:会话;1.好友;2.朋友圈;3.腾讯微博;4.历史消息页;5.其他.
+   * 
+   * @return {@link StatisticsNewsUserSource}
    */
   public StatisticsNewsUserSource getSource() {
     return StatisticsNewsUserSource.byCode(source);
@@ -83,6 +95,8 @@ public class NewsSummary {
 
   /**
    * 图文页（点击群发图文卡片进入的页面）的阅读人数.
+   * 
+   * @return count
    */
   public int getNewsReadUsers() {
     return newsReadUsers;
@@ -90,6 +104,8 @@ public class NewsSummary {
 
   /**
    * 图文页的阅读次数.
+   * 
+   * @return count
    */
   public int getNewsReadCount() {
     return newsReadCount;
@@ -97,6 +113,8 @@ public class NewsSummary {
 
   /**
    * 原文页（点击图文页“阅读原文”进入的页面）的阅读人数，无原文页时此处数据为0.
+   * 
+   * @return count
    */
   public int getOriginReadUsers() {
     return originReadUsers;
@@ -104,6 +122,8 @@ public class NewsSummary {
 
   /**
    * 原文页的阅读次数.
+   * 
+   * @return count
    */
   public int getOriginReadCount() {
     return originReadCount;
@@ -111,6 +131,8 @@ public class NewsSummary {
 
   /**
    * 分享的人数.
+   * 
+   * @return count
    */
   public int getShareUsers() {
     return shareUsers;
@@ -118,6 +140,8 @@ public class NewsSummary {
 
   /**
    * 分享的次数.
+   * 
+   * @return count
    */
   public int getShareCount() {
     return shareCount;
@@ -125,6 +149,8 @@ public class NewsSummary {
 
   /**
    * 分享的场景 1代表好友转发 2代表朋友圈 3代表腾讯微博 255代表其他.
+   * 
+   * @return {@link StatisticsNewsShareScene}
    */
   public StatisticsNewsShareScene getScene() {
     return StatisticsNewsShareScene.byCode(scene);
@@ -132,6 +158,8 @@ public class NewsSummary {
 
   /**
    * 收藏的人数.
+   * 
+   * @return count
    */
   public int getCollectUsers() {
     return collectUsers;
@@ -139,6 +167,8 @@ public class NewsSummary {
 
   /**
    * 收藏的次数.
+   * 
+   * @return count
    */
   public int getCollectCount() {
     return collectCount;

@@ -16,9 +16,6 @@ public class CustomAccountDeleteRequest extends BasicRequest {
     this.path = ApiAddress.URL_CUSTOM_ACCOUNT_DELETE;
   }
 
-  /**
-   * 账号.
-   */
   public void setAccount(String account) {
     this.account = account;
     this.path = ApiAddress.URL_CUSTOM_ACCOUNT_DELETE;

@@ -21,6 +21,9 @@ public class WaAccessTokenRequest extends BasicRequest {
 
   /**
    * AppId.
+   * 
+   * @param appId
+   *          appid
    */
   public void setAppId(String appId) {
     this.appId = appId;
@@ -28,6 +31,9 @@ public class WaAccessTokenRequest extends BasicRequest {
 
   /**
    * AppSecret.
+   * 
+   * @param appSecret
+   *          appsecret
    */
   public void setAppSecret(String appSecret) {
     this.appSecret = appSecret;
@@ -35,6 +41,9 @@ public class WaAccessTokenRequest extends BasicRequest {
 
   /**
    * Code.
+   * 
+   * @param code
+   *          code
    */
   public void setCode(String code) {
     this.code = code;

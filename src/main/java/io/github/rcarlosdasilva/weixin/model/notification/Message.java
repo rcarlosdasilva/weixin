@@ -41,6 +41,8 @@ public class Message {
 
   /**
    * 消息id，64位整型 (MsgId).
+   * 
+   * @return message id
    */
   public long getMessageId() {
     return messageId;
@@ -48,6 +50,8 @@ public class Message {
 
   /**
    * 消息媒体id，可以调用多媒体文件下载接口拉取该媒体 (MediaID).
+   * 
+   * @return media id
    */
   public String getMediaId() {
     return mediaId;
@@ -55,6 +59,8 @@ public class Message {
 
   /**
    * 视频消息缩略图的媒体id，可以调用多媒体文件下载接口拉取数据 (ThumbMediaId).
+   * 
+   * @return thumb id
    */
   public String getMediaThumbId() {
     return mediaThumbId;
@@ -62,6 +68,8 @@ public class Message {
 
   /**
    * 文本消息内容 (Content).
+   * 
+   * @return content
    */
   public String getContent() {
     return content;
@@ -69,6 +77,8 @@ public class Message {
 
   /**
    * 图片链接（由系统生成） (PicUrl).
+   * 
+   * @return url
    */
   public String getPicUrl() {
     return picUrl;
@@ -76,6 +86,8 @@ public class Message {
 
   /**
    * 语音格式，如amr，speex等 (Format).
+   * 
+   * @return format
    */
   public String getFormat() {
     return format;
@@ -83,6 +95,8 @@ public class Message {
 
   /**
    * 语音识别结果，UTF8编码 (recognition).
+   * 
+   * @return recongnition
    */
   public String getRecognition() {
     return recognition;
@@ -90,6 +104,8 @@ public class Message {
 
   /**
    * 消息标题 (Title).
+   * 
+   * @return title
    */
   public String getTitle() {
     return title;
@@ -97,6 +113,8 @@ public class Message {
 
   /**
    * 消息描述 (Description).
+   * 
+   * @return description
    */
   public String getDescription() {
     return description;
@@ -104,6 +122,8 @@ public class Message {
 
   /**
    * 消息链接 (Url).
+   * 
+   * @return url
    */
   public String getUrl() {
     return url;
@@ -111,6 +131,8 @@ public class Message {
 
   /**
    * 地理位置维度.
+   * 
+   * @return x
    */
   public double getLocationX() {
     return locationX;
@@ -118,6 +140,8 @@ public class Message {
 
   /**
    * 地理位置经度.
+   * 
+   * @return y
    */
   public double getLocationY() {
     return locationY;
@@ -125,6 +149,8 @@ public class Message {
 
   /**
    * 地图缩放大小.
+   * 
+   * @return scale
    */
   public int getScale() {
     return scale;
@@ -132,6 +158,8 @@ public class Message {
 
   /**
    * 地理位置信息.
+   * 
+   * @return address
    */
   public String getAddress() {
     return address;

@@ -11,6 +11,8 @@ public class OpenIdCollection {
 
   /**
    * OpenId列表.
+   * 
+   * @return list of open_id
    */
   public List<String> getList() {
     return list;

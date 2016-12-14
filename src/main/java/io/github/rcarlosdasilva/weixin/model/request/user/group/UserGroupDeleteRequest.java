@@ -20,9 +20,6 @@ public class UserGroupDeleteRequest extends BasicRequest {
     this.path = ApiAddress.URL_USER_GROUP_DELETE;
   }
 
-  /**
-   * 组id.
-   */
   public void setGroupId(int id) {
     group.put("id", id);
   }

@@ -58,6 +58,8 @@ public class NewsDetail {
 
   /**
    * 统计的日期，在getarticletotal接口中，ref_date指的是文章群发出日期， 而stat_date是数据统计日期.
+   * 
+   * @return time
    */
   public String getDate() {
     return date;
@@ -65,6 +67,8 @@ public class NewsDetail {
 
   /**
    * 送达人数，一般约等于总粉丝数（需排除黑名单或其他异常情况下无法收到消息的粉丝）.
+   * 
+   * @return count
    */
   public int getTargetUsers() {
     return targetUsers;
@@ -72,6 +76,8 @@ public class NewsDetail {
 
   /**
    * 图文页（点击群发图文卡片进入的页面）的阅读人数.
+   * 
+   * @return count
    */
   public int getNewsReadUsers() {
     return newsReadUsers;
@@ -79,6 +85,8 @@ public class NewsDetail {
 
   /**
    * 图文页的阅读次数.
+   * 
+   * @return count
    */
   public int getNewsReadCount() {
     return newsReadCount;
@@ -86,6 +94,8 @@ public class NewsDetail {
 
   /**
    * 原文页（点击图文页“阅读原文”进入的页面）的阅读人数，无原文页时此处数据为0.
+   * 
+   * @return count
    */
   public int getOriginReadUsers() {
     return originReadUsers;
@@ -93,6 +103,8 @@ public class NewsDetail {
 
   /**
    * 原文页的阅读次数.
+   * 
+   * @return count
    */
   public int getOriginReadCount() {
     return originReadCount;
@@ -100,6 +112,8 @@ public class NewsDetail {
 
   /**
    * 分享的人数.
+   * 
+   * @return count
    */
   public int getShareUsers() {
     return shareUsers;
@@ -107,6 +121,8 @@ public class NewsDetail {
 
   /**
    * 分享的次数.
+   * 
+   * @return count
    */
   public int getShareCount() {
     return shareCount;
@@ -114,6 +130,8 @@ public class NewsDetail {
 
   /**
    * 收藏的人数.
+   * 
+   * @return count
    */
   public int getCollectUsers() {
     return collectUsers;
@@ -121,6 +139,8 @@ public class NewsDetail {
 
   /**
    * 收藏的次数.
+   * 
+   * @return count
    */
   public int getCollectCount() {
     return collectCount;
@@ -128,6 +148,8 @@ public class NewsDetail {
 
   /**
    * 公众号会话阅读人数.
+   * 
+   * @return count
    */
   public int getFromSessionReadUsers() {
     return fromSessionReadUsers;
@@ -135,6 +157,8 @@ public class NewsDetail {
 
   /**
    * 公众号会话阅读次数.
+   * 
+   * @return count
    */
   public int getFromSessionReadCount() {
     return fromSessionReadCount;
@@ -142,6 +166,8 @@ public class NewsDetail {
 
   /**
    * 历史消息页阅读人数.
+   * 
+   * @return count
    */
   public int getFromHistoryReadUsers() {
     return fromHistoryReadUsers;
@@ -149,6 +175,8 @@ public class NewsDetail {
 
   /**
    * 历史消息页阅读次数.
+   * 
+   * @return count
    */
   public int getFromHistoryReadCount() {
     return fromHistoryReadCount;
@@ -156,6 +184,8 @@ public class NewsDetail {
 
   /**
    * 朋友圈阅读人数.
+   * 
+   * @return count
    */
   public int getFromMomentsReadUsers() {
     return fromMomentsReadUsers;
@@ -163,6 +193,8 @@ public class NewsDetail {
 
   /**
    * 朋友圈阅读次数.
+   * 
+   * @return count
    */
   public int getFromMomentsReadCount() {
     return fromMomentsReadCount;
@@ -170,6 +202,8 @@ public class NewsDetail {
 
   /**
    * 好友转发阅读人数.
+   * 
+   * @return count
    */
   public int getFromRepostReadUsers() {
     return fromRepostReadUsers;
@@ -177,6 +211,8 @@ public class NewsDetail {
 
   /**
    * 好友转发阅读次数.
+   * 
+   * @return count
    */
   public int getFromRepostReadCount() {
     return fromRepostReadCount;
@@ -184,6 +220,8 @@ public class NewsDetail {
 
   /**
    * 其他场景阅读人数.
+   * 
+   * @return count
    */
   public int getFromOtherReadUsers() {
     return fromOtherReadUsers;
@@ -191,6 +229,8 @@ public class NewsDetail {
 
   /**
    * 其他场景阅读次数.
+   * 
+   * @return count
    */
   public int getFromOtherReadCount() {
     return fromOtherReadCount;
@@ -198,6 +238,8 @@ public class NewsDetail {
 
   /**
    * 公众号会话转发朋友圈人数.
+   * 
+   * @return count
    */
   public int getSessionToMomentsUsers() {
     return sessionToMomentsUsers;
@@ -205,6 +247,8 @@ public class NewsDetail {
 
   /**
    * 公众号会话转发朋友圈次数.
+   * 
+   * @return count
    */
   public int getSessionToMomentsCount() {
     return sessionToMomentsCount;
@@ -212,6 +256,8 @@ public class NewsDetail {
 
   /**
    * 朋友圈转发朋友圈人数.
+   * 
+   * @return count
    */
   public int getMomentsToMomentsUsers() {
     return momentsToMomentsUsers;
@@ -219,6 +265,8 @@ public class NewsDetail {
 
   /**
    * 朋友圈转发朋友圈次数.
+   * 
+   * @return count
    */
   public int getMomentsToMomentsCount() {
     return momentsToMomentsCount;
@@ -226,6 +274,8 @@ public class NewsDetail {
 
   /**
    * 其他场景转发朋友圈人数.
+   * 
+   * @return count
    */
   public int getOtherToMomentsUsers() {
     return otherToMomentsUsers;
@@ -233,6 +283,8 @@ public class NewsDetail {
 
   /**
    * 其他场景转发朋友圈次数.
+   * 
+   * @return count
    */
   public int getOtherToMomentsCount() {
     return otherToMomentsCount;

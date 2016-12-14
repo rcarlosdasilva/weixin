@@ -16,9 +16,6 @@ public class CustomSessionStatusRequest extends BasicRequest {
     this.path = ApiAddress.URL_CUSTOM_SESSION_STATUS;
   }
 
-  /**
-   * 用户OpenId.
-   */
   public void setOpenId(String openId) {
     this.openId = openId;
   }

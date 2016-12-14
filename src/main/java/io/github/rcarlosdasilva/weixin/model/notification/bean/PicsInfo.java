@@ -22,6 +22,8 @@ public class PicsInfo {
 
   /**
    * 发送的图片数量 (Count).
+   * 
+   * @return count
    */
   public int getCount() {
     return count;
@@ -29,6 +31,8 @@ public class PicsInfo {
 
   /**
    * 图片的MD5值，开发者若需要，可用于验证接收到图片.
+   * 
+   * @return 图片md5列表
    */
   public List<String> getPics() {
     return pics;

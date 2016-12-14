@@ -28,6 +28,9 @@ public class UserInfoRequest extends BasicRequest {
 
   /**
    * 用户OpenId.
+   * 
+   * @param openId
+   *          open_id
    */
   public void setOpenId(String openId) {
     this.openId = openId;
@@ -35,6 +38,9 @@ public class UserInfoRequest extends BasicRequest {
 
   /**
    * 语言.
+   * 
+   * @param language
+   *          语言
    */
   public void setLanguage(Language language) {
     this.language = language;

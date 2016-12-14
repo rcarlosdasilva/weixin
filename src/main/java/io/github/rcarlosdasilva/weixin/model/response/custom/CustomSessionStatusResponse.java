@@ -11,12 +11,20 @@ public class CustomSessionStatusResponse extends CustomSession {
   @SerializedName("createtime")
   private long createTime;
 
-  /** 正在接待的客服，为空表示没有人在接待. */
+  /**
+   * 正在接待的客服，为空表示没有人在接待.
+   * 
+   * @return account
+   */
   public String getAccount() {
     return account;
   }
 
-  /** 会话接入的时间. */
+  /**
+   * 会话接入的时间.
+   * 
+   * @return time
+   */
   public long getCreateTime() {
     return createTime;
   }

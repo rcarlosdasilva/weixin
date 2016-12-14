@@ -17,9 +17,6 @@ public class UserTagCreateRequest extends BasicRequest {
     this.path = ApiAddress.URL_USER_TAG_CREATE;
   }
 
-  /**
-   * 标签名.
-   */
   public void setTagName(String name) {
     this.tag.setName(name);
   }

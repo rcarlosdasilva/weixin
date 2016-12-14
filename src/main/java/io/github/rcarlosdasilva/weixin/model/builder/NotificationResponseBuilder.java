@@ -44,6 +44,8 @@ public class NotificationResponseBuilder {
    * 假如服务器无法保证在五秒内处理并回复，必须做出下述回复：<br>
    * 1、直接回复success（推荐方式） <br>
    * 2、直接回复空串（指字节长度为0的空字符串，而不是XML结构体中content字段的内容为空）
+   * 
+   * @return {@link NotificationResponseBuilder}
    */
   public NotificationResponseBuilder responseNothing() {
     this.noResponse = true;
@@ -55,6 +57,7 @@ public class NotificationResponseBuilder {
    * 
    * @param content
    *          回复的消息内容（换行：在content中能够换行，微信客户端就支持换行显示）
+   * @return {@link NotificationResponseBuilder}
    */
   public NotificationResponseBuilder responseText(String content) {
     this.response.setType(MessageType.TEXT);
@@ -67,6 +70,7 @@ public class NotificationResponseBuilder {
    * 
    * @param mediaId
    *          通过素材管理中的接口上传多媒体文件，得到的id。
+   * @return {@link NotificationResponseBuilder}
    */
   public NotificationResponseBuilder responseImage(String mediaId) {
     this.response.setType(MessageType.IMAGE);
@@ -79,6 +83,7 @@ public class NotificationResponseBuilder {
    * 
    * @param mediaId
    *          通过素材管理中的接口上传多媒体文件，得到的id。
+   * @return {@link NotificationResponseBuilder}
    */
   public NotificationResponseBuilder responseVoice(String mediaId) {
     this.response.setType(MessageType.VOICE);
@@ -95,6 +100,7 @@ public class NotificationResponseBuilder {
    *          视频消息的标题
    * @param description
    *          视频消息的描述
+   * @return {@link NotificationResponseBuilder}
    */
   public NotificationResponseBuilder responseVideo(String mediaId, String title,
       String description) {
@@ -118,6 +124,7 @@ public class NotificationResponseBuilder {
    *          音乐链接
    * @param musicHqUrl
    *          高质量音乐链接，WIFI环境优先使用该链接播放音乐
+   * @return {@link NotificationResponseBuilder}
    */
   public NotificationResponseBuilder responseMusic(String mediaThumbId, String title,
       String description, String musicUrl, String musicHqUrl) {
@@ -143,6 +150,7 @@ public class NotificationResponseBuilder {
    *          点击图文消息跳转链接
    * @param picUrl
    *          图片链接，支持JPG、PNG格式，较好的效果为大图360*200，小图200*200
+   * @return {@link NotificationResponseBuilder}
    */
   public NotificationResponseBuilder responseNewsOneOf(String title, String description, String url,
       String picUrl) {
@@ -153,6 +161,8 @@ public class NotificationResponseBuilder {
 
   /**
    * 构建微信推送响应模型.
+   * 
+   * @return {@link NotificationResponsePlaintext}
    */
   public NotificationResponsePlaintext build() {
     if (this.noResponse) {

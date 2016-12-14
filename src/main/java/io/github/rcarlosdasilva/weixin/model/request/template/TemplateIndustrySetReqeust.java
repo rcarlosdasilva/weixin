@@ -24,6 +24,9 @@ public class TemplateIndustrySetReqeust extends BasicRequest {
 
   /**
    * 第一行业.
+   * 
+   * @param primary
+   *          {@link Industry}
    */
   public void setPrimary(Industry primary) {
     this.primary = primary.getCode();
@@ -31,6 +34,9 @@ public class TemplateIndustrySetReqeust extends BasicRequest {
 
   /**
    * 第二行业.
+   * 
+   * @param secondary
+   *          {@link Industry}
    */
   public void setSecondary(Industry secondary) {
     this.secondary = secondary.getCode();

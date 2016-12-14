@@ -22,6 +22,8 @@ public class LocationInfo {
 
   /**
    * X坐标信息 (Location_X).
+   * 
+   * @return 坐标
    */
   public double getLocationX() {
     return locationX;
@@ -29,6 +31,8 @@ public class LocationInfo {
 
   /**
    * Y坐标信息 (Location_Y).
+   * 
+   * @return 坐标
    */
   public double getLocationY() {
     return locationY;
@@ -36,6 +40,8 @@ public class LocationInfo {
 
   /**
    * 精度，可理解为精度或者比例尺、越精细的话 scale越高 (Scale).
+   * 
+   * @return 精度
    */
   public int getScale() {
     return scale;
@@ -43,6 +49,8 @@ public class LocationInfo {
 
   /**
    * 地理位置的字符串信息 (Label).
+   * 
+   * @return 位置
    */
   public String getAddress() {
     return address;
@@ -50,6 +58,8 @@ public class LocationInfo {
 
   /**
    * 朋友圈POI的名字，可能为空 (Poiname).
+   * 
+   * @return 名字
    */
   public String getPoiName() {
     return poiName;

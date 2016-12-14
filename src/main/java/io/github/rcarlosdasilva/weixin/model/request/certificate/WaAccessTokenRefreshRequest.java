@@ -20,6 +20,9 @@ public class WaAccessTokenRefreshRequest extends BasicRequest {
 
   /**
    * AppId.
+   * 
+   * @param appId
+   *          appid
    */
   public void setAppId(String appId) {
     this.appId = appId;
@@ -27,6 +30,9 @@ public class WaAccessTokenRefreshRequest extends BasicRequest {
 
   /**
    * 刷新Token.
+   * 
+   * @param refreshToken
+   *          refresh_token
    */
   public void setRefreshToken(String refreshToken) {
     this.refreshToken = refreshToken;

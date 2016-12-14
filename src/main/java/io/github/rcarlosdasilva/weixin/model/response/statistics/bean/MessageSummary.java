@@ -19,6 +19,8 @@ public class MessageSummary {
 
   /**
    * 数据的日期.
+   * 
+   * @return time
    */
   public String getDate() {
     return date;
@@ -26,6 +28,8 @@ public class MessageSummary {
 
   /**
    * 数据的小时，包括从000到2300，分别代表的是[000,100)到[2300,2400)，即每日的第1小时和最后1小时.
+   * 
+   * @return hour
    */
   public int getHour() {
     return hour;
@@ -33,6 +37,8 @@ public class MessageSummary {
 
   /**
    * 消息类型，代表含义如下： 1代表文字 2代表图片 3代表语音 4代表视频 6代表第三方应用消息（链接消息）.
+   * 
+   * @return type
    */
   public StatisticsMessageType getType() {
     return StatisticsMessageType.byCode(type);
@@ -40,6 +46,8 @@ public class MessageSummary {
 
   /**
    * 上行发送了（向公众号发送了）消息的用户数.
+   * 
+   * @return count
    */
   public int getUsers() {
     return users;
@@ -47,6 +55,8 @@ public class MessageSummary {
 
   /**
    * 上行发送了消息的消息总数.
+   * 
+   * @return count
    */
   public int getCount() {
     return count;

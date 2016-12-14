@@ -6,6 +6,7 @@
   <version>0.1</version>
   <name>Aha-Weixin</name>
   <description>微信API封装，支持多账号操作，简单易用</description>
+  <url>https://github.com/rcarlosdasilva/weixin</url>
   <developers>
     <developer>
       <email>rcarlosdasilva@qq.com</email>

@@ -22,6 +22,8 @@ public class MessageQueryAutoReplyResponse {
 
   /**
    * 关注后自动回复是否开启，0代表未开启，1代表开启.
+   * 
+   * @return enabled
    */
   public boolean isEnableWhenAddedFriend() {
     return isEnableWhenAddedFriend == Convention.GLOBAL_TRUE_NUMBER;
@@ -29,6 +31,8 @@ public class MessageQueryAutoReplyResponse {
 
   /**
    * 消息自动回复是否开启，0代表未开启，1代表开启.
+   * 
+   * @return enabled
    */
   public boolean isEnableWhenReceivedMessage() {
     return isEnableWhenReceivedMessage == Convention.GLOBAL_TRUE_NUMBER;
@@ -36,6 +40,8 @@ public class MessageQueryAutoReplyResponse {
 
   /**
    * 关注后自动回复的信息.
+   * 
+   * @return {@link AutoReply4AddedFriendInfo}
    */
   public AutoReply4AddedFriendInfo getAddedFriendInfo() {
     return addedFriendInfo;
@@ -43,6 +49,8 @@ public class MessageQueryAutoReplyResponse {
 
   /**
    * 消息自动回复的信息.
+   * 
+   * @return {@link AutoReply4ReceivedMessageInfo}
    */
   public AutoReply4ReceivedMessageInfo getReceivedMessageInfo() {
     return receivedMessageInfo;
@@ -50,6 +58,8 @@ public class MessageQueryAutoReplyResponse {
 
   /**
    * 关键词自动回复的信息.
+   * 
+   * @return {@link AutoReply4KeywordsInfo}
    */
   public AutoReply4KeywordsInfo getKeywordsInfo() {
     return keywordsInfo;

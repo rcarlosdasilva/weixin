@@ -25,6 +25,9 @@ public class UserInfoListRequest extends BasicRequest {
 
   /**
    * 添加一个用户OpenId.
+   * 
+   * @param openId
+   *          open_id
    */
   public void addUserOpenId(String openId) {
     UserInfoRequest requestModel = new UserInfoRequest();
@@ -34,6 +37,11 @@ public class UserInfoListRequest extends BasicRequest {
 
   /**
    * 添加一个用户OpenId.
+   * 
+   * @param openId
+   *          open_id
+   * @param language
+   *          语言
    */
   public void addUserOpenId(String openId, Language language) {
     UserInfoRequest requestModel = new UserInfoRequest();
@@ -44,6 +52,9 @@ public class UserInfoListRequest extends BasicRequest {
 
   /**
    * 添加一个用户OpenId.
+   * 
+   * @param request
+   *          {@link UserInfoRequest}
    */
   public void addUserRequest(UserInfoRequest request) {
     this.userList.add(request);

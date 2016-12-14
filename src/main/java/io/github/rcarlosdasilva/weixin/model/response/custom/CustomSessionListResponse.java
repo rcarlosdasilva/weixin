@@ -13,6 +13,8 @@ public class CustomSessionListResponse {
 
   /**
    * 会话列表.
+   * 
+   * @return list of {@link CustomSession}
    */
   public List<CustomSession> getSessions() {
     return sessions;

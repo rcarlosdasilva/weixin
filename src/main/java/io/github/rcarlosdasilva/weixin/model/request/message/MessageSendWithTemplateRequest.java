@@ -29,6 +29,9 @@ public class MessageSendWithTemplateRequest extends BasicRequest {
 
   /**
    * 推送到OpenId.
+   * 
+   * @param to
+   *          to
    */
   public void setTo(String to) {
     this.to = to;
@@ -36,6 +39,9 @@ public class MessageSendWithTemplateRequest extends BasicRequest {
 
   /**
    * 模板id.
+   * 
+   * @param templateId
+   *          template id
    */
   public void setTemplateId(String templateId) {
     this.templateId = templateId;
@@ -43,6 +49,9 @@ public class MessageSendWithTemplateRequest extends BasicRequest {
 
   /**
    * 模板跳转URL.
+   * 
+   * @param url
+   *          url
    */
   public void setUrl(String url) {
     this.url = url;
@@ -50,6 +59,9 @@ public class MessageSendWithTemplateRequest extends BasicRequest {
 
   /**
    * 模板内容.
+   * 
+   * @param data
+   *          内容
    */
   public void setData(Map<String, Template> data) {
     this.data = data;

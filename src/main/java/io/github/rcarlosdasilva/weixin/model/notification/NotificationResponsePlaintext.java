@@ -51,6 +51,9 @@ public class NotificationResponsePlaintext implements NotificationResponse {
 
   /**
    * 不能为 {@link MessageType#NEWS_INTERNAL} 和 {@link MessageType#CARD}.
+   * 
+   * @param type
+   *          {@link MessageType}
    */
   public void setType(MessageType type) {
     Preconditions.checkArgument(type != MessageType.NEWS_INTERNAL && type != MessageType.CARD,

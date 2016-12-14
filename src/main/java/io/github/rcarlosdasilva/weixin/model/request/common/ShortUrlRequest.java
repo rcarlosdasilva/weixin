@@ -24,6 +24,9 @@ public class ShortUrlRequest extends BasicRequest {
 
   /**
    * 要转换的连接.
+   * 
+   * @param url
+   *          url
    */
   public void setUrl(String url) {
     this.url = url;

@@ -23,6 +23,9 @@ public class UserOpenIdListWithTagRequest extends BasicRequest {
 
   /**
    * 标签id.
+   * 
+   * @param tagId
+   *          tag id
    */
   public void setTagId(int tagId) {
     this.tagId = tagId;
@@ -30,6 +33,9 @@ public class UserOpenIdListWithTagRequest extends BasicRequest {
 
   /**
    * 第一个拉取的OpenId.
+   * 
+   * @param nextOpenId
+   *          open_id
    */
   public void setNextOpenId(String nextOpenId) {
     this.nextOpenId = nextOpenId;

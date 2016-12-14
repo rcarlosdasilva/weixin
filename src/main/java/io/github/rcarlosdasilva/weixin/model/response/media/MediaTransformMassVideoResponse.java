@@ -8,6 +8,8 @@ public class MediaTransformMassVideoResponse {
 
   /**
    * 素材类型.
+   * 
+   * @return type
    */
   public String getType() {
     return type;
@@ -15,6 +17,8 @@ public class MediaTransformMassVideoResponse {
 
   /**
    * 可用于群发的视频media_id.
+   * 
+   * @return media id
    */
   public String getMediaId() {
     return mediaId;
@@ -22,6 +26,8 @@ public class MediaTransformMassVideoResponse {
 
   /**
    * 创建时间.
+   * 
+   * @return time
    */
   public long getCreateAt() {
     return createAt;

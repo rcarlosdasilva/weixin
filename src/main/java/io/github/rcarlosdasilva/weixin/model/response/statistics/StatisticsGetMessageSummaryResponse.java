@@ -10,6 +10,8 @@ public class StatisticsGetMessageSummaryResponse {
 
   /**
    * 获取数据集合.
+   * 
+   * @return list of {@link MessageSummary}
    */
   public List<MessageSummary> getList() {
     return list;

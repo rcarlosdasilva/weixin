@@ -21,6 +21,9 @@ public class TemplateAppendRequest extends BasicRequest {
 
   /**
    * 模板id.
+   * 
+   * @param code
+   *          id
    */
   public void setCode(String code) {
     this.code = code;

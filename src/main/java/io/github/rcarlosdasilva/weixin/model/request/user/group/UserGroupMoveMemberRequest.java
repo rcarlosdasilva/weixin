@@ -21,16 +21,10 @@ public class UserGroupMoveMemberRequest extends BasicRequest {
     this.path = ApiAddress.URL_USER_GROUP_MOVE_MEMBER;
   }
 
-  /**
-   * 用户OpenId.
-   */
   public void setOpenId(String openId) {
     this.openId = openId;
   }
 
-  /**
-   * 组id.
-   */
   public void setToGroupId(int toGroupId) {
     this.toGroupId = toGroupId;
   }

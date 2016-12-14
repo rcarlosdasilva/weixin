@@ -23,6 +23,9 @@ public interface Request {
 
   /**
    * 更新access_token.
+   * 
+   * @param accessToken
+   *          access_token
    */
   public void updateAccessToken(String accessToken);
 

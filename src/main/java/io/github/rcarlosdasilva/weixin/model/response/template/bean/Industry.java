@@ -9,12 +9,20 @@ public class Industry {
   @SerializedName("second_class")
   private String minor;
 
-  /** 帐号设置的主营行业. */
+  /**
+   * 帐号设置的主营行业.
+   * 
+   * @return major
+   */
   public String getMajor() {
     return major;
   }
 
-  /** 帐号设置的副营行业. */
+  /**
+   * 帐号设置的副营行业.
+   * 
+   * @return minor
+   */
   public String getMinor() {
     return minor;
   }

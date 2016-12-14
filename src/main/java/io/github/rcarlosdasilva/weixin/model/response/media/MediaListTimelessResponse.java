@@ -15,6 +15,8 @@ public class MediaListTimelessResponse {
 
   /**
    * 该类型的素材的总数.
+   * 
+   * @return count
    */
   public int getTotalCount() {
     return totalCount;
@@ -22,6 +24,8 @@ public class MediaListTimelessResponse {
 
   /**
    * 本次调用获取的素材的数量.
+   * 
+   * @return count
    */
   public int getItemCount() {
     return itemCount;
@@ -29,6 +33,8 @@ public class MediaListTimelessResponse {
 
   /**
    * 素材内容列表.
+   * 
+   * @return list of {@link Media}
    */
   public List<Media> getItems() {
     return items;

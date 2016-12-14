@@ -9,6 +9,8 @@ public class MediaCountTimelessResponse {
 
   /**
    * 语音总数量.
+   * 
+   * @return count
    */
   public int getVoiceCount() {
     return voiceCount;
@@ -16,6 +18,8 @@ public class MediaCountTimelessResponse {
 
   /**
    * 视频总数量.
+   * 
+   * @return count
    */
   public int getVideoCount() {
     return videoCount;
@@ -23,6 +27,8 @@ public class MediaCountTimelessResponse {
 
   /**
    * 图片总数量.
+   * 
+   * @return count
    */
   public int getImageCount() {
     return imageCount;
@@ -30,6 +36,8 @@ public class MediaCountTimelessResponse {
 
   /**
    * 图文总数量.
+   * 
+   * @return count
    */
   public int getNewsCount() {
     return newsCount;

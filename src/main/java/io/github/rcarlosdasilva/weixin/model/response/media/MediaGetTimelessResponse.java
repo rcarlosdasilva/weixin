@@ -22,6 +22,8 @@ public class MediaGetTimelessResponse {
 
   /**
    * 如果是除视频或图文之外的其他类型的素材消息，则响应的直接为素材的内容，开发者可以自行保存为文件.
+   * 
+   * @return {@link InputStream}
    */
   public InputStream getStream() {
     return stream;
@@ -29,6 +31,8 @@ public class MediaGetTimelessResponse {
 
   /**
    * 如果返回的是视频消息素材，视频标题.
+   * 
+   * @return title
    */
   public String getTitle() {
     return title;
@@ -36,6 +40,8 @@ public class MediaGetTimelessResponse {
 
   /**
    * 如果返回的是视频消息素材，视频描述.
+   * 
+   * @return description
    */
   public String getDescription() {
     return description;
@@ -43,6 +49,8 @@ public class MediaGetTimelessResponse {
 
   /**
    * 如果返回的是视频消息素材，视频下载地址.
+   * 
+   * @return url
    */
   public String getDownloadUrl() {
     return downloadUrl;
@@ -50,6 +58,8 @@ public class MediaGetTimelessResponse {
 
   /**
    * 如果请求的素材为图文消息，获取图文列表.
+   * 
+   * @return list of {@link Article}
    */
   public List<Article> getArticles() {
     return articles;

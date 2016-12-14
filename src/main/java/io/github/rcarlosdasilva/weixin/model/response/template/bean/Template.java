@@ -14,32 +14,56 @@ public class Template {
   private String content;
   private String example;
 
-  /** 公众帐号下模板消息ID. */
+  /**
+   * 公众帐号下模板消息ID.
+   * 
+   * @return template id
+   */
   public String getId() {
     return id;
   }
 
-  /** 模板标题. */
+  /**
+   * 模板标题.
+   * 
+   * @return title
+   */
   public String getTitle() {
     return title;
   }
 
-  /** 模板所属行业的一级行业. */
+  /**
+   * 模板所属行业的一级行业.
+   * 
+   * @return industry
+   */
   public String getPrimaryIndustry() {
     return primaryIndustry;
   }
 
-  /** 模板所属行业的二级行业. */
+  /**
+   * 模板所属行业的二级行业.
+   * 
+   * @return industry
+   */
   public String getSecondaryIndustry() {
     return secondaryIndustry;
   }
 
-  /** 模板内容. */
+  /**
+   * 模板内容.
+   * 
+   * @return content
+   */
   public String getContent() {
     return content;
   }
 
-  /** 模板示例. */
+  /**
+   * 模板示例.
+   * 
+   * @return example
+   */
   public String getExample() {
     return example;
   }

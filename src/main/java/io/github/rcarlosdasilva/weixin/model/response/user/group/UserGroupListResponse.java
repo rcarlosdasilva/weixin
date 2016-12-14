@@ -8,9 +8,6 @@ public class UserGroupListResponse {
 
   List<UserGroup> groups;
 
-  /**
-   * 组列表.
-   */
   public List<UserGroup> getGroups() {
     return groups;
   }

@@ -23,16 +23,10 @@ public class UserTagTaggingRequest extends BasicRequest {
     this.path = ApiAddress.URL_USER_TAG_TAGGING_USER;
   }
 
-  /**
-   * 标签id.
-   */
   public void setId(int id) {
     this.id = id;
   }
 
-  /**
-   * 用户OpenIds.
-   */
   public void setOpenIds(List<String> openIds) {
     this.openIds = openIds;
   }

@@ -19,9 +19,6 @@ public class UserTagListBasedUserRequest extends BasicRequest {
     this.path = ApiAddress.URL_USER_TAG_LIST_BASE_USER;
   }
 
-  /**
-   * 用户OpenId.
-   */
   public void setOpenId(String openId) {
     this.openId = openId;
   }

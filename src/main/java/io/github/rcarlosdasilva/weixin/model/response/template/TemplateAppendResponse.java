@@ -9,6 +9,8 @@ public class TemplateAppendResponse {
 
   /**
    * 模板id.
+   * 
+   * @return template id
    */
   public String getId() {
     return id;

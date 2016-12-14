@@ -20,6 +20,8 @@ public class Article {
 
   /**
    * 图文消息的标题.
+   * 
+   * @return title
    */
   public String getTitle() {
     return title;
@@ -27,6 +29,8 @@ public class Article {
 
   /**
    * 图文消息的封面图片素材id（必须是永久mediaID）.
+   * 
+   * @return media id
    */
   public String getThumbnailMediaId() {
     return thumbnailMediaId;
@@ -34,6 +38,8 @@ public class Article {
 
   /**
    * 作者.
+   * 
+   * @return author
    */
   public String getAuthor() {
     return author;
@@ -41,6 +47,8 @@ public class Article {
 
   /**
    * 图文消息的摘要，仅有单图文消息才有摘要，多图文此处为空.
+   * 
+   * @return digest
    */
   public String getDigest() {
     return digest;
@@ -48,6 +56,8 @@ public class Article {
 
   /**
    * 是否显示封面，0为false，即不显示，1为true，即显示.
+   * 
+   * @return is show
    */
   public boolean isShowCover() {
     return showCover == Convention.GLOBAL_TRUE_NUMBER;
@@ -55,6 +65,8 @@ public class Article {
 
   /**
    * 图文消息的具体内容，支持HTML标签，必须少于2万字符，小于1M，且此处会去除JS.
+   * 
+   * @return content
    */
   public String getContent() {
     return content;
@@ -62,6 +74,8 @@ public class Article {
 
   /**
    * 图文页的URL.
+   * 
+   * @return url
    */
   public String getUrl() {
     return url;
@@ -69,6 +83,8 @@ public class Article {
 
   /**
    * 图文消息的原文地址，即点击“阅读原文”后的URL.
+   * 
+   * @return url
    */
   public String getSourceUrl() {
     return sourceUrl;

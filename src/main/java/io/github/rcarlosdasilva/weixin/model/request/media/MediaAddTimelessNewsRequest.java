@@ -26,7 +26,10 @@ public class MediaAddTimelessNewsRequest extends BasicRequest {
   }
 
   /**
-   * 添加一个 {@link Article}.
+   * 添加一个图文.
+   * 
+   * @param article
+   *          {@link Article}
    */
   public void addArticle(Article article) {
     if (this.articles == null) {

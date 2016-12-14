@@ -28,6 +28,9 @@ public class MenuDeleteRequest extends BasicRequest {
 
   /**
    * 菜单id.
+   * 
+   * @param menuId
+   *          menu id
    */
   public void setMenuId(long menuId) {
     this.menuId = menuId;

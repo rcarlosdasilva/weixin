@@ -16,16 +16,10 @@ public class Template {
     this.color = color;
   }
 
-  /**
-   * 取值.
-   */
   public void setValue(String value) {
     this.value = value;
   }
 
-  /**
-   * 显示颜色.
-   */
   public void setColor(String color) {
     this.color = color;
   }

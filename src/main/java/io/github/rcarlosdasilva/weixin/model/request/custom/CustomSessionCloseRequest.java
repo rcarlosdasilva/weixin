@@ -21,16 +21,10 @@ public class CustomSessionCloseRequest extends BasicRequest {
     this.path = ApiAddress.URL_CUSTOM_SESSION_CLOSE;
   }
 
-  /**
-   * 账号.
-   */
   public void setAccount(String account) {
     this.account = account;
   }
 
-  /**
-   * 用户OpenId.
-   */
   public void setOpenId(String openId) {
     this.openId = openId;
   }

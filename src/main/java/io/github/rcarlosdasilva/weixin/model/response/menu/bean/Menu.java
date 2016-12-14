@@ -15,6 +15,8 @@ public class Menu {
 
   /**
    * 菜单按钮列表.
+   * 
+   * @return list of {@link Button}
    */
   public List<Button> getButtons() {
     return buttons;
@@ -22,6 +24,8 @@ public class Menu {
 
   /**
    * 菜单id.
+   * 
+   * @return menu id
    */
   public long getMenuId() {
     return menuId;
@@ -29,6 +33,8 @@ public class Menu {
 
   /**
    * 匹配规则.
+   * 
+   * @return {@link MatchRule}
    */
   public MatchRule getMatchRule() {
     return matchRule;

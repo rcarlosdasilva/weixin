@@ -20,6 +20,8 @@ public class ResponseParser {
   /**
    * 解析并封装响应结果为一个指定类型.
    * 
+   * @param <T>
+   *          The Type of element
    * @param target
    *          指定封装类型
    * @param json

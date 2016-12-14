@@ -20,7 +20,10 @@ public class MenuTestRequest extends BasicRequest {
   }
 
   /**
-   * 微信号.
+   * 微信号或openid.
+   * 
+   * @param userLabel
+   *          微信号
    */
   public void setUserLabel(String userLabel) {
     this.userLabel = userLabel;

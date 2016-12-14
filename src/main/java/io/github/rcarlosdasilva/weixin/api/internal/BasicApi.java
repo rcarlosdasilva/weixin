@@ -59,6 +59,8 @@ public class BasicApi {
   /**
    * 发送post请求.
    * 
+   * @param <T>
+   *          The Type of element
    * @param target
    *          响应的封装类型
    * @param requestModel
@@ -109,6 +111,8 @@ public class BasicApi {
   /**
    * 发送get请求.
    * 
+   * @param <T>
+   *          The Type of element
    * @param target
    *          响应的封装类型
    * @param requestModel
@@ -158,14 +162,20 @@ public class BasicApi {
   /**
    * 上传一个文件（post）.
    * 
+   * @param <T>
+   *          The Type of element
    * @param target
    *          响应的封装类型
-   * @param model
+   * @param requestModel
    *          请求模型
    * @param key
    *          文件标识
+   * @param fileName
+   *          文件名
    * @param file
    *          文件路径
+   * @param additionalData
+   *          附加数据，可当做参数传递出去
    * @return 响应封装对象
    */
   protected <T> T upload(Class<T> target, Request requestModel, String key, String fileName,
