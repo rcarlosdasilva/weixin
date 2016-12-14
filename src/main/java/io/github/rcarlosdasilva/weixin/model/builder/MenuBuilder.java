@@ -573,6 +573,7 @@ public class MenuBuilder {
      * 
      * @param tagId
      *          标签id
+     * @return {@link MatchRuleBuilder}
      */
     public MatchRuleBuilder setTagId(int tagId) {
       this.matchRule.setTagId(tagId);
@@ -584,6 +585,7 @@ public class MenuBuilder {
      * 
      * @param sex
      *          {@link Sex}
+     * @return {@link MatchRuleBuilder}
      */
     public MatchRuleBuilder setSex(Sex sex) {
       this.matchRule.setSex(sex.getCode());
@@ -595,6 +597,7 @@ public class MenuBuilder {
      * 
      * @param country
      *          国家
+     * @return {@link MatchRuleBuilder}
      */
     public MatchRuleBuilder setCountry(String country) {
       this.matchRule.setCountry(country);
@@ -606,6 +609,7 @@ public class MenuBuilder {
      * 
      * @param province
      *          省份
+     * @return {@link MatchRuleBuilder}
      */
     public MatchRuleBuilder setProvince(String province) {
       this.matchRule.setProvince(province);
@@ -617,6 +621,7 @@ public class MenuBuilder {
      * 
      * @param city
      *          城市
+     * @return {@link MatchRuleBuilder}
      */
     public MatchRuleBuilder setCity(String city) {
       this.matchRule.setCity(city);
@@ -628,6 +633,7 @@ public class MenuBuilder {
      * 
      * @param type
      *          {@link ClientPlatformType}
+     * @return {@link MatchRuleBuilder}
      */
     public MatchRuleBuilder setClientPlatformType(ClientPlatformType type) {
       this.matchRule.setClientPlatformType(type.getCode());
@@ -639,6 +645,7 @@ public class MenuBuilder {
      * 
      * @param language
      *          {@link Language}
+     * @return {@link MatchRuleBuilder}
      */
     public MatchRuleBuilder setLanguage(Language language) {
       this.matchRule.setLanguage(language.toString());

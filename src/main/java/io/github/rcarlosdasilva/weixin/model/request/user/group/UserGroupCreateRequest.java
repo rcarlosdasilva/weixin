@@ -20,9 +20,6 @@ public class UserGroupCreateRequest extends BasicRequest {
     this.path = ApiAddress.URL_USER_GROUP_CREATE;
   }
 
-  /**
-   * 组名.
-   */
   public void setGroupName(String groupName) {
     group.put("name", groupName);
   }

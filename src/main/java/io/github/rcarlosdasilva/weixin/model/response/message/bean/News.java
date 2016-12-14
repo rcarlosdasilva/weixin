@@ -14,6 +14,8 @@ public class News {
 
   /**
    * 标题.
+   * 
+   * @return title
    */
   public String getTitle() {
     return title;
@@ -21,6 +23,8 @@ public class News {
 
   /**
    * 摘要.
+   * 
+   * @return digest
    */
   public String getDigest() {
     return digest;
@@ -28,6 +32,8 @@ public class News {
 
   /**
    * 作者.
+   * 
+   * @return author
    */
   public String getAuthor() {
     return author;
@@ -35,6 +41,8 @@ public class News {
 
   /**
    * 是否显示封面，0为不显示，1为显示.
+   * 
+   * @return is show
    */
   public boolean isShowCover() {
     return showCover == Convention.GLOBAL_TRUE_NUMBER;
@@ -42,6 +50,8 @@ public class News {
 
   /**
    * 封面图片的URL.
+   * 
+   * @return url
    */
   public String getCoverUrl() {
     return coverUrl;
@@ -49,6 +59,8 @@ public class News {
 
   /**
    * 正文的URL.
+   * 
+   * @return url
    */
   public String getContentUrl() {
     return contentUrl;
@@ -56,6 +68,8 @@ public class News {
 
   /**
    * 原文的URL，若置空则无查看原文入口.
+   * 
+   * @return url
    */
   public String getSourceUrl() {
     return sourceUrl;

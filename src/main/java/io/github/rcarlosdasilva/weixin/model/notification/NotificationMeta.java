@@ -21,6 +21,8 @@ public class NotificationMeta {
 
   /**
    * 开发者微信号 (ToUserName).
+   * 
+   * @return to user
    */
   public String getToUser() {
     return toUser;
@@ -28,6 +30,8 @@ public class NotificationMeta {
 
   /**
    * 发送方帐号（一个OpenID）(FromUserName).
+   * 
+   * @return from user
    */
   public String getFromUser() {
     return fromUser;
@@ -35,6 +39,8 @@ public class NotificationMeta {
 
   /**
    * 消息创建时间 （整型）(CreateTime).
+   * 
+   * @return time
    */
   public Date getTime() {
     return new Date(time);
@@ -42,6 +48,8 @@ public class NotificationMeta {
 
   /**
    * 消息类型 (MsgType).
+   * 
+   * @return {@link NotificationType}
    */
   public NotificationType getType() {
     try {
@@ -53,6 +61,8 @@ public class NotificationMeta {
 
   /**
    * 获取密文.
+   * 
+   * @return 密文
    */
   public String getCiphertext() {
     return ciphertext;

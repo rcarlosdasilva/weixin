@@ -143,6 +143,11 @@ public class MessageApiImpl extends BasicApi implements MessageApi {
 
   /**
    * 根据 {@link MessageContainer} 中的type，将对应的消息内容注入到 {@link MessageRequest} 中.
+   * 
+   * @param messageContainer
+   *          {@link MessageContainer}
+   * @param requestModel
+   *          {@link MessageRequest}
    */
   public void injectMessageContent(MessageContainer messageContainer, MessageRequest requestModel) {
     switch (messageContainer.getType()) {

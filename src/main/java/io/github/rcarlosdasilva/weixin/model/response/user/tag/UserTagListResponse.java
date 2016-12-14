@@ -10,6 +10,8 @@ public class UserTagListResponse {
 
   /**
    * 标签列表.
+   * 
+   * @return list of {@link UserTag}
    */
   public List<UserTag> getTags() {
     return tags;

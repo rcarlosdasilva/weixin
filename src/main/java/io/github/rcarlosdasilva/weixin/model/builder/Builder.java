@@ -9,6 +9,8 @@ public class Builder {
 
   /**
    * 构建一个自定义菜单.
+   * 
+   * @return {@link MenuBuilder}
    */
   public static MenuBuilder buildMenu() {
     return new MenuBuilder();
@@ -16,6 +18,8 @@ public class Builder {
 
   /**
    * 构建一个模板消息.
+   * 
+   * @return {@link TemplateMessageBuilder}
    */
   public static TemplateMessageBuilder buildTemplateMessage() {
     return new TemplateMessageBuilder();
@@ -23,6 +27,8 @@ public class Builder {
 
   /**
    * 构建客服消息内容.
+   * 
+   * @return {@link MassOrCustomMessageBuilder}
    */
   public static MassOrCustomMessageBuilder buildMessage() {
     return new MassOrCustomMessageBuilder();
@@ -30,6 +36,8 @@ public class Builder {
 
   /**
    * 构建微信推送通知回复消息构建器.
+   * 
+   * @return {@link NotificationResponseBuilder}
    */
   public static NotificationResponseBuilder buildNotificationResponse() {
     return new NotificationResponseBuilder();

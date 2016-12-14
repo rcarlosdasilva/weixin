@@ -21,16 +21,10 @@ public class CustomAccountBindingRequest extends BasicRequest {
     this.path = ApiAddress.URL_CUSTOM_ACCOUNT_INVITE_BINDING;
   }
 
-  /**
-   * 账号.
-   */
   public void setAccount(String account) {
     this.account = account;
   }
 
-  /**
-   * 微信号.
-   */
   public void setWxId(String wxId) {
     this.wxId = wxId;
   }

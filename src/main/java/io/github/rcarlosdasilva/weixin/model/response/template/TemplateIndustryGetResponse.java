@@ -11,12 +11,20 @@ public class TemplateIndustryGetResponse {
   @SerializedName("secondary_industry")
   private Industry secondaryIndustry;
 
-  /** 模板所属行业的第一行业. */
+  /**
+   * 模板所属行业的第一行业.
+   * 
+   * @return {@link Industry}
+   */
   public Industry getPrimaryIndustry() {
     return primaryIndustry;
   }
 
-  /** 模板所属行业的第二行业. */
+  /**
+   * 模板所属行业的第二行业.
+   * 
+   * @return {@link Industry}
+   */
   public Industry getSecondaryIndustry() {
     return secondaryIndustry;
   }

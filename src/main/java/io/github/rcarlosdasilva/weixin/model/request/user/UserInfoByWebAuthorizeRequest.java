@@ -13,15 +13,18 @@ public class UserInfoByWebAuthorizeRequest extends BasicRequest {
 
   private String accessToken;
   private String openId;
-  private Language lang;
+  private Language language;
 
   public UserInfoByWebAuthorizeRequest() {
     this.path = ApiAddress.URL_USER_INFO_BY_WEB_AUTHORIZE;
-    this.lang = Language.ZH_CN;
+    this.language = Language.ZH_CN;
   }
 
   /**
    * 网页授权Token.
+   * 
+   * @param accessToken
+   *          access_token
    */
   public void setAccessToken(String accessToken) {
     this.accessToken = accessToken;
@@ -29,6 +32,9 @@ public class UserInfoByWebAuthorizeRequest extends BasicRequest {
 
   /**
    * 用户OpenId.
+   * 
+   * @param openId
+   *          open_id
    */
   public void setOpenId(String openId) {
     this.openId = openId;
@@ -36,15 +42,18 @@ public class UserInfoByWebAuthorizeRequest extends BasicRequest {
 
   /**
    * 语言.
+   * 
+   * @param language
+   *          语言
    */
-  public void setLang(Language lang) {
-    this.lang = lang;
+  public void setLang(Language language) {
+    this.language = language;
   }
 
   @Override
   public String toString() {
     return new StringBuilder(this.path).append("?access_token=").append(this.accessToken)
-        .append("&openid=").append(this.openId).append("&lang=").append(this.lang).toString();
+        .append("&openid=").append(this.openId).append("&lang=").append(this.language).toString();
   }
 
 }

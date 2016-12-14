@@ -11,6 +11,8 @@ public class MediaCollection {
 
   /**
    * 多媒体列表.
+   * 
+   * @return list of {@link Media}
    */
   public List<Media> getMedia() {
     return media;

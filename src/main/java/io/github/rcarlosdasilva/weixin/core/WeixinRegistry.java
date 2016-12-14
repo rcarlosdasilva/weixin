@@ -25,6 +25,7 @@ public class WeixinRegistry {
    *          appid
    * @param appSecret
    *          appsecret
+   * @return {@link Account}
    */
   public static Account registry(String key, String appId, String appSecret) {
     AccountCache.instance().remove(key);
@@ -42,6 +43,7 @@ public class WeixinRegistry {
    *          appid
    * @param appSecret
    *          appsecret
+   * @return {@link Account}
    */
   public static Account registryUnique(String appId, String appSecret) {
     return registry(Convention.DEFAULT_UNIQUE_WEIXIN_KEY, appId, appSecret);
@@ -52,7 +54,7 @@ public class WeixinRegistry {
    * 
    * @param id
    *          可以为公众号appId或者公众号原始ID
-   * @return see {@link Account}
+   * @return {@link Account}
    */
   public static Account lookup(String id) {
     id = id == null ? "" : id;

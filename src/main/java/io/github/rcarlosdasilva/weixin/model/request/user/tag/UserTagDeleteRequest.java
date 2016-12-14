@@ -17,9 +17,6 @@ public class UserTagDeleteRequest extends BasicRequest {
     this.path = ApiAddress.URL_USER_TAG_DELETE;
   }
 
-  /**
-   * 标签id.
-   */
   public void setTagId(int id) {
     this.tag.setId(id);
   }

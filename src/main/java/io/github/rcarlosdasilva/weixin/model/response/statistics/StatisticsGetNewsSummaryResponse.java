@@ -10,6 +10,8 @@ public class StatisticsGetNewsSummaryResponse {
 
   /**
    * 获取数据集合.
+   * 
+   * @return list of {@link NewsSummary}
    */
   public List<NewsSummary> getList() {
     return list;

@@ -18,6 +18,9 @@ public class QrCodeShowRequest extends BasicRequest {
 
   /**
    * 二维码请求Ticket.
+   * 
+   * @param ticket
+   *          ticket
    */
   public void setTicket(String ticket) {
     this.ticket = ticket;

@@ -23,16 +23,10 @@ public class UserGroupMoveMemberBatchRequest extends BasicRequest {
     this.path = ApiAddress.URL_USER_GROUP_MOVE_MEMBER_BATCH;
   }
 
-  /**
-   * 用户OpenIds.
-   */
   public void setOpenIds(List<String> openIds) {
     this.openIds = openIds;
   }
 
-  /**
-   * 组id.
-   */
   public void setToGroupId(int toGroupId) {
     this.toGroupId = toGroupId;
   }

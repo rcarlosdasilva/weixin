@@ -15,6 +15,8 @@ public class InterfaceSummary {
 
   /**
    * 数据的日期.
+   * 
+   * @return time
    */
   public String getDate() {
     return date;
@@ -22,6 +24,8 @@ public class InterfaceSummary {
 
   /**
    * 数据的小时.
+   * 
+   * @return hour
    */
   public int getHour() {
     return hour;
@@ -29,6 +33,8 @@ public class InterfaceSummary {
 
   /**
    * 通过服务器配置地址获得消息后，被动回复用户消息的次数.
+   * 
+   * @return count
    */
   public int getCallbackCount() {
     return callbackCount;
@@ -36,6 +42,8 @@ public class InterfaceSummary {
 
   /**
    * 上述动作的失败次数.
+   * 
+   * @return count
    */
   public int getFailCount() {
     return failCount;
@@ -43,6 +51,8 @@ public class InterfaceSummary {
 
   /**
    * 总耗时，除以callback_count即为平均耗时.
+   * 
+   * @return cost
    */
   public int getTotalTimeCost() {
     return totalTimeCost;
@@ -50,6 +60,8 @@ public class InterfaceSummary {
 
   /**
    * 最大耗时.
+   * 
+   * @return cost
    */
   public int getMaxTimeCost() {
     return maxTimeCost;

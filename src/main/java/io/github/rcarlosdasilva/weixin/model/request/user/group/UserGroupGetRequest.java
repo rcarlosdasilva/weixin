@@ -19,9 +19,6 @@ public class UserGroupGetRequest extends BasicRequest {
     this.path = ApiAddress.URL_USER_GROUP_GET;
   }
 
-  /**
-   * 用户OpenId.
-   */
   public void setOpenId(String openId) {
     this.openId = openId;
   }

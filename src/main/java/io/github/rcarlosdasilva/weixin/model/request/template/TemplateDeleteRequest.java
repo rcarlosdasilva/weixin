@@ -19,9 +19,6 @@ public class TemplateDeleteRequest extends BasicRequest {
     this.path = ApiAddress.URL_TEMPLATE_DELETE;
   }
 
-  /**
-   * id.
-   */
   public void setId(String id) {
     this.id = id;
   }

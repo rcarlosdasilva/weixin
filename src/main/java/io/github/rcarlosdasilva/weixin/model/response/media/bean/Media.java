@@ -10,6 +10,8 @@ public class Media {
 
   /**
    * 素材media_id.
+   * 
+   * @return media id
    */
   public String getMediaId() {
     return mediaId;
@@ -17,6 +19,8 @@ public class Media {
 
   /**
    * 文件名称.
+   * 
+   * @return name
    */
   public String getName() {
     return name;
@@ -24,6 +28,8 @@ public class Media {
 
   /**
    * 素材url.
+   * 
+   * @return url
    */
   public String getUrl() {
     return url;
@@ -31,6 +37,8 @@ public class Media {
 
   /**
    * 这篇图文消息素材的最后更新时间.
+   * 
+   * @return time
    */
   public long getUpdateTime() {
     return updateTime;
@@ -38,6 +46,8 @@ public class Media {
 
   /**
    * 图文信息.
+   * 
+   * @return {@link ArticleCollection}
    */
   public ArticleCollection getContent() {
     return content;

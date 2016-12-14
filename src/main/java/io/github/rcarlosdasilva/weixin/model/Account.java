@@ -25,6 +25,11 @@ public class Account {
 
   /**
    * 指定必须的AppId与AppSecret.
+   * 
+   * @param appId
+   *          appid
+   * @param appSecret
+   *          appsecret
    */
   public Account(String appId, String appSecret) {
     this.appId = appId;
@@ -40,6 +45,7 @@ public class Account {
    *          EncodingAESKey(消息加解密密钥)
    * @param encryptionType
    *          消息加解密方式
+   * @return {@link Account}
    * @see <a href=
    *      "https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419318479&token=&lang=zh_CN"
    *      >消息加解密接入指引</a>
@@ -58,6 +64,7 @@ public class Account {
    *          公众号类型
    * @param certified
    *          是否认证
+   * @return {@link Account}
    */
   public Account setBasic(AccountType accountType, boolean certified) {
     this.accountType = accountType;
@@ -76,6 +83,7 @@ public class Account {
    *          公众号原始ID
    * @param nickname
    *          公众号昵称
+   * @return {@link Account}
    */
   public Account setBasic(AccountType accountType, boolean certified, String mpId,
       String nickname) {
@@ -88,6 +96,8 @@ public class Account {
 
   /**
    * 注册时用的key键.
+   * 
+   * @return 公众号键
    */
   public String getKey() {
     return key;
@@ -111,6 +121,10 @@ public class Account {
 
   /**
    * 公众号原始ID.
+   * 
+   * @param mpId
+   *          原始ID
+   * @return {@link Account}
    */
   public Account setMpId(String mpId) {
     this.mpId = mpId;
@@ -123,6 +137,10 @@ public class Account {
 
   /**
    * 公众号昵称.
+   * 
+   * @param nickname
+   *          昵称
+   * @return {@link Account}
    */
   public Account setNickname(String nickname) {
     this.nickname = nickname;
@@ -135,6 +153,10 @@ public class Account {
 
   /**
    * 公众号类型.
+   * 
+   * @param accountType
+   *          类型
+   * @return {@link Account}
    */
   public Account setAccountType(AccountType accountType) {
     this.accountType = accountType;
@@ -147,6 +169,10 @@ public class Account {
 
   /**
    * 是否认证.
+   * 
+   * @param certified
+   *          是否认证
+   * @return {@link Account}
    */
   public Account setCertified(boolean certified) {
     this.certified = certified;
@@ -159,6 +185,10 @@ public class Account {
 
   /**
    * 令牌.
+   * 
+   * @param token
+   *          令牌
+   * @return {@link Account}
    */
   public Account setToken(String token) {
     this.token = token;
@@ -171,6 +201,10 @@ public class Account {
 
   /**
    * AES安全加密密钥.
+   * 
+   * @param aesKey
+   *          aesKey
+   * @return {@link Account}
    */
   public Account setAesKey(String aesKey) {
     this.aesKey = aesKey;
@@ -183,6 +217,10 @@ public class Account {
 
   /**
    * 消息加解密方式.
+   * 
+   * @param encryptionType
+   *          加密方式
+   * @return {@link Account}
    */
   public Account setEncryptionType(EncryptionType encryptionType) {
     this.encryptionType = encryptionType;
@@ -191,6 +229,8 @@ public class Account {
 
   /**
    * 使用安全模式（也可能是兼容模式，均使用安全模式处理）.
+   * 
+   * @return 是否是安全模式
    */
   public boolean isSafeMode() {
     return this.encryptionType != null && this.encryptionType != EncryptionType.PLAIN_TEXT

@@ -10,6 +10,8 @@ public class StatisticsGetUserSummaryResponse {
 
   /**
    * 获取数据集合.
+   * 
+   * @return list of {@link UserSummary}
    */
   public List<UserSummary> getList() {
     return list;

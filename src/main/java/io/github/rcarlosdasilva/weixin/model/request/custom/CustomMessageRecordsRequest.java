@@ -27,6 +27,9 @@ public class CustomMessageRecordsRequest extends BasicRequest {
 
   /**
    * 开始时间.
+   * 
+   * @param startTime
+   *          time
    */
   public void setStartTime(long startTime) {
     this.startTime = startTime;
@@ -34,6 +37,9 @@ public class CustomMessageRecordsRequest extends BasicRequest {
 
   /**
    * 结束时间.
+   * 
+   * @param endTime
+   *          time
    */
   public void setEndTime(long endTime) {
     this.endTime = endTime;
@@ -41,6 +47,9 @@ public class CustomMessageRecordsRequest extends BasicRequest {
 
   /**
    * 消息id.
+   * 
+   * @param messageId
+   *          message id
    */
   public void setMessageId(long messageId) {
     this.messageId = messageId;
@@ -48,6 +57,9 @@ public class CustomMessageRecordsRequest extends BasicRequest {
 
   /**
    * 获取条数.
+   * 
+   * @param size
+   *          size
    */
   public void setSize(int size) {
     this.size = size;

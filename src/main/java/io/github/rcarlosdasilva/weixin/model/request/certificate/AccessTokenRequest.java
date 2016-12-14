@@ -17,6 +17,9 @@ public class AccessTokenRequest extends BasicRequest {
 
   /**
    * AppId.
+   * 
+   * @param appId
+   *          appid
    */
   public void setAppId(String appId) {
     this.appId = appId;
@@ -24,6 +27,9 @@ public class AccessTokenRequest extends BasicRequest {
 
   /**
    * AppSecret.
+   * 
+   * @param appSecret
+   *          appsecret
    */
   public void setAppSecret(String appSecret) {
     this.appSecret = appSecret;

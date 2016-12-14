@@ -7,7 +7,11 @@ public class ShortUrlResponse {
   @SerializedName("short_url")
   private String shortUrl;
 
-  /** 短连接. */
+  /**
+   * 短连接.
+   * 
+   * @return url
+   */
   public String getShortUrl() {
     return shortUrl;
   }

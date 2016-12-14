@@ -28,6 +28,8 @@ public class Notification extends NotificationMeta {
 
   /**
    * xml明文原文，在安全模式下，微信验证URL时解密后有值，对应URL中的echostr.
+   * 
+   * @return 明文
    */
   public String getPlaintext() {
     return plaintext;
@@ -39,6 +41,8 @@ public class Notification extends NotificationMeta {
 
   /**
    * 获取事件相关内容.
+   * 
+   * @return {@link Event}
    */
   public Event getEvent() {
     return event;
@@ -50,6 +54,8 @@ public class Notification extends NotificationMeta {
 
   /**
    * 获取消息相关内容.
+   * 
+   * @return {@link Message}
    */
   public Message getMessage() {
     return message;
@@ -61,6 +67,8 @@ public class Notification extends NotificationMeta {
 
   /**
    * 获取推送对应的公众号配置信息.
+   * 
+   * @return {@link Account}
    */
   public Account getAccount() {
     return account;

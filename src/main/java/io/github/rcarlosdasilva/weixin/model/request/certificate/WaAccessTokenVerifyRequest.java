@@ -19,6 +19,9 @@ public class WaAccessTokenVerifyRequest extends BasicRequest {
 
   /**
    * Token.
+   * 
+   * @param accessToken
+   *          access_token
    */
   public void setAccessToken(String accessToken) {
     this.accessToken = accessToken;
@@ -26,6 +29,9 @@ public class WaAccessTokenVerifyRequest extends BasicRequest {
 
   /**
    * OpenId.
+   * 
+   * @param openId
+   *          open_id
    */
   public void setOpenId(String openId) {
     this.openId = openId;

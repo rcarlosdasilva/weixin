@@ -33,7 +33,7 @@ public interface MessageApi {
    * @param data
    *          消息内容，请使用{@code Builder.buildTemplate()}创建。
    * @return 消息编号
-   * @see Builder#buildTemplate()
+   * @see Builder#buildTemplateMessage()
    * @see <a href=
    *      "https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1433751277&token=&lang=zh_CN"
    *      >模板消息接口</a>
@@ -66,6 +66,7 @@ public interface MessageApi {
    * <p>
    * 开发者可以通过该接口，获取公众号当前使用的自动回复规则，包括关注后自动回复、消息自动回复（60分钟内触发一次）、关键词自动回复。
    * 
+   * @return {@link MessageQueryAutoReplyResponse}
    * @see <a href=
    *      "https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1433751299&token=&lang=zh_CN"
    *      >获取公众号的自动回复规则</a>
@@ -81,7 +82,7 @@ public interface MessageApi {
    * 
    * @param tagId
    *          群发到的标签的tag_id，参加用户管理中用户分组接口，若is_to_all值为true，可不填写tag_id。如要群发给所有用户，使用
-   *          {@link #sendWithMassAll(int, MessageContainer)}
+   *          {@link #sendWithMassAll(MessageContainer)}
    * @param messageContainer
    *          群发消息内容
    * @return see {@link MessageSendWithMassResponse}

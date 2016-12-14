@@ -13,6 +13,8 @@ public class UserListResponse {
 
   /**
    * 用户列表.
+   * 
+   * @return list of {@link User}
    */
   public List<User> getUserList() {
     return userList;

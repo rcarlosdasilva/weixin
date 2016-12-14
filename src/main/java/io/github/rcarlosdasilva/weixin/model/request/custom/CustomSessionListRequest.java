@@ -16,9 +16,6 @@ public class CustomSessionListRequest extends BasicRequest {
     this.path = ApiAddress.URL_CUSTOM_SESSION_LIST;
   }
 
-  /**
-   * 账号.
-   */
   public void setAccount(String account) {
     this.account = account;
   }

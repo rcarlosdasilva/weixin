@@ -14,6 +14,8 @@ public class BlackListQueryResponse {
 
   /**
    * 用户总数.
+   * 
+   * @return total
    */
   public int getTotal() {
     return total;
@@ -21,6 +23,8 @@ public class BlackListQueryResponse {
 
   /**
    * 当前数量.
+   * 
+   * @return count
    */
   public int getCount() {
     return count;
@@ -28,6 +32,8 @@ public class BlackListQueryResponse {
 
   /**
    * OpenIds.
+   * 
+   * @return {@link OpenIdCollection}
    */
   public OpenIdCollection getData() {
     return data;
@@ -35,6 +41,8 @@ public class BlackListQueryResponse {
 
   /**
    * 拉取的最后OpenId.
+   * 
+   * @return open_id
    */
   public String getNextOpenId() {
     return nextOpenId;

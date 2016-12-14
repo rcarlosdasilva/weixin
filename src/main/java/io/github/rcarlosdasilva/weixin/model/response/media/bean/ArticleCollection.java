@@ -11,6 +11,8 @@ public class ArticleCollection {
 
   /**
    * 图文列表.
+   * 
+   * @return list of {@link Article}
    */
   public List<Article> getArticles() {
     return articles;

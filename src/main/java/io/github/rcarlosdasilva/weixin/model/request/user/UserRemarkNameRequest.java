@@ -23,6 +23,9 @@ public class UserRemarkNameRequest extends BasicRequest {
 
   /**
    * 用户OpenId.
+   * 
+   * @param openId
+   *          open_id
    */
   public void setOpenId(String openId) {
     this.openId = openId;
@@ -30,6 +33,9 @@ public class UserRemarkNameRequest extends BasicRequest {
 
   /**
    * 备注名.
+   * 
+   * @param name
+   *          name
    */
   public void setName(String name) {
     this.name = name;

@@ -16,9 +16,6 @@ public class CustomAccountUploadAvatarRequest extends BasicRequest {
     this.path = ApiAddress.URL_CUSTOM_ACCOUNT_UPLOAD_AVATAR;
   }
 
-  /**
-   * 账号.
-   */
   public void setAccount(String account) {
     this.account = account;
   }

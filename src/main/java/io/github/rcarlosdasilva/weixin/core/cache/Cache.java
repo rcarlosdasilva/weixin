@@ -25,6 +25,7 @@ public interface Cache<T> {
    *          键
    * @param object
    *          值
+   * @return 值
    */
   T put(String key, T object);
 
@@ -33,11 +34,16 @@ public interface Cache<T> {
    * 
    * @param key
    *          键
+   * @return 值
    */
   T remove(String key);
 
   /**
    * 查找.
+   * 
+   * @param value
+   *          值
+   * @return 值
    */
   T lookup(Object value);
 

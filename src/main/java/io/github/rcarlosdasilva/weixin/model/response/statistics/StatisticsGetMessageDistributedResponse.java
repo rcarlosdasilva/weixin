@@ -10,6 +10,8 @@ public class StatisticsGetMessageDistributedResponse {
 
   /**
    * 获取数据集合.
+   * 
+   * @return list of {@link MessageDistributed}
    */
   public List<MessageDistributed> getList() {
     return list;

@@ -10,6 +10,8 @@ public class StatisticsGetInterfaceSummaryResponse {
 
   /**
    * 获取数据集合.
+   * 
+   * @return list of {@link InterfaceSummary}
    */
   public List<InterfaceSummary> getList() {
     return list;

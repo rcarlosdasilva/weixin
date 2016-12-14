@@ -21,16 +21,10 @@ public class CustomAccountAppendRequest extends BasicRequest {
     this.path = ApiAddress.URL_CUSTOM_ACCOUNT_APPEND;
   }
 
-  /**
-   * 账号.
-   */
   public void setAccount(String account) {
     this.account = account;
   }
 
-  /**
-   * 昵称.
-   */
   public void setNickname(String nickname) {
     this.nickname = nickname;
   }

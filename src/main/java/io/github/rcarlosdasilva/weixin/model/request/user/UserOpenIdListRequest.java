@@ -20,6 +20,9 @@ public class UserOpenIdListRequest extends BasicRequest {
 
   /**
    * 第一个拉取的OpenId.
+   * 
+   * @param nextOpenId
+   *          open_id
    */
   public void setNextOpenId(String nextOpenId) {
     this.nextOpenId = nextOpenId;

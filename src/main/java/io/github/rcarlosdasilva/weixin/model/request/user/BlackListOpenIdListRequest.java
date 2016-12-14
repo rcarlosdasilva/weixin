@@ -21,6 +21,9 @@ public class BlackListOpenIdListRequest extends BasicRequest {
 
   /**
    * 第一个拉取的OpenId.
+   * 
+   * @param beginOpenId
+   *          open_id
    */
   public void setBeginOpenId(String beginOpenId) {
     this.beginOpenId = beginOpenId;

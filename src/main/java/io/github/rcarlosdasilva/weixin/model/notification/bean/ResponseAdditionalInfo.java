@@ -20,6 +20,15 @@ public class ResponseAdditionalInfo {
 
   /**
    * 图文消息用.
+   * 
+   * @param title
+   *          title
+   * @param description
+   *          description
+   * @param url
+   *          url
+   * @param otherUrl
+   *          otherUrl
    */
   public ResponseAdditionalInfo(String title, String description, String url, String otherUrl) {
     this.title = title;

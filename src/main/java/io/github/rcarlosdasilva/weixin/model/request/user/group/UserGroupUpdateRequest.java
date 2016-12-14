@@ -20,16 +20,10 @@ public class UserGroupUpdateRequest extends BasicRequest {
     this.path = ApiAddress.URL_USER_GROUP_UPDATE;
   }
 
-  /**
-   * 组id.
-   */
   public void setGroupId(int id) {
     group.put("id", id);
   }
 
-  /**
-   * 组名.
-   */
   public void setNewGroupName(String newName) {
     group.put("name", newName);
   }

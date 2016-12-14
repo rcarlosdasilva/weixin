@@ -16,6 +16,8 @@ public class ScanCodeInfo {
 
   /**
    * 扫描类型，一般是qrcode (ScanType).
+   * 
+   * @return type
    */
   public String getType() {
     return type;
@@ -23,6 +25,8 @@ public class ScanCodeInfo {
 
   /**
    * 扫描结果，即二维码对应的字符串信息 (ScanResult).
+   * 
+   * @return result
    */
   public String getResult() {
     return result;

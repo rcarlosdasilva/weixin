@@ -13,6 +13,8 @@ public class CustomAccountListResponse {
 
   /**
    * 客服列表.
+   * 
+   * @return list of {@link CustomAccount}
    */
   public List<CustomAccount> getCustoms() {
     return customs;

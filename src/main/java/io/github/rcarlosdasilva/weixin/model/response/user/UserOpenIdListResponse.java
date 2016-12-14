@@ -13,24 +13,38 @@ public class UserOpenIdListResponse {
   @SerializedName("next_openid")
   private String lastOpenId;
 
-  /** 关注该公众账号的总用户数. */
+  /**
+   * 关注该公众账号的总用户数.
+   * 
+   * @return total
+   */
   public int getTotal() {
     return total;
   }
 
-  /** 拉取的OPENID个数，最大值为10000. */
+  /**
+   * 拉取的OPENID个数，最大值为10000.
+   * 
+   * @return count
+   */
   public int getCount() {
     return count;
   }
 
   /**
    * OpenId集合.
+   * 
+   * @return {@link OpenIdCollection}
    */
   public OpenIdCollection getOpenIds() {
     return openIds;
   }
 
-  /** 拉取列表的最后一个用户的OPENID. */
+  /**
+   * 拉取列表的最后一个用户的OPENID.
+   * 
+   * @return open_id
+   */
   public String getLastOpenId() {
     return lastOpenId;
   }

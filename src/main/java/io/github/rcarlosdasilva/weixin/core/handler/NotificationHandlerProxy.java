@@ -38,6 +38,11 @@ public class NotificationHandlerProxy {
 
   /**
    * 设置微信推送处理器，并生成代理.
+   * 
+   * @param handler
+   *          {@link NotificationHandler}
+   * 
+   * @return {@link NotificationHandlerProxy}
    */
   public static NotificationHandlerProxy proxy(NotificationHandler handler) {
     return new NotificationHandlerProxy(handler);

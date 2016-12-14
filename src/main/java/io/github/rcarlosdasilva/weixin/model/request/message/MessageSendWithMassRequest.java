@@ -71,6 +71,9 @@ public class MessageSendWithMassRequest extends BasicRequest implements MessageR
 
   /**
    * 设置标签id.
+   * 
+   * @param tagId
+   *          tag id
    */
   public void setTagId(int tagId) {
     if (this.filter == null) {

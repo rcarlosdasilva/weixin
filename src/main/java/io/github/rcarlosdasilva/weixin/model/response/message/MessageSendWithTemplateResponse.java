@@ -9,6 +9,8 @@ public class MessageSendWithTemplateResponse {
 
   /**
    * 消息id.
+   * 
+   * @return message id
    */
   public long getMessageId() {
     return messageId;

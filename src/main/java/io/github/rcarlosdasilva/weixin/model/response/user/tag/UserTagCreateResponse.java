@@ -8,6 +8,8 @@ public class UserTagCreateResponse {
 
   /**
    * 标签.
+   * 
+   * @return {@link UserTag}
    */
   public UserTag getTag() {
     return tag;

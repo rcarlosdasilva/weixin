@@ -16,6 +16,8 @@ public class KeywordReplyRule {
 
   /**
    * 规则名称.
+   * 
+   * @return rule
    */
   public String getRuleName() {
     return ruleName;
@@ -23,6 +25,8 @@ public class KeywordReplyRule {
 
   /**
    * 创建时间.
+   * 
+   * @return time
    */
   public long getCreateTime() {
     return createTime;
@@ -30,6 +34,8 @@ public class KeywordReplyRule {
 
   /**
    * 回复模式，reply_all代表全部回复，random_one代表随机回复其中一条.
+   * 
+   * @return mode
    */
   public String getReplyMode() {
     return replyMode;
@@ -37,6 +43,8 @@ public class KeywordReplyRule {
 
   /**
    * 匹配的关键词列表.
+   * 
+   * @return list of {@link Keyword}
    */
   public List<Keyword> getKeywords() {
     return keywords;
@@ -44,6 +52,8 @@ public class KeywordReplyRule {
 
   /**
    * 回复列表.
+   * 
+   * @return list of {@link Reply}
    */
   public List<Reply> getReplies() {
     return replies;

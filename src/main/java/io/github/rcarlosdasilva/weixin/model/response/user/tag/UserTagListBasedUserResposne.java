@@ -11,6 +11,8 @@ public class UserTagListBasedUserResposne {
 
   /**
    * 标签id列表.
+   * 
+   * @return list of tag id
    */
   public List<Integer> getTags() {
     return tags;

@@ -29,6 +29,9 @@ public class QrCodeCreateRequest extends BasicRequest {
 
   /**
    * 过期时间（秒）.
+   * 
+   * @param expireSeconds
+   *          expire
    */
   public void setExpireSeconds(long expireSeconds) {
     this.expireSeconds = expireSeconds;
@@ -36,6 +39,9 @@ public class QrCodeCreateRequest extends BasicRequest {
 
   /**
    * 二维码类型.
+   * 
+   * @param action
+   *          {@link QrCodeAction}
    */
   public void setAction(QrCodeAction action) {
     this.action = action.toString();
@@ -43,6 +49,9 @@ public class QrCodeCreateRequest extends BasicRequest {
 
   /**
    * 设置场景值ID.
+   * 
+   * @param sceneId
+   *          scene id
    */
   public void setSceneId(int sceneId) {
     Map<String, Integer> scene = Maps.newHashMap();
@@ -52,6 +61,9 @@ public class QrCodeCreateRequest extends BasicRequest {
 
   /**
    * 设置场景值ID（字符串形式的ID）.
+   * 
+   * @param sceneString
+   *          scene string
    */
   public void setSceneString(String sceneString) {
     Map<String, String> scene = Maps.newHashMap();

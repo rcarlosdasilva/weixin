@@ -30,6 +30,7 @@ public class MassOrCustomMessageBuilder {
    * 
    * @param account
    *          客服账号
+   * @return {@link MassOrCustomMessageBuilder}
    */
   public MassOrCustomMessageBuilder withCustomService(String account) {
     this.messageContainer.setCustomServiceAccount(account);
@@ -41,6 +42,7 @@ public class MassOrCustomMessageBuilder {
    * 
    * @param content
    *          内容
+   * @return {@link MessageContainer}
    */
   public MessageContainer buildText(String content) {
     Text text = new Text();
@@ -56,6 +58,7 @@ public class MassOrCustomMessageBuilder {
    * 
    * @param mediaId
    *          Media_Id
+   * @return {@link MessageContainer}
    */
   public MessageContainer buildImage(String mediaId) {
     Image image = new Image();
@@ -71,6 +74,7 @@ public class MassOrCustomMessageBuilder {
    * 
    * @param mediaId
    *          Media_Id
+   * @return {@link MessageContainer}
    */
   public MessageContainer buildVoice(String mediaId) {
     Voice voice = new Voice();
@@ -92,6 +96,7 @@ public class MassOrCustomMessageBuilder {
    *          标题
    * @param description
    *          描述
+   * @return {@link MessageContainer}
    */
   public MessageContainer buildVideo(String mediaId, String mediaThumbId, String title,
       String description) {
@@ -119,6 +124,7 @@ public class MassOrCustomMessageBuilder {
    *          标题
    * @param description
    *          描述
+   * @return {@link MessageContainer}
    */
   public MessageContainer buildMusic(String mediaThumbId, String url, String url4hq, String title,
       String description) {
@@ -139,6 +145,7 @@ public class MassOrCustomMessageBuilder {
    * 
    * @param mediaId
    *          Media_Id
+   * @return {@link MessageContainer}
    */
   public MessageContainer buildNewsInternal(String mediaId) {
     NewsInternal news = new NewsInternal();
@@ -164,6 +171,7 @@ public class MassOrCustomMessageBuilder {
    * 
    * @param cardId
    *          卡券id
+   * @return {@link MessageContainer}
    */
   public MessageContainer buildCard(String cardId) {
     Card card = new Card();
@@ -200,6 +208,7 @@ public class MassOrCustomMessageBuilder {
      *          描述
      * @param picUrl
      *          图片地址
+     * @return {@link NewsExternalBuilder}
      */
     public NewsExternalBuilder add(String url, String title, String description, String picUrl) {
       Article article = new Article();
@@ -213,6 +222,8 @@ public class MassOrCustomMessageBuilder {
 
     /**
      * 构建.
+     * 
+     * @return {@link MessageContainer}
      */
     public MessageContainer build() {
       this.messageContainer.setBean(this.news);

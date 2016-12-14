@@ -10,12 +10,20 @@ public class MenuInfoResponse {
   @SerializedName("conditionalmenu")
   private Menu conditionalMenu;
 
-  /** 自定义菜单. */
+  /**
+   * 自定义菜单.
+   * 
+   * @return {@link Menu}
+   */
   public Menu getMenu() {
     return menu;
   }
 
-  /** 个性化菜单. */
+  /**
+   * 个性化菜单.
+   * 
+   * @return {@link Menu}
+   */
   public Menu getConditionalMenu() {
     return conditionalMenu;
   }

@@ -11,22 +11,36 @@ public class AccessTokenResponse {
   private int expiresIn;
   private long expireAt;
 
-  /** 获取到的凭证. */
+  /**
+   * 获取到的凭证.
+   * 
+   * @return access_token
+   */
   public String getAccessToken() {
     return accessToken;
   }
 
-  /** 凭证有效时间,单位:秒. */
+  /**
+   * 凭证有效时间,单位:秒.
+   * 
+   * @return expires
+   */
   public long getExpiresIn() {
     return expiresIn;
   }
 
-  /** 更新准确的过期时间. */
+  /**
+   * 更新准确的过期时间.
+   */
   public void updateExpireAt() {
     this.expireAt = (this.expiresIn - 30) * 1000 + System.currentTimeMillis();
   }
 
-  /** 是否过期或无用. */
+  /**
+   * 是否过期或无用.
+   * 
+   * @return is expired
+   */
   public boolean expiredOrUseless() {
     return this.expireAt < System.currentTimeMillis() || Strings.isNullOrEmpty(this.accessToken);
   }

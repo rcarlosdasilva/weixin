@@ -13,6 +13,8 @@ public class TemplateQueryResponse {
 
   /**
    * 模板列表.
+   * 
+   * @return list of {@link Template}
    */
   public List<Template> getTemplates() {
     return templates;
