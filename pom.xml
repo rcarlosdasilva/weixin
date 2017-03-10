@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.rcarlosdasilva</groupId>
   <artifactId>weixin</artifactId>
-  <version>0.2</version>
+  <version>0.3-SNAPSHOT</version>
   <name>Aha-Weixin</name>
   <description>微信API封装，支持多账号操作，简单易用</description>
   <url>https://github.com/rcarlosdasilva/weixin</url>
@@ -27,7 +27,7 @@
     <connection>scm:git:https://github.com/rcarlosdasilva/weixin.git</connection>
     <developerConnection>scm:git:https://github.com/rcarlosdasilva/weixin.git</developerConnection>
     <url>https://github.com/rcarlosdasilva/weixin</url>
-    <tag>v0.2</tag>
+    <tag>v${project.version}</tag>
   </scm>
 
   <distributionManagement>
