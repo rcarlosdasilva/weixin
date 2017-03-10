@@ -3,6 +3,8 @@ package io.github.rcarlosdasilva.weixin.model.response.certificate;
 import com.google.common.base.Strings;
 import com.google.gson.annotations.SerializedName;
 
+import io.github.rcarlosdasilva.weixin.common.Convention;
+
 public class AccessTokenResponse {
 
   @SerializedName("access_token")
@@ -30,10 +32,11 @@ public class AccessTokenResponse {
   }
 
   /**
-   * 更新准确的过期时间.
+   * 更新准确的过期时间，默认提前60秒过期.
    */
   public void updateExpireAt() {
-    this.expireAt = (this.expiresIn - 30) * 1000 + System.currentTimeMillis();
+    this.expireAt = (this.expiresIn - Convention.AHEAD_OF_EXPIRED_SECONDS) * 1000
+        + System.currentTimeMillis();
   }
 
   /**
@@ -41,7 +44,7 @@ public class AccessTokenResponse {
    * 
    * @return is expired
    */
-  public boolean expiredOrUseless() {
+  public boolean expired() {
     return this.expireAt < System.currentTimeMillis() || Strings.isNullOrEmpty(this.accessToken);
   }
 

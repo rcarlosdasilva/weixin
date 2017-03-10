@@ -26,6 +26,10 @@ import io.github.rcarlosdasilva.weixin.model.response.menu.MenuInfoResponse;
  */
 public class MenuApiImpl extends BasicApi implements MenuApi {
 
+  public MenuApiImpl(String accountKey) {
+    this.accountKey = accountKey;
+  }
+
   @Override
   public boolean create(List<Button> buttons) {
     MenuCreateRequest requestModel = new MenuCreateRequest();

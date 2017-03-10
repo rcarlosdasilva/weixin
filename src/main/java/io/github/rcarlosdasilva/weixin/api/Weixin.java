@@ -70,53 +70,18 @@ public class Weixin {
   private Weixin(String accountKey) {
     this.accountKey = accountKey;
 
-    CertificateApiImpl certificate = new CertificateApiImpl();
-    certificate.setAccountKey(accountKey);
-    this.certificate = certificate;
-
-    CommonApiImpl common = new CommonApiImpl();
-    common.setAccountKey(accountKey);
-    this.common = common;
-
-    CustomApiImpl custom = new CustomApiImpl();
-    custom.setAccountKey(accountKey);
-    this.custom = custom;
-
-    HelperApiImpl helper = new HelperApiImpl();
-    helper.setAccountKey(accountKey);
-    this.helper = helper;
-
-    UserApiImpl user = new UserApiImpl();
-    user.setAccountKey(accountKey);
-    this.user = user;
-
-    UserGroupApiImpl userGroup = new UserGroupApiImpl();
-    userGroup.setAccountKey(accountKey);
-    this.userGroup = userGroup;
-
-    UserTagApiImpl userTag = new UserTagApiImpl();
-    userTag.setAccountKey(accountKey);
-    this.userTag = userTag;
-
-    MediaApiImpl media = new MediaApiImpl();
-    media.setAccountKey(accountKey);
-    this.media = media;
-
-    MenuApiImpl menu = new MenuApiImpl();
-    menu.setAccountKey(accountKey);
-    this.menu = menu;
-
-    MessageApiImpl message = new MessageApiImpl();
-    message.setAccountKey(accountKey);
-    this.message = message;
-
-    StatisticsApiImpl statistics = new StatisticsApiImpl();
-    statistics.setAccountKey(accountKey);
-    this.statistics = statistics;
-
-    TemplateApiImpl template = new TemplateApiImpl();
-    template.setAccountKey(accountKey);
-    this.template = template;
+    this.certificate = new CertificateApiImpl(accountKey);
+    this.common = new CommonApiImpl(accountKey);
+    this.custom = new CustomApiImpl(accountKey);
+    this.helper = new HelperApiImpl(accountKey);
+    this.user = new UserApiImpl(accountKey);
+    this.userGroup = new UserGroupApiImpl(accountKey);
+    this.userTag = new UserTagApiImpl(accountKey);
+    this.media = new MediaApiImpl(accountKey);
+    this.menu = new MenuApiImpl(accountKey);
+    this.message = new MessageApiImpl(accountKey);
+    this.statistics = new StatisticsApiImpl(accountKey);
+    this.template = new TemplateApiImpl(accountKey);
   }
 
   /**

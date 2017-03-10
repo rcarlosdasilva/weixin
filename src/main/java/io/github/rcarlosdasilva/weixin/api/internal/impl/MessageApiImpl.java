@@ -37,6 +37,10 @@ import io.github.rcarlosdasilva.weixin.model.response.message.MessageSendWithTem
  */
 public class MessageApiImpl extends BasicApi implements MessageApi {
 
+  public MessageApiImpl(String accountKey) {
+    this.accountKey = accountKey;
+  }
+
   @Override
   public long sendWithTemplate(String to, String templateId, String url,
       Map<String, Template> data) {

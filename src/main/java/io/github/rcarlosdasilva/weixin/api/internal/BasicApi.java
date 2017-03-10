@@ -15,6 +15,7 @@ import io.github.rcarlosdasilva.weixin.core.http.Http;
 import io.github.rcarlosdasilva.weixin.core.http.HttpMethod;
 import io.github.rcarlosdasilva.weixin.core.http.MultiFile;
 import io.github.rcarlosdasilva.weixin.core.parser.ResponseParser;
+import io.github.rcarlosdasilva.weixin.core.task.AccessTokenRefreshScheduler;
 import io.github.rcarlosdasilva.weixin.model.request.base.Request;
 import io.github.rcarlosdasilva.weixin.model.request.certificate.AccessTokenRequest;
 
@@ -25,18 +26,10 @@ import io.github.rcarlosdasilva.weixin.model.request.certificate.AccessTokenRequ
  */
 public class BasicApi {
 
-  private static final int interfaceRetryTimes = 2;
-
   protected String accountKey;
 
-  /**
-   * 指定公众号配置键.
-   * 
-   * @param key
-   *          配置键
-   */
-  public void setAccountKey(String key) {
-    this.accountKey = key;
+  private int getRetryTimes() {
+    return Weixin.with(this.accountKey).info().getRetryTimes();
   }
 
   private String getAccessToken() {
@@ -70,7 +63,7 @@ public class BasicApi {
   protected <T> T post(Class<T> target, Request requestModel) {
     updateAccessToken(requestModel);
 
-    return new BasicApi.RetryRunner<T>() {
+    return new BasicApi.RetryableRunner<T>() {
 
       @SuppressWarnings("unchecked")
       @Override
@@ -81,7 +74,7 @@ public class BasicApi {
         return response;
       }
 
-    }.run(interfaceRetryTimes);
+    }.run();
 
   }
 
@@ -95,7 +88,7 @@ public class BasicApi {
   protected InputStream postStream(Request requestModel) {
     updateAccessToken(requestModel);
 
-    return new BasicApi.RetryRunner<InputStream>() {
+    return new BasicApi.RetryableRunner<InputStream>() {
 
       @SuppressWarnings("unchecked")
       @Override
@@ -104,7 +97,7 @@ public class BasicApi {
             requestModel.toJson(), ContentType.JSON);
       }
 
-    }.run(interfaceRetryTimes);
+    }.run();
 
   }
 
@@ -122,7 +115,7 @@ public class BasicApi {
   protected <T> T get(Class<T> target, Request requestModel) {
     updateAccessToken(requestModel);
 
-    return new BasicApi.RetryRunner<T>() {
+    return new BasicApi.RetryableRunner<T>() {
 
       @SuppressWarnings("unchecked")
       @Override
@@ -132,7 +125,7 @@ public class BasicApi {
         return (R) ResponseParser.parse(target, responseText);
       }
 
-    }.run(interfaceRetryTimes);
+    }.run();
 
   }
 
@@ -146,7 +139,7 @@ public class BasicApi {
   protected InputStream getStream(Request requestModel) {
     updateAccessToken(requestModel);
 
-    return new BasicApi.RetryRunner<InputStream>() {
+    return new BasicApi.RetryableRunner<InputStream>() {
 
       @SuppressWarnings("unchecked")
       @Override
@@ -155,7 +148,7 @@ public class BasicApi {
             ContentType.JSON);
       }
 
-    }.run(interfaceRetryTimes);
+    }.run();
 
   }
 
@@ -182,7 +175,7 @@ public class BasicApi {
       File file, List<FormData> additionalData) {
     updateAccessToken(requestModel);
 
-    return new BasicApi.RetryRunner<T>() {
+    return new BasicApi.RetryableRunner<T>() {
 
       @SuppressWarnings("unchecked")
       @Override
@@ -192,7 +185,7 @@ public class BasicApi {
         return (R) ResponseParser.parse(target, responseText);
       }
 
-    }.run(interfaceRetryTimes);
+    }.run();
 
   }
 
@@ -203,9 +196,9 @@ public class BasicApi {
    * @param <R>
    *          返回类型
    */
-  abstract class RetryRunner<R> {
+  abstract class RetryableRunner<R> {
 
-    private final Logger logger = LoggerFactory.getLogger(RetryRunner.class);
+    private final Logger logger = LoggerFactory.getLogger(RetryableRunner.class);
 
     /**
      * 执行.
@@ -213,17 +206,24 @@ public class BasicApi {
      * 开始执行方法 pending 中定义的内容，并在access_token无效时，进行刷新access_token同时重新尝试执行
      * N(N=times) 次 pending 方法，直至执行成功。
      * 
-     * @param times
-     *          重试次数，当 pending 方法因 access_token 执行失败时的重试次数
+     * 重试次数：在使用WeixinRegistry.registry()注册时可用setRetryTimes方法设置，默认2次，表示当 pending
+     * 方法因 access_token 执行失败时的重试次数
      */
-    R run(int times) {
+    R run() {
+      int times = 0;
       R result = null;
-      while (times-- > 0) {
+      while (true) {
         try {
           result = pending();
           break;
         } catch (MaydayMaydaySaveMeBecauseAccessTokenSetMeFuckUpException ex) {
-          logger.warn("刷新access_token，并重新尝试执行");
+          if (times++ >= getRetryTimes()) {
+            logger.error("For:{} >> 失败！已尝试重新执行{}次", accountKey, times - 1);
+            break;
+          }
+          logger.error("For:{} >> 失败！第{}次尝试重新执行", accountKey, times);
+
+          AccessTokenRefreshScheduler.unsubscribe(accountKey);
           refreshAccessToken();
         }
       }

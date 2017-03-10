@@ -41,6 +41,10 @@ import io.github.rcarlosdasilva.weixin.model.response.media.MediaTransformMassVi
  */
 public class MediaApiImpl extends BasicApi implements MediaApi {
 
+  public MediaApiImpl(String accountKey) {
+    this.accountKey = accountKey;
+  }
+
   @Override
   public MediaAddTemporaryResponse addTemporaryMedia(MediaType type, String fileName, File file) {
     Preconditions.checkArgument(MediaType.NEWS != type,

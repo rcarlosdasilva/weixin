@@ -22,6 +22,7 @@ public class Account {
   private String token;
   private String aesKey;
   private EncryptionType encryptionType = EncryptionType.PLAIN_TEXT;
+  private int retryTimes = 2;
 
   /**
    * 指定必须的AppId与AppSecret.
@@ -225,6 +226,20 @@ public class Account {
   public Account setEncryptionType(EncryptionType encryptionType) {
     this.encryptionType = encryptionType;
     return this;
+  }
+
+  public int getRetryTimes() {
+    return retryTimes;
+  }
+
+  /**
+   * 接口请求失败后的重试次数.
+   * 
+   * @param retryCount
+   *          次数
+   */
+  public void setRetryTimes(int retryTimes) {
+    this.retryTimes = retryTimes;
   }
 
   /**

@@ -10,6 +10,9 @@ public class Convention {
   public static final String DEFAULT_UNIQUE_WEIXIN_KEY = "__UNIQ__";
   public static final String DEFAULT_ENCODING = "UTF-8";
 
+  public static final int AHEAD_OF_EXPIRED_SECONDS = 60;
+  public static final int AHEAD_OF_EXPIRED_TO_REFRESH_SECONDS = 120;
+
   // -------------------- 接口请求 JSON 约定内容值 -------------------
   public static final int GLOBAL_TRUE_NUMBER = 1;
   public static final int GLOBAL_FALSE_NUMBER = 0;

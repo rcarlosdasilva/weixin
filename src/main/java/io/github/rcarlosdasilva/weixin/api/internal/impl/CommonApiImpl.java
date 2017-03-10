@@ -21,6 +21,10 @@ import io.github.rcarlosdasilva.weixin.model.response.common.ShortUrlResponse;
  */
 public class CommonApiImpl extends BasicApi implements CommonApi {
 
+  public CommonApiImpl(String accountKey) {
+    this.accountKey = accountKey;
+  }
+
   @Override
   public List<String> getWeixinIps() {
     WeixinServerIpsRequest requestModel = new WeixinServerIpsRequest();

@@ -26,6 +26,10 @@ import io.github.rcarlosdasilva.weixin.model.response.user.bean.User;
  */
 public class UserApiImpl extends BasicApi implements UserApi {
 
+  public UserApiImpl(String accountKey) {
+    this.accountKey = accountKey;
+  }
+
   @Override
   public boolean remarkName(String openId, String name) {
     UserRemarkNameRequest requestModel = new UserRemarkNameRequest();

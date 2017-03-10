@@ -22,7 +22,8 @@ Maven仓库
 如果在公众平台官网的开发-基本设置页面设置了回调接口，那么需要设置token与EncodingAESKey信息。建议使用安全模式。
 ```
     WeixinRegistry.registry("key1", "appid", "appsecret")
-        .setServerSecurity("token", "aesKey", EncryptionType.SAFETY);
+        .setServerSecurity("token", "aesKey", EncryptionType.SAFETY) // 设置公众号消息加密信息
+        .setRetryTimes(5); // 设置接口调用失败时的重试次数
 ```
 ##接口调用
 使用
@@ -80,6 +81,14 @@ Maven仓库
 ```
 假设已经有实现NotificationHandler接口的类，并实例化为变量handler：
     NotificationHandlerProxy.proxy(handler); // 指定代理
-    return NotificationHandlerProxy.instance().process(body); // 处理明文模式
-    return NotificationHandlerProxy.instance().process(body, signature, timestamp, nonce); // 处理安全或兼容模式
+    return NotificationHandlerProxy.instance().process(body); // 处理明文模式，这里的返回值就是给微信的返回值
+    return NotificationHandlerProxy.instance().process(body, signature, timestamp, nonce); // 处理安全或兼容模式，这里的返回值就是给微信的返回值
 ```
+
+##微信常用功能场景示例
+生成底部菜单：
+推送各类型消息：
+素材管理：
+网页授权：
+用户相关：
+客服相关：

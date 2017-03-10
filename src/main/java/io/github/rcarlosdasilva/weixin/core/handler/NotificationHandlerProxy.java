@@ -138,7 +138,7 @@ public class NotificationHandlerProxy {
         reply = Encryptor.encrypt(account.getAppId(), account.getToken(), account.getAesKey(),
             reply);
         if (Strings.isNullOrEmpty(reply)) {
-          logger.warn("无法加密：{}", account);
+          logger.error("无法加密：{}", account);
           return null;
         }
         logger.debug("加密成功");

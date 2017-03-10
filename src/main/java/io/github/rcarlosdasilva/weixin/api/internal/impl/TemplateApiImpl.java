@@ -22,6 +22,10 @@ import io.github.rcarlosdasilva.weixin.model.response.template.bean.Template;
  */
 public class TemplateApiImpl extends BasicApi implements TemplateApi {
 
+  public TemplateApiImpl(String accountKey) {
+    this.accountKey = accountKey;
+  }
+
   @Override
   public boolean setIndustry(Industry primary, Industry secondary) {
     TemplateIndustrySetReqeust requestModel = new TemplateIndustrySetReqeust();

@@ -41,6 +41,11 @@ public interface CertificateApi {
   String askJsTicket();
 
   /**
+   * 刷新JS SDK凭证(jsapi_ticket).
+   */
+  void refreshJsTicket();
+
+  /**
    * 通过code换取网页授权access_token.
    * 
    * <p>

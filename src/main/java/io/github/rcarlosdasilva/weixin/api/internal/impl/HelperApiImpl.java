@@ -26,6 +26,10 @@ import io.github.rcarlosdasilva.weixin.model.JsapiSignature;
  */
 public class HelperApiImpl extends BasicApi implements HelperApi {
 
+  public HelperApiImpl(String accountKey) {
+    this.accountKey = accountKey;
+  }
+
   @Override
   public String webAuthorize(WebAuthorizeScope scope, String redirectTo, String param) {
     Account account = AccountCache.instance().get(this.accountKey);

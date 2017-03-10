@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.rcarlosdasilva</groupId>
   <artifactId>weixin</artifactId>
-  <version>0.1</version>
+  <version>0.2-SNAPSHOT</version>
   <name>Aha-Weixin</name>
   <description>微信API封装，支持多账号操作，简单易用</description>
   <url>https://github.com/rcarlosdasilva/weixin</url>
@@ -138,6 +138,15 @@
           <source>${jdk.version}</source>
           <target>${jdk.version}</target>
           <encoding>${project.build.sourceEncoding}</encoding>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.5.3</version>
+        <configuration>
+          <tagNameFormat>v@{project.version}</tagNameFormat>
         </configuration>
       </plugin>
 

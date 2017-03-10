@@ -41,7 +41,7 @@ public class JsTicketResponse {
    * 
    * @return is expired
    */
-  public boolean expiredOrUseless() {
+  public boolean expired() {
     return this.expireAt < System.currentTimeMillis() || Strings.isNullOrEmpty(this.jsTicket);
   }
 

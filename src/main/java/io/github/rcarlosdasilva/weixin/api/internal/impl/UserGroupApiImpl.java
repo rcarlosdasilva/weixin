@@ -24,6 +24,10 @@ import io.github.rcarlosdasilva.weixin.model.response.user.group.bean.UserGroup;
  */
 public class UserGroupApiImpl extends BasicApi implements UserGroupApi {
 
+  public UserGroupApiImpl(String accountKey) {
+    this.accountKey = accountKey;
+  }
+
   @Override
   public int create(String name) {
     UserGroupCreateRequest requestModel = new UserGroupCreateRequest();
