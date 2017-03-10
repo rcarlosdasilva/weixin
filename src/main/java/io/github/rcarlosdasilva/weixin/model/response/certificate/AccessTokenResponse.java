@@ -32,7 +32,7 @@ public class AccessTokenResponse {
   }
 
   /**
-   * 更新准确的过期时间，默认提前60秒过期.
+   * 更新准确的过期时间，默认提前180秒过期.
    */
   public void updateExpireAt() {
     this.expireAt = (this.expiresIn - Convention.AHEAD_OF_EXPIRED_SECONDS) * 1000
@@ -44,7 +44,7 @@ public class AccessTokenResponse {
    * 
    * @return is expired
    */
-  public boolean expired() {
+  public boolean isExpired() {
     return this.expireAt < System.currentTimeMillis() || Strings.isNullOrEmpty(this.accessToken);
   }
 

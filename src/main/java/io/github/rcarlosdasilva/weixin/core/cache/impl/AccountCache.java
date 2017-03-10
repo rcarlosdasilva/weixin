@@ -2,6 +2,7 @@ package io.github.rcarlosdasilva.weixin.core.cache.impl;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.google.common.base.Preconditions;
@@ -27,6 +28,11 @@ public class AccountCache extends AbstractCache<Account> {
 
   public static Cache<Account> instance() {
     return instance;
+  }
+
+  @Override
+  public Set<String> keys() {
+    return cache.keySet();
   }
 
   @Override

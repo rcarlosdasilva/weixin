@@ -5,12 +5,9 @@ import org.slf4j.LoggerFactory;
 
 import io.github.rcarlosdasilva.weixin.api.internal.BasicApi;
 import io.github.rcarlosdasilva.weixin.api.internal.CertificateApi;
-import io.github.rcarlosdasilva.weixin.common.Convention;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.AccessTokenCache;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.AccountCache;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.JsTicketCache;
-import io.github.rcarlosdasilva.weixin.core.task.AccessTokenRefreshScheduler;
-import io.github.rcarlosdasilva.weixin.core.task.JsTicketRefreshScheduler;
 import io.github.rcarlosdasilva.weixin.model.Account;
 import io.github.rcarlosdasilva.weixin.model.request.certificate.AccessTokenRequest;
 import io.github.rcarlosdasilva.weixin.model.request.certificate.JsTicketRequest;
@@ -40,13 +37,13 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
   public String askAccessToken() {
     AccessTokenResponse token = AccessTokenCache.instance().get(this.accountKey);
 
-    if (null == token || token.expired()) {
+    if (null == token || token.isExpired()) {
       synchronized (this.lock) {
-        if (null == token || token.expired()) {
+        if (null == token || token.isExpired()) {
           if (null == token) {
-            logger.info("For:{} >> 无缓存过的access_token，请求access_token", this.accountKey);
+            logger.debug("For:{} >> 无缓存过的access_token，请求access_token", this.accountKey);
           } else {
-            logger.warn("For:{} >> 因access_token过期，重新请求。失效的access_token：[{}]", this.accountKey,
+            logger.debug("For:{} >> 因access_token过期，重新请求。失效的access_token：[{}]", this.accountKey,
                 token);
           }
           token = requestAccessToken();
@@ -79,8 +76,6 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
     if (responseModel != null) {
       responseModel.updateExpireAt();
       AccessTokenCache.instance().put(this.accountKey, responseModel);
-      AccessTokenRefreshScheduler.subscribe(this.accountKey,
-          responseModel.getExpiresIn() - Convention.AHEAD_OF_EXPIRED_TO_REFRESH_SECONDS);
       logger.debug("For:{} >> 获取到access_token：[{}]", this.accountKey,
           responseModel.getAccessToken());
       return responseModel;
@@ -97,9 +92,9 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
       synchronized (this.lock) {
         if (null == ticket || ticket.expired()) {
           if (null == ticket) {
-            logger.info("For:{} >> 无缓存过的jsapi_ticket，请求jsapi_ticket", this.accountKey);
+            logger.debug("For:{} >> 无缓存过的jsapi_ticket，请求jsapi_ticket", this.accountKey);
           } else {
-            logger.warn("For:{} >> 因jsapi_ticket过期，重新请求。失效的jsapi_ticket：[{}]", this.accountKey,
+            logger.debug("For:{} >> 因jsapi_ticket过期，重新请求。失效的jsapi_ticket：[{}]", this.accountKey,
                 ticket);
           }
           ticket = requestJsTicket();
@@ -129,8 +124,6 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
     if (responseModel != null) {
       responseModel.updateExpireAt();
       JsTicketCache.instance().put(this.accountKey, responseModel);
-      JsTicketRefreshScheduler.subscribe(this.accountKey,
-          responseModel.getExpiresIn() - Convention.AHEAD_OF_EXPIRED_TO_REFRESH_SECONDS);
       logger.debug("For:{} >> 获取jsapi_ticket：[{}]", this.accountKey, responseModel.getJsTicket());
       return responseModel;
     }

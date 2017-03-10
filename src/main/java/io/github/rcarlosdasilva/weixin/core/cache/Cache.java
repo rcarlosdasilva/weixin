@@ -1,5 +1,7 @@
 package io.github.rcarlosdasilva.weixin.core.cache;
 
+import java.util.Set;
+
 /**
  * 缓存
  * 
@@ -8,6 +10,13 @@ package io.github.rcarlosdasilva.weixin.core.cache;
  *          缓存类型
  */
 public interface Cache<T> {
+
+  /**
+   * 所有键.
+   * 
+   * @return 键
+   */
+  Set<String> keys();
 
   /**
    * 获取.

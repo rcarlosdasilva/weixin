@@ -15,7 +15,6 @@ import io.github.rcarlosdasilva.weixin.core.http.Http;
 import io.github.rcarlosdasilva.weixin.core.http.HttpMethod;
 import io.github.rcarlosdasilva.weixin.core.http.MultiFile;
 import io.github.rcarlosdasilva.weixin.core.parser.ResponseParser;
-import io.github.rcarlosdasilva.weixin.core.task.AccessTokenRefreshScheduler;
 import io.github.rcarlosdasilva.weixin.model.request.base.Request;
 import io.github.rcarlosdasilva.weixin.model.request.certificate.AccessTokenRequest;
 
@@ -223,7 +222,6 @@ public class BasicApi {
           }
           logger.error("For:{} >> 失败！第{}次尝试重新执行", accountKey, times);
 
-          AccessTokenRefreshScheduler.unsubscribe(accountKey);
           refreshAccessToken();
         }
       }

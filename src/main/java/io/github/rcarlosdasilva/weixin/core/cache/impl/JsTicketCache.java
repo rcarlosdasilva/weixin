@@ -1,6 +1,7 @@
 package io.github.rcarlosdasilva.weixin.core.cache.impl;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import io.github.rcarlosdasilva.weixin.core.cache.AbstractCache;
@@ -24,6 +25,11 @@ public class JsTicketCache extends AbstractCache<JsTicketResponse> {
 
   public static Cache<JsTicketResponse> instance() {
     return instance;
+  }
+
+  @Override
+  public Set<String> keys() {
+    return cache.keySet();
   }
 
   @Override
