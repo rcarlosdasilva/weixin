@@ -235,7 +235,7 @@ public class Account {
   /**
    * 接口请求失败后的重试次数.
    * 
-   * @param retryCount
+   * @param retryTimes
    *          次数
    */
   public void setRetryTimes(int retryTimes) {
