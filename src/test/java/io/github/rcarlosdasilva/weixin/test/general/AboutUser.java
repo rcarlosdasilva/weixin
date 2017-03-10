@@ -1,4 +1,4 @@
-package io.github.rcarlosdasilva.weixin.sample.general;
+package io.github.rcarlosdasilva.weixin.test.general;
 
 import com.google.common.collect.Lists;
 

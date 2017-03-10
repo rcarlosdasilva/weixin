@@ -1,4 +1,4 @@
-package io.github.rcarlosdasilva.weixin.sample.basic;
+package io.github.rcarlosdasilva.weixin.test.basic;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

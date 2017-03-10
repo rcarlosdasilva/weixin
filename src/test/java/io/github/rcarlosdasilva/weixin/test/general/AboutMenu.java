@@ -1,4 +1,4 @@
-package io.github.rcarlosdasilva.weixin.sample.general;
+package io.github.rcarlosdasilva.weixin.test.general;
 
 import io.github.rcarlosdasilva.weixin.api.Weixin;
 import io.github.rcarlosdasilva.weixin.common.dictionary.Language;

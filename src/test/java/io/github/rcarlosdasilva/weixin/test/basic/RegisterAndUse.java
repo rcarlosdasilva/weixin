@@ -1,4 +1,4 @@
-package io.github.rcarlosdasilva.weixin.sample.basic;
+package io.github.rcarlosdasilva.weixin.test.basic;
 
 import io.github.rcarlosdasilva.weixin.api.Weixin;
 import io.github.rcarlosdasilva.weixin.core.WeixinRegistry;

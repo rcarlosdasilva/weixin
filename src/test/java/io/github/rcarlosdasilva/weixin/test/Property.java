@@ -1,4 +1,4 @@
-package io.github.rcarlosdasilva.weixin.sample;
+package io.github.rcarlosdasilva.weixin.test;
 
 import java.io.IOException;
 import java.io.InputStream;
