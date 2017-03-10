@@ -3,7 +3,6 @@ package io.github.rcarlosdasilva.weixin.core.parser;
 import java.io.Writer;
 
 import com.google.common.base.Preconditions;
-
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.core.util.QuickWriter;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;

@@ -2,17 +2,16 @@ package io.github.rcarlosdasilva.weixin.test;
 
 import java.util.List;
 
-import com.google.common.collect.Lists;
-
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import com.google.common.collect.Lists;
 
 import io.github.rcarlosdasilva.weixin.api.Weixin;
 import io.github.rcarlosdasilva.weixin.core.WeixinRegistry;
 import io.github.rcarlosdasilva.weixin.model.response.user.UserOpenIdListResponse;
 import io.github.rcarlosdasilva.weixin.model.response.user.tag.bean.UserTag;
-import io.github.rcarlosdasilva.weixin.sample.Property;
 
 public class UserTagApiTest {
 

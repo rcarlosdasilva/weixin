@@ -9,10 +9,10 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import com.google.common.base.Preconditions;
-
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
+
+import com.google.common.base.Preconditions;
 
 import io.github.rcarlosdasilva.weixin.core.parser.NotificationParser;
 import io.github.rcarlosdasilva.weixin.model.notification.Notification;

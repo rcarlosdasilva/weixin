@@ -1,7 +1,6 @@
 package io.github.rcarlosdasilva.weixin.model.notification.converter;
 
 import com.google.common.base.Ascii;
-
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.converters.UnmarshallingContext;
 import com.thoughtworks.xstream.converters.reflection.ReflectionConverter;

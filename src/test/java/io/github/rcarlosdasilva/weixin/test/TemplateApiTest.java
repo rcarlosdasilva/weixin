@@ -11,7 +11,6 @@ import io.github.rcarlosdasilva.weixin.common.dictionary.Industry;
 import io.github.rcarlosdasilva.weixin.core.WeixinRegistry;
 import io.github.rcarlosdasilva.weixin.model.response.template.TemplateIndustryGetResponse;
 import io.github.rcarlosdasilva.weixin.model.response.template.bean.Template;
-import io.github.rcarlosdasilva.weixin.sample.Property;
 
 public class TemplateApiTest {
 

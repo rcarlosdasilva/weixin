@@ -3,9 +3,9 @@ package io.github.rcarlosdasilva.weixin.api.internal.impl;
 import java.util.List;
 import java.util.UUID;
 
-import com.google.common.base.Strings;
-
 import org.apache.commons.codec.digest.DigestUtils;
+
+import com.google.common.base.Strings;
 
 import io.github.rcarlosdasilva.weixin.api.Weixin;
 import io.github.rcarlosdasilva.weixin.api.internal.BasicApi;

@@ -3,8 +3,6 @@ package io.github.rcarlosdasilva.weixin.test;
 import io.github.rcarlosdasilva.weixin.api.Weixin;
 import io.github.rcarlosdasilva.weixin.common.dictionary.WebAuthorizeScope;
 import io.github.rcarlosdasilva.weixin.core.WeixinRegistry;
-import io.github.rcarlosdasilva.weixin.model.builder.Builder;
-import io.github.rcarlosdasilva.weixin.model.request.menu.bean.Menu;
 
 public class Test {
 

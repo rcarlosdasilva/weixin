@@ -10,7 +10,6 @@ import io.github.rcarlosdasilva.weixin.api.Weixin;
 import io.github.rcarlosdasilva.weixin.core.WeixinRegistry;
 import io.github.rcarlosdasilva.weixin.model.builder.Builder;
 import io.github.rcarlosdasilva.weixin.model.request.message.bean.Template;
-import io.github.rcarlosdasilva.weixin.sample.Property;
 
 public class MessageApiTest {
 
