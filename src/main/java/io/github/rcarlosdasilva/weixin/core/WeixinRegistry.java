@@ -4,6 +4,9 @@ import io.github.rcarlosdasilva.weixin.api.Weixin;
 import io.github.rcarlosdasilva.weixin.common.Convention;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.AccessTokenCache;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.AccountCache;
+import io.github.rcarlosdasilva.weixin.core.cache.impl.handler.RedisHandler;
+import io.github.rcarlosdasilva.weixin.core.config.Configuration;
+import io.github.rcarlosdasilva.weixin.core.config.RedisConfiguration;
 import io.github.rcarlosdasilva.weixin.model.Account;
 
 /**
@@ -12,6 +15,24 @@ import io.github.rcarlosdasilva.weixin.model.Account;
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
 public class WeixinRegistry {
+
+  private static Configuration configuration = new Configuration();
+
+  public static RedisConfiguration useRedis() {
+    configuration.setRedisCache(true);
+    configuration.setRedisConfiguration(new RedisConfiguration());
+    return configuration.getRedisConfiguration();
+  }
+
+  public static void init() {
+    if (configuration.isRedisCache()) {
+      RedisHandler.init(configuration.getRedisConfiguration());
+    }
+  }
+
+  public static Configuration getConfiguration() {
+    return configuration;
+  }
 
   /**
    * 注册一个公众号配置.
@@ -28,9 +49,10 @@ public class WeixinRegistry {
    * @return {@link Account}
    */
   public static Account registry(String key, String appId, String appSecret) {
-    AccountCache.instance().remove(key);
-    AccessTokenCache.instance().remove(key);
-    return AccountCache.instance().put(key, new Account(appId, appSecret));
+    AccountCache.getInstance().remove(key);
+    AccessTokenCache.getInstance().remove(key);
+
+    return AccountCache.getInstance().put(key, new Account(appId, appSecret));
   }
 
   /**
@@ -58,7 +80,10 @@ public class WeixinRegistry {
    */
   public static Account lookup(String id) {
     id = id == null ? "" : id;
-    return AccountCache.instance().lookup(id);
+    Account account = new Account(id, null);
+    account.setMpId(id);
+    String key = AccountCache.getInstance().lookup(account);
+    return AccountCache.getInstance().get(key);
   }
 
 }

@@ -32,7 +32,7 @@ public class HelperApiImpl extends BasicApi implements HelperApi {
 
   @Override
   public String webAuthorize(WebAuthorizeScope scope, String redirectTo, String param) {
-    Account account = AccountCache.instance().get(this.accountKey);
+    Account account = AccountCache.getInstance().get(this.accountKey);
 
     return new StringBuilder(ApiAddress.URL_WEB_AUTHORIZE).append("?appid=")
         .append(account.getAppId()).append("&redirect_uri=").append(Utils.urlEncode(redirectTo))
@@ -48,7 +48,7 @@ public class HelperApiImpl extends BasicApi implements HelperApi {
 
   @Override
   public JsapiSignature generateJsapiSignature(String url) {
-    Account account = AccountCache.instance().get(this.accountKey);
+    Account account = AccountCache.getInstance().get(this.accountKey);
     String ticket = Weixin.with(this.accountKey).certificate().askJsTicket();
     String timestamp = Long.toString(System.currentTimeMillis() / 1000);
     String nonce = UUID.randomUUID().toString();
@@ -66,13 +66,13 @@ public class HelperApiImpl extends BasicApi implements HelperApi {
   @Override
   @SuppressWarnings("unchecked")
   public boolean isLegalRequestIp(String ip) {
-    Object obj = MixCache.instance().get(Convention.WEIXIN_IP_CACHE_KEY);
+    Object obj = MixCache.getInstance().get(Convention.WEIXIN_IP_CACHE_KEY);
     final List<String> ips;
     if (obj != null && (obj instanceof List)) {
       ips = (List<String>) obj;
     } else {
       ips = Weixin.with(this.accountKey).common().getWeixinIps();
-      MixCache.instance().put(Convention.WEIXIN_IP_CACHE_KEY, ips);
+      MixCache.getInstance().put(Convention.WEIXIN_IP_CACHE_KEY, ips);
     }
 
     return ips.contains(ip.trim());

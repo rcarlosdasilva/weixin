@@ -1,15 +1,14 @@
 package io.github.rcarlosdasilva.weixin.core.cache;
 
+import java.util.Collection;
 import java.util.Set;
 
 /**
  * 缓存
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
- * @param <T>
- *          缓存类型
  */
-public interface Cache<T> {
+public interface Cache<V> {
 
   /**
    * 所有键.
@@ -19,13 +18,32 @@ public interface Cache<T> {
   Set<String> keys();
 
   /**
+   * 所有值
+   * 
+   * @return 值集合
+   */
+  Collection<V> values();
+
+  /**
+   * 缓存大小
+   * 
+   * @return int
+   */
+  int size();
+
+  /**
+   * 清空
+   */
+  void clear();
+
+  /**
    * 获取.
    * 
    * @param key
    *          键
    * @return 值
    */
-  T get(String key);
+  V get(String key);
 
   /**
    * 放入.
@@ -36,7 +54,7 @@ public interface Cache<T> {
    *          值
    * @return 值
    */
-  T put(String key, T object);
+  V put(String key, V object);
 
   /**
    * 移除.
@@ -45,15 +63,15 @@ public interface Cache<T> {
    *          键
    * @return 值
    */
-  T remove(String key);
+  V remove(String key);
 
   /**
    * 查找.
    * 
    * @param value
    *          值
-   * @return 值
+   * @return boolean
    */
-  T lookup(Object value);
+  String lookup(V value);
 
 }

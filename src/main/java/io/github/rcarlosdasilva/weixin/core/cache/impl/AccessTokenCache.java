@@ -1,10 +1,5 @@
 package io.github.rcarlosdasilva.weixin.core.cache.impl;
 
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-
-import io.github.rcarlosdasilva.weixin.core.cache.AbstractCache;
 import io.github.rcarlosdasilva.weixin.core.cache.Cache;
 import io.github.rcarlosdasilva.weixin.model.response.certificate.AccessTokenResponse;
 
@@ -15,36 +10,15 @@ import io.github.rcarlosdasilva.weixin.model.response.certificate.AccessTokenRes
  */
 public class AccessTokenCache extends AbstractCache<AccessTokenResponse> {
 
-  private static Cache<AccessTokenResponse> instance = new AccessTokenCache();
-
-  private final Map<String, AccessTokenResponse> cache;
+  private static final String DEFAULT_MARK = "AccessTokenCache";
+  private static final Cache<AccessTokenResponse> instance = new AccessTokenCache();
 
   private AccessTokenCache() {
-    cache = new ConcurrentHashMap<String, AccessTokenResponse>();
+    this.mark = DEFAULT_MARK;
   }
 
-  public static Cache<AccessTokenResponse> instance() {
+  public static Cache<AccessTokenResponse> getInstance() {
     return instance;
-  }
-
-  @Override
-  public Set<String> keys() {
-    return cache.keySet();
-  }
-
-  @Override
-  public AccessTokenResponse get(String key) {
-    return cache.get(key);
-  }
-
-  @Override
-  public AccessTokenResponse put(String key, AccessTokenResponse value) {
-    return cache.put(key, value);
-  }
-
-  @Override
-  public AccessTokenResponse remove(String key) {
-    return cache.remove(key);
   }
 
 }

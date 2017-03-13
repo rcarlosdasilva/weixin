@@ -1,11 +1,5 @@
 package io.github.rcarlosdasilva.weixin.core.cache.impl;
 
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-
-import io.github.rcarlosdasilva.weixin.core.cache.AbstractCache;
-import io.github.rcarlosdasilva.weixin.core.cache.Cache;
 import io.github.rcarlosdasilva.weixin.model.response.certificate.JsTicketResponse;
 
 /**
@@ -15,36 +9,15 @@ import io.github.rcarlosdasilva.weixin.model.response.certificate.JsTicketRespon
  */
 public class JsTicketCache extends AbstractCache<JsTicketResponse> {
 
-  private static Cache<JsTicketResponse> instance = new JsTicketCache();
-
-  private final Map<String, JsTicketResponse> cache;
+  private static final String DEFAULT_MARK = "JsTicketCache";
+  private static final JsTicketCache instance = new JsTicketCache();
 
   private JsTicketCache() {
-    cache = new ConcurrentHashMap<String, JsTicketResponse>();
+    this.mark = DEFAULT_MARK;
   }
 
-  public static Cache<JsTicketResponse> instance() {
+  public static JsTicketCache getInstance() {
     return instance;
-  }
-
-  @Override
-  public Set<String> keys() {
-    return cache.keySet();
-  }
-
-  @Override
-  public JsTicketResponse get(String key) {
-    return cache.get(key);
-  }
-
-  @Override
-  public JsTicketResponse put(String key, JsTicketResponse value) {
-    return cache.put(key, value);
-  }
-
-  @Override
-  public JsTicketResponse remove(String key) {
-    return cache.remove(key);
   }
 
 }

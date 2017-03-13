@@ -1,14 +1,7 @@
 package io.github.rcarlosdasilva.weixin.core.cache.impl;
 
-import java.util.Collection;
-import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
-import com.google.common.base.Preconditions;
-
-import io.github.rcarlosdasilva.weixin.core.cache.AbstractCache;
-import io.github.rcarlosdasilva.weixin.core.cache.Cache;
 import io.github.rcarlosdasilva.weixin.model.Account;
 
 /**
@@ -18,50 +11,36 @@ import io.github.rcarlosdasilva.weixin.model.Account;
  */
 public class AccountCache extends AbstractCache<Account> {
 
-  private static Cache<Account> instance = new AccountCache();
-
-  private final Map<String, Account> cache;
+  private static final String DEFAULT_MARK = "AccountCache";
+  private static final AccountCache instance = new AccountCache();
 
   private AccountCache() {
-    cache = new ConcurrentHashMap<String, Account>();
+    this.mark = DEFAULT_MARK;
   }
 
-  public static Cache<Account> instance() {
+  public static AccountCache getInstance() {
     return instance;
   }
 
   @Override
-  public Set<String> keys() {
-    return cache.keySet();
-  }
+  public String lookup(Account value) {
+    if (value == null) {
+      return null;
+    }
+    String appid = value.getAppId();
+    String mpid = value.getMpId();
+    if (appid == null && mpid == null) {
+      return null;
+    }
 
-  @Override
-  public Account get(String key) {
-    return cache.get(key);
-  }
-
-  @Override
-  public Account put(String key, Account value) {
-    Preconditions.checkNotNull(key);
-    Preconditions.checkNotNull(value);
-    value.setKey(key);
-    return cache.put(key, value);
-  }
-
-  @Override
-  public Account remove(String key) {
-    return cache.remove(key);
-  }
-
-  @Override
-  public Account lookup(Object value) {
-    Preconditions.checkNotNull(value);
-
-    String id = value.toString();
-    Collection<Account> accounts = cache.values();
-    for (Account account : accounts) {
-      if (id.equals(account.getAppId()) || id.equals(account.getMpId())) {
-        return account;
+    Set<String> keys = keys();
+    for (String key : keys) {
+      Account account = get(key);
+      if (appid != null && appid.equals(account.getAppId())) {
+        return key;
+      }
+      if (mpid != null && mpid.equals(account.getMpId())) {
+        return key;
       }
     }
     return null;

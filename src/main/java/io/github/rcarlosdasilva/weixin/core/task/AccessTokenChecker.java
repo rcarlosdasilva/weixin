@@ -9,7 +9,7 @@ public class AccessTokenChecker implements Runnable {
 
   @Override
   public void run() {
-    Set<String> keys = AccessTokenCache.instance().keys();
+    Set<String> keys = AccessTokenCache.getInstance().keys();
     for (String key : keys) {
       check(key);
     }

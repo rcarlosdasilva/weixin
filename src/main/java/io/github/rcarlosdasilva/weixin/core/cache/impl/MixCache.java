@@ -1,12 +1,5 @@
 package io.github.rcarlosdasilva.weixin.core.cache.impl;
 
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-
-import io.github.rcarlosdasilva.weixin.core.cache.AbstractCache;
-import io.github.rcarlosdasilva.weixin.core.cache.Cache;
-
 /**
  * 存储混杂属性
  * 
@@ -14,36 +7,15 @@ import io.github.rcarlosdasilva.weixin.core.cache.Cache;
  */
 public class MixCache extends AbstractCache<Object> {
 
-  private static Cache<Object> instance = new MixCache();
-
-  private final Map<String, Object> cache;
+  private static final String DEFAULT_MARK = "MixCache";
+  private static final MixCache instance = new MixCache();
 
   private MixCache() {
-    cache = new ConcurrentHashMap<String, Object>();
+    this.mark = DEFAULT_MARK;
   }
 
-  public static Cache<Object> instance() {
+  public static MixCache getInstance() {
     return instance;
-  }
-
-  @Override
-  public Set<String> keys() {
-    return cache.keySet();
-  }
-
-  @Override
-  public Object get(String key) {
-    return cache.get(key);
-  }
-
-  @Override
-  public Object put(String key, Object object) {
-    return cache.put(key, object);
-  }
-
-  @Override
-  public Object remove(String key) {
-    return cache.remove(key);
   }
 
 }

@@ -118,7 +118,7 @@ public class Weixin {
    * @return {@link Account}
    */
   public Account info() {
-    return AccountCache.instance().get(this.accountKey);
+    return AccountCache.getInstance().get(this.accountKey);
   }
 
   /**
