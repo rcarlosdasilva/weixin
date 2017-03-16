@@ -1,9 +1,13 @@
 package io.github.rcarlosdasilva.weixin.model.response.certificate;
 
+import java.io.Serializable;
+
 import com.google.common.base.Strings;
 import com.google.gson.annotations.SerializedName;
 
-public class JsTicketResponse {
+public class JsTicketResponse implements Serializable {
+
+  private static final long serialVersionUID = -525296850603680225L;
 
   @SerializedName("ticket")
   private String jsTicket;

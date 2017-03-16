@@ -43,7 +43,7 @@ public interface Cache<V> {
    *          键
    * @return 值
    */
-  V get(String key);
+  V get(final String key);
 
   /**
    * 放入.
@@ -54,7 +54,7 @@ public interface Cache<V> {
    *          值
    * @return 值
    */
-  V put(String key, V object);
+  V put(final String key, final V object);
 
   /**
    * 移除.
@@ -63,7 +63,7 @@ public interface Cache<V> {
    *          键
    * @return 值
    */
-  V remove(String key);
+  V remove(final String key);
 
   /**
    * 查找.
@@ -72,6 +72,6 @@ public interface Cache<V> {
    *          值
    * @return boolean
    */
-  String lookup(V value);
+  String lookup(final V value);
 
 }

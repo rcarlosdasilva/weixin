@@ -10,7 +10,7 @@ import io.github.rcarlosdasilva.weixin.model.response.certificate.AccessTokenRes
  */
 public class AccessTokenCache extends AbstractCache<AccessTokenResponse> {
 
-  private static final String DEFAULT_MARK = "AccessTokenCache";
+  private static final String DEFAULT_MARK = "atc_";
   private static final Cache<AccessTokenResponse> instance = new AccessTokenCache();
 
   private AccessTokenCache() {

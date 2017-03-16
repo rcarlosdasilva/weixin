@@ -1,11 +1,15 @@
 package io.github.rcarlosdasilva.weixin.model.response.certificate;
 
+import java.io.Serializable;
+
 import com.google.common.base.Strings;
 import com.google.gson.annotations.SerializedName;
 
 import io.github.rcarlosdasilva.weixin.common.Convention;
 
-public class AccessTokenResponse {
+public class AccessTokenResponse implements Serializable {
+
+  private static final long serialVersionUID = -7038003373865024350L;
 
   @SerializedName("access_token")
   private String accessToken;

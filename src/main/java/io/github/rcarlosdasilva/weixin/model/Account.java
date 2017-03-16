@@ -1,5 +1,7 @@
 package io.github.rcarlosdasilva.weixin.model;
 
+import java.io.Serializable;
+
 import com.google.common.base.Strings;
 
 import io.github.rcarlosdasilva.weixin.common.dictionary.AccountType;
@@ -10,7 +12,9 @@ import io.github.rcarlosdasilva.weixin.common.dictionary.EncryptionType;
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public class Account {
+public class Account implements Serializable {
+
+  private static final long serialVersionUID = 9204192729241765932L;
 
   private String key;
   private String appId;

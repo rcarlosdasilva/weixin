@@ -9,7 +9,7 @@ import io.github.rcarlosdasilva.weixin.model.response.certificate.JsTicketRespon
  */
 public class JsTicketCache extends AbstractCache<JsTicketResponse> {
 
-  private static final String DEFAULT_MARK = "JsTicketCache";
+  private static final String DEFAULT_MARK = "jtc_";
   private static final JsTicketCache instance = new JsTicketCache();
 
   private JsTicketCache() {

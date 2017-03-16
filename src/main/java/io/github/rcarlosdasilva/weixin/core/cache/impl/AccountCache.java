@@ -11,7 +11,7 @@ import io.github.rcarlosdasilva.weixin.model.Account;
  */
 public class AccountCache extends AbstractCache<Account> {
 
-  private static final String DEFAULT_MARK = "AccountCache";
+  private static final String DEFAULT_MARK = "ac_";
   private static final AccountCache instance = new AccountCache();
 
   private AccountCache() {

@@ -13,7 +13,7 @@ import redis.clients.jedis.JedisPool;
 public class RedisHandler {
 
   public static final String DEFAULT_REDIS_KEY_PREFIX = "RWX_";
-  public static final String DEFAULT_REDIS_KEY_PATTERN = DEFAULT_REDIS_KEY_PREFIX + "*";
+  public static final String DEFAULT_REDIS_KEY_PATTERN = "*";
   private static JedisPool pool = null;
 
   public static void init(RedisConfiguration redisConfiguration) {

@@ -11,6 +11,7 @@ import io.github.rcarlosdasilva.weixin.core.WeixinRegistry;
 import io.github.rcarlosdasilva.weixin.core.cache.Cache;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.handler.MapHandler;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.handler.RedisHandler;
+import redis.clients.jedis.Jedis;
 
 public class AbstractCache<V> implements Cache<V> {
 
@@ -20,10 +21,19 @@ public class AbstractCache<V> implements Cache<V> {
     return WeixinRegistry.getConfiguration().isRedisCache();
   }
 
+  private String realRedisKeyPattern() {
+    return RedisHandler.DEFAULT_REDIS_KEY_PREFIX + mark + RedisHandler.DEFAULT_REDIS_KEY_PATTERN;
+  }
+
+  private byte[] realRedisKey(final String key) {
+    String realKey = RedisHandler.DEFAULT_REDIS_KEY_PREFIX + mark + key;
+    return realKey.getBytes();
+  }
+
   @Override
   public Set<String> keys() {
     if (isRedis()) {
-      return RedisHandler.getRedis().keys(RedisHandler.DEFAULT_REDIS_KEY_PATTERN);
+      return RedisHandler.getRedis().keys(realRedisKeyPattern());
     } else {
       return MapHandler.getObject(mark).keySet();
     }
@@ -65,9 +75,11 @@ public class AbstractCache<V> implements Cache<V> {
   }
 
   @Override
-  public V get(String key) {
+  public V get(final String key) {
     if (isRedis()) {
-      byte[] value = RedisHandler.getRedis().get(key.getBytes());
+      Jedis jedis = RedisHandler.getRedis();
+      byte[] value = jedis.get(realRedisKey(key));
+      jedis.close();
       if (value == null) {
         return null;
       }
@@ -81,7 +93,9 @@ public class AbstractCache<V> implements Cache<V> {
   @Override
   public V put(String key, V object) {
     if (isRedis()) {
-      RedisHandler.getRedis().set(key.getBytes(), Utils.serialize(object));
+      Jedis jedis = RedisHandler.getRedis();
+      jedis.set(realRedisKey(key), Utils.serialize(object));
+      jedis.close();
       return object;
     } else {
       return MapHandler.<V>getObject(mark).put(key, object);
@@ -96,7 +110,9 @@ public class AbstractCache<V> implements Cache<V> {
         return null;
       }
 
-      RedisHandler.getRedis().del(key.getBytes());
+      Jedis jedis = RedisHandler.getRedis();
+      jedis.del(realRedisKey(key));
+      jedis.close();
       return object;
     } else {
       return MapHandler.<V>getObject(mark).remove(key);
