@@ -96,10 +96,10 @@ public class AbstractCache<V> implements Cache<V> {
       Jedis jedis = RedisHandler.getRedis();
       jedis.set(realRedisKey(key), Utils.serialize(object));
       jedis.close();
-      return object;
     } else {
-      return MapHandler.<V>getObject(mark).put(key, object);
+      MapHandler.<V>getObject(mark).put(key, object);
     }
+    return object;
   }
 
   @Override
