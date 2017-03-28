@@ -11,7 +11,7 @@ public class Menu {
   @SerializedName("menuid")
   private long menuId;
   @SerializedName("matchrule")
-  private MatchRule matchRule;
+  private List<MatchRule> matchRule;
 
   /**
    * 菜单按钮列表.
@@ -36,7 +36,7 @@ public class Menu {
    * 
    * @return {@link MatchRule}
    */
-  public MatchRule getMatchRule() {
+  public List<MatchRule> getMatchRule() {
     return matchRule;
   }
 
