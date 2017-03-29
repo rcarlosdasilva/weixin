@@ -2,6 +2,7 @@ package io.github.rcarlosdasilva.weixin.api.internal;
 
 import java.util.List;
 
+import io.github.rcarlosdasilva.weixin.common.dictionary.Language;
 import io.github.rcarlosdasilva.weixin.model.response.user.BlackListQueryResponse;
 import io.github.rcarlosdasilva.weixin.model.response.user.UserOpenIdListResponse;
 import io.github.rcarlosdasilva.weixin.model.response.user.UserResponse;
@@ -54,6 +55,30 @@ public interface UserApi {
    *      >获取用户基本信息(UnionID机制)</a>
    */
   List<User> getUsersInfo(List<String> openIds);
+
+  /**
+   * 获取用户信息.
+   * 
+   * @param openId
+   *          OpenId
+   * @return {@link UserResponse} 用户信息
+   * @see <a href=
+   *      "https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140839&token=&lang=zh_CN"
+   *      >获取用户基本信息(UnionID机制)</a>
+   */
+  User getUserInfo(String openId, Language language);
+
+  /**
+   * 批量获取用户信息.
+   * 
+   * @param openIds
+   *          OpenId列表
+   * @return {@link UserResponse} 用户信息列表
+   * @see <a href=
+   *      "https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140839&token=&lang=zh_CN"
+   *      >获取用户基本信息(UnionID机制)</a>
+   */
+  List<User> getUsersInfo(List<String> openIds, Language language);
 
   /**
    * 获取公众号的关注者列表.

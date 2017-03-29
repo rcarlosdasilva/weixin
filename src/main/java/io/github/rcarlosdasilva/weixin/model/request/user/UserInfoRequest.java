@@ -22,7 +22,6 @@ public class UserInfoRequest extends BasicRequest {
    * 批量请求用户信息时使用，无需Token.
    */
   public UserInfoRequest() {
-    this.language = Language.ZH_CN;
     this.path = ApiAddress.URL_USER_INFO;
   }
 

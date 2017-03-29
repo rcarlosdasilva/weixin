@@ -4,6 +4,7 @@ import java.util.List;
 
 import io.github.rcarlosdasilva.weixin.api.internal.BasicApi;
 import io.github.rcarlosdasilva.weixin.api.internal.UserApi;
+import io.github.rcarlosdasilva.weixin.common.dictionary.Language;
 import io.github.rcarlosdasilva.weixin.model.request.user.BlackListAppendRequest;
 import io.github.rcarlosdasilva.weixin.model.request.user.BlackListCancelRequest;
 import io.github.rcarlosdasilva.weixin.model.request.user.BlackListOpenIdListRequest;
@@ -41,17 +42,28 @@ public class UserApiImpl extends BasicApi implements UserApi {
 
   @Override
   public User getUserInfo(String openId) {
+    return getUserInfo(openId, Language.ZH_CN);
+  }
+
+  @Override
+  public List<User> getUsersInfo(List<String> openIds) {
+    return getUsersInfo(openIds, Language.ZH_CN);
+  }
+
+  @Override
+  public User getUserInfo(String openId, Language language) {
     UserInfoRequest requestModel = new UserInfoRequest();
+    requestModel.setLanguage(language);
     requestModel.setOpenId(openId);
 
     return get(UserResponse.class, requestModel);
   }
 
   @Override
-  public List<User> getUsersInfo(List<String> openIds) {
+  public List<User> getUsersInfo(List<String> openIds, Language language) {
     UserInfoListRequest requestModel = new UserInfoListRequest();
     for (String openId : openIds) {
-      requestModel.addUserOpenId(openId);
+      requestModel.addUserOpenId(openId, language);
     }
 
     UserListResponse responseModel = post(UserListResponse.class, requestModel);
