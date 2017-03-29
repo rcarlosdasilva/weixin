@@ -4,6 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.github.rcarlosdasilva.weixin.common.dictionary.ResultCode;
+import io.github.rcarlosdasilva.weixin.core.WeixinRegistry;
+import io.github.rcarlosdasilva.weixin.core.exception.ExecuteException;
 import io.github.rcarlosdasilva.weixin.core.exception.MaydayMaydaySaveMeBecauseAccessTokenSetMeFuckUpException;
 import io.github.rcarlosdasilva.weixin.core.json.Json;
 import io.github.rcarlosdasilva.weixin.model.response.SimplestResponse;
@@ -47,6 +49,10 @@ public class ResponseParser {
         if (error.canSalvage()) {
           logger.error("微信access_token不对，我觉着还可以抢救一下，再试一遍");
           throw new MaydayMaydaySaveMeBecauseAccessTokenSetMeFuckUpException();
+        }
+
+        if (WeixinRegistry.getConfiguration().isThrowException()) {
+          throw new ExecuteException(error);
         }
 
         if (target == Boolean.class) {

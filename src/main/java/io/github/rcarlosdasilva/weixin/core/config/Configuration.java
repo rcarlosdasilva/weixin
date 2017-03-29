@@ -2,7 +2,17 @@ package io.github.rcarlosdasilva.weixin.core.config;
 
 public class Configuration {
 
+  private boolean throwException = true;
   private boolean redisCache;
+  private RedisConfiguration redisConfiguration;
+
+  public boolean isThrowException() {
+    return throwException;
+  }
+
+  public void setThrowException(boolean throwException) {
+    this.throwException = throwException;
+  }
 
   public boolean isRedisCache() {
     return redisCache;
@@ -11,8 +21,6 @@ public class Configuration {
   public void setRedisCache(boolean redisCache) {
     this.redisCache = redisCache;
   }
-
-  private RedisConfiguration redisConfiguration;
 
   public RedisConfiguration getRedisConfiguration() {
     return redisConfiguration;
