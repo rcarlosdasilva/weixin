@@ -1,11 +1,16 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<groupId>io.github.rcarlosdasilva</groupId>
 	<artifactId>weixin</artifactId>
 	<version>0.4-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
 	<name>Aha-Weixin</name>
 	<description>微信API封装，支持多账号操作，简单易用</description>
 	<url>https://github.com/rcarlosdasilva/weixin</url>
+
 	<developers>
 		<developer>
 			<email>rcarlosdasilva@qq.com</email>
@@ -16,6 +21,7 @@
 			<timezone>+8</timezone>
 		</developer>
 	</developers>
+
 	<licenses>
 		<license>
 			<name>The Apache License, Version 2.0</name>
@@ -45,10 +51,10 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jdk.version>1.8</jdk.version>
-		<guava.version>19.0</guava.version>
+		<guava.version>21.0</guava.version>
 		<gson.version>2.3.1</gson.version>
 		<xstream.version>1.4.9</xstream.version>
-		<okhttp3.version>3.3.1</okhttp3.version>
+		<okhttp3.version>3.5.0</okhttp3.version>
 		<commons.codec.version>1.10</commons.codec.version>
 		<jedis.version>2.9.0</jedis.version>
 		<slf4j.version>1.7.21</slf4j.version>
