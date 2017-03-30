@@ -19,7 +19,7 @@ public class BlackListCancelRequest extends BasicRequest {
   private List<String> list;
 
   public BlackListCancelRequest() {
-    this.path = ApiAddress.URL_BLACK_LIST_APPEND;
+    this.path = ApiAddress.URL_BLACK_LIST_CANCEL;
   }
 
   /**
