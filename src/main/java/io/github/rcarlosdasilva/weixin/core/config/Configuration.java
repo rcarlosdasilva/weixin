@@ -2,9 +2,11 @@ package io.github.rcarlosdasilva.weixin.core.config;
 
 public class Configuration {
 
+  public static final Configuration DEFAULT_CONFIG = new Configuration();
+
   private boolean throwException = true;
-  private boolean redisCache;
-  private RedisConfiguration redisConfiguration;
+  private boolean useRedisCache = false;
+  private RedisConfiguration redisConfiguration = null;
 
   public boolean isThrowException() {
     return throwException;
@@ -14,12 +16,14 @@ public class Configuration {
     this.throwException = throwException;
   }
 
-  public boolean isRedisCache() {
-    return redisCache;
+  public boolean isUseRedisCache() {
+    return useRedisCache;
   }
 
-  public void setRedisCache(boolean redisCache) {
-    this.redisCache = redisCache;
+  public RedisConfiguration useRedisCache() {
+    this.useRedisCache = true;
+    this.redisConfiguration = new RedisConfiguration();
+    return redisConfiguration;
   }
 
   public RedisConfiguration getRedisConfiguration() {

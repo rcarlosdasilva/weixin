@@ -6,7 +6,6 @@ import io.github.rcarlosdasilva.weixin.core.cache.impl.AccessTokenCache;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.AccountCache;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.handler.RedisHandler;
 import io.github.rcarlosdasilva.weixin.core.config.Configuration;
-import io.github.rcarlosdasilva.weixin.core.config.RedisConfiguration;
 import io.github.rcarlosdasilva.weixin.model.Account;
 
 /**
@@ -16,22 +15,27 @@ import io.github.rcarlosdasilva.weixin.model.Account;
  */
 public class WeixinRegistry {
 
-  private static Configuration configuration = new Configuration();
+  private static Configuration configuration = Configuration.DEFAULT_CONFIG;
+  private static boolean initialized = false;
 
-  public static RedisConfiguration useRedis() {
-    configuration.setRedisCache(true);
-    configuration.setRedisConfiguration(new RedisConfiguration());
-    return configuration.getRedisConfiguration();
-  }
-
-  public static void init() {
-    if (configuration.isRedisCache()) {
-      RedisHandler.init(configuration.getRedisConfiguration());
-    }
+  public static void config(Configuration configuration) {
+    WeixinRegistry.configuration = configuration;
   }
 
   public static Configuration getConfiguration() {
     return configuration;
+  }
+
+  private static void init() {
+    if (initialized) {
+      return;
+    }
+
+    if (configuration.isUseRedisCache()) {
+      RedisHandler.init(configuration.getRedisConfiguration());
+    }
+
+    initialized = true;
   }
 
   /**
@@ -49,6 +53,8 @@ public class WeixinRegistry {
    * @return {@link Account}
    */
   public static Account registry(String key, String appId, String appSecret) {
+    init();
+
     AccountCache.getInstance().remove(key);
     AccessTokenCache.getInstance().remove(key);
 

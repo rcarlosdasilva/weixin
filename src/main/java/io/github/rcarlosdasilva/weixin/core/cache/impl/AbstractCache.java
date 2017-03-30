@@ -18,7 +18,7 @@ public class AbstractCache<V> implements Cache<V> {
   protected String mark;
 
   private boolean isRedis() {
-    return WeixinRegistry.getConfiguration().isRedisCache();
+    return WeixinRegistry.getConfiguration().isUseRedisCache();
   }
 
   private String realRedisKeyPattern() {
