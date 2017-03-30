@@ -8,12 +8,12 @@ import com.google.common.collect.Lists;
 
 import io.github.rcarlosdasilva.weixin.common.Utils;
 import io.github.rcarlosdasilva.weixin.core.WeixinRegistry;
-import io.github.rcarlosdasilva.weixin.core.cache.Cache;
-import io.github.rcarlosdasilva.weixin.core.cache.impl.handler.MapHandler;
-import io.github.rcarlosdasilva.weixin.core.cache.impl.handler.RedisHandler;
+import io.github.rcarlosdasilva.weixin.core.cache.CacheHandler;
+import io.github.rcarlosdasilva.weixin.core.cache.impl.holder.MapHandler;
+import io.github.rcarlosdasilva.weixin.core.cache.impl.holder.SimpleRedisHandler;
 import redis.clients.jedis.Jedis;
 
-public class AbstractCache<V> implements Cache<V> {
+public class AbstractCacheHandler<V> implements CacheHandler<V> {
 
   protected String mark;
 
@@ -22,18 +22,19 @@ public class AbstractCache<V> implements Cache<V> {
   }
 
   private String realRedisKeyPattern() {
-    return RedisHandler.DEFAULT_REDIS_KEY_PREFIX + mark + RedisHandler.DEFAULT_REDIS_KEY_PATTERN;
+    return SimpleRedisHandler.DEFAULT_REDIS_KEY_PREFIX + mark
+        + SimpleRedisHandler.DEFAULT_REDIS_KEY_PATTERN;
   }
 
   private byte[] realRedisKey(final String key) {
-    String realKey = RedisHandler.DEFAULT_REDIS_KEY_PREFIX + mark + key;
+    String realKey = SimpleRedisHandler.DEFAULT_REDIS_KEY_PREFIX + mark + key;
     return realKey.getBytes();
   }
 
   @Override
   public Set<String> keys() {
     if (isRedis()) {
-      return RedisHandler.getRedis().keys(realRedisKeyPattern());
+      return SimpleRedisHandler.getRedis().keys(realRedisKeyPattern());
     } else {
       return MapHandler.getObject(mark).keySet();
     }
@@ -77,7 +78,7 @@ public class AbstractCache<V> implements Cache<V> {
   @Override
   public V get(final String key) {
     if (isRedis()) {
-      Jedis jedis = RedisHandler.getRedis();
+      Jedis jedis = SimpleRedisHandler.getRedis();
       byte[] value = jedis.get(realRedisKey(key));
       jedis.close();
       if (value == null) {
@@ -93,7 +94,7 @@ public class AbstractCache<V> implements Cache<V> {
   @Override
   public V put(String key, V object) {
     if (isRedis()) {
-      Jedis jedis = RedisHandler.getRedis();
+      Jedis jedis = SimpleRedisHandler.getRedis();
       jedis.set(realRedisKey(key), Utils.serialize(object));
       jedis.close();
     } else {
@@ -110,7 +111,7 @@ public class AbstractCache<V> implements Cache<V> {
         return null;
       }
 
-      Jedis jedis = RedisHandler.getRedis();
+      Jedis jedis = SimpleRedisHandler.getRedis();
       jedis.del(realRedisKey(key));
       jedis.close();
       return object;

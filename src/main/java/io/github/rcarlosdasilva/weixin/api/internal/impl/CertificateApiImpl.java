@@ -5,9 +5,9 @@ import org.slf4j.LoggerFactory;
 
 import io.github.rcarlosdasilva.weixin.api.internal.BasicApi;
 import io.github.rcarlosdasilva.weixin.api.internal.CertificateApi;
-import io.github.rcarlosdasilva.weixin.core.cache.impl.AccessTokenCache;
-import io.github.rcarlosdasilva.weixin.core.cache.impl.AccountCache;
-import io.github.rcarlosdasilva.weixin.core.cache.impl.JsTicketCache;
+import io.github.rcarlosdasilva.weixin.core.cache.impl.AccessTokenCacheHandler;
+import io.github.rcarlosdasilva.weixin.core.cache.impl.AccountCacheHandler;
+import io.github.rcarlosdasilva.weixin.core.cache.impl.JsTicketCacheHandler;
 import io.github.rcarlosdasilva.weixin.model.Account;
 import io.github.rcarlosdasilva.weixin.model.request.certificate.AccessTokenRequest;
 import io.github.rcarlosdasilva.weixin.model.request.certificate.JsTicketRequest;
@@ -35,7 +35,7 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
 
   @Override
   public String askAccessToken() {
-    AccessTokenResponse token = AccessTokenCache.getInstance().get(this.accountKey);
+    AccessTokenResponse token = AccessTokenCacheHandler.getInstance().get(this.accountKey);
 
     if (null == token || token.isExpired()) {
       synchronized (this.lock) {
@@ -66,7 +66,7 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
    */
   private synchronized AccessTokenResponse requestAccessToken() {
     logger.debug("For:{} >> 正在获取access_token", this.accountKey);
-    Account account = AccountCache.getInstance().get(this.accountKey);
+    Account account = AccountCacheHandler.getInstance().get(this.accountKey);
     AccessTokenRequest requestModel = new AccessTokenRequest();
     requestModel.setAppId(account.getAppId());
     requestModel.setAppSecret(account.getAppSecret());
@@ -75,7 +75,7 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
 
     if (responseModel != null) {
       responseModel.updateExpireAt();
-      AccessTokenCache.getInstance().put(this.accountKey, responseModel);
+      AccessTokenCacheHandler.getInstance().put(this.accountKey, responseModel);
       logger.debug("For:{} >> 获取到access_token：[{}]", this.accountKey,
           responseModel.getAccessToken());
       return responseModel;
@@ -86,7 +86,7 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
 
   @Override
   public final String askJsTicket() {
-    JsTicketResponse ticket = JsTicketCache.getInstance().get(this.accountKey);
+    JsTicketResponse ticket = JsTicketCacheHandler.getInstance().get(this.accountKey);
 
     if (ticket == null || ticket.expired()) {
       synchronized (this.lock) {
@@ -123,7 +123,7 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
 
     if (responseModel != null) {
       responseModel.updateExpireAt();
-      JsTicketCache.getInstance().put(this.accountKey, responseModel);
+      JsTicketCacheHandler.getInstance().put(this.accountKey, responseModel);
       logger.debug("For:{} >> 获取jsapi_ticket：[{}]", this.accountKey, responseModel.getJsTicket());
       return responseModel;
     }
@@ -133,7 +133,7 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
 
   @Override
   public WaAccessTokenResponse askWebAuthorizeAccessToken(String code) {
-    Account account = AccountCache.getInstance().get(this.accountKey);
+    Account account = AccountCacheHandler.getInstance().get(this.accountKey);
     WaAccessTokenRequest requestModel = new WaAccessTokenRequest();
     requestModel.setAppId(account.getAppId());
     requestModel.setAppSecret(account.getAppSecret());
@@ -144,7 +144,7 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
 
   @Override
   public WaAccessTokenResponse refreshWebAuthorizeAccessToken(String refreshToken) {
-    Account account = AccountCache.getInstance().get(this.accountKey);
+    Account account = AccountCacheHandler.getInstance().get(this.accountKey);
     WaAccessTokenRefreshRequest requestModel = new WaAccessTokenRefreshRequest();
     requestModel.setAppId(account.getAppId());
     requestModel.setRefreshToken(refreshToken);

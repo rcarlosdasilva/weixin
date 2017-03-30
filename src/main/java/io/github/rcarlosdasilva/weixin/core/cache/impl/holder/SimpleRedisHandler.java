@@ -1,4 +1,4 @@
-package io.github.rcarlosdasilva.weixin.core.cache.impl.handler;
+package io.github.rcarlosdasilva.weixin.core.cache.impl.holder;
 
 import io.github.rcarlosdasilva.weixin.core.config.RedisConfiguration;
 import io.github.rcarlosdasilva.weixin.core.exception.RedisCacheNotInitializeException;
@@ -10,7 +10,7 @@ import redis.clients.jedis.JedisPool;
  *
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public class RedisHandler {
+public class SimpleRedisHandler {
 
   public static final String DEFAULT_REDIS_KEY_PREFIX = "RWX_";
   public static final String DEFAULT_REDIS_KEY_PATTERN = "*";

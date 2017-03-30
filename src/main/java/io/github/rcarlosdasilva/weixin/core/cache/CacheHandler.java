@@ -8,7 +8,7 @@ import java.util.Set;
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public interface Cache<V> {
+public interface CacheHandler<V> {
 
   /**
    * 所有键.

@@ -2,9 +2,9 @@ package io.github.rcarlosdasilva.weixin.core;
 
 import io.github.rcarlosdasilva.weixin.api.Weixin;
 import io.github.rcarlosdasilva.weixin.common.Convention;
-import io.github.rcarlosdasilva.weixin.core.cache.impl.AccessTokenCache;
-import io.github.rcarlosdasilva.weixin.core.cache.impl.AccountCache;
-import io.github.rcarlosdasilva.weixin.core.cache.impl.handler.RedisHandler;
+import io.github.rcarlosdasilva.weixin.core.cache.impl.AccessTokenCacheHandler;
+import io.github.rcarlosdasilva.weixin.core.cache.impl.AccountCacheHandler;
+import io.github.rcarlosdasilva.weixin.core.cache.impl.holder.SimpleRedisHandler;
 import io.github.rcarlosdasilva.weixin.core.config.Configuration;
 import io.github.rcarlosdasilva.weixin.model.Account;
 
@@ -31,8 +31,8 @@ public class WeixinRegistry {
       return;
     }
 
-    if (configuration.isUseRedisCache()) {
-      RedisHandler.init(configuration.getRedisConfiguration());
+    if (configuration.isUseRedisCache() && configuration.getRedisConfiguration() != null) {
+      SimpleRedisHandler.init(configuration.getRedisConfiguration());
     }
 
     initialized = true;
@@ -55,10 +55,10 @@ public class WeixinRegistry {
   public static Account registry(String key, String appId, String appSecret) {
     init();
 
-    AccountCache.getInstance().remove(key);
-    AccessTokenCache.getInstance().remove(key);
+    AccountCacheHandler.getInstance().remove(key);
+    AccessTokenCacheHandler.getInstance().remove(key);
 
-    return AccountCache.getInstance().put(key, new Account(appId, appSecret));
+    return AccountCacheHandler.getInstance().put(key, new Account(appId, appSecret));
   }
 
   /**
@@ -88,8 +88,8 @@ public class WeixinRegistry {
     id = id == null ? "" : id;
     Account account = new Account(id, null);
     account.setMpId(id);
-    String key = AccountCache.getInstance().lookup(account);
-    return AccountCache.getInstance().get(key);
+    String key = AccountCacheHandler.getInstance().lookup(account);
+    return AccountCacheHandler.getInstance().get(key);
   }
 
 }

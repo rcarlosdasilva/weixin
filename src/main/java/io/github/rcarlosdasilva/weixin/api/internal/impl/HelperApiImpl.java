@@ -14,8 +14,8 @@ import io.github.rcarlosdasilva.weixin.common.ApiAddress;
 import io.github.rcarlosdasilva.weixin.common.Convention;
 import io.github.rcarlosdasilva.weixin.common.Utils;
 import io.github.rcarlosdasilva.weixin.common.dictionary.WebAuthorizeScope;
-import io.github.rcarlosdasilva.weixin.core.cache.impl.AccountCache;
-import io.github.rcarlosdasilva.weixin.core.cache.impl.MixCache;
+import io.github.rcarlosdasilva.weixin.core.cache.impl.AccountCacheHandler;
+import io.github.rcarlosdasilva.weixin.core.cache.impl.MixCacheHandler;
 import io.github.rcarlosdasilva.weixin.model.Account;
 import io.github.rcarlosdasilva.weixin.model.JsapiSignature;
 
@@ -32,7 +32,7 @@ public class HelperApiImpl extends BasicApi implements HelperApi {
 
   @Override
   public String webAuthorize(WebAuthorizeScope scope, String redirectTo, String param) {
-    Account account = AccountCache.getInstance().get(this.accountKey);
+    Account account = AccountCacheHandler.getInstance().get(this.accountKey);
 
     return new StringBuilder(ApiAddress.URL_WEB_AUTHORIZE).append("?appid=")
         .append(account.getAppId()).append("&redirect_uri=").append(Utils.urlEncode(redirectTo))
@@ -48,7 +48,7 @@ public class HelperApiImpl extends BasicApi implements HelperApi {
 
   @Override
   public JsapiSignature generateJsapiSignature(String url) {
-    Account account = AccountCache.getInstance().get(this.accountKey);
+    Account account = AccountCacheHandler.getInstance().get(this.accountKey);
     String ticket = Weixin.with(this.accountKey).certificate().askJsTicket();
     String timestamp = Long.toString(System.currentTimeMillis() / 1000);
     String nonce = UUID.randomUUID().toString();
@@ -66,13 +66,13 @@ public class HelperApiImpl extends BasicApi implements HelperApi {
   @Override
   @SuppressWarnings("unchecked")
   public boolean isLegalRequestIp(String ip) {
-    Object obj = MixCache.getInstance().get(Convention.WEIXIN_IP_CACHE_KEY);
+    Object obj = MixCacheHandler.getInstance().get(Convention.WEIXIN_IP_CACHE_KEY);
     final List<String> ips;
     if (obj != null && (obj instanceof List)) {
       ips = (List<String>) obj;
     } else {
       ips = Weixin.with(this.accountKey).common().getWeixinIps();
-      MixCache.getInstance().put(Convention.WEIXIN_IP_CACHE_KEY, ips);
+      MixCacheHandler.getInstance().put(Convention.WEIXIN_IP_CACHE_KEY, ips);
     }
 
     return ips.contains(ip.trim());

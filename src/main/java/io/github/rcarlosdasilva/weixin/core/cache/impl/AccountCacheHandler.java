@@ -9,16 +9,16 @@ import io.github.rcarlosdasilva.weixin.model.Account;
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public class AccountCache extends AbstractCache<Account> {
+public class AccountCacheHandler extends AbstractCacheHandler<Account> {
 
   private static final String DEFAULT_MARK = "ac_";
-  private static final AccountCache instance = new AccountCache();
+  private static final AccountCacheHandler instance = new AccountCacheHandler();
 
-  private AccountCache() {
+  private AccountCacheHandler() {
     this.mark = DEFAULT_MARK;
   }
 
-  public static AccountCache getInstance() {
+  public static AccountCacheHandler getInstance() {
     return instance;
   }
 

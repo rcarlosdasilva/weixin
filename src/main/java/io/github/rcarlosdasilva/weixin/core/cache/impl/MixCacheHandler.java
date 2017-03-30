@@ -5,16 +5,16 @@ package io.github.rcarlosdasilva.weixin.core.cache.impl;
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public class MixCache extends AbstractCache<Object> {
+public class MixCacheHandler extends AbstractCacheHandler<Object> {
 
   private static final String DEFAULT_MARK = "mc_";
-  private static final MixCache instance = new MixCache();
+  private static final MixCacheHandler instance = new MixCacheHandler();
 
-  private MixCache() {
+  private MixCacheHandler() {
     this.mark = DEFAULT_MARK;
   }
 
-  public static MixCache getInstance() {
+  public static MixCacheHandler getInstance() {
     return instance;
   }
 

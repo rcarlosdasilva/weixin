@@ -1,4 +1,4 @@
-package io.github.rcarlosdasilva.weixin.core.cache.impl.handler;
+package io.github.rcarlosdasilva.weixin.core.cache.impl.holder;
 
 import java.util.Map;
 

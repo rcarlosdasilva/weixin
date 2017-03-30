@@ -1,6 +1,6 @@
 package io.github.rcarlosdasilva.weixin.core.cache.impl;
 
-import io.github.rcarlosdasilva.weixin.core.cache.Cache;
+import io.github.rcarlosdasilva.weixin.core.cache.CacheHandler;
 import io.github.rcarlosdasilva.weixin.model.response.certificate.AccessTokenResponse;
 
 /**
@@ -8,16 +8,16 @@ import io.github.rcarlosdasilva.weixin.model.response.certificate.AccessTokenRes
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public class AccessTokenCache extends AbstractCache<AccessTokenResponse> {
+public class AccessTokenCacheHandler extends AbstractCacheHandler<AccessTokenResponse> {
 
   private static final String DEFAULT_MARK = "atc_";
-  private static final Cache<AccessTokenResponse> instance = new AccessTokenCache();
+  private static final CacheHandler<AccessTokenResponse> instance = new AccessTokenCacheHandler();
 
-  private AccessTokenCache() {
+  private AccessTokenCacheHandler() {
     this.mark = DEFAULT_MARK;
   }
 
-  public static Cache<AccessTokenResponse> getInstance() {
+  public static CacheHandler<AccessTokenResponse> getInstance() {
     return instance;
   }
 

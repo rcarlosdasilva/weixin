@@ -7,16 +7,16 @@ import io.github.rcarlosdasilva.weixin.model.response.certificate.JsTicketRespon
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public class JsTicketCache extends AbstractCache<JsTicketResponse> {
+public class JsTicketCacheHandler extends AbstractCacheHandler<JsTicketResponse> {
 
   private static final String DEFAULT_MARK = "jtc_";
-  private static final JsTicketCache instance = new JsTicketCache();
+  private static final JsTicketCacheHandler instance = new JsTicketCacheHandler();
 
-  private JsTicketCache() {
+  private JsTicketCacheHandler() {
     this.mark = DEFAULT_MARK;
   }
 
-  public static JsTicketCache getInstance() {
+  public static JsTicketCacheHandler getInstance() {
     return instance;
   }
 

@@ -28,7 +28,7 @@ import io.github.rcarlosdasilva.weixin.api.internal.impl.UserApiImpl;
 import io.github.rcarlosdasilva.weixin.api.internal.impl.UserGroupApiImpl;
 import io.github.rcarlosdasilva.weixin.api.internal.impl.UserTagApiImpl;
 import io.github.rcarlosdasilva.weixin.common.Convention;
-import io.github.rcarlosdasilva.weixin.core.cache.impl.AccountCache;
+import io.github.rcarlosdasilva.weixin.core.cache.impl.AccountCacheHandler;
 import io.github.rcarlosdasilva.weixin.model.Account;
 
 /**
@@ -118,7 +118,7 @@ public class Weixin {
    * @return {@link Account}
    */
   public Account info() {
-    return AccountCache.getInstance().get(this.accountKey);
+    return AccountCacheHandler.getInstance().get(this.accountKey);
   }
 
   /**

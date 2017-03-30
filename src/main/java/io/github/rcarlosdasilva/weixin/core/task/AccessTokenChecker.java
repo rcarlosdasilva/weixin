@@ -3,13 +3,13 @@ package io.github.rcarlosdasilva.weixin.core.task;
 import java.util.Set;
 
 import io.github.rcarlosdasilva.weixin.api.Weixin;
-import io.github.rcarlosdasilva.weixin.core.cache.impl.AccessTokenCache;
+import io.github.rcarlosdasilva.weixin.core.cache.impl.AccessTokenCacheHandler;
 
 public class AccessTokenChecker implements Runnable {
 
   @Override
   public void run() {
-    Set<String> keys = AccessTokenCache.getInstance().keys();
+    Set<String> keys = AccessTokenCacheHandler.getInstance().keys();
     for (String key : keys) {
       check(key);
     }
