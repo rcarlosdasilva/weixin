@@ -7,7 +7,7 @@ package io.github.rcarlosdasilva.weixin.core.cache.impl;
  */
 public class MixCacheHandler extends AbstractCacheHandler<Object> {
 
-  private static final String DEFAULT_MARK = "mc_";
+  private static final String DEFAULT_MARK = "mix";
   private static final MixCacheHandler instance = new MixCacheHandler();
 
   private MixCacheHandler() {

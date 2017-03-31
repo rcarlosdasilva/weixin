@@ -6,6 +6,7 @@ public class Configuration {
 
   private boolean throwException = true;
   private boolean useRedisCache = false;
+  private boolean useSpringRedis = false;
   private RedisConfiguration redisConfiguration = null;
 
   public boolean isThrowException() {
@@ -20,10 +21,16 @@ public class Configuration {
     return useRedisCache;
   }
 
-  public RedisConfiguration useRedisCache() {
-    this.useRedisCache = true;
-    this.redisConfiguration = new RedisConfiguration();
-    return redisConfiguration;
+  public void setUseRedisCache(boolean useRedisCache) {
+    this.useRedisCache = useRedisCache;
+  }
+
+  public boolean isUseSpringRedis() {
+    return useSpringRedis;
+  }
+
+  public void setUseSpringRedis(boolean useSpringRedis) {
+    this.useSpringRedis = useSpringRedis;
   }
 
   public RedisConfiguration getRedisConfiguration() {
@@ -31,6 +38,8 @@ public class Configuration {
   }
 
   public void setRedisConfiguration(RedisConfiguration redisConfiguration) {
+    this.useRedisCache = true;
+    this.useSpringRedis = false;
     this.redisConfiguration = redisConfiguration;
   }
 

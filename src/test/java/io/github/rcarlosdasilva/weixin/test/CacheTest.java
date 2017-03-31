@@ -21,9 +21,10 @@ public class CacheTest {
     String test = "weixin2";
 
     Configuration config = new Configuration();
-    RedisConfiguration rc = config.useRedisCache();
+    RedisConfiguration rc = new RedisConfiguration();
     rc.setHost("localhost");
     rc.setDatabase(2);
+    config.setRedisConfiguration(rc);
     WeixinRegistry.config(config);
 
     WeixinRegistry.registry(self, "wx4a1d70e8f0d2a4ec", "9a258c341245bc3f7f9640dda4f4b82e");

@@ -2,9 +2,9 @@ package io.github.rcarlosdasilva.weixin.core;
 
 import io.github.rcarlosdasilva.weixin.api.Weixin;
 import io.github.rcarlosdasilva.weixin.common.Convention;
+import io.github.rcarlosdasilva.weixin.core.cache.holder.SimpleRedisHandler;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.AccessTokenCacheHandler;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.AccountCacheHandler;
-import io.github.rcarlosdasilva.weixin.core.cache.impl.holder.SimpleRedisHandler;
 import io.github.rcarlosdasilva.weixin.core.config.Configuration;
 import io.github.rcarlosdasilva.weixin.model.Account;
 
@@ -31,7 +31,7 @@ public class WeixinRegistry {
       return;
     }
 
-    if (configuration.isUseRedisCache() && configuration.getRedisConfiguration() != null) {
+    if (configuration.isUseRedisCache() && !configuration.isUseSpringRedis()) {
       SimpleRedisHandler.init(configuration.getRedisConfiguration());
     }
 

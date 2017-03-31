@@ -9,7 +9,7 @@ import io.github.rcarlosdasilva.weixin.model.response.certificate.JsTicketRespon
  */
 public class JsTicketCacheHandler extends AbstractCacheHandler<JsTicketResponse> {
 
-  private static final String DEFAULT_MARK = "jtc_";
+  private static final String DEFAULT_MARK = "js_ticket";
   private static final JsTicketCacheHandler instance = new JsTicketCacheHandler();
 
   private JsTicketCacheHandler() {

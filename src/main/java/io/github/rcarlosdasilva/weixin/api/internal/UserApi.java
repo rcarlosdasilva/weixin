@@ -61,6 +61,8 @@ public interface UserApi {
    * 
    * @param openId
    *          OpenId
+   * @param language
+   *          语言
    * @return {@link UserResponse} 用户信息
    * @see <a href=
    *      "https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140839&token=&lang=zh_CN"
@@ -73,6 +75,8 @@ public interface UserApi {
    * 
    * @param openIds
    *          OpenId列表
+   * @param language
+   *          语言
    * @return {@link UserResponse} 用户信息列表
    * @see <a href=
    *      "https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140839&token=&lang=zh_CN"

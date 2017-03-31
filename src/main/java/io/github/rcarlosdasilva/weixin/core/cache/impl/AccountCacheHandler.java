@@ -11,7 +11,7 @@ import io.github.rcarlosdasilva.weixin.model.Account;
  */
 public class AccountCacheHandler extends AbstractCacheHandler<Account> {
 
-  private static final String DEFAULT_MARK = "ac_";
+  private static final String DEFAULT_MARK = "account";
   private static final AccountCacheHandler instance = new AccountCacheHandler();
 
   private AccountCacheHandler() {

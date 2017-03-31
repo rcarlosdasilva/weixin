@@ -1,4 +1,4 @@
-package io.github.rcarlosdasilva.weixin.core.cache.impl.holder;
+package io.github.rcarlosdasilva.weixin.core.cache.holder;
 
 import io.github.rcarlosdasilva.weixin.core.config.RedisConfiguration;
 import io.github.rcarlosdasilva.weixin.core.exception.RedisCacheNotInitializeException;
