@@ -76,4 +76,11 @@ public interface HelperApi {
    */
   boolean isLegalRequestIp(String ip);
 
+  /**
+   * 判断当前公众号配置是否可用.
+   * 
+   * @return 是否可用
+   */
+  boolean isUsable();
+
 }

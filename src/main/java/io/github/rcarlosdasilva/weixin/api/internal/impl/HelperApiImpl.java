@@ -78,4 +78,10 @@ public class HelperApiImpl extends BasicApi implements HelperApi {
     return ips.contains(ip.trim());
   }
 
+  @Override
+  public boolean isUsable() {
+    String token = Weixin.with(accountKey).certificate().askAccessToken();
+    return !Strings.isNullOrEmpty(token);
+  }
+
 }
