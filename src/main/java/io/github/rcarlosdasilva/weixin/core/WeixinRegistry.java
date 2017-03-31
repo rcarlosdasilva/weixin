@@ -41,6 +41,24 @@ public class WeixinRegistry {
   /**
    * 注册一个公众号配置.
    * 
+   * @param key
+   *          公众号键，在之后调用接口时，通过该键决定使用哪一个公众号
+   * @param account
+   *          公众号
+   * @return {@link Account}
+   */
+  public static Account registry(String key, Account account) {
+    init();
+
+    AccountCacheHandler.getInstance().remove(key);
+    AccessTokenCacheHandler.getInstance().remove(key);
+
+    return AccountCacheHandler.getInstance().put(key, account);
+  }
+
+  /**
+   * 注册一个公众号配置.
+   * 
    * <p>
    * 具体配置可以修改{@link Account}
    * 
@@ -53,12 +71,21 @@ public class WeixinRegistry {
    * @return {@link Account}
    */
   public static Account registry(String key, String appId, String appSecret) {
-    init();
+    return registry(key, new Account(appId, appSecret));
+  }
 
-    AccountCacheHandler.getInstance().remove(key);
-    AccessTokenCacheHandler.getInstance().remove(key);
-
-    return AccountCacheHandler.getInstance().put(key, new Account(appId, appSecret));
+  /**
+   * 注册一个唯一的公众号配置.
+   * 
+   * <p>
+   * 当只需要操作一个公众号时，可使用该方法，使用 {@link Weixin#withUnique()}获取注册的配置.
+   * 
+   * @param account
+   *          公众号
+   * @return {@link Account}
+   */
+  public static Account registryUnique(Account account) {
+    return registry(Convention.DEFAULT_UNIQUE_WEIXIN_KEY, account);
   }
 
   /**

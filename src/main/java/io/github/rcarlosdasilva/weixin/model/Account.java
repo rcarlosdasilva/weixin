@@ -28,6 +28,9 @@ public class Account implements Serializable {
   private EncryptionType encryptionType = EncryptionType.PLAIN_TEXT;
   private int retryTimes = 2;
 
+  public Account() {
+  }
+
   /**
    * 指定必须的AppId与AppSecret.
    * 
