@@ -18,7 +18,7 @@ public class UserApiTest {
 
   @BeforeClass
   public static void setUpBeforeClass() {
-    WeixinRegistry.registryUnique(Property.get("appid"), Property.get("appsecret"));
+    WeixinRegistry.registerUnique(Property.get("appid"), Property.get("appsecret"));
   }
 
   @Test

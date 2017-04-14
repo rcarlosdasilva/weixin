@@ -1,11 +1,14 @@
 package io.github.rcarlosdasilva.weixin.core;
 
+import com.google.common.base.Strings;
+
 import io.github.rcarlosdasilva.weixin.api.Weixin;
 import io.github.rcarlosdasilva.weixin.common.Convention;
 import io.github.rcarlosdasilva.weixin.core.cache.holder.SimpleRedisHandler;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.AccessTokenCacheHandler;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.AccountCacheHandler;
 import io.github.rcarlosdasilva.weixin.core.config.Configuration;
+import io.github.rcarlosdasilva.weixin.core.exception.UnmakableAccountKeyException;
 import io.github.rcarlosdasilva.weixin.model.Account;
 
 /**
@@ -47,11 +50,13 @@ public class WeixinRegistry {
    *          公众号
    * @return {@link Account}
    */
-  public static Account registry(String key, Account account) {
-    init();
+  public static Account register(String key, Account account) {
+    if (Strings.isNullOrEmpty(key)) {
+      throw new UnmakableAccountKeyException();
+    }
 
-    AccountCacheHandler.getInstance().remove(key);
-    AccessTokenCacheHandler.getInstance().remove(key);
+    init();
+    unregister(key);
 
     return AccountCacheHandler.getInstance().put(key, account);
   }
@@ -70,8 +75,8 @@ public class WeixinRegistry {
    *          appsecret
    * @return {@link Account}
    */
-  public static Account registry(String key, String appId, String appSecret) {
-    return registry(key, new Account(appId, appSecret));
+  public static Account register(String key, String appId, String appSecret) {
+    return register(key, new Account(appId, appSecret));
   }
 
   /**
@@ -84,8 +89,8 @@ public class WeixinRegistry {
    *          公众号
    * @return {@link Account}
    */
-  public static Account registryUnique(Account account) {
-    return registry(Convention.DEFAULT_UNIQUE_WEIXIN_KEY, account);
+  public static Account registerUnique(Account account) {
+    return register(Convention.DEFAULT_UNIQUE_WEIXIN_KEY, account);
   }
 
   /**
@@ -100,8 +105,21 @@ public class WeixinRegistry {
    *          appsecret
    * @return {@link Account}
    */
-  public static Account registryUnique(String appId, String appSecret) {
-    return registry(Convention.DEFAULT_UNIQUE_WEIXIN_KEY, appId, appSecret);
+  public static Account registerUnique(String appId, String appSecret) {
+    return register(Convention.DEFAULT_UNIQUE_WEIXIN_KEY, appId, appSecret);
+  }
+
+  public static void unregister(String key) {
+    if (Strings.isNullOrEmpty(key)) {
+      throw new UnmakableAccountKeyException();
+    }
+
+    AccountCacheHandler.getInstance().remove(key);
+    AccessTokenCacheHandler.getInstance().remove(key);
+  }
+
+  public static void unregisterUnique() {
+    unregister(Convention.DEFAULT_UNIQUE_WEIXIN_KEY);
   }
 
   /**

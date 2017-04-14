@@ -17,7 +17,7 @@ public class UserTagApiTest {
 
   @BeforeClass
   public static void setUpBeforeClass() throws Exception {
-    WeixinRegistry.registryUnique(Property.get("appid"), Property.get("appsecret"));
+    WeixinRegistry.registerUnique(Property.get("appid"), Property.get("appsecret"));
   }
 
   @Test
