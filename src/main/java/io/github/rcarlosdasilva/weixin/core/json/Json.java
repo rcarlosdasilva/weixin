@@ -24,7 +24,6 @@ public final class Json {
 
         @Override
         public boolean shouldSkipClass(Class<?> clazz) {
-          // TODO Auto-generated method stub
           return false;
         }
       }).create();

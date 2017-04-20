@@ -24,7 +24,7 @@ public class AbstractCacheHandler<V> implements CacheHandler<V> {
     return WeixinRegistry.getConfiguration().isUseSpringRedis();
   }
 
-  private static String key(String module, String resource) {
+  private static String key(final String module, final String resource) {
     return new StringBuilder(Convention.DEFAULT_REDIS_KEY_PREFIX)
         .append(Convention.DEFAULT_REDIS_KEY_SEPARATOR).append(module)
         .append(Convention.DEFAULT_REDIS_KEY_SEPARATOR).append(resource).toString();
@@ -94,7 +94,7 @@ public class AbstractCacheHandler<V> implements CacheHandler<V> {
 
   @SuppressWarnings("unchecked")
   @Override
-  public V put(String key, V object) {
+  public V put(final String key, final V object) {
     if (isSimpleRedis()) {
       Jedis jedis = SimpleRedisHandler.getRedis();
       jedis.set(realRedisKey(key).getBytes(), Utils.serialize(object));
@@ -109,7 +109,7 @@ public class AbstractCacheHandler<V> implements CacheHandler<V> {
 
   @SuppressWarnings("unchecked")
   @Override
-  public V remove(String key) {
+  public V remove(final String key) {
     if (isSimpleRedis()) {
       V object = get(key);
       if (object == null) {
@@ -134,7 +134,7 @@ public class AbstractCacheHandler<V> implements CacheHandler<V> {
   }
 
   @Override
-  public String lookup(V value) {
+  public String lookup(final V value) {
     return null;
   }
 
