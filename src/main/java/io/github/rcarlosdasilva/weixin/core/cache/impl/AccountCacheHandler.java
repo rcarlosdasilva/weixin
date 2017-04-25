@@ -1,6 +1,6 @@
 package io.github.rcarlosdasilva.weixin.core.cache.impl;
 
-import java.util.Set;
+import java.util.Collection;
 
 import io.github.rcarlosdasilva.weixin.model.Account;
 
@@ -33,7 +33,7 @@ public class AccountCacheHandler extends AbstractCacheHandler<Account> {
       return null;
     }
 
-    Set<String> keys = keys();
+    Collection<String> keys = keys();
     for (String key : keys) {
       Account account = get(key);
       if (appid != null && appid.equals(account.getAppId())) {

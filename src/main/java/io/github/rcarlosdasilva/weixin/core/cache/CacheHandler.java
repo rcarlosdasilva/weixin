@@ -1,6 +1,6 @@
 package io.github.rcarlosdasilva.weixin.core.cache;
 
-import java.util.Set;
+import java.util.Collection;
 
 /**
  * 缓存
@@ -14,7 +14,7 @@ public interface CacheHandler<V> {
    * 
    * @return 键
    */
-  Set<String> keys();
+  Collection<String> keys();
 
   /**
    * 缓存大小

@@ -1,6 +1,13 @@
 package io.github.rcarlosdasilva.weixin.core.cache.impl;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
+
+import com.google.common.base.Function;
+import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
+import com.google.common.collect.Collections2;
 
 import io.github.rcarlosdasilva.weixin.common.Convention;
 import io.github.rcarlosdasilva.weixin.common.Utils;
@@ -12,6 +19,10 @@ import io.github.rcarlosdasilva.weixin.core.cache.holder.SimpleRedisHandler;
 import redis.clients.jedis.Jedis;
 
 public class AbstractCacheHandler<V> implements CacheHandler<V> {
+
+  private static final String REDIS_KEY_PREFIX = Convention.DEFAULT_REDIS_KEY_PREFIX
+      + Convention.DEFAULT_REDIS_KEY_SEPARATOR;
+  private static final Splitter SPLITTER = Splitter.on(Convention.DEFAULT_REDIS_KEY_SEPARATOR);
 
   protected String mark;
 
@@ -25,8 +36,7 @@ public class AbstractCacheHandler<V> implements CacheHandler<V> {
   }
 
   private static String key(final String module, final String resource) {
-    return new StringBuilder(Convention.DEFAULT_REDIS_KEY_PREFIX)
-        .append(Convention.DEFAULT_REDIS_KEY_SEPARATOR).append(module)
+    return new StringBuilder(REDIS_KEY_PREFIX).append(module)
         .append(Convention.DEFAULT_REDIS_KEY_SEPARATOR).append(resource).toString();
   }
 
@@ -38,13 +48,37 @@ public class AbstractCacheHandler<V> implements CacheHandler<V> {
     return realRedisKey(Convention.DEFAULT_REDIS_KEY_PATTERN);
   }
 
+  private String realKey(final String redisKey) {
+    if (!Strings.isNullOrEmpty(redisKey)) {
+      List<String> parts = SPLITTER.splitToList(redisKey);
+      if (parts != null && parts.size() > 0) {
+        return parts.get(parts.size() - 1);
+      }
+    }
+    return "";
+  }
+
+  private Collection<String> realKeys(final Set<String> redisKeys) {
+    if (redisKeys == null) {
+      return null;
+    }
+
+    return Collections2.transform(redisKeys, new Function<String, String>() {
+
+      @Override
+      public String apply(String input) {
+        return realKey(input);
+      }
+    });
+  }
+
   @SuppressWarnings("unchecked")
   @Override
-  public Set<String> keys() {
+  public Collection<String> keys() {
     if (isSimpleRedis()) {
-      return SimpleRedisHandler.getRedis().keys(new String(realRedisKeyPattern()));
+      return realKeys(SimpleRedisHandler.getRedis().keys(new String(realRedisKeyPattern())));
     } else if (isSpringRedis()) {
-      return RedisTemplateHandler.redisTemplate.keys(realRedisKeyPattern());
+      return realKeys(RedisTemplateHandler.redisTemplate.keys(realRedisKeyPattern()));
     } else {
       return MapHandler.getObject(mark).keySet();
     }
@@ -63,7 +97,7 @@ public class AbstractCacheHandler<V> implements CacheHandler<V> {
   @Override
   public void clear() {
     if (isSimpleRedis()) {
-      Set<String> keys = keys();
+      Collection<String> keys = keys();
       for (String key : keys) {
         remove(key);
       }
