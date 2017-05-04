@@ -72,9 +72,10 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
 
     long expiresIn = 7200 * 1000;
     if (expiredAt > 0) {
-      expiresIn = expiredAt - (System.currentTimeMillis() / 1000);
+      expiresIn = expiredAt - System.currentTimeMillis();
     }
-    String responseMock = String.format("{'access_token':'%s','expires_in':%s}", token, expiresIn);
+    String responseMock = String.format("{'access_token':'%s','expires_in':%s}", token,
+        (expiresIn / 1000));
     AccessTokenResponse responseModel = Json.fromJson(responseMock, AccessTokenResponse.class);
     responseModel.updateExpireAt();
     AccessTokenCacheHandler.getInstance().put(this.accountKey, responseModel);
@@ -147,9 +148,10 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
 
     long expiresIn = 7200 * 1000;
     if (expiredAt > 0) {
-      expiresIn = expiredAt - (System.currentTimeMillis() / 1000);
+      expiresIn = expiredAt - System.currentTimeMillis();
     }
-    String responseMock = String.format("{'access_token':'%s','expires_in':%s}", ticket, expiresIn);
+    String responseMock = String.format("{'access_token':'%s','expires_in':%s}", ticket,
+        (expiresIn / 1000));
     JsTicketResponse responseModel = Json.fromJson(responseMock, JsTicketResponse.class);
     responseModel.updateExpireAt();
     JsTicketCacheHandler.getInstance().put(this.accountKey, responseModel);

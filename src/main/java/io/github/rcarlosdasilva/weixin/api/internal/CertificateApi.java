@@ -33,7 +33,7 @@ public interface CertificateApi {
    * @param token
    *          指定token
    * @param expiredAt
-   *          token过期时间（并非多长时间过期），单位秒，值为0则按照7200秒内有效（同微信规则）
+   *          token过期时间点的毫秒数（并非多长时间过期），值为0则按照7200秒内有效（同微信规则）
    */
   void updateAccessToken(String token, long expiredAt);
 
@@ -58,10 +58,10 @@ public interface CertificateApi {
   /**
    * 更新JS SDK凭证(jsapi_ticket)为指定的ticket.
    * 
-   * @param token
+   * @param ticket
    *          指定ticket
    * @param expiredAt
-   *          token过期时间（并非多长时间过期），单位秒，值如果小于0则按照7200秒内有效（同微信规则）
+   *          token过期时间点的毫秒数（并非多长时间过期），值如果小于0则按照7200秒内有效（同微信规则）
    */
   void updateJsTicket(String ticket, long expiredAt);
 
