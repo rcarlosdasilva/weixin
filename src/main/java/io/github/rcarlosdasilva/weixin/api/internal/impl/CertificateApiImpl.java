@@ -3,12 +3,15 @@ package io.github.rcarlosdasilva.weixin.api.internal.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Strings;
+
 import io.github.rcarlosdasilva.weixin.api.internal.BasicApi;
 import io.github.rcarlosdasilva.weixin.api.internal.CertificateApi;
 import io.github.rcarlosdasilva.weixin.core.WeixinRegistry;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.AccessTokenCacheHandler;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.AccountCacheHandler;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.JsTicketCacheHandler;
+import io.github.rcarlosdasilva.weixin.core.json.Json;
 import io.github.rcarlosdasilva.weixin.model.Account;
 import io.github.rcarlosdasilva.weixin.model.request.certificate.AccessTokenRequest;
 import io.github.rcarlosdasilva.weixin.model.request.certificate.JsTicketRequest;
@@ -58,6 +61,23 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
   @Override
   public void refreshAccessToken() {
     requestAccessToken();
+  }
+
+  @Override
+  public void updateAccessToken(String token, long expiredAt) {
+    if (Strings.isNullOrEmpty(token) || expiredAt < 0) {
+      logger.warn("For:{} >> 使用错误的数据更新token： {}, {}", this.accountKey, token, expiredAt);
+      return;
+    }
+
+    long expiresIn = 7200 * 1000;
+    if (expiredAt > 0) {
+      expiresIn = expiredAt - (System.currentTimeMillis() / 1000);
+    }
+    String responseMock = String.format("{'access_token':'%s','expires_in':%s}", token, expiresIn);
+    AccessTokenResponse responseModel = Json.fromJson(responseMock, AccessTokenResponse.class);
+    responseModel.updateExpireAt();
+    AccessTokenCacheHandler.getInstance().put(this.accountKey, responseModel);
   }
 
   /**
@@ -116,6 +136,23 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
   @Override
   public void refreshJsTicket() {
     requestJsTicket();
+  }
+
+  @Override
+  public void updateJsTicket(String ticket, long expiredAt) {
+    if (Strings.isNullOrEmpty(ticket) || expiredAt < 0) {
+      logger.warn("For:{} >> 使用错误的数据更新ticket： {}, {}", this.accountKey, ticket, expiredAt);
+      return;
+    }
+
+    long expiresIn = 7200 * 1000;
+    if (expiredAt > 0) {
+      expiresIn = expiredAt - (System.currentTimeMillis() / 1000);
+    }
+    String responseMock = String.format("{'access_token':'%s','expires_in':%s}", ticket, expiresIn);
+    JsTicketResponse responseModel = Json.fromJson(responseMock, JsTicketResponse.class);
+    responseModel.updateExpireAt();
+    JsTicketCacheHandler.getInstance().put(this.accountKey, responseModel);
   }
 
   /**
