@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import io.github.rcarlosdasilva.weixin.api.internal.BasicApi;
 import io.github.rcarlosdasilva.weixin.api.internal.CertificateApi;
+import io.github.rcarlosdasilva.weixin.core.WeixinRegistry;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.AccessTokenCacheHandler;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.AccountCacheHandler;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.JsTicketCacheHandler;
@@ -78,6 +79,13 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
       AccessTokenCacheHandler.getInstance().put(this.accountKey, responseModel);
       logger.debug("For:{} >> 获取到access_token：[{}]", this.accountKey,
           responseModel.getAccessToken());
+
+      if (WeixinRegistry.getConfiguration() != null
+          && WeixinRegistry.getConfiguration().getAccessTokenUpdatListener() != null) {
+        WeixinRegistry.getConfiguration().getAccessTokenUpdatListener().updated(account.getKey(),
+            account.getAppId(), responseModel.getAccessToken(), responseModel.getExpiresIn());
+      }
+
       return responseModel;
     }
 
@@ -125,6 +133,14 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
       responseModel.updateExpireAt();
       JsTicketCacheHandler.getInstance().put(this.accountKey, responseModel);
       logger.debug("For:{} >> 获取jsapi_ticket：[{}]", this.accountKey, responseModel.getJsTicket());
+
+      if (WeixinRegistry.getConfiguration() != null
+          && WeixinRegistry.getConfiguration().getJsTicketUpdatedListener() != null) {
+        Account account = AccountCacheHandler.getInstance().get(this.accountKey);
+        WeixinRegistry.getConfiguration().getJsTicketUpdatedListener().updated(account.getKey(),
+            account.getAppId(), responseModel.getJsTicket(), responseModel.getExpiresIn());
+      }
+
       return responseModel;
     }
 

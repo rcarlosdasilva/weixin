@@ -1,5 +1,8 @@
 package io.github.rcarlosdasilva.weixin.core.config;
 
+import io.github.rcarlosdasilva.weixin.core.listener.AccessTokenUpdatedListener;
+import io.github.rcarlosdasilva.weixin.core.listener.JsTicketUpdatedListener;
+
 public class Configuration {
 
   public static final Configuration DEFAULT_CONFIG = new Configuration();
@@ -7,6 +10,8 @@ public class Configuration {
   private boolean throwException = true;
   private boolean useRedisCache = false;
   private boolean useSpringRedis = false;
+  private AccessTokenUpdatedListener accessTokenUpdatListener = null;
+  private JsTicketUpdatedListener jsTicketUpdatedListener = null;
   private RedisConfiguration redisConfiguration = null;
 
   public boolean isThrowException() {
@@ -31,6 +36,22 @@ public class Configuration {
 
   public void setUseSpringRedis(boolean useSpringRedis) {
     this.useSpringRedis = useSpringRedis;
+  }
+
+  public AccessTokenUpdatedListener getAccessTokenUpdatListener() {
+    return accessTokenUpdatListener;
+  }
+
+  public void setAccessTokenUpdatListener(AccessTokenUpdatedListener accessTokenUpdatListener) {
+    this.accessTokenUpdatListener = accessTokenUpdatListener;
+  }
+
+  public JsTicketUpdatedListener getJsTicketUpdatedListener() {
+    return jsTicketUpdatedListener;
+  }
+
+  public void setJsTicketUpdatedListener(JsTicketUpdatedListener jsTicketUpdatedListener) {
+    this.jsTicketUpdatedListener = jsTicketUpdatedListener;
   }
 
   public RedisConfiguration getRedisConfiguration() {
