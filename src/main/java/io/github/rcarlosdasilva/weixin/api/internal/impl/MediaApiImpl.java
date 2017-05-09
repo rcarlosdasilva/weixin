@@ -142,7 +142,7 @@ public class MediaApiImpl extends BasicApi implements MediaApi {
       responseModel = post(MediaGetTimelessResponse.class, requestModel);
     } catch (Exception ex) {
       responseModel = new MediaGetTimelessResponse();
-      responseModel.setStream(postStream(requestModel));
+      responseModel.setStream(readStream(postStream(requestModel)));
     }
 
     return responseModel;
@@ -177,6 +177,13 @@ public class MediaApiImpl extends BasicApi implements MediaApi {
   public MediaListTimelessResponse listTimelessMedia(MediaType type, int offset, int count) {
     Preconditions.checkArgument(MediaType.THUMBNAIL != type,
         "Not supported media type of Thumb when list timeless");
+    if (count > 20) {
+      count = 20;
+    }
+    if (count < 1) {
+      count = 1;
+    }
+
     MediaListTimelessRequest requestModel = new MediaListTimelessRequest();
     requestModel.setType(type.getText());
     requestModel.setOffset(offset);

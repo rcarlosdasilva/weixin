@@ -9,14 +9,15 @@ import io.github.rcarlosdasilva.weixin.model.response.media.bean.Article;
 
 public class MediaGetTimelessResponse {
 
-  private InputStream stream;
+  private byte[] stream;
   private String title;
   private String description;
   @SerializedName("down_url")
   private String downloadUrl;
+  @SerializedName("news_item")
   private List<Article> articles;
 
-  public void setStream(InputStream stream) {
+  public void setStream(byte[] stream) {
     this.stream = stream;
   }
 
@@ -25,7 +26,7 @@ public class MediaGetTimelessResponse {
    * 
    * @return {@link InputStream}
    */
-  public InputStream getStream() {
+  public byte[] getStream() {
     return stream;
   }
 

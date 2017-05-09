@@ -7,6 +7,7 @@ public class MediaAddMassResponse {
   @SerializedName("media_id")
   private String mediaId;
   private String type;
+  @SerializedName("created_at")
   private long createAt;
   private String url;
 
