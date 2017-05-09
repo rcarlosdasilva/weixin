@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 @SuppressWarnings("unused")
 public class Video implements Message {
 
+  @SerializedName("media_id")
   private String mediaId;
   @SerializedName("thumb_media_id")
   private String mediaThumbId;

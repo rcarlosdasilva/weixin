@@ -1,9 +1,7 @@
 package io.github.rcarlosdasilva.weixin.test.basic;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.util.List;
 
 import io.github.rcarlosdasilva.weixin.api.Weixin;
@@ -36,23 +34,11 @@ public class OtherCommons {
     // InputStream is = Weixin.withUnique().common().qrImage(response);
 
     // 或者直接获取二维码图片
-    InputStream is = Weixin.withUnique().common().qrImageWithTemporary(1, 1);
-    byte[] data = readInputStream(is);
+    byte[] data = Weixin.withUnique().common().qrImageWithTemporary(1, 1);
     File imageFile = new File("qr.jpg");
     FileOutputStream outStream = new FileOutputStream(imageFile);
     outStream.write(data);
     outStream.close();
-  }
-
-  private static byte[] readInputStream(InputStream inStream) throws Exception {
-    ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-    byte[] buffer = new byte[1024];
-    int len = 0;
-    while ((len = inStream.read(buffer)) != -1) {
-      outStream.write(buffer, 0, len);
-    }
-    inStream.close();
-    return outStream.toByteArray();
   }
 
 }

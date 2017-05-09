@@ -1,8 +1,10 @@
 package io.github.rcarlosdasilva.weixin.model.request.message.bean;
 
-@SuppressWarnings("unused")
+import com.google.gson.annotations.SerializedName;
+
 public class Image implements Message {
 
+  @SerializedName("media_id")
   private String mediaId;
 
   public void setMediaId(String mediaId) {

@@ -1,9 +1,12 @@
 package io.github.rcarlosdasilva.weixin.model.request.message.bean;
 
-@SuppressWarnings("unused")
+import com.google.gson.annotations.SerializedName;
+
 public class MassFilter {
 
+  @SerializedName("is_to_all")
   private boolean isToAll = false;
+  @SerializedName("tag_id")
   private int tagId;
 
   public void setTagId(int tagId) {
