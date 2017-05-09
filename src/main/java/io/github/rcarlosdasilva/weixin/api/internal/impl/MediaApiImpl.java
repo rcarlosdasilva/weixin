@@ -12,7 +12,11 @@ import io.github.rcarlosdasilva.weixin.api.internal.BasicApi;
 import io.github.rcarlosdasilva.weixin.api.internal.MediaApi;
 import io.github.rcarlosdasilva.weixin.common.Convention;
 import io.github.rcarlosdasilva.weixin.common.dictionary.MediaType;
+import io.github.rcarlosdasilva.weixin.core.http.ContentType;
 import io.github.rcarlosdasilva.weixin.core.http.FormData;
+import io.github.rcarlosdasilva.weixin.core.http.Http;
+import io.github.rcarlosdasilva.weixin.core.http.HttpMethod;
+import io.github.rcarlosdasilva.weixin.core.parser.ResponseParser;
 import io.github.rcarlosdasilva.weixin.model.request.media.MediaAddMassImageRequest;
 import io.github.rcarlosdasilva.weixin.model.request.media.MediaAddMassNewsRequest;
 import io.github.rcarlosdasilva.weixin.model.request.media.MediaAddTemporaryRequest;
@@ -21,6 +25,7 @@ import io.github.rcarlosdasilva.weixin.model.request.media.MediaAddTimelessReque
 import io.github.rcarlosdasilva.weixin.model.request.media.MediaCountTimelessRequest;
 import io.github.rcarlosdasilva.weixin.model.request.media.MediaDeleteTimelessRequest;
 import io.github.rcarlosdasilva.weixin.model.request.media.MediaGetTemporaryRequest;
+import io.github.rcarlosdasilva.weixin.model.request.media.MediaGetTemporaryWithHqAudioRequest;
 import io.github.rcarlosdasilva.weixin.model.request.media.MediaGetTimelessRequest;
 import io.github.rcarlosdasilva.weixin.model.request.media.MediaListTimelessRequest;
 import io.github.rcarlosdasilva.weixin.model.request.media.MediaTransformMassVideoRequest;
@@ -30,6 +35,7 @@ import io.github.rcarlosdasilva.weixin.model.response.media.MediaAddMassResponse
 import io.github.rcarlosdasilva.weixin.model.response.media.MediaAddTemporaryResponse;
 import io.github.rcarlosdasilva.weixin.model.response.media.MediaAddTimelessResponse;
 import io.github.rcarlosdasilva.weixin.model.response.media.MediaCountTimelessResponse;
+import io.github.rcarlosdasilva.weixin.model.response.media.MediaGetTemporaryWithVideoResponse;
 import io.github.rcarlosdasilva.weixin.model.response.media.MediaGetTimelessResponse;
 import io.github.rcarlosdasilva.weixin.model.response.media.MediaListTimelessResponse;
 import io.github.rcarlosdasilva.weixin.model.response.media.MediaTransformMassVideoResponse;
@@ -57,11 +63,37 @@ public class MediaApiImpl extends BasicApi implements MediaApi {
   }
 
   @Override
-  public InputStream getTemporaryMedia(String mediaId) {
+  public byte[] getTemporaryMedia(String mediaId) {
     MediaGetTemporaryRequest requestModel = new MediaGetTemporaryRequest();
     requestModel.setMediaId(mediaId);
 
-    return getStream(requestModel);
+    InputStream is = getStream(requestModel);
+
+    byte[] result = readStream(is);
+    String text = new String(result);
+
+    try {
+      is.close();
+
+      MediaGetTemporaryWithVideoResponse vedioResponse = ResponseParser
+          .parse(MediaGetTemporaryWithVideoResponse.class, text);
+
+      is = Http.requestStreamWithBodyContent(vedioResponse.getVideoUrl(), HttpMethod.GET, null,
+          ContentType.JSON);
+      result = readStream(is);
+      is.close();
+    } catch (Exception e) {
+    }
+
+    return result;
+  }
+
+  @Override
+  public byte[] getTemporaryMediaWithHqAudio(String mediaId) {
+    MediaGetTemporaryWithHqAudioRequest requestModel = new MediaGetTemporaryWithHqAudioRequest();
+    requestModel.setMediaId(mediaId);
+
+    return readStream(getStream(requestModel));
   }
 
   @Override

@@ -11,6 +11,7 @@ public class ApiAddress {
   private static final String URL_MP_DOMAIN = "https://mp.weixin.qq.com/";
   private static final String URL_OPEN_DOMAIN = "https://open.weixin.qq.com/";
   private static final String URL_FILE_DOMAIN = "https://file.api.weixin.qq.com";
+  @SuppressWarnings("unused")
   private static final String URL_API_DOMAIN_WITHOUT_SSL = "http://api.weixin.qq.com/";
 
   // ------------------------ Certificate ----------------------
@@ -147,8 +148,9 @@ public class ApiAddress {
 
   // ------------------------ Media ----------------------
   public static final String URL_MEDIA_TEMPORARY_ADD = URL_API_DOMAIN + "cgi-bin/media/upload";
-  public static final String URL_MEDIA_TEMPORARY_GET = URL_API_DOMAIN_WITHOUT_SSL
-      + "cgi-bin/media/get";
+  public static final String URL_MEDIA_TEMPORARY_GET = URL_API_DOMAIN + "cgi-bin/media/get";
+  public static final String URL_MEDIA_TEMPORARY_GET_HQ_AUDIO = URL_API_DOMAIN
+      + "cgi-bin/media/get/jssdk";
   public static final String URL_MEDIA_TIMELESS_ADD = URL_API_DOMAIN
       + "cgi-bin/material/add_material";
   public static final String URL_MEDIA_TIMELESS_ADD_NEWS = URL_API_DOMAIN

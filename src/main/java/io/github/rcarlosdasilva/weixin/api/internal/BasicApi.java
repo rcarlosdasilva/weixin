@@ -1,11 +1,14 @@
 package io.github.rcarlosdasilva.weixin.api.internal;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.common.io.ByteStreams;
 
 import io.github.rcarlosdasilva.weixin.api.Weixin;
 import io.github.rcarlosdasilva.weixin.core.exception.MaydayMaydaySaveMeBecauseAccessTokenSetMeFuckUpException;
@@ -186,6 +189,15 @@ public class BasicApi {
 
     }.run();
 
+  }
+
+  protected byte[] readStream(InputStream is) {
+    try {
+      return ByteStreams.toByteArray(is);
+    } catch (IOException e) {
+      e.printStackTrace();
+      return null;
+    }
   }
 
   /**

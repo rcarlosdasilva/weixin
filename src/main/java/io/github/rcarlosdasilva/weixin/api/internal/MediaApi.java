@@ -1,7 +1,6 @@
 package io.github.rcarlosdasilva.weixin.api.internal;
 
 import java.io.File;
-import java.io.InputStream;
 import java.util.List;
 
 import io.github.rcarlosdasilva.weixin.common.dictionary.MediaType;
@@ -25,14 +24,21 @@ public interface MediaApi {
    * 新增临时素材.
    * 
    * <p>
-   * 对于临时素材，每个素材（media_id）会在开发者上传或粉丝发送到微信服务器3天后自动删除
-   * （所以用户发送给开发者的素材，若开发者需要，应尽快下载到本地），以节省服务器资源。
+   * 公众号经常有需要用到一些临时性的多媒体素材的场景，例如在使用接口特别是发送消息时，对多媒体文件、多媒体消息的获取和调用等操作，
+   * 是通过media_id来进行的。素材管理接口对所有认证的订阅号和服务号开放。通过本接口，公众号可以新增临时素材（即上传临时多媒体文件）。
    * <p>
-   * 素材的格式大小等要求与公众平台官网一致。具体是，图片大小不超过2M，支持png/jpeg/jpg/gif格式，
-   * 语音大小不超过5M，长度不超过60秒，支持mp3/amr格式
+   * 注意点：<br>
+   * 1、临时素材media_id是可复用的。<br>
+   * 2、媒体文件在微信后台保存时间为3天，即3天后media_id失效。 <br>
+   * 3、上传临时素材的格式、大小限制与公众平台官网一致。 <br>
+   * 图片（image）: 2M，支持PNG\JPEG\JPG\GIF格式 <br>
+   * 语音（voice）：2M，播放长度不超过60s，支持AMR\MP3格式 <br>
+   * 视频（video）：10MB，支持MP4格式 <br>
+   * 缩略图（thumb）：64KB，支持JPG格式 <br>
+   * 4、需使用https调用本接口。
    * 
    * @param type
-   *          素材类型
+   *          素材类型，不包含图文
    * @param fileName
    *          文件名
    * @param file
@@ -48,7 +54,8 @@ public interface MediaApi {
    * 获取临时素材.
    * 
    * <p>
-   * 公众号可以使用本接口获取临时素材（即下载临时的多媒体文件）
+   * 公众号可以使用本接口获取临时素材（即下载临时的多媒体文件）。请注意，视频文件不支持https下载，调用该接口需http协议。
+   * 本接口即为原“下载多媒体文件”接口。
    * 
    * @param mediaId
    *          媒体文件ID
@@ -57,7 +64,23 @@ public interface MediaApi {
    *      "https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1444738727&token=&lang=zh_CN"
    *      >获取临时素材</a>
    */
-  InputStream getTemporaryMedia(String mediaId);
+  byte[] getTemporaryMedia(String mediaId);
+
+  /**
+   * 获取临时素材（高清语音素材获取接口）.
+   * 
+   * <p>
+   * 公众号可以使用本接口获取从JSSDK的uploadVoice接口上传的临时语音素材，格式为speex，16K采样率。
+   * 该音频比上文的临时素材获取接口（格式为amr，8K采样率）更加清晰，适合用作语音识别等对音质要求较高的业务。
+   * 
+   * @param mediaId
+   *          媒体文件ID
+   * @return 二进制流
+   * @see <a href=
+   *      "https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1444738727&token=&lang=zh_CN"
+   *      >获取临时素材</a>
+   */
+  byte[] getTemporaryMediaWithHqAudio(String mediaId);
 
   /**
    * 新增其他类型永久素材.
