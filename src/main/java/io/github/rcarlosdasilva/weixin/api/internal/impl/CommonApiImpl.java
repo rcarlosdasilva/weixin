@@ -1,6 +1,5 @@
 package io.github.rcarlosdasilva.weixin.api.internal.impl;
 
-import java.io.InputStream;
 import java.util.List;
 
 import io.github.rcarlosdasilva.weixin.api.internal.BasicApi;
@@ -77,27 +76,27 @@ public class CommonApiImpl extends BasicApi implements CommonApi {
   }
 
   @Override
-  public InputStream qrImage(QrCodeCreateResponse qrResponse) {
+  public byte[] qrImage(QrCodeCreateResponse qrResponse) {
     QrCodeShowRequest requestModel = new QrCodeShowRequest();
     requestModel.setTicket(qrResponse.getTicket());
 
-    return getStream(requestModel);
+    return readStream(getStream(requestModel));
   }
 
   @Override
-  public InputStream qrImageWithTemporary(long expireSeconds, int senceId) {
+  public byte[] qrImageWithTemporary(long expireSeconds, int senceId) {
     QrCodeCreateResponse responseModel = createQrWithTemporary(expireSeconds, senceId);
     return qrImage(responseModel);
   }
 
   @Override
-  public InputStream qrImageWithUnlimited(int senceId) {
+  public byte[] qrImageWithUnlimited(int senceId) {
     QrCodeCreateResponse responseModel = createQrWithUnlimited(senceId);
     return qrImage(responseModel);
   }
 
   @Override
-  public InputStream qrImageWithUnlimited(String senceString) {
+  public byte[] qrImageWithUnlimited(String senceString) {
     QrCodeCreateResponse responseModel = createQrWithUnlimited(senceString);
     return qrImage(responseModel);
   }

@@ -1,6 +1,5 @@
 package io.github.rcarlosdasilva.weixin.model.response.media;
 
-import java.io.InputStream;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
@@ -24,7 +23,7 @@ public class MediaGetTimelessResponse {
   /**
    * 如果是除视频或图文之外的其他类型的素材消息，则响应的直接为素材的内容，开发者可以自行保存为文件.
    * 
-   * @return {@link InputStream}
+   * @return {@link byte[]}
    */
   public byte[] getStream() {
     return stream;

@@ -1,6 +1,5 @@
 package io.github.rcarlosdasilva.weixin.api.internal;
 
-import java.io.InputStream;
 import java.util.List;
 
 import io.github.rcarlosdasilva.weixin.model.response.common.QrCodeCreateResponse;
@@ -101,7 +100,7 @@ public interface CommonApi {
    *      "https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1443433542&token=&lang=zh_CN"
    *      >生成带参数的二维码</a>
    */
-  InputStream qrImage(QrCodeCreateResponse qrResponse);
+  byte[] qrImage(QrCodeCreateResponse qrResponse);
 
   /**
    * 直接获取带参数的临时二维码.
@@ -119,7 +118,7 @@ public interface CommonApi {
    *      "https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1443433542&token=&lang=zh_CN"
    *      >生成带参数的二维码</a>
    */
-  InputStream qrImageWithTemporary(long expireSeconds, int senceId);
+  byte[] qrImageWithTemporary(long expireSeconds, int senceId);
 
   /**
    * 直接获取带参数的永久二维码.
@@ -134,7 +133,7 @@ public interface CommonApi {
    *      "https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1443433542&token=&lang=zh_CN"
    *      >生成带参数的二维码</a>
    */
-  InputStream qrImageWithUnlimited(int senceId);
+  byte[] qrImageWithUnlimited(int senceId);
 
   /**
    * 直接获取带参数的永久二维码.
@@ -149,6 +148,6 @@ public interface CommonApi {
    *      "https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1443433542&token=&lang=zh_CN"
    *      >生成带参数的二维码</a>
    */
-  InputStream qrImageWithUnlimited(String senceString);
+  byte[] qrImageWithUnlimited(String senceString);
 
 }
