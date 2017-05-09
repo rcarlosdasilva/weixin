@@ -1,10 +1,14 @@
 package io.github.rcarlosdasilva.weixin.model.response.media.bean;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Media {
 
+  @SerializedName("media_id")
   private String mediaId;
   private String name;
   private String url;
+  @SerializedName("update_time")
   private long updateTime;
   private ArticleCollection content;
 

@@ -1,7 +1,10 @@
 package io.github.rcarlosdasilva.weixin.model.response.media;
 
+import com.google.gson.annotations.SerializedName;
+
 public class MediaAddMassResponse {
 
+  @SerializedName("media_id")
   private String mediaId;
   private String type;
   private long createAt;

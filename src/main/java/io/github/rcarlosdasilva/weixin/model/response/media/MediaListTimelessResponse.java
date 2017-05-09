@@ -8,7 +8,9 @@ import io.github.rcarlosdasilva.weixin.model.response.media.bean.Media;
 
 public class MediaListTimelessResponse {
 
+  @SerializedName("total_count")
   private int totalCount;
+  @SerializedName("item_count")
   private int itemCount;
   @SerializedName("item")
   private List<Media> items;

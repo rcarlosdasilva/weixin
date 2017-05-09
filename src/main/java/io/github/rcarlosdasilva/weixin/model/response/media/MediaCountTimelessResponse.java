@@ -1,10 +1,16 @@
 package io.github.rcarlosdasilva.weixin.model.response.media;
 
+import com.google.gson.annotations.SerializedName;
+
 public class MediaCountTimelessResponse {
 
+  @SerializedName("voice_count")
   private int voiceCount;
+  @SerializedName("video_count")
   private int videoCount;
+  @SerializedName("image_count")
   private int imageCount;
+  @SerializedName("news_count")
   private int newsCount;
 
   /**
