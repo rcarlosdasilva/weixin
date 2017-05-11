@@ -10,7 +10,8 @@ public class ApiAddress {
   private static final String URL_API_DOMAIN = "https://api.weixin.qq.com/";
   private static final String URL_MP_DOMAIN = "https://mp.weixin.qq.com/";
   private static final String URL_OPEN_DOMAIN = "https://open.weixin.qq.com/";
-  private static final String URL_FILE_DOMAIN = "https://file.api.weixin.qq.com";
+  @SuppressWarnings("unused")
+  private static final String URL_FILE_DOMAIN = "https://file.api.weixin.qq.com/";
   @SuppressWarnings("unused")
   private static final String URL_API_DOMAIN_WITHOUT_SSL = "http://api.weixin.qq.com/";
 
@@ -167,7 +168,7 @@ public class ApiAddress {
       + "cgi-bin/material/batchget_material";
   public static final String URL_MEDIA_MASS_ADD_IMAGE = URL_API_DOMAIN + "cgi-bin/media/uploadimg";
   public static final String URL_MEDIA_MASS_ADD_NEWS = URL_API_DOMAIN + "cgi-bin/media/uploadnews";
-  public static final String URL_MEDIA_MASS_TRANSFORM_VIDEO = URL_FILE_DOMAIN
+  public static final String URL_MEDIA_MASS_TRANSFORM_VIDEO = URL_API_DOMAIN
       + "cgi-bin/media/uploadvideo";
   // ======================== Media ======================
 

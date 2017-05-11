@@ -33,6 +33,8 @@ public class Event {
   private double precision;
   @XStreamAlias("MsgId")
   private long messageId;
+  @XStreamAlias("MsgID")
+  private long messageID;
   @XStreamAlias("Status")
   private String status;
   @XStreamAlias("TotalCount")
@@ -144,11 +146,24 @@ public class Event {
 
   /**
    * 消息id（可能是模板消息，也可能是群发消息）.
+   * <p>
+   * 微信在两个地方分别给了msgId 和 msgID
    * 
    * @return message id
    */
   public long getMessageId() {
     return messageId;
+  }
+
+  /**
+   * 消息id（可能是模板消息，也可能是群发消息）.
+   * <p>
+   * 微信在两个地方分别给了msgId 和 msgID
+   * 
+   * @return message id
+   */
+  public long getMessageID() {
+    return messageID;
   }
 
   /**

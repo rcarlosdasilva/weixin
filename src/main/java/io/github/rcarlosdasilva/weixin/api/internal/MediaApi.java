@@ -271,7 +271,7 @@ public interface MediaApi {
    * 请注意，此处视频的media_id需通过POST请求到下述接口特别地得到：<br>
    * https://api.weixin.qq.com/cgi-bin/media/uploadvideo?access_token=ACCESS_TOKEN
    * <p>
-   * 关于这个接口的具体用法，见微信文档的“消息管理 -> 发送消息-群发接口和原创校验”章节
+   * 关于这个接口的具体用法，见微信文档的“消息管理 =》 发送消息-群发接口和原创校验”章节
    * 
    * @param mediaId
    *          通过基础支持中的上传下载多媒体文件得到media_id
