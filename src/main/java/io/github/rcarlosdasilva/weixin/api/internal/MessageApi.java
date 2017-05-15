@@ -207,12 +207,14 @@ public interface MessageApi {
    * 
    * @param messageId
    *          发送出去的消息ID
+   * @param index
+   *          要删除的文章在图文消息中的位置，第一篇编号为1，该字段不填(null)或填0会删除全部文章
    * @return 是否成功
    * @see <a href=
    *      "https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140549&token=&lang=zh_CN"
    *      >删除群发</a>
    */
-  boolean deleteMass(String messageId);
+  boolean deleteMass(String messageId, Integer index);
 
   /**
    * 查询群发消息发送状态.

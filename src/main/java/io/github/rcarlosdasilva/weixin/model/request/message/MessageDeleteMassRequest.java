@@ -14,6 +14,8 @@ public class MessageDeleteMassRequest extends BasicRequest {
 
   @SerializedName("msg_id")
   private String messageId;
+  @SerializedName("article_idx")
+  private int index;
 
   public MessageDeleteMassRequest() {
     this.path = ApiAddress.URL_MESSAGE_DELETE_MASS;
@@ -21,6 +23,10 @@ public class MessageDeleteMassRequest extends BasicRequest {
 
   public void setMessageId(String messageId) {
     this.messageId = messageId;
+  }
+
+  public void setIndex(int index) {
+    this.index = index;
   }
 
 }
