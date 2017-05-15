@@ -21,6 +21,9 @@ public class MessageSendWithTemplateRequest extends BasicRequest {
   @SerializedName("template_id")
   private String templateId;
   private String url;
+  private String appid;
+  @SerializedName("pagepath")
+  private String path;
   private Map<String, Template> data;
 
   public MessageSendWithTemplateRequest() {
@@ -55,6 +58,14 @@ public class MessageSendWithTemplateRequest extends BasicRequest {
    */
   public void setUrl(String url) {
     this.url = url;
+  }
+
+  public void setAppid(String appid) {
+    this.appid = appid;
+  }
+
+  public void setPath(String path) {
+    this.path = path;
   }
 
   /**

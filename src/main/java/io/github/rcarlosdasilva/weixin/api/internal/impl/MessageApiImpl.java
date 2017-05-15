@@ -56,6 +56,22 @@ public class MessageApiImpl extends BasicApi implements MessageApi {
   }
 
   @Override
+  public long sendWithTemplate(String to, String templateId, String url, Map<String, Template> data,
+      String appid, String path) {
+    MessageSendWithTemplateRequest requestModel = new MessageSendWithTemplateRequest();
+    requestModel.setTo(to);
+    requestModel.setTemplateId(templateId);
+    requestModel.setUrl(url);
+    requestModel.setData(data);
+    requestModel.setAppid(appid);
+    requestModel.setPath(path);
+
+    MessageSendWithTemplateResponse responseModel = post(MessageSendWithTemplateResponse.class,
+        requestModel);
+    return responseModel == null ? Convention.GLOBAL_FAIL_ID : responseModel.getMessageId();
+  }
+
+  @Override
   public boolean sendWithCustom(String to, MessageContainer messageContainer) {
     MessageSendWithCustomRequest requestModel = new MessageSendWithCustomRequest();
     requestModel.setTo(to);
