@@ -197,6 +197,12 @@ public class BasicApi {
     } catch (IOException e) {
       e.printStackTrace();
       return null;
+    } finally {
+      try {
+        is.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
     }
   }
 
