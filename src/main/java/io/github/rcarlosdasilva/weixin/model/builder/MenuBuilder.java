@@ -274,6 +274,31 @@ public class MenuBuilder {
   }
 
   /**
+   * 添加一个一级菜单：miniprogram：小程序.
+   * 
+   * @param title
+   *          菜单标题，不超过16个字节，子菜单不超过40个字节
+   * @param url
+   *          不支持小程序的老版本客户端将打开本url
+   * @param appid
+   *          小程序的appid
+   * @param path
+   *          小程序的页面路径
+   * @return 菜单构造器
+   */
+  public MenuBuilder addRootMiniProgram(String title, String url, String appid, String path) {
+    Button button = new Button();
+    button.setName(title);
+    button.setType(MenuType.MINI_PROGRAM.getText());
+    button.setUrl(url);
+    button.setAppid(appid);
+    button.setPath(path);
+
+    this.menu.getButtons().add(button);
+    return this;
+  }
+
+  /**
    * 添加一个二级菜单，并开始配置.
    * 
    * @param name
@@ -537,6 +562,31 @@ public class MenuBuilder {
       button.setName(title);
       button.setType(MenuType.REDIRECT_VIEW.getText());
       button.setMediaId(mediaId);
+
+      this.rootButton.addSubButton(button);
+      return this;
+    }
+
+    /**
+     * 添加一个二级菜单：miniprogram：小程序.
+     * 
+     * @param title
+     *          菜单标题，不超过16个字节，子菜单不超过40个字节
+     * @param url
+     *          不支持小程序的老版本客户端将打开本url
+     * @param appid
+     *          小程序的appid
+     * @param path
+     *          小程序的页面路径
+     * @return 菜单构造器
+     */
+    public SubMenuBuilder addMiniProgram(String title, String url, String appid, String path) {
+      SubButton button = new SubButton();
+      button.setName(title);
+      button.setType(MenuType.MINI_PROGRAM.getText());
+      button.setUrl(url);
+      button.setAppid(appid);
+      button.setPath(path);
 
       this.rootButton.addSubButton(button);
       return this;

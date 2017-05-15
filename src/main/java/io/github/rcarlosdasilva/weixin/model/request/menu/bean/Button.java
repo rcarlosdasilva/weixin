@@ -1,5 +1,6 @@
 package io.github.rcarlosdasilva.weixin.model.request.menu.bean;
 
+import java.security.PrivilegedActionException;
 import java.util.List;
 
 import com.google.common.collect.Lists;
@@ -14,6 +15,9 @@ public class Button {
   private String url;
   @SerializedName("media_id")
   private String mediaId;
+  private String appid;
+  @SerializedName("pagepath")
+  private String path;
   @SerializedName("sub_button")
   private List<SubButton> subButtons;
 
@@ -35,6 +39,14 @@ public class Button {
 
   public void setMediaId(String mediaId) {
     this.mediaId = mediaId;
+  }
+
+  public void setAppid(String appid) {
+    this.appid = appid;
+  }
+
+  public void setPath(String path) {
+    this.path = path;
   }
 
   public void setSubButtons(List<SubButton> subButtons) {

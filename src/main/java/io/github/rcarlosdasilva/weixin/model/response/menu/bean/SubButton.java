@@ -1,7 +1,5 @@
 package io.github.rcarlosdasilva.weixin.model.response.menu.bean;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 
 public class SubButton {
@@ -12,8 +10,9 @@ public class SubButton {
   private String url;
   @SerializedName("media_id")
   private String mediaId;
-  @SerializedName("list")
-  private List<SubButton> buttons;
+  private String appid;
+  @SerializedName("pagepath")
+  private String path;
 
   /**
    * 菜单标题.
@@ -60,8 +59,12 @@ public class SubButton {
     return mediaId;
   }
 
-  public List<SubButton> getButtons() {
-    return buttons;
+  public String getAppid() {
+    return appid;
+  }
+
+  public String getPath() {
+    return path;
   }
 
 }

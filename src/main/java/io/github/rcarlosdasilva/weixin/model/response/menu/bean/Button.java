@@ -13,6 +13,9 @@ public class Button {
   private String url;
   @SerializedName("media_id")
   private String mediaId;
+  private String appid;
+  @SerializedName("pagepath")
+  private String path;
   @SerializedName("sub_button")
   private List<SubButton> subButtons;
   @SerializedName("news_info")
@@ -122,6 +125,14 @@ public class Button {
    */
   public String getMediaId() {
     return mediaId;
+  }
+
+  public String getAppid() {
+    return appid;
+  }
+
+  public String getPath() {
+    return path;
   }
 
   public List<SubButton> getSubButtons() {
