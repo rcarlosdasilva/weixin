@@ -130,11 +130,12 @@ public class MessageApiImpl extends BasicApi implements MessageApi {
   }
 
   @Override
-  public boolean deleteMass(String messageId) {
-    MessageDeleteMassRequest reuqestModel = new MessageDeleteMassRequest();
-    reuqestModel.setMessageId(messageId);
+  public boolean deleteMass(String messageId, Integer index) {
+    MessageDeleteMassRequest requestModel = new MessageDeleteMassRequest();
+    requestModel.setMessageId(messageId);
+    requestModel.setIndex(index);
 
-    return post(Boolean.class, reuqestModel);
+    return post(Boolean.class, requestModel);
   }
 
   @Override
@@ -153,7 +154,8 @@ public class MessageApiImpl extends BasicApi implements MessageApi {
    * @param requestModel
    *          {@link MessageRequest}
    */
-  private void injectMessageContent(MessageContainer messageContainer, MessageRequest requestModel) {
+  private void injectMessageContent(MessageContainer messageContainer,
+      MessageRequest requestModel) {
     switch (messageContainer.getType()) {
       case TEXT: {
         requestModel.setText((Text) messageContainer.getBean());
