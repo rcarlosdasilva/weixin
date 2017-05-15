@@ -153,7 +153,7 @@ public class MessageApiImpl extends BasicApi implements MessageApi {
    * @param requestModel
    *          {@link MessageRequest}
    */
-  public void injectMessageContent(MessageContainer messageContainer, MessageRequest requestModel) {
+  private void injectMessageContent(MessageContainer messageContainer, MessageRequest requestModel) {
     switch (messageContainer.getType()) {
       case TEXT: {
         requestModel.setText((Text) messageContainer.getBean());

@@ -7,6 +7,7 @@ import com.google.gson.annotations.SerializedName;
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
 import io.github.rcarlosdasilva.weixin.common.Convention;
 import io.github.rcarlosdasilva.weixin.common.dictionary.MessageType;
+import io.github.rcarlosdasilva.weixin.core.json.Freeze;
 import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
 import io.github.rcarlosdasilva.weixin.model.request.message.bean.Card;
 import io.github.rcarlosdasilva.weixin.model.request.message.bean.Image;
@@ -30,9 +31,7 @@ public class MessageSendWithMassRequest extends BasicRequest implements MessageR
   private String type;
   private MassFilter filter;
   @SerializedName("touser")
-  private List<String> users;
-  @SerializedName("touser")
-  private String user;
+  private MessageSendWithMassRequestUser user;
   @SerializedName("towxname")
   private String wxname;
   @SerializedName("mpnews")
@@ -98,11 +97,11 @@ public class MessageSendWithMassRequest extends BasicRequest implements MessageR
   }
 
   public void setUsers(List<String> users) {
-    this.users = users;
+    this.user = new MessageSendWithMassRequestUser(users);
   }
 
   public void setUser(String user) {
-    this.user = user;
+    this.user = new MessageSendWithMassRequestUser(user);
   }
 
   public void setWxname(String wxname) {

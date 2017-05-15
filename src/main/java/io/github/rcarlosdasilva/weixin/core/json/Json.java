@@ -3,8 +3,11 @@ package io.github.rcarlosdasilva.weixin.core.json;
 import com.google.common.base.Preconditions;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import io.github.rcarlosdasilva.weixin.model.request.message.MessageSendWithMassRequestUser;
 
 /**
  * JSON工具
@@ -14,7 +17,10 @@ import com.google.gson.GsonBuilder;
 public final class Json {
 
   private static final Gson gson = new GsonBuilder().enableComplexMapKeySerialization()
-      .disableHtmlEscaping().addSerializationExclusionStrategy(new ExclusionStrategy() {
+      .disableHtmlEscaping().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+      .registerTypeAdapter(MessageSendWithMassRequestUser.class,
+          new MessageSendWithMassRequestUserTypeAdapter().nullSafe())
+      .addSerializationExclusionStrategy(new ExclusionStrategy() {
 
         @Override
         public boolean shouldSkipField(FieldAttributes field) {
