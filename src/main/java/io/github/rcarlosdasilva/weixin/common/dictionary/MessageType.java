@@ -24,6 +24,10 @@ public enum MessageType {
    */
   VIDEO("video"),
   /**
+   * 消息推送时的视频类型.
+   */
+  MPVIDEO("mpvideo"),
+  /**
    * 音乐.
    */
   MUSIC("music"),
@@ -54,5 +58,5 @@ public enum MessageType {
   public String toString() {
     return this.text;
   }
-  
+
 }

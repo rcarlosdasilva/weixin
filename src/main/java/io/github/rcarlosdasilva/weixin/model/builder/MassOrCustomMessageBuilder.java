@@ -106,7 +106,7 @@ public class MassOrCustomMessageBuilder {
     video.setTitle(title);
     video.setDescription(description);
 
-    this.messageContainer.setType(MessageType.VIDEO);
+    this.messageContainer.setType(MessageType.MPVIDEO);
     this.messageContainer.setBean(video);
     return this.messageContainer;
   }
