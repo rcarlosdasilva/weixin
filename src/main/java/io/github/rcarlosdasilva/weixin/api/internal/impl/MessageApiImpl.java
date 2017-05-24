@@ -189,6 +189,10 @@ public class MessageApiImpl extends BasicApi implements MessageApi {
         requestModel.setVideo((Video) messageContainer.getBean());
         break;
       }
+      case MPVIDEO: {
+        requestModel.setVideo((Video) messageContainer.getBean());
+        break;
+      }
       case MUSIC: {
         requestModel.setMusic((Music) messageContainer.getBean());
         break;
