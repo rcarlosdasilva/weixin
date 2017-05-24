@@ -1,7 +1,7 @@
 package io.github.rcarlosdasilva.weixin.model.request.media;
 
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
-import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 
 /**
  * 转换视频media_id请求模型
@@ -9,7 +9,7 @@ import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
 @SuppressWarnings("unused")
-public class MediaTransformMassVideoRequest extends BasicRequest {
+public class MediaTransformMassVideoRequest extends BasicWeixinRequest {
 
   private String mediaId;
   private String title;

@@ -1,15 +1,14 @@
 package io.github.rcarlosdasilva.weixin.core;
 
-import com.google.common.base.Strings;
+import com.google.common.base.Preconditions;
 
 import io.github.rcarlosdasilva.weixin.api.Weixin;
 import io.github.rcarlosdasilva.weixin.common.Convention;
 import io.github.rcarlosdasilva.weixin.core.cache.holder.SimpleRedisHandler;
-import io.github.rcarlosdasilva.weixin.core.cache.impl.AccessTokenCacheHandler;
-import io.github.rcarlosdasilva.weixin.core.cache.impl.AccountCacheHandler;
-import io.github.rcarlosdasilva.weixin.core.config.Configuration;
-import io.github.rcarlosdasilva.weixin.core.exception.UnmakableAccountKeyException;
+import io.github.rcarlosdasilva.weixin.core.registry.Configuration;
+import io.github.rcarlosdasilva.weixin.core.registry.Registration;
 import io.github.rcarlosdasilva.weixin.model.Account;
+import io.github.rcarlosdasilva.weixin.model.OpenPlatform;
 
 /**
  * 微信公众号注册器，支持多公众号
@@ -18,27 +17,44 @@ import io.github.rcarlosdasilva.weixin.model.Account;
  */
 public class WeixinRegistry {
 
-  private static Configuration configuration = Configuration.DEFAULT_CONFIG;
-  private static boolean initialized = false;
+  private static final Configuration DEFAULT_CONFIG = new Configuration();
 
-  public static void config(Configuration configuration) {
-    WeixinRegistry.configuration = configuration;
+  private static Registration registration = Registration.getInstance();
+
+  private WeixinRegistry() {
   }
 
-  public static Configuration getConfiguration() {
-    return configuration;
+  public static void withConfig(Configuration configuration) {
+    Preconditions.checkNotNull(configuration);
+    registration.setConfiguration(configuration);
   }
 
-  private static void init() {
-    if (initialized) {
-      return;
+  public static void withDefaultConfig() {
+    withConfig(DEFAULT_CONFIG);
+  }
+
+  public static void done() {
+    Preconditions.checkNotNull(registration);
+    Preconditions.checkNotNull(registration.getConfiguration());
+
+    if (registration.getConfiguration().isUseRedisCache()
+        && !registration.getConfiguration().isUseSpringRedis()) {
+      SimpleRedisHandler.init(registration.getConfiguration().getRedisConfiguration());
     }
 
-    if (configuration.isUseRedisCache() && !configuration.isUseSpringRedis()) {
-      SimpleRedisHandler.init(configuration.getRedisConfiguration());
-    }
+    registration.process();
+  }
 
-    initialized = true;
+  /**
+   * 注册开放平台信息，注册后，所有的公众号将统归于开放平台代理.
+   * 
+   * @param appId
+   *          appid
+   * @param appSecret
+   *          appsecret
+   */
+  public static void openPlatform(String appId, String appSecret, String token, String aesKey) {
+    registration.setOpenPlatform(new OpenPlatform(appId, appSecret, token, aesKey));
   }
 
   /**
@@ -51,14 +67,12 @@ public class WeixinRegistry {
    * @return {@link Account}
    */
   public static Account register(String key, Account account) {
-    if (Strings.isNullOrEmpty(key)) {
-      throw new UnmakableAccountKeyException();
-    }
+    Preconditions.checkNotNull(key);
+    Preconditions.checkNotNull(account);
+    account.setKey(key);
+    registration.addAccount(account);
 
-    init();
-    unregister(key);
-
-    return AccountCacheHandler.getInstance().put(key, account);
+    return account;
   }
 
   /**
@@ -107,34 +121,6 @@ public class WeixinRegistry {
    */
   public static Account registerUnique(String appId, String appSecret) {
     return register(Convention.DEFAULT_UNIQUE_WEIXIN_KEY, appId, appSecret);
-  }
-
-  public static void unregister(String key) {
-    if (Strings.isNullOrEmpty(key)) {
-      throw new UnmakableAccountKeyException();
-    }
-
-    AccountCacheHandler.getInstance().remove(key);
-    AccessTokenCacheHandler.getInstance().remove(key);
-  }
-
-  public static void unregisterUnique() {
-    unregister(Convention.DEFAULT_UNIQUE_WEIXIN_KEY);
-  }
-
-  /**
-   * 通过appId或原始ID获取账号配置信息.
-   * 
-   * @param id
-   *          可以为公众号appId或者公众号原始ID
-   * @return {@link Account}
-   */
-  public static Account lookup(String id) {
-    id = id == null ? "" : id;
-    Account account = new Account(id, null);
-    account.setMpId(id);
-    String key = AccountCacheHandler.getInstance().lookup(account);
-    return AccountCacheHandler.getInstance().get(key);
   }
 
 }

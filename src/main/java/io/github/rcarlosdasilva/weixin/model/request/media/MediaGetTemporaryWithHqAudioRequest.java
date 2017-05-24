@@ -1,9 +1,9 @@
 package io.github.rcarlosdasilva.weixin.model.request.media;
 
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
-import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 
-public class MediaGetTemporaryWithHqAudioRequest extends BasicRequest {
+public class MediaGetTemporaryWithHqAudioRequest extends BasicWeixinRequest {
 
   private String mediaId;
 

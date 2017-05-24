@@ -1,14 +1,14 @@
 package io.github.rcarlosdasilva.weixin.model.request.custom;
 
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
-import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 
 /**
  * 删除客服账号请求模型
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public class CustomAccountDeleteRequest extends BasicRequest {
+public class CustomAccountDeleteRequest extends BasicWeixinRequest {
 
   private String account;
 

@@ -7,8 +7,7 @@ import com.google.gson.annotations.SerializedName;
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
 import io.github.rcarlosdasilva.weixin.common.Convention;
 import io.github.rcarlosdasilva.weixin.common.dictionary.MessageType;
-import io.github.rcarlosdasilva.weixin.core.json.Freeze;
-import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 import io.github.rcarlosdasilva.weixin.model.request.message.bean.Card;
 import io.github.rcarlosdasilva.weixin.model.request.message.bean.Image;
 import io.github.rcarlosdasilva.weixin.model.request.message.bean.MassFilter;
@@ -25,7 +24,7 @@ import io.github.rcarlosdasilva.weixin.model.request.message.bean.Voice;
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
 @SuppressWarnings("unused")
-public class MessageSendWithMassRequest extends BasicRequest implements MessageRequest {
+public class MessageSendWithMassRequest extends BasicWeixinRequest implements MessageRequest {
 
   @SerializedName("msgtype")
   private String type;

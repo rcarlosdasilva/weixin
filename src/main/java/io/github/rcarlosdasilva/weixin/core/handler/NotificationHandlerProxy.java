@@ -6,28 +6,44 @@ import org.slf4j.LoggerFactory;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 
+import io.github.rcarlosdasilva.weixin.api.Weixin;
 import io.github.rcarlosdasilva.weixin.common.Convention;
 import io.github.rcarlosdasilva.weixin.common.dictionary.NotificationEvent;
-import io.github.rcarlosdasilva.weixin.common.dictionary.NotificationType;
-import io.github.rcarlosdasilva.weixin.core.WeixinRegistry;
+import io.github.rcarlosdasilva.weixin.common.dictionary.NotificationInfoType;
+import io.github.rcarlosdasilva.weixin.common.dictionary.NotificationMessageType;
+import io.github.rcarlosdasilva.weixin.core.cache.impl.AccessTokenCacheHandler;
+import io.github.rcarlosdasilva.weixin.core.cache.impl.MixCacheHandler;
 import io.github.rcarlosdasilva.weixin.core.encryption.Encryptor;
+import io.github.rcarlosdasilva.weixin.core.exception.CanNotFetchOpenPlatformLicenseException;
+import io.github.rcarlosdasilva.weixin.core.exception.CanNotFetchOpenPlatformLicensorAccessTokenException;
+import io.github.rcarlosdasilva.weixin.core.exception.CanNotFetchOpenPlatformTicketException;
+import io.github.rcarlosdasilva.weixin.core.exception.WeirdWeixinNotificationException;
 import io.github.rcarlosdasilva.weixin.core.parser.NotificationParser;
+import io.github.rcarlosdasilva.weixin.core.registry.Registration;
+import io.github.rcarlosdasilva.weixin.model.AccessToken;
+import io.github.rcarlosdasilva.weixin.model.AccessToken.AccessTokenType;
 import io.github.rcarlosdasilva.weixin.model.Account;
+import io.github.rcarlosdasilva.weixin.model.OpenPlatform;
 import io.github.rcarlosdasilva.weixin.model.builder.Builder;
 import io.github.rcarlosdasilva.weixin.model.builder.NotificationResponseBuilder;
 import io.github.rcarlosdasilva.weixin.model.notification.Event;
 import io.github.rcarlosdasilva.weixin.model.notification.Message;
 import io.github.rcarlosdasilva.weixin.model.notification.Notification;
 import io.github.rcarlosdasilva.weixin.model.notification.NotificationResponse;
+import io.github.rcarlosdasilva.weixin.model.notification.OpenInfo;
+import io.github.rcarlosdasilva.weixin.model.response.open.auth.OpenPlatformAuthGetLicenseInformationResponse;
 
 /**
- * 微信推送通知代理类
+ * 微信推送通知代理类.
+ * <p>
+ * 微信的加密解密使用AES，默认会引起JRE的一个java.security.InvalidKeyException: Illegal key
+ * size异常，请参考{@link Encryptor}解决
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
 public class NotificationHandlerProxy {
 
-  private static final Logger logger = LoggerFactory.getLogger(NotificationHandlerProxy.class);
+  private final Logger logger = LoggerFactory.getLogger(NotificationHandlerProxy.class);
 
   private static NotificationHandlerProxy instance = null;
 
@@ -75,7 +91,9 @@ public class NotificationHandlerProxy {
    * @param content
    *          推送内容，对应POST请求的数据
    * @param signature
-   *          签名串，对应URL参数的msg_signature
+   *          签名串，对应URL参数的signature
+   * @param messageSignature
+   *          开放平台的消息签名，对应msg_signature参数
    * @param timestamp
    *          时间戳，对应URL参数的timestamp
    * @param nonce
@@ -92,18 +110,32 @@ public class NotificationHandlerProxy {
       return null;
     }
 
-    Account account = WeixinRegistry.lookup(notification.getToUser());
-    if (account == null) {
-      logger.warn("找不到对应的公众号配置(Account): {}", notification.getToUser());
+    final boolean openPlatformActived = isOpenPlatformActive(notification);
+    final String recipient = openPlatformActived ? notification.getAppId()
+        : notification.getToUser();
+
+    if (Strings.isNullOrEmpty(recipient)) {
+      logger.warn("微信通知判断为{}类型，但获取不到appid/tousername", (openPlatformActived ? "开放平台" : "公众号"));
+      if (Registration.getInstance().getConfiguration().isThrowException()) {
+        throw new WeirdWeixinNotificationException();
+      }
+    }
+
+    final OpenPlatform openPlatform = Registration.getInstance().getOpenPlatform();
+    Account account = Registration.lookup(recipient);
+    if (!openPlatformActived && account == null) {
+      logger.warn("找不到对应的公众号配置(Account): {}", recipient);
       return null;
     }
 
-    boolean isSafeMode = account.isSafeMode();
+    final boolean safeMode = openPlatformActived || account.isSafeMode();
+    final String token = openPlatformActived ? openPlatform.getToken() : account.getToken();
+    final String aeskey = openPlatformActived ? openPlatform.getAesKey() : account.getAesKey();
 
-    if (isSafeMode) {
+    if (safeMode) {
       logger.debug("正在解密..");
-      notification = Encryptor.decrypt(account.getToken(), account.getAesKey(),
-          notification.getCiphertext(), signature, timestamp, nonce);
+      notification = Encryptor.decrypt(token, aeskey, notification.getCiphertext(), signature,
+          timestamp, nonce);
       if (notification == null) {
         logger.warn("无法解密: {}", account);
         return null;
@@ -112,20 +144,27 @@ public class NotificationHandlerProxy {
     }
 
     notification.setAccount(account);
-    NotificationType type = notification.getType();
+    NotificationMessageType messageType = notification.getMessageType();
+    NotificationInfoType infoType = notification.getInfoType();
 
     NotificationResponseBuilder builder = Builder.buildNotificationResponse().with(notification);
-    switch (type) {
-      case EVENT: {
-        logger.debug("开始处理事件推送..");
-        processEvent(builder, notification);
-        break;
-      }
-      default: {
-        logger.debug("开始处理消息推送..");
-        processMessage(builder, notification);
+    if (messageType != null) {
+      switch (messageType) {
+        case EVENT: {
+          logger.debug("开始处理事件推送..");
+          processEvent(builder, notification);
+          break;
+        }
+        default: {
+          logger.debug("开始处理消息推送..");
+          processMessage(builder, notification);
+        }
       }
     }
+    if (infoType != null) {
+      processInfo(infoType, builder, notification);
+    }
+
     NotificationResponse response = builder.build();
     logger.debug("处理完毕，已生成返回数据");
 
@@ -133,7 +172,7 @@ public class NotificationHandlerProxy {
       return Convention.WEIXIN_NOTIFICATION_RESPONSE_NOTHING;
     } else {
       String reply = NotificationParser.toXml(response);
-      if (isSafeMode) {
+      if (safeMode) {
         logger.debug("正在加密..");
         reply = Encryptor.encrypt(account.getAppId(), account.getToken(), account.getAesKey(),
             reply);
@@ -145,6 +184,18 @@ public class NotificationHandlerProxy {
       }
       return reply;
     }
+  }
+
+  /**
+   * 公众号推送的xml中使用的是toUserName，开放平台推送的xml中使用的是appid
+   * 
+   * @param notification
+   *          notification
+   * @return boolean
+   */
+  public boolean isOpenPlatformActive(Notification notification) {
+    return Registration.getInstance().getOpenPlatform() != null
+        && !Strings.isNullOrEmpty(notification.getAppId());
   }
 
   /**
@@ -257,7 +308,7 @@ public class NotificationHandlerProxy {
    * 处理消息类通知.
    */
   private void processMessage(NotificationResponseBuilder builder, Notification notification) {
-    NotificationType type = notification.getType();
+    NotificationMessageType type = notification.getMessageType();
     Message message = notification.getMessage();
 
     switch (type) {
@@ -298,6 +349,97 @@ public class NotificationHandlerProxy {
         break;
       }
       default:
+    }
+  }
+
+  private void processInfo(NotificationInfoType infoType, NotificationResponseBuilder builder,
+      Notification notification) {
+    OpenInfo info = notification.getOpenInfo();
+    switch (infoType) {
+      case VERIFY_TICKET: {
+        String ticket = notification.getOpenInfo().getTicket();
+        if (Strings.isNullOrEmpty(ticket)) {
+          logger.warn("无法获取到开放平台发放的Ticket");
+          throw new CanNotFetchOpenPlatformTicketException();
+        } else {
+          MixCacheHandler.getInstance().put(Convention.DEFAULT_CACHE_KEY_OPEN_PLATFORM_TICKET,
+              ticket);
+        }
+
+        handler.doInfoOfComponentVerifyTicket(builder, notification, info.getTicket());
+        break;
+      }
+      case AUTHORIZE_SUCCEEDED: {
+        updateLicensorAccount(notification);
+
+        handler.doInfoOfAuthorizeSucceeded(builder, notification, info.getLicensorAppId(),
+            info.getLicense(), info.getLicenseExpireAt());
+        break;
+      }
+      case AUTHORIZE_CANCELED: {
+        // 取消对appid对应的公众号的缓存
+        String licensorAppId = notification.getOpenInfo().getLicensorAppId();
+        if (Strings.isNullOrEmpty(licensorAppId)) {
+          logger.warn("无法获取到开放平台授权者appid");
+          throw new CanNotFetchOpenPlatformLicenseException();
+        } else {
+          Registration.unregister(licensorAppId);
+        }
+
+        handler.doInfoOfAuthorizeCanceled(builder, notification, info.getLicensorAppId());
+        break;
+      }
+      case AUTHORIZE_UPDATED: {
+        handler.doInfoOfAuthorizeUpdated(builder, notification, info.getLicensorAppId(),
+            info.getLicense(), info.getLicenseExpireAt());
+        break;
+      }
+      default:
+    }
+  }
+
+  /**
+   * 自动获取授权方信息，包括更新授权方的授权access_token.
+   * 
+   * @param notification
+   *          notification
+   */
+  private void updateLicensorAccount(Notification notification) {
+    String license = notification.getOpenInfo().getLicense();
+    String licensorAppId = notification.getOpenInfo().getLicensorAppId();
+    if (Strings.isNullOrEmpty(license) || Strings.isNullOrEmpty(licensorAppId)) {
+      logger.warn("无法获取到开放平台发放的授权码或授权者appid");
+      throw new CanNotFetchOpenPlatformLicenseException();
+    } else {
+      OpenPlatformAuthGetLicenseInformationResponse response = Weixin.withOpenPlatform().openAuth()
+          .getLicenseInformation(license);
+      if (response == null || response.getLicensedAccessToken() == null) {
+        throw new CanNotFetchOpenPlatformLicensorAccessTokenException();
+      }
+
+      String key = licensorAppId;
+      Account account = Registration.lookup(licensorAppId);
+      if (account != null) {
+        key = account.getKey();
+      }
+      if (account == null) {
+        account = new Account(licensorAppId, null);
+      }
+
+      AccessToken accessToken = response.getLicensedAccessToken();
+      accessToken.setType(AccessTokenType.LICENSED_WEIXIN);
+      AccessTokenCacheHandler.getInstance().put(key, accessToken);
+
+      account.setLicensingInformation(response.getLicensingInformation());
+
+      response = Weixin.withOpenPlatform().openAuth().getLicensorInformation(licensorAppId);
+      if (response == null || response.getLicensorInfromation() == null) {
+        logger.warn("无法获取到开放平台授权方的基本信息，但不影响主要功能");
+      } else {
+        account.setLicensorInfromation(response.getLicensorInfromation());
+      }
+
+      Registration.updateAccount(key, account);
     }
   }
 

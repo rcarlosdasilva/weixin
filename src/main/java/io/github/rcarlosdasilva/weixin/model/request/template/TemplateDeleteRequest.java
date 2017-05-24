@@ -3,14 +3,14 @@ package io.github.rcarlosdasilva.weixin.model.request.template;
 import com.google.gson.annotations.SerializedName;
 
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
-import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 
 /**
  * 删除模板请求模型
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public class TemplateDeleteRequest extends BasicRequest {
+public class TemplateDeleteRequest extends BasicWeixinRequest {
 
   @SerializedName("template_id")
   private String id;

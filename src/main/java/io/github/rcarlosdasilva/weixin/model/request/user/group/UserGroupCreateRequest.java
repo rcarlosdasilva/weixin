@@ -5,14 +5,14 @@ import java.util.Map;
 import com.google.common.collect.Maps;
 
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
-import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 
 /**
  * 创建用户组请求模型
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public class UserGroupCreateRequest extends BasicRequest {
+public class UserGroupCreateRequest extends BasicWeixinRequest {
 
   private Map<String, String> group = Maps.newHashMap();
 

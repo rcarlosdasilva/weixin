@@ -12,7 +12,7 @@ public enum ResultCode {
   RESULT_40001(40001,
       "获取access_token时AppSecret错误，或者access_token无效。请开发者认真比对AppSecret的正确性，" //
           + "或查看是否正在为恰当的公众号调用接口"), //
-  RESULT_40002(40002, "不合法的凭证类型"), //
+  RESULT_40002(40002, "请确保grant_type字段值为client_credential"), //
   RESULT_40003(40003,
       "不合法的OpenID，请开发者确认OpenID（该用户）是否已关注公众号，" //
           + "或是否是其他公众号的OpenID"), //
@@ -65,6 +65,7 @@ public enum ResultCode {
   RESULT_40132(40132, "微信号不合法"), //
   RESULT_40137(40137, "不支持的图片格式"), //
   RESULT_40152(40152, "不合法的分组id"), //
+  RESULT_40164(40164, "调用接口的IP地址不在白名单中，请在接口IP白名单中进行设置"), //
   RESULT_41001(41001, "缺少access_token参数"), //
   RESULT_41002(41002, "缺少appid参数"), //
   RESULT_41003(41003, "缺少refresh_token参数"), //

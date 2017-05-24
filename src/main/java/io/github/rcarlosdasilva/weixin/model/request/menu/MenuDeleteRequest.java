@@ -3,14 +3,14 @@ package io.github.rcarlosdasilva.weixin.model.request.menu;
 import com.google.gson.annotations.SerializedName;
 
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
-import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 
 /**
  * 删除菜单请求模型
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public class MenuDeleteRequest extends BasicRequest {
+public class MenuDeleteRequest extends BasicWeixinRequest {
 
   @SerializedName("menuid")
   private long menuId;

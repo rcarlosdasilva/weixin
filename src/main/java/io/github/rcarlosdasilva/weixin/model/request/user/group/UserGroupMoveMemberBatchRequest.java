@@ -5,14 +5,14 @@ import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
-import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 
 /**
  * 批量移动用户到组请求模型
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public class UserGroupMoveMemberBatchRequest extends BasicRequest {
+public class UserGroupMoveMemberBatchRequest extends BasicWeixinRequest {
 
   @SerializedName("openid_list")
   private List<String> openIds;

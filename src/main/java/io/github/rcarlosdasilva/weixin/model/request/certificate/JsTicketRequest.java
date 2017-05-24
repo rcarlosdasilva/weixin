@@ -2,14 +2,14 @@ package io.github.rcarlosdasilva.weixin.model.request.certificate;
 
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
 import io.github.rcarlosdasilva.weixin.common.Convention;
-import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 
 /**
  * JS Ticket请求模型
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public class JsTicketRequest extends BasicRequest {
+public class JsTicketRequest extends BasicWeixinRequest {
 
   public JsTicketRequest() {
     this.path = ApiAddress.URL_CERTIFICATE_JS_TICKET;

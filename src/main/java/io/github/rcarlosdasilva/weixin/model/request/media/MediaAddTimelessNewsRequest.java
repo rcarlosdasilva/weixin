@@ -5,7 +5,7 @@ import java.util.List;
 import com.google.common.collect.Lists;
 
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
-import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 import io.github.rcarlosdasilva.weixin.model.request.media.bean.Article;
 
 /**
@@ -13,7 +13,7 @@ import io.github.rcarlosdasilva.weixin.model.request.media.bean.Article;
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public class MediaAddTimelessNewsRequest extends BasicRequest {
+public class MediaAddTimelessNewsRequest extends BasicWeixinRequest {
 
   private List<Article> articles;
 

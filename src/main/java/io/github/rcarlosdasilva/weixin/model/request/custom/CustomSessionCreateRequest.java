@@ -3,14 +3,14 @@ package io.github.rcarlosdasilva.weixin.model.request.custom;
 import com.google.gson.annotations.SerializedName;
 
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
-import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 
 /**
  * 创建客服会话请求模型
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public class CustomSessionCreateRequest extends BasicRequest {
+public class CustomSessionCreateRequest extends BasicWeixinRequest {
 
   @SerializedName("kf_account")
   private String account;

@@ -3,7 +3,7 @@ package io.github.rcarlosdasilva.weixin.model.request.media;
 import com.google.gson.annotations.SerializedName;
 
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
-import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 import io.github.rcarlosdasilva.weixin.model.request.media.bean.Article;
 
 /**
@@ -12,7 +12,7 @@ import io.github.rcarlosdasilva.weixin.model.request.media.bean.Article;
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
 @SuppressWarnings("unused")
-public class MediaUpdateTimelessNewsRequest extends BasicRequest {
+public class MediaUpdateTimelessNewsRequest extends BasicWeixinRequest {
 
   private String mediaId;
   private int index;

@@ -5,7 +5,7 @@ import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
-import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 import io.github.rcarlosdasilva.weixin.model.request.menu.bean.Button;
 import io.github.rcarlosdasilva.weixin.model.request.menu.bean.MatchRule;
 
@@ -14,7 +14,7 @@ import io.github.rcarlosdasilva.weixin.model.request.menu.bean.MatchRule;
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public class MenuCreateRequest extends BasicRequest {
+public class MenuCreateRequest extends BasicWeixinRequest {
 
   @SerializedName("button")
   private List<Button> buttons;

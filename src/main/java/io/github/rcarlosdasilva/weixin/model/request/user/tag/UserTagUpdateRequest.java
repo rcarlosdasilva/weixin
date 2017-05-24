@@ -1,7 +1,7 @@
 package io.github.rcarlosdasilva.weixin.model.request.user.tag;
 
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
-import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 import io.github.rcarlosdasilva.weixin.model.request.user.tag.bean.UserTag;
 
 /**
@@ -9,7 +9,7 @@ import io.github.rcarlosdasilva.weixin.model.request.user.tag.bean.UserTag;
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public class UserTagUpdateRequest extends BasicRequest {
+public class UserTagUpdateRequest extends BasicWeixinRequest {
 
   private UserTag tag = new UserTag();
 

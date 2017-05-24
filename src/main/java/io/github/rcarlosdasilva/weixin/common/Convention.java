@@ -8,10 +8,14 @@ package io.github.rcarlosdasilva.weixin.common;
 public class Convention {
 
   public static final String DEFAULT_UNIQUE_WEIXIN_KEY = "__UNIQ__";
+  public static final String DEFAULT_OPEN_PLATFORM_KEY = "__OPEN_PLATFORM__";
   public static final String DEFAULT_ENCODING = "UTF-8";
 
   public static final int AHEAD_OF_EXPIRED_SECONDS = 180;
-  // public static final int AHEAD_OF_EXPIRED_TO_REFRESH_SECONDS = 120;
+  public static final int AHEAD_OF_EXPIRED_TO_REFRESH_SECONDS = 120;
+
+  public static final String DEFAULT_CACHE_KEY_OPEN_PLATFORM_TICKET = "op_ticket";
+  public static final String DEFAULT_CACHE_KEY_OPEN_PLATFORM_ACCESS_TOKEN = "op_access_token";
 
   public static final String DEFAULT_REDIS_KEY_PREFIX = "weixin";
   public static final String DEFAULT_REDIS_KEY_SEPARATOR = ":";
@@ -54,6 +58,34 @@ public class Convention {
   public static final String CARD_INFO_DISCOUNT_KEY = "discount";
   public static final String CARD_INFO_GIFT_KEY = "gift";
   public static final String CARD_INFO_GENERAL_GROUP_KEY = "general_coupon";
+
+  public static final String WEIXIN_ACCESS_TOKEN_EXPIRES_IN_KEY = "expires_in";
+  public static final String WEIXIN_ACCESS_TOKEN_KEY = "access_token";
+
+  public static final String OPEN_PLATFORM_AUTH_ACCESS_TOKEN_KEY = "component_access_token";
+  public static final String OPEN_PLATFORM_AUTH_LICENSED_INFORMATION_KEY = "authorization_info";
+  public static final String OPEN_PLATFORM_AUTH_LICENSOR_INFORMATION_KEY = "authorizer_info";
+  public static final String OPEN_PLATFORM_AUTH_LICENSOR_NICKNAME_KEY = "nick_name";
+  public static final String OPEN_PLATFORM_AUTH_LICENSOR_LOGO_KEY = "head_img";
+  public static final String OPEN_PLATFORM_AUTH_LICENSOR_ACCOUNT_TYPE_KEY = "service_type_info";
+  public static final String OPEN_PLATFORM_AUTH_LICENSOR_ACCOUNT_VERIFIED_TYPE_KEY = "verify_type_info";
+  public static final String OPEN_PLATFORM_AUTH_LICENSOR_MPID_KEY = "user_name";
+  public static final String OPEN_PLATFORM_AUTH_LICENSOR_PRINCIPAL_NAME_KEY = "principal_name";
+  public static final String OPEN_PLATFORM_AUTH_LICENSOR_ACCOUNT_NAME_KEY = "alias";
+  public static final String OPEN_PLATFORM_AUTH_LICENSOR_QRCODE_URL_KEY = "qrcode_url";
+  public static final String OPEN_PLATFORM_AUTH_LICENSOR_BUSINESS_INFO_KEY = "business_info";
+  public static final String OPEN_PLATFORM_AUTH_LICENSOR_BUSINESS_STORE_KEY = "open_store";
+  public static final String OPEN_PLATFORM_AUTH_LICENSOR_BUSINESS_SCAN_KEY = "open_scan";
+  public static final String OPEN_PLATFORM_AUTH_LICENSOR_BUSINESS_PAY_KEY = "open_pay";
+  public static final String OPEN_PLATFORM_AUTH_LICENSOR_BUSINESS_CARD_KEY = "open_card";
+  public static final String OPEN_PLATFORM_AUTH_LICENSOR_BUSINESS_SHAKE_KEY = "open_shake";
+  public static final String OPEN_PLATFORM_AUTH_LICENSED_APPID_KEY = "authorizer_appid";
+  public static final String OPEN_PLATFORM_AUTH_LICENSED_APPID_ALIAS_KEY = "appid";
+  public static final String OPEN_PLATFORM_AUTH_LICENSED_ACCESS_TOKEN_KEY = "authorizer_access_token";
+  public static final String OPEN_PLATFORM_AUTH_LICENSED_ACCESS_TOKEN_EXPIRES_IN_KEY = "expires_in";
+  public static final String OPEN_PLATFORM_AUTH_LICENSED_REFRESH_TOKEN_KEY = "authorizer_refresh_token";
+  public static final String OPEN_PLATFORM_AUTH_LICENSED_FUNCTIONS_INFO_KEY = "func_info";
+
   // ==================== 接口请求 JSON 约定参数名 ===================
 
   // -------------------- 微信推送通知 XML 约定键名 -------------------
@@ -63,6 +95,7 @@ public class Convention {
   public static final String WEIXIN_NOTIFICATION_XML_TAG_NOTIFICATION = "notification>";
   public static final String WEIXIN_NOTIFICATION_XML_TAG_EVENT = "event>";
   public static final String WEIXIN_NOTIFICATION_XML_TAG_MESSAGE = "message>";
+  public static final String WEIXIN_NOTIFICATION_XML_TAG_INFO = "info>";
 
   public static final String WEIXIN_NOTIFICATION_KEY_ITEM = "item";
   public static final String WEIXIN_NOTIFICATION_KEY_EVENT_PIC_LIST = "PicList";

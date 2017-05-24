@@ -23,6 +23,8 @@ public interface Request {
 
   /**
    * 更新access_token.
+   * <P>
+   * 对公众号是access_token，对开放平台是component_access_token
    * 
    * @param accessToken
    *          access_token

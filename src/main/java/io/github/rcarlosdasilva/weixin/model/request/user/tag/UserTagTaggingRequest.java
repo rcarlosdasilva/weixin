@@ -5,14 +5,14 @@ import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
-import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 
 /**
  * 给用户设置标签请求模型
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public class UserTagTaggingRequest extends BasicRequest {
+public class UserTagTaggingRequest extends BasicWeixinRequest {
 
   @SerializedName("tagid")
   private int id;

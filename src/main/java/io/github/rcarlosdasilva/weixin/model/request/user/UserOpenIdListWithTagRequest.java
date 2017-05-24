@@ -3,14 +3,14 @@ package io.github.rcarlosdasilva.weixin.model.request.user;
 import com.google.gson.annotations.SerializedName;
 
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
-import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 
 /**
  * 获取标签下用户列表请求模型
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public class UserOpenIdListWithTagRequest extends BasicRequest {
+public class UserOpenIdListWithTagRequest extends BasicWeixinRequest {
 
   @SerializedName("tagid")
   private int tagId;

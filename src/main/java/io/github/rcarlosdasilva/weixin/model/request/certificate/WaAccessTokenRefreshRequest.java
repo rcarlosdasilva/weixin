@@ -2,14 +2,14 @@ package io.github.rcarlosdasilva.weixin.model.request.certificate;
 
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
 import io.github.rcarlosdasilva.weixin.common.Convention;
-import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 
 /**
  * 网页授权Token刷新请求模型
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public class WaAccessTokenRefreshRequest extends BasicRequest {
+public class WaAccessTokenRefreshRequest extends BasicWeixinRequest {
 
   private String appId;
   private String refreshToken;

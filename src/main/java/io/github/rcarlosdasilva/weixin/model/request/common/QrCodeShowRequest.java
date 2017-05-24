@@ -1,14 +1,14 @@
 package io.github.rcarlosdasilva.weixin.model.request.common;
 
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
-import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 
 /**
  * 显示二维码请求模型
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public class QrCodeShowRequest extends BasicRequest {
+public class QrCodeShowRequest extends BasicWeixinRequest {
 
   private String ticket;
 

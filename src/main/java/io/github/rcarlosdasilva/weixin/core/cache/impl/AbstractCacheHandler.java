@@ -11,11 +11,11 @@ import com.google.common.collect.Collections2;
 
 import io.github.rcarlosdasilva.weixin.common.Convention;
 import io.github.rcarlosdasilva.weixin.common.Utils;
-import io.github.rcarlosdasilva.weixin.core.WeixinRegistry;
 import io.github.rcarlosdasilva.weixin.core.cache.CacheHandler;
 import io.github.rcarlosdasilva.weixin.core.cache.holder.MapHandler;
 import io.github.rcarlosdasilva.weixin.core.cache.holder.RedisTemplateHandler;
 import io.github.rcarlosdasilva.weixin.core.cache.holder.SimpleRedisHandler;
+import io.github.rcarlosdasilva.weixin.core.registry.Registration;
 import redis.clients.jedis.Jedis;
 
 public class AbstractCacheHandler<V> implements CacheHandler<V> {
@@ -27,12 +27,12 @@ public class AbstractCacheHandler<V> implements CacheHandler<V> {
   protected String mark;
 
   private boolean isSimpleRedis() {
-    return WeixinRegistry.getConfiguration().isUseRedisCache()
-        && !WeixinRegistry.getConfiguration().isUseSpringRedis();
+    return Registration.getInstance().getConfiguration().isUseRedisCache()
+        && !Registration.getInstance().getConfiguration().isUseSpringRedis();
   }
 
   private boolean isSpringRedis() {
-    return WeixinRegistry.getConfiguration().isUseSpringRedis();
+    return Registration.getInstance().getConfiguration().isUseSpringRedis();
   }
 
   private static String key(final String module, final String resource) {
@@ -122,7 +122,11 @@ public class AbstractCacheHandler<V> implements CacheHandler<V> {
     } else if (isSpringRedis()) {
       return (V) RedisTemplateHandler.redisTemplate.opsForValue().get(realRedisKey(key));
     } else {
-      return MapHandler.<V>getObject(mark).get(key);
+      try {
+        return MapHandler.<V>getObject(mark).get(key);
+      } catch (Exception e) {
+        return null;
+      }
     }
   }
 
@@ -136,7 +140,11 @@ public class AbstractCacheHandler<V> implements CacheHandler<V> {
     } else if (isSpringRedis()) {
       RedisTemplateHandler.redisTemplate.opsForValue().set(realRedisKey(key), object);
     } else {
-      MapHandler.<V>getObject(mark).put(key, object);
+      try {
+        MapHandler.<V>getObject(mark).put(key, object);
+      } catch (Exception e) {
+        return null;
+      }
     }
     return object;
   }
@@ -163,7 +171,11 @@ public class AbstractCacheHandler<V> implements CacheHandler<V> {
       RedisTemplateHandler.redisTemplate.delete(realRedisKey(key));
       return object;
     } else {
-      return MapHandler.<V>getObject(mark).remove(key);
+      try {
+        return MapHandler.<V>getObject(mark).remove(key);
+      } catch (Exception e) {
+        return null;
+      }
     }
   }
 

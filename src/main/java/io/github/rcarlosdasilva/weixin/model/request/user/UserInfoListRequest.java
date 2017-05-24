@@ -7,14 +7,14 @@ import com.google.gson.annotations.SerializedName;
 
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
 import io.github.rcarlosdasilva.weixin.common.dictionary.Language;
-import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 
 /**
  * 批量获取用户信息请求模型
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public class UserInfoListRequest extends BasicRequest {
+public class UserInfoListRequest extends BasicWeixinRequest {
 
   @SerializedName("user_list")
   private List<UserInfoRequest> userList = Lists.newArrayList();

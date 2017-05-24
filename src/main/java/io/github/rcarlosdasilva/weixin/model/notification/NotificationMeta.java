@@ -4,7 +4,8 @@ import java.util.Date;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
-import io.github.rcarlosdasilva.weixin.common.dictionary.NotificationType;
+import io.github.rcarlosdasilva.weixin.common.dictionary.NotificationInfoType;
+import io.github.rcarlosdasilva.weixin.common.dictionary.NotificationMessageType;
 
 public class NotificationMeta {
 
@@ -15,7 +16,9 @@ public class NotificationMeta {
   @XStreamAlias("CreateTime")
   private long time;
   @XStreamAlias("MsgType")
-  private String type;
+  private String messageType;
+  @XStreamAlias("InfoType")
+  private String infoType;
   @XStreamAlias("Encrypt")
   private String ciphertext;
 
@@ -49,11 +52,24 @@ public class NotificationMeta {
   /**
    * 消息类型 (MsgType).
    * 
-   * @return {@link NotificationType}
+   * @return {@link NotificationMessageType}
    */
-  public NotificationType getType() {
+  public NotificationMessageType getMessageType() {
     try {
-      return NotificationType.byValue(type);
+      return NotificationMessageType.byValue(messageType);
+    } catch (Exception ex) {
+      return null;
+    }
+  }
+
+  /**
+   * 消息类型 (MsgType).
+   * 
+   * @return {@link NotificationMessageType}
+   */
+  public NotificationInfoType getInfoType() {
+    try {
+      return NotificationInfoType.byValue(infoType);
     } catch (Exception ex) {
       return null;
     }

@@ -3,14 +3,14 @@ package io.github.rcarlosdasilva.weixin.model.request.message;
 import com.google.gson.annotations.SerializedName;
 
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
-import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 
 /**
  * 删除群发请求模型
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public class MessageDeleteMassRequest extends BasicRequest {
+public class MessageDeleteMassRequest extends BasicWeixinRequest {
 
   @SerializedName("msg_id")
   private String messageId;

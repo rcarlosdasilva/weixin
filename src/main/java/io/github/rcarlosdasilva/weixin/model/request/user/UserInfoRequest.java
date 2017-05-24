@@ -4,14 +4,14 @@ import com.google.gson.annotations.SerializedName;
 
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
 import io.github.rcarlosdasilva.weixin.common.dictionary.Language;
-import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 
 /**
  * 获取用户信息请求模型
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public class UserInfoRequest extends BasicRequest {
+public class UserInfoRequest extends BasicWeixinRequest {
 
   @SerializedName("openid")
   private String openId;

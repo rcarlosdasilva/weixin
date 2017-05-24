@@ -7,14 +7,14 @@ import com.google.gson.annotations.SerializedName;
 
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
 import io.github.rcarlosdasilva.weixin.common.dictionary.QrCodeAction;
-import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 
 /**
  * 创建二维码请求模型
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public class QrCodeCreateRequest extends BasicRequest {
+public class QrCodeCreateRequest extends BasicWeixinRequest {
 
   @SerializedName("expire_seconds")
   private long expireSeconds;

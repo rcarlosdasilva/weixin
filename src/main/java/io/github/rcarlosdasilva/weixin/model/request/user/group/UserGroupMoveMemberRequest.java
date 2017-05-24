@@ -3,14 +3,14 @@ package io.github.rcarlosdasilva.weixin.model.request.user.group;
 import com.google.gson.annotations.SerializedName;
 
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
-import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 
 /**
  * 移动用户到组请求模型
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public class UserGroupMoveMemberRequest extends BasicRequest {
+public class UserGroupMoveMemberRequest extends BasicWeixinRequest {
 
   @SerializedName("openid")
   private String openId;

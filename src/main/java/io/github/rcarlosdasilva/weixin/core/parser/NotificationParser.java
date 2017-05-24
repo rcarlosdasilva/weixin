@@ -10,13 +10,15 @@ import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.Xpp3Driver;
 
 import io.github.rcarlosdasilva.weixin.common.Convention;
-import io.github.rcarlosdasilva.weixin.common.dictionary.NotificationType;
+import io.github.rcarlosdasilva.weixin.common.dictionary.NotificationInfoType;
+import io.github.rcarlosdasilva.weixin.common.dictionary.NotificationMessageType;
 import io.github.rcarlosdasilva.weixin.model.notification.Event;
 import io.github.rcarlosdasilva.weixin.model.notification.Message;
 import io.github.rcarlosdasilva.weixin.model.notification.Notification;
 import io.github.rcarlosdasilva.weixin.model.notification.NotificationResponse;
 import io.github.rcarlosdasilva.weixin.model.notification.NotificationResponseEncrypted;
 import io.github.rcarlosdasilva.weixin.model.notification.NotificationResponsePlaintext;
+import io.github.rcarlosdasilva.weixin.model.notification.OpenInfo;
 
 /**
  * 微信推送通知，消息解析器.
@@ -75,9 +77,9 @@ public class NotificationParser {
         Convention.WEIXIN_NOTIFICATION_XML_TAG_NOTIFICATION);
     Notification notification = (Notification) xs.fromXML(xmlString);
 
-    NotificationType type = notification.getType();
-    if (type != null) {
-      if (type == NotificationType.EVENT) {
+    NotificationMessageType messagetype = notification.getMessageType();
+    if (messagetype != null) {
+      if (messagetype == NotificationMessageType.EVENT) {
         xmlString = xmlString.replaceAll(Convention.WEIXIN_NOTIFICATION_XML_TAG_NOTIFICATION,
             Convention.WEIXIN_NOTIFICATION_XML_TAG_EVENT);
         Event event = (Event) xs.fromXML(xmlString);
@@ -88,6 +90,14 @@ public class NotificationParser {
         Message message = (Message) xs.fromXML(xmlString);
         notification.setMessage(message);
       }
+    }
+
+    NotificationInfoType infoType = notification.getInfoType();
+    if (infoType != null) {
+      xmlString = xmlString.replaceAll(Convention.WEIXIN_NOTIFICATION_XML_TAG_NOTIFICATION,
+          Convention.WEIXIN_NOTIFICATION_XML_TAG_INFO);
+      OpenInfo openInfo = (OpenInfo) xs.fromXML(xmlString);
+      notification.setOpenInfo(openInfo);
     }
 
     return notification;

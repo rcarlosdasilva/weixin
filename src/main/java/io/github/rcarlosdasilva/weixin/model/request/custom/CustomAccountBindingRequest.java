@@ -3,14 +3,14 @@ package io.github.rcarlosdasilva.weixin.model.request.custom;
 import com.google.gson.annotations.SerializedName;
 
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
-import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 
 /**
  * 邀请绑定客服账号请求模型
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public class CustomAccountBindingRequest extends BasicRequest {
+public class CustomAccountBindingRequest extends BasicWeixinRequest {
 
   @SerializedName("kf_account")
   private String account;

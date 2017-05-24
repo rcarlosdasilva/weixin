@@ -7,14 +7,14 @@ import java.util.Date;
 import com.google.gson.annotations.SerializedName;
 
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
-import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 
 /**
  * 数据统计请求模型
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public class StatisticsGetRequest extends BasicRequest {
+public class StatisticsGetRequest extends BasicWeixinRequest {
 
   private static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 

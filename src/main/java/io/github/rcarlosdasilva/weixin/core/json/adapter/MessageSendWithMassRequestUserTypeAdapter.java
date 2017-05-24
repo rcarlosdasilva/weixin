@@ -1,4 +1,4 @@
-package io.github.rcarlosdasilva.weixin.core.json;
+package io.github.rcarlosdasilva.weixin.core.json.adapter;
 
 import java.io.IOException;
 

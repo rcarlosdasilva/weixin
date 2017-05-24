@@ -10,6 +10,7 @@ import io.github.rcarlosdasilva.weixin.api.internal.HelperApi;
 import io.github.rcarlosdasilva.weixin.api.internal.MediaApi;
 import io.github.rcarlosdasilva.weixin.api.internal.MenuApi;
 import io.github.rcarlosdasilva.weixin.api.internal.MessageApi;
+import io.github.rcarlosdasilva.weixin.api.internal.OpenAuthApi;
 import io.github.rcarlosdasilva.weixin.api.internal.StatisticsApi;
 import io.github.rcarlosdasilva.weixin.api.internal.TemplateApi;
 import io.github.rcarlosdasilva.weixin.api.internal.UserApi;
@@ -22,6 +23,7 @@ import io.github.rcarlosdasilva.weixin.api.internal.impl.HelperApiImpl;
 import io.github.rcarlosdasilva.weixin.api.internal.impl.MediaApiImpl;
 import io.github.rcarlosdasilva.weixin.api.internal.impl.MenuApiImpl;
 import io.github.rcarlosdasilva.weixin.api.internal.impl.MessageApiImpl;
+import io.github.rcarlosdasilva.weixin.api.internal.impl.OpenAuthApiImpl;
 import io.github.rcarlosdasilva.weixin.api.internal.impl.StatisticsApiImpl;
 import io.github.rcarlosdasilva.weixin.api.internal.impl.TemplateApiImpl;
 import io.github.rcarlosdasilva.weixin.api.internal.impl.UserApiImpl;
@@ -66,6 +68,7 @@ public class Weixin {
   private final MessageApi message;
   private final StatisticsApi statistics;
   private final TemplateApi template;
+  private final OpenAuthApi openAuth;
 
   private Weixin(String accountKey) {
     this.accountKey = accountKey;
@@ -82,6 +85,23 @@ public class Weixin {
     this.message = new MessageApiImpl(accountKey);
     this.statistics = new StatisticsApiImpl(accountKey);
     this.template = new TemplateApiImpl(accountKey);
+    this.openAuth = null;
+  }
+
+  private Weixin() {
+    this.certificate = null;
+    this.common = null;
+    this.custom = null;
+    this.helper = null;
+    this.user = null;
+    this.userGroup = null;
+    this.userTag = null;
+    this.media = null;
+    this.menu = null;
+    this.message = null;
+    this.statistics = null;
+    this.template = null;
+    this.openAuth = new OpenAuthApiImpl();
   }
 
   /**
@@ -110,6 +130,23 @@ public class Weixin {
    */
   public static Weixin withUnique() {
     return with(Convention.DEFAULT_UNIQUE_WEIXIN_KEY);
+  }
+
+  /**
+   * 使用微信开放平台的接口.
+   * 
+   * @return API入口
+   */
+  public static Weixin withOpenPlatform() {
+    Weixin weixin = weixinMap.get(Convention.DEFAULT_OPEN_PLATFORM_KEY);
+    if (weixin == null) {
+      synchronized (weixinMap) {
+        if (weixin == null) {
+          weixinMap.put(Convention.DEFAULT_OPEN_PLATFORM_KEY, new Weixin());
+        }
+      }
+    }
+    return weixinMap.get(Convention.DEFAULT_OPEN_PLATFORM_KEY);
   }
 
   /**
@@ -228,6 +265,15 @@ public class Weixin {
    */
   public TemplateApi template() {
     return template;
+  }
+
+  /**
+   * 微信开放平台授权流程API功能.
+   * 
+   * @return 授权流程入口
+   */
+  public OpenAuthApi openAuth() {
+    return openAuth;
   }
 
 }

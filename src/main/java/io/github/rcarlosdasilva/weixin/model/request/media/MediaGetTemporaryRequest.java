@@ -1,14 +1,14 @@
 package io.github.rcarlosdasilva.weixin.model.request.media;
 
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
-import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 
 /**
  * 获取素材文件请求模型
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public class MediaGetTemporaryRequest extends BasicRequest {
+public class MediaGetTemporaryRequest extends BasicWeixinRequest {
 
   private String mediaId;
 

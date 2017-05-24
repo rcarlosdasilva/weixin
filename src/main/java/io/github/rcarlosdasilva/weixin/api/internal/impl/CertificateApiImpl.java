@@ -1,18 +1,33 @@
 package io.github.rcarlosdasilva.weixin.api.internal.impl;
 
+import java.util.UUID;
+
+import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Strings;
 
+import io.github.rcarlosdasilva.weixin.api.Weixin;
 import io.github.rcarlosdasilva.weixin.api.internal.BasicApi;
 import io.github.rcarlosdasilva.weixin.api.internal.CertificateApi;
-import io.github.rcarlosdasilva.weixin.core.WeixinRegistry;
+import io.github.rcarlosdasilva.weixin.common.ApiAddress;
+import io.github.rcarlosdasilva.weixin.common.Utils;
+import io.github.rcarlosdasilva.weixin.common.dictionary.WebAuthorizeScope;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.AccessTokenCacheHandler;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.AccountCacheHandler;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.JsTicketCacheHandler;
+import io.github.rcarlosdasilva.weixin.core.exception.CanNotFetchAccessTokenException;
+import io.github.rcarlosdasilva.weixin.core.exception.CanNotFetchOpenPlatformLicensorAccessTokenException;
+import io.github.rcarlosdasilva.weixin.core.exception.LostWeixinAccountException;
+import io.github.rcarlosdasilva.weixin.core.exception.LostWeixinLicensedRefreshTokenException;
+import io.github.rcarlosdasilva.weixin.core.exception.WrongAccessTokenTypeException;
 import io.github.rcarlosdasilva.weixin.core.json.Json;
+import io.github.rcarlosdasilva.weixin.core.registry.Registration;
+import io.github.rcarlosdasilva.weixin.model.AccessToken;
+import io.github.rcarlosdasilva.weixin.model.AccessToken.AccessTokenType;
 import io.github.rcarlosdasilva.weixin.model.Account;
+import io.github.rcarlosdasilva.weixin.model.JsapiSignature;
 import io.github.rcarlosdasilva.weixin.model.request.certificate.AccessTokenRequest;
 import io.github.rcarlosdasilva.weixin.model.request.certificate.JsTicketRequest;
 import io.github.rcarlosdasilva.weixin.model.request.certificate.WaAccessTokenRefreshRequest;
@@ -21,6 +36,7 @@ import io.github.rcarlosdasilva.weixin.model.request.certificate.WaAccessTokenVe
 import io.github.rcarlosdasilva.weixin.model.response.certificate.AccessTokenResponse;
 import io.github.rcarlosdasilva.weixin.model.response.certificate.JsTicketResponse;
 import io.github.rcarlosdasilva.weixin.model.response.certificate.WaAccessTokenResponse;
+import io.github.rcarlosdasilva.weixin.model.response.open.auth.OpenPlatformAuthGetLicenseInformationResponse;
 
 /**
  * 认证相关API实现
@@ -29,8 +45,7 @@ import io.github.rcarlosdasilva.weixin.model.response.certificate.WaAccessTokenR
  */
 public class CertificateApiImpl extends BasicApi implements CertificateApi {
 
-  private static final Logger logger = LoggerFactory.getLogger(CertificateApiImpl.class);
-
+  private final Logger logger = LoggerFactory.getLogger(CertificateApiImpl.class);
   private final Object lock = new Object();
 
   public CertificateApiImpl(String accountKey) {
@@ -39,7 +54,7 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
 
   @Override
   public String askAccessToken() {
-    AccessTokenResponse token = AccessTokenCacheHandler.getInstance().get(this.accountKey);
+    AccessToken token = AccessTokenCacheHandler.getInstance().get(this.accountKey);
 
     if (null == token || token.isExpired()) {
       synchronized (this.lock) {
@@ -50,12 +65,25 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
             logger.debug("For:{} >> 因access_token过期，重新请求。失效的access_token：[{}]", this.accountKey,
                 token);
           }
-          token = requestAccessToken();
+
+          if (token.getType() == AccessTokenType.WEIXIN) {
+            token = requestAccessToken();
+          } else if (token.getType() == AccessTokenType.LICENSED_WEIXIN) {
+            token = refreshLicensedAccessToken(token);
+          } else {
+            logger.error("错误的AccessToken类型，不应该出现这个错误");
+            throw new WrongAccessTokenTypeException();
+          }
         }
       }
     }
 
-    return null == token ? null : token.getAccessToken();
+    if (token == null) {
+      logger.error("无法获取微信公众号的component_access_token");
+      throw new CanNotFetchAccessTokenException();
+    }
+
+    return token.getAccessToken();
   }
 
   @Override
@@ -77,8 +105,39 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
     String responseMock = String.format("{'access_token':'%s','expires_in':%s}", token,
         (expiresIn / 1000));
     AccessTokenResponse responseModel = Json.fromJson(responseMock, AccessTokenResponse.class);
-    responseModel.updateExpireAt();
+    responseModel.setType(AccessTokenType.WEIXIN);
     AccessTokenCacheHandler.getInstance().put(this.accountKey, responseModel);
+  }
+
+  /**
+   * 更新使用开放平台的授权方的access_token.
+   * 
+   * @return 请求结果
+   */
+  private synchronized AccessToken refreshLicensedAccessToken(AccessToken expiredToken) {
+    if (expiredToken == null || Strings.isNullOrEmpty(expiredToken.getRefreshToken())) {
+      logger.error("找不到正确的授权方access_token刷新令牌，或许需要授权方重新授权");
+      throw new LostWeixinLicensedRefreshTokenException();
+    }
+
+    Account account = AccountCacheHandler.getInstance().get(this.accountKey);
+    if (account == null) {
+      logger.error("找不到授权方公众号信息");
+      throw new LostWeixinAccountException();
+    }
+
+    OpenPlatformAuthGetLicenseInformationResponse response = Weixin.withOpenPlatform().openAuth()
+        .refreshLicensorAccessToken(account.getAppId(), expiredToken.getRefreshToken());
+    if (response == null
+        || Strings.isNullOrEmpty(response.getLicensedAccessToken().getAccessToken())) {
+      logger.error("获取不到授权方的access_token");
+      throw new CanNotFetchOpenPlatformLicensorAccessTokenException();
+    }
+
+    AccessToken accessToken = response.getLicensedAccessToken();
+    accessToken.setType(AccessTokenType.LICENSED_WEIXIN);
+    AccessTokenCacheHandler.getInstance().put(this.accountKey, accessToken);
+    return accessToken;
   }
 
   /**
@@ -86,7 +145,7 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
    *
    * @return 请求结果
    */
-  private synchronized AccessTokenResponse requestAccessToken() {
+  private synchronized AccessToken requestAccessToken() {
     logger.debug("For:{} >> 正在获取access_token", this.accountKey);
     Account account = AccountCacheHandler.getInstance().get(this.accountKey);
     AccessTokenRequest requestModel = new AccessTokenRequest();
@@ -96,15 +155,16 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
     AccessTokenResponse responseModel = get(AccessTokenResponse.class, requestModel);
 
     if (responseModel != null) {
-      responseModel.updateExpireAt();
+      responseModel.setType(AccessTokenType.WEIXIN);
       AccessTokenCacheHandler.getInstance().put(this.accountKey, responseModel);
       logger.debug("For:{} >> 获取到access_token：[{}]", this.accountKey,
           responseModel.getAccessToken());
 
-      if (WeixinRegistry.getConfiguration() != null
-          && WeixinRegistry.getConfiguration().getAccessTokenUpdatListener() != null) {
-        WeixinRegistry.getConfiguration().getAccessTokenUpdatListener().updated(account.getKey(),
-            account.getAppId(), responseModel.getAccessToken(), responseModel.getExpiresIn());
+      if (Registration.getInstance().getConfiguration() != null
+          && Registration.getInstance().getConfiguration().getAccessTokenUpdatListener() != null) {
+        Registration.getInstance().getConfiguration().getAccessTokenUpdatListener().updated(
+            account.getKey(), account.getAppId(), responseModel.getAccessToken(),
+            responseModel.getExpiresIn());
       }
 
       return responseModel;
@@ -173,11 +233,12 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
       JsTicketCacheHandler.getInstance().put(this.accountKey, responseModel);
       logger.debug("For:{} >> 获取jsapi_ticket：[{}]", this.accountKey, responseModel.getJsTicket());
 
-      if (WeixinRegistry.getConfiguration() != null
-          && WeixinRegistry.getConfiguration().getJsTicketUpdatedListener() != null) {
+      if (Registration.getInstance().getConfiguration() != null
+          && Registration.getInstance().getConfiguration().getJsTicketUpdatedListener() != null) {
         Account account = AccountCacheHandler.getInstance().get(this.accountKey);
-        WeixinRegistry.getConfiguration().getJsTicketUpdatedListener().updated(account.getKey(),
-            account.getAppId(), responseModel.getJsTicket(), responseModel.getExpiresIn());
+        Registration.getInstance().getConfiguration().getJsTicketUpdatedListener().updated(
+            account.getKey(), account.getAppId(), responseModel.getJsTicket(),
+            responseModel.getExpiresIn());
       }
 
       return responseModel;
@@ -214,6 +275,39 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
     requestModel.setOpenId(openId);
 
     return get(Boolean.class, requestModel);
+  }
+
+  @Override
+  public String webAuthorize(WebAuthorizeScope scope, String redirectTo, String param) {
+    Account account = AccountCacheHandler.getInstance().get(this.accountKey);
+
+    return new StringBuilder(ApiAddress.URL_WEB_AUTHORIZE).append("?appid=")
+        .append(account.getAppId()).append("&redirect_uri=").append(Utils.urlEncode(redirectTo))
+        .append("&response_type=code&scope=").append(scope)
+        .append(Strings.isNullOrEmpty(param) ? "" : ("&state=" + param)).append("#wechat_redirect")
+        .toString();
+  }
+
+  @Override
+  public String webAuthorize(WebAuthorizeScope scope, String redirectTo) {
+    return webAuthorize(scope, redirectTo, null);
+  }
+
+  @Override
+  public JsapiSignature generateJsapiSignature(String url) {
+    Account account = AccountCacheHandler.getInstance().get(this.accountKey);
+    String ticket = Weixin.with(this.accountKey).certificate().askJsTicket();
+    String timestamp = Long.toString(System.currentTimeMillis() / 1000);
+    String nonce = UUID.randomUUID().toString();
+
+    String raw = new StringBuilder("jsapi_ticket=").append(ticket).append("&noncestr=")
+        .append(nonce).append("&timestamp=").append(timestamp).append("&url=").append(url)
+        .toString();
+    String signature = null;
+
+    signature = DigestUtils.sha1Hex(raw);
+
+    return new JsapiSignature(account.getAppId(), ticket, signature, url, timestamp, nonce);
   }
 
 }

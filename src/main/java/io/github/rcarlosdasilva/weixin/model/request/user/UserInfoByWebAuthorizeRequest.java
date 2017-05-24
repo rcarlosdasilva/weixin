@@ -2,14 +2,14 @@ package io.github.rcarlosdasilva.weixin.model.request.user;
 
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
 import io.github.rcarlosdasilva.weixin.common.dictionary.Language;
-import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 
 /**
  * 获取网页授权下用户信息请求模型
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public class UserInfoByWebAuthorizeRequest extends BasicRequest {
+public class UserInfoByWebAuthorizeRequest extends BasicWeixinRequest {
 
   private String accessToken;
   private String openId;

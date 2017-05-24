@@ -38,7 +38,7 @@ public class NotificationResponseBuilder {
   }
 
   /**
-   * 什么也不回复.
+   * 默认返回sucess.
    * 
    * <p>
    * 假如服务器无法保证在五秒内处理并回复，必须做出下述回复：<br>

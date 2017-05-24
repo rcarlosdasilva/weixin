@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
 import io.github.rcarlosdasilva.weixin.common.dictionary.MessageType;
-import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 import io.github.rcarlosdasilva.weixin.model.request.message.bean.Card;
 import io.github.rcarlosdasilva.weixin.model.request.message.bean.CustomService;
 import io.github.rcarlosdasilva.weixin.model.request.message.bean.Image;
@@ -21,7 +21,7 @@ import io.github.rcarlosdasilva.weixin.model.request.message.bean.Voice;
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
 @SuppressWarnings("unused")
-public class MessageSendWithCustomRequest extends BasicRequest implements MessageRequest {
+public class MessageSendWithCustomRequest extends BasicWeixinRequest implements MessageRequest {
 
   @SerializedName("touser")
   private String to;

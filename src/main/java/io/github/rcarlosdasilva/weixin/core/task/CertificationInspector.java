@@ -15,6 +15,7 @@ import com.google.common.collect.Maps;
  *
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
+@Deprecated
 public class CertificationInspector {
 
   private static final Logger logger = LoggerFactory.getLogger(CertificationInspector.class);

@@ -218,4 +218,24 @@ public class ApiAddress {
   public static final String URL_WEB_AUTHORIZE = URL_OPEN_DOMAIN + "connect/oauth2/authorize";
   // ======================== Helper ======================
 
+  // ------------------------ Open Platform Auth ----------------------
+  public static final String URL_OPEN_PLATFORM_ACCESS_TOKEN = URL_API_DOMAIN
+      + "cgi-bin/component/api_component_token";
+  public static final String URL_OPEN_PLATFORM_PRE_AUTH_CODE = URL_API_DOMAIN
+      + "cgi-bin/component/api_create_preauthcode";
+  public static final String URL_OPEN_PLATFORM_LICENSE_INFORMATION = URL_API_DOMAIN
+      + "cgi-bin/component/api_query_auth";
+  public static final String URL_OPEN_PLATFORM_REFRESH_LICENSOR_ACCESS_TOKEN = URL_API_DOMAIN
+      + "cgi-bin/component/api_authorizer_token";
+  public static final String URL_OPEN_PLATFORM_LICENSOR_INFORMATION = URL_API_DOMAIN
+      + "cgi-bin/component/api_get_authorizer_info";
+  public static final String URL_OPEN_PLATFORM_GET_LICENSOR_OPTION = URL_API_DOMAIN
+      + "cgi-bin/component/api_get_authorizer_option";
+  public static final String URL_OPEN_PLATFORM_SET_LICENSOR_OPTION = URL_API_DOMAIN
+      + "cgi-bin/component/api_set_authorizer_option";
+
+  public static final String URL_OPEN_PLATFORM_AUTHORIZE = URL_MP_DOMAIN
+      + "cgi-bin/componentloginpage";
+  // ======================== Open Platform Auth ======================
+
 }

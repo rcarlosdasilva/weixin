@@ -1,14 +1,14 @@
 package io.github.rcarlosdasilva.weixin.model.request.custom;
 
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
-import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 
 /**
  * 获取会话状态请求模型
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public class CustomSessionStatusRequest extends BasicRequest {
+public class CustomSessionStatusRequest extends BasicWeixinRequest {
 
   private String openId;
 

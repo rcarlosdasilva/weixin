@@ -8,6 +8,11 @@ import io.github.rcarlosdasilva.weixin.model.notification.bean.LocationInfo;
 import io.github.rcarlosdasilva.weixin.model.notification.bean.PicsInfo;
 import io.github.rcarlosdasilva.weixin.model.notification.bean.ScanCodeInfo;
 
+/**
+ * 如果大部分的通知都不需要处理，建议继承该类
+ * 
+ * @author Dean Zhao (rcarlosdasilva@qq.com)
+ */
 public class DefaultNotificationHandler implements NotificationHandler {
 
   @Override
@@ -171,6 +176,30 @@ public class DefaultNotificationHandler implements NotificationHandler {
   @Override
   public void doEventOfVerifyForExpired(NotificationResponseBuilder builder,
       NotificationMeta notification, Date expiredTime) {
+    builder.responseNothing();
+  }
+
+  @Override
+  public void doInfoOfComponentVerifyTicket(NotificationResponseBuilder builder,
+      NotificationMeta notification, String ticket) {
+    builder.responseNothing();
+  }
+
+  @Override
+  public void doInfoOfAuthorizeSucceeded(NotificationResponseBuilder builder,
+      NotificationMeta notification, String appId, String license, Date expireAt) {
+    builder.responseNothing();
+  }
+
+  @Override
+  public void doInfoOfAuthorizeCanceled(NotificationResponseBuilder builder,
+      NotificationMeta notification, String appId) {
+    builder.responseNothing();
+  }
+
+  @Override
+  public void doInfoOfAuthorizeUpdated(NotificationResponseBuilder builder,
+      NotificationMeta notification, String appId, String license, Date expireAt) {
     builder.responseNothing();
   }
 

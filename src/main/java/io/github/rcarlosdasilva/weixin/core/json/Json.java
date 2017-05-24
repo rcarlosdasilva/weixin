@@ -7,8 +7,6 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import io.github.rcarlosdasilva.weixin.model.request.message.MessageSendWithMassRequestUser;
-
 /**
  * JSON工具
  * 
@@ -18,8 +16,7 @@ public final class Json {
 
   private static final Gson gson = new GsonBuilder().enableComplexMapKeySerialization()
       .disableHtmlEscaping().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-      .registerTypeAdapter(MessageSendWithMassRequestUser.class,
-          new MessageSendWithMassRequestUserTypeAdapter().nullSafe())
+      .registerTypeAdapterFactory(new CustomTypeAdapterFactory())
       .addSerializationExclusionStrategy(new ExclusionStrategy() {
 
         @Override

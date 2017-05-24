@@ -1,7 +1,7 @@
 package io.github.rcarlosdasilva.weixin.model.request.media;
 
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
-import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 
 /**
  * 获取素材列表请求模型
@@ -9,7 +9,7 @@ import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
 @SuppressWarnings("unused")
-public class MediaListTimelessRequest extends BasicRequest {
+public class MediaListTimelessRequest extends BasicWeixinRequest {
 
   private String type;
   private int offset;

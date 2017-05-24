@@ -4,14 +4,14 @@ import com.google.gson.annotations.SerializedName;
 
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
 import io.github.rcarlosdasilva.weixin.common.Convention;
-import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 
 /**
  * 短连接请求模型
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public class ShortUrlRequest extends BasicRequest {
+public class ShortUrlRequest extends BasicWeixinRequest {
 
   @SerializedName("action")
   private String action = Convention.SHROT_URL_ACTION;

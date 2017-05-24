@@ -6,14 +6,14 @@ import com.google.common.collect.Lists;
 import com.google.gson.annotations.SerializedName;
 
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
-import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 
 /**
  * 拉黑用户请求模型
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public class BlackListAppendRequest extends BasicRequest {
+public class BlackListAppendRequest extends BasicWeixinRequest {
 
   @SerializedName("openid_list")
   private List<String> list;

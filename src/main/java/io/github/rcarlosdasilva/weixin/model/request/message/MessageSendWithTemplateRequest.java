@@ -5,7 +5,7 @@ import java.util.Map;
 import com.google.gson.annotations.SerializedName;
 
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
-import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 import io.github.rcarlosdasilva.weixin.model.request.message.bean.Template;
 
 /**
@@ -14,7 +14,7 @@ import io.github.rcarlosdasilva.weixin.model.request.message.bean.Template;
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
 @SuppressWarnings("unused")
-public class MessageSendWithTemplateRequest extends BasicRequest {
+public class MessageSendWithTemplateRequest extends BasicWeixinRequest {
 
   @SerializedName("touser")
   private String to;

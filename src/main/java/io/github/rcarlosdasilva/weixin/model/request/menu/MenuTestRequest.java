@@ -3,14 +3,14 @@ package io.github.rcarlosdasilva.weixin.model.request.menu;
 import com.google.gson.annotations.SerializedName;
 
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
-import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 
 /**
  * 测试个性化菜单请求模型
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public class MenuTestRequest extends BasicRequest {
+public class MenuTestRequest extends BasicWeixinRequest {
 
   @SerializedName("user_id")
   private String userLabel;

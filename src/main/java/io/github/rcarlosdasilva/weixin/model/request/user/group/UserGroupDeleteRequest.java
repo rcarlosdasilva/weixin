@@ -5,14 +5,14 @@ import java.util.Map;
 import com.google.common.collect.Maps;
 
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
-import io.github.rcarlosdasilva.weixin.model.request.base.BasicRequest;
+import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 
 /**
  * 删除用户组请求模型
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public class UserGroupDeleteRequest extends BasicRequest {
+public class UserGroupDeleteRequest extends BasicWeixinRequest {
 
   private Map<String, Integer> group = Maps.newHashMap();
 

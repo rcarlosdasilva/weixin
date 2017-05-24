@@ -12,12 +12,22 @@ import io.github.rcarlosdasilva.weixin.model.Account;
 @XStreamAlias("notification")
 public class Notification extends NotificationMeta {
 
+  @XStreamAlias("AppId")
   private String appId;
   private String plaintext;
   private Event event;
   private Message message;
+  private OpenInfo openInfo;
   private Account account;
 
+  /**
+   * appid.
+   * <p>
+   * 公众号平台的通知：appid = 公众号appid<br>
+   * 开放平台的通知：appid = 第三方appid
+   * 
+   * @return appid
+   */
   public String getAppId() {
     return appId;
   }
@@ -63,6 +73,19 @@ public class Notification extends NotificationMeta {
 
   public void setMessage(Message message) {
     this.message = message;
+  }
+
+  /**
+   * 获取开放平台相关内容.
+   * 
+   * @return {@link OpenInfo}
+   */
+  public OpenInfo getOpenInfo() {
+    return openInfo;
+  }
+
+  public void setOpenInfo(OpenInfo open) {
+    this.openInfo = open;
   }
 
   /**
