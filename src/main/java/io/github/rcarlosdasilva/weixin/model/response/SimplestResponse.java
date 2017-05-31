@@ -38,7 +38,7 @@ public class SimplestResponse {
    * 
    * @return can retry
    */
-  public boolean canSalvage() {
+  public boolean isBadAccessToken() {
     return this.errorCode == resultInvalidCredential || this.errorCode == resultInvalidToken
         || this.errorCode == resultExpiredToken;
   }

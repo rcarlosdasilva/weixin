@@ -33,26 +33,24 @@ public class ResponseParser {
   @SuppressWarnings("unchecked")
   public static <T> T parse(Class<T> target, String json) {
     if (SimplestResponse.seemsLikeError(json)) {
-      SimplestResponse error = Json.fromJson(json, SimplestResponse.class);
-      Boolean success = error.getErrorCode() == ResultCode.RESULT_0.getCode();
+      SimplestResponse errorResponse = Json.fromJson(json, SimplestResponse.class);
+      Boolean success = errorResponse.getErrorCode() == ResultCode.RESULT_0.getCode();
 
       if (!success) {
-        ResultCode resultCode = ResultCode.byCode(error.getErrorCode());
+        ResultCode resultCode = ResultCode.byCode(errorResponse.getErrorCode());
         if (resultCode == null) {
-          logger.error("微信请求错误：code [{}] -- message [{}]", error.getErrorCode(),
-              error.getErrorMessage());
-        } else {
-          logger.error("微信请求错误：code [{}] -- message [{}]", resultCode.getCode(),
-              resultCode.getText());
+          logger.warn("未收录的微信错误代码: code [{}]", errorResponse.getErrorCode());
         }
+        logger.error("微信请求错误：code [{}] -- message [{}]", errorResponse.getErrorCode(),
+            errorResponse.getErrorMessage());
 
-        if (error.canSalvage()) {
-          logger.error("微信access_token不对，我觉着还可以抢救一下，再试一遍");
+        if (errorResponse.isBadAccessToken()) {
+          logger.error("微信说access_token不大行，那我觉着是不是还可以再抢救一下，再试一遍来");
           throw new MaydayMaydaySaveMeBecauseAccessTokenSetMeFuckUpException();
         }
 
         if (Registration.getInstance().getConfiguration().isThrowException()) {
-          throw new ExecuteException(error);
+          throw new ExecuteException(errorResponse);
         }
 
         if (target == Boolean.class) {

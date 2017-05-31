@@ -79,7 +79,7 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
     }
 
     if (token == null) {
-      logger.error("无法获取微信公众号的component_access_token");
+      logger.error("无法获取微信公众号的access_token");
       throw new CanNotFetchAccessTokenException();
     }
 
@@ -137,6 +137,9 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
     AccessToken accessToken = response.getLicensedAccessToken();
     accessToken.setType(AccessTokenType.LICENSED_WEIXIN);
     AccessTokenCacheHandler.getInstance().put(this.accountKey, accessToken);
+    logger.debug("For:{} >> 开放平台更新授权方access_token：[{}]", this.accountKey,
+        accessToken.getAccessToken());
+
     return accessToken;
   }
 
@@ -152,22 +155,21 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
     requestModel.setAppId(account.getAppId());
     requestModel.setAppSecret(account.getAppSecret());
 
-    AccessTokenResponse responseModel = get(AccessTokenResponse.class, requestModel);
+    AccessToken accessToken = get(AccessTokenResponse.class, requestModel);
 
-    if (responseModel != null) {
-      responseModel.setType(AccessTokenType.WEIXIN);
-      AccessTokenCacheHandler.getInstance().put(this.accountKey, responseModel);
-      logger.debug("For:{} >> 获取到access_token：[{}]", this.accountKey,
-          responseModel.getAccessToken());
+    if (accessToken != null) {
+      accessToken.setType(AccessTokenType.WEIXIN);
+      AccessTokenCacheHandler.getInstance().put(this.accountKey, accessToken);
+      logger.debug("For:{} >> 获取到access_token：[{}]", this.accountKey, accessToken.getAccessToken());
 
       if (Registration.getInstance().getConfiguration() != null
           && Registration.getInstance().getConfiguration().getAccessTokenUpdatListener() != null) {
         Registration.getInstance().getConfiguration().getAccessTokenUpdatListener().updated(
-            account.getKey(), account.getAppId(), responseModel.getAccessToken(),
-            responseModel.getExpiresIn());
+            account.getKey(), account.getAppId(), accessToken.getAccessToken(),
+            accessToken.getExpiresIn());
       }
 
-      return responseModel;
+      return accessToken;
     }
 
     return null;
