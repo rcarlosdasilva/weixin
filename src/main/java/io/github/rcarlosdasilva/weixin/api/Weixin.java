@@ -101,7 +101,7 @@ public class Weixin {
     this.message = null;
     this.statistics = null;
     this.template = null;
-    this.openAuth = new OpenAuthApiImpl();
+    this.openAuth = new OpenAuthApiImpl(Convention.DEFAULT_OPEN_PLATFORM_KEY);
   }
 
   /**
@@ -115,9 +115,7 @@ public class Weixin {
     Weixin weixin = weixinMap.get(key);
     if (weixin == null) {
       synchronized (weixinMap) {
-        if (weixin == null) {
-          weixinMap.put(key, new Weixin(key));
-        }
+        weixinMap.put(key, new Weixin(key));
       }
     }
     return weixinMap.get(key);
@@ -141,21 +139,10 @@ public class Weixin {
     Weixin weixin = weixinMap.get(Convention.DEFAULT_OPEN_PLATFORM_KEY);
     if (weixin == null) {
       synchronized (weixinMap) {
-        if (weixin == null) {
-          weixinMap.put(Convention.DEFAULT_OPEN_PLATFORM_KEY, new Weixin());
-        }
+        weixinMap.put(Convention.DEFAULT_OPEN_PLATFORM_KEY, new Weixin());
       }
     }
     return weixinMap.get(Convention.DEFAULT_OPEN_PLATFORM_KEY);
-  }
-
-  /**
-   * 获取公众号信息.
-   * 
-   * @return {@link Account}
-   */
-  public Account info() {
-    return AccountCacheHandler.getInstance().get(this.accountKey);
   }
 
   /**

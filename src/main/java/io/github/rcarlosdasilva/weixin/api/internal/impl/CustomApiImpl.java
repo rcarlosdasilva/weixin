@@ -39,7 +39,7 @@ import io.github.rcarlosdasilva.weixin.model.response.custom.bean.CustomSession;
 public class CustomApiImpl extends BasicApi implements CustomApi {
 
   public CustomApiImpl(String accountKey) {
-    this.accountKey = accountKey;
+    super(accountKey);
   }
 
   @Override

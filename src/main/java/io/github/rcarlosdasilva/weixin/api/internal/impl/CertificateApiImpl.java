@@ -49,7 +49,7 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
   private final Object lock = new Object();
 
   public CertificateApiImpl(String accountKey) {
-    this.accountKey = accountKey;
+    super(accountKey);
   }
 
   @Override
@@ -58,22 +58,22 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
 
     if (null == token || token.isExpired()) {
       synchronized (this.lock) {
-        if (null == token || token.isExpired()) {
-          if (null == token) {
-            logger.debug("For:{} >> 无缓存过的access_token，请求access_token", this.accountKey);
-          } else {
-            logger.debug("For:{} >> 因access_token过期，重新请求。失效的access_token：[{}]", this.accountKey,
-                token);
-          }
+        if (null == token) {
+          logger.debug("For:{} >> 无缓存过的access_token，请求access_token", this.accountKey);
+        } else {
+          logger.debug("For:{} >> 因access_token过期，重新请求。失效的access_token：[{}]", this.accountKey,
+              token);
+        }
 
-          if (token.getType() == AccessTokenType.WEIXIN) {
-            token = requestAccessToken();
-          } else if (token.getType() == AccessTokenType.LICENSED_WEIXIN) {
-            token = refreshLicensedAccessToken(token);
-          } else {
-            logger.error("错误的AccessToken类型，不应该出现这个错误");
-            throw new WrongAccessTokenTypeException();
-          }
+        if (token == null || token.getType() == AccessTokenType.WEIXIN) {
+          // 使用公众号appid和appsecret在第一次获取access_token之前，token为空
+          token = requestAccessToken();
+        } else if (token.getType() == AccessTokenType.LICENSED_WEIXIN) {
+          // 使用微信开放平台，在公众号授权后，会自动获取第一次授权方的access_token，所以token不会为空
+          token = refreshLicensedAccessToken(token);
+        } else {
+          logger.error("错误的AccessToken类型，不应该出现这个错误");
+          throw new WrongAccessTokenTypeException();
         }
       }
     }
@@ -98,7 +98,7 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
       return;
     }
 
-    long expiresIn = 7200 * 1000;
+    long expiresIn = 7200L * 1000L;
     if (expiredAt > 0) {
       expiresIn = expiredAt - System.currentTimeMillis();
     }
@@ -208,7 +208,7 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
       return;
     }
 
-    long expiresIn = 7200 * 1000;
+    long expiresIn = 7200L * 1000L;
     if (expiredAt > 0) {
       expiresIn = expiredAt - System.currentTimeMillis();
     }

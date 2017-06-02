@@ -390,6 +390,8 @@ public class NotificationHandlerProxy {
         break;
       }
       case AUTHORIZE_UPDATED: {
+        updateLicensorAccount(notification);
+
         handler.doInfoOfAuthorizeUpdated(builder, notification, info.getLicensorAppId(),
             info.getLicense(), info.getLicenseExpireAt());
         break;
@@ -410,37 +412,37 @@ public class NotificationHandlerProxy {
     if (Strings.isNullOrEmpty(license) || Strings.isNullOrEmpty(licensorAppId)) {
       logger.warn("无法获取到开放平台发放的授权码或授权者appid");
       throw new CanNotFetchOpenPlatformLicenseException();
-    } else {
-      OpenPlatformAuthGetLicenseInformationResponse response = Weixin.withOpenPlatform().openAuth()
-          .getLicenseInformation(license);
-      if (response == null || response.getLicensedAccessToken() == null) {
-        throw new CanNotFetchOpenPlatformLicensorAccessTokenException();
-      }
-
-      String key = licensorAppId;
-      Account account = Registration.lookup(licensorAppId);
-      if (account != null) {
-        key = account.getKey();
-      }
-      if (account == null) {
-        account = new Account(licensorAppId, null);
-      }
-
-      AccessToken accessToken = response.getLicensedAccessToken();
-      accessToken.setType(AccessTokenType.LICENSED_WEIXIN);
-      AccessTokenCacheHandler.getInstance().put(key, accessToken);
-
-      account.setLicensingInformation(response.getLicensingInformation());
-
-      response = Weixin.withOpenPlatform().openAuth().getLicensorInformation(licensorAppId);
-      if (response == null || response.getLicensorInfromation() == null) {
-        logger.warn("无法获取到开放平台授权方的基本信息，但不影响主要功能");
-      } else {
-        account.setLicensorInfromation(response.getLicensorInfromation());
-      }
-
-      Registration.updateAccount(key, account);
     }
+
+    OpenPlatformAuthGetLicenseInformationResponse response = Weixin.withOpenPlatform().openAuth()
+        .getLicenseInformation(license);
+    if (response == null || response.getLicensedAccessToken() == null) {
+      throw new CanNotFetchOpenPlatformLicensorAccessTokenException();
+    }
+
+    String key = licensorAppId;
+    Account account = Registration.lookup(licensorAppId);
+    if (account != null) {
+      key = account.getKey();
+    }
+    if (account == null) {
+      account = new Account(licensorAppId, null);
+    }
+
+    AccessToken accessToken = response.getLicensedAccessToken();
+    accessToken.setType(AccessTokenType.LICENSED_WEIXIN);
+    AccessTokenCacheHandler.getInstance().put(key, accessToken);
+
+    account.setLicensingInformation(response.getLicensingInformation());
+
+    response = Weixin.withOpenPlatform().openAuth().getLicensorInformation(licensorAppId);
+    if (response == null || response.getLicensorInfromation() == null) {
+      logger.warn("无法获取到开放平台授权方的基本信息，但不影响主要功能");
+    } else {
+      account.setLicensorInfromation(response.getLicensorInfromation());
+    }
+
+    Registration.updateAccount(key, account);
   }
 
 }

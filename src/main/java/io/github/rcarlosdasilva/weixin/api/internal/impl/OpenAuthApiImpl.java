@@ -37,6 +37,10 @@ public class OpenAuthApiImpl extends BasicApi implements OpenAuthApi {
   private final Logger logger = LoggerFactory.getLogger(OpenAuthApiImpl.class);
   private final Object lock = new Object();
 
+  public OpenAuthApiImpl(String accountKey) {
+    super(accountKey);
+  }
+
   private OpenPlatform getOpenPlatformInfo() {
     OpenPlatform openPlatform = Registration.getInstance().getOpenPlatform();
     if (openPlatform == null) {

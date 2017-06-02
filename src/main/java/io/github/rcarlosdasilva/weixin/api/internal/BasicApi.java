@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import com.google.common.io.ByteStreams;
 
 import io.github.rcarlosdasilva.weixin.api.Weixin;
+import io.github.rcarlosdasilva.weixin.common.Convention;
 import io.github.rcarlosdasilva.weixin.core.exception.MaydayMaydaySaveMeBecauseAccessTokenSetMeFuckUpException;
 import io.github.rcarlosdasilva.weixin.core.http.ContentType;
 import io.github.rcarlosdasilva.weixin.core.http.FormData;
@@ -18,6 +19,7 @@ import io.github.rcarlosdasilva.weixin.core.http.Http;
 import io.github.rcarlosdasilva.weixin.core.http.HttpMethod;
 import io.github.rcarlosdasilva.weixin.core.http.MultiFile;
 import io.github.rcarlosdasilva.weixin.core.parser.ResponseParser;
+import io.github.rcarlosdasilva.weixin.core.registry.Registration;
 import io.github.rcarlosdasilva.weixin.model.request.base.Request;
 import io.github.rcarlosdasilva.weixin.model.request.certificate.AccessTokenRequest;
 
@@ -28,27 +30,24 @@ import io.github.rcarlosdasilva.weixin.model.request.certificate.AccessTokenRequ
  */
 public class BasicApi {
 
-  protected String accountKey;
+  private final Logger logger = LoggerFactory.getLogger(getClass());
 
-  private int getRetryTimes() {
-    return Weixin.with(this.accountKey).info().getRetryTimes();
-  }
+  protected final String accountKey;
 
-  private String getAccessToken() {
-    return Weixin.with(this.accountKey).certificate().askAccessToken();
+  public BasicApi(String accountKey) {
+    this.accountKey = accountKey;
   }
 
   private void updateAccessToken(Request requestModel) {
     if (!(requestModel instanceof AccessTokenRequest)) {
-      requestModel.updateAccessToken(getAccessToken());
+      String accessToken = null;
+      if (Convention.DEFAULT_OPEN_PLATFORM_KEY.equals(this.accountKey)) {
+        accessToken = Weixin.withOpenPlatform().openAuth().askAccessToken();
+      } else {
+        accessToken = Weixin.with(this.accountKey).certificate().askAccessToken();
+      }
+      requestModel.updateAccessToken(accessToken);
     }
-  }
-
-  /**
-   * 刷新access_token.
-   */
-  private void refreshAccessToken() {
-    Weixin.with(this.accountKey).certificate().refreshAccessToken();
   }
 
   /**
@@ -65,7 +64,7 @@ public class BasicApi {
   protected <T> T post(Class<T> target, Request requestModel) {
     updateAccessToken(requestModel);
 
-    return new BasicApi.RetryableRunner<T>() {
+    return new RetryableRunner<T>() {
 
       @SuppressWarnings("unchecked")
       @Override
@@ -90,7 +89,7 @@ public class BasicApi {
   protected InputStream postStream(Request requestModel) {
     updateAccessToken(requestModel);
 
-    return new BasicApi.RetryableRunner<InputStream>() {
+    return new RetryableRunner<InputStream>() {
 
       @SuppressWarnings("unchecked")
       @Override
@@ -117,7 +116,7 @@ public class BasicApi {
   protected <T> T get(Class<T> target, Request requestModel) {
     updateAccessToken(requestModel);
 
-    return new BasicApi.RetryableRunner<T>() {
+    return new RetryableRunner<T>() {
 
       @SuppressWarnings("unchecked")
       @Override
@@ -141,7 +140,7 @@ public class BasicApi {
   protected InputStream getStream(Request requestModel) {
     updateAccessToken(requestModel);
 
-    return new BasicApi.RetryableRunner<InputStream>() {
+    return new RetryableRunner<InputStream>() {
 
       @SuppressWarnings("unchecked")
       @Override
@@ -177,7 +176,7 @@ public class BasicApi {
       File file, List<FormData> additionalData) {
     updateAccessToken(requestModel);
 
-    return new BasicApi.RetryableRunner<T>() {
+    return new RetryableRunner<T>() {
 
       @SuppressWarnings("unchecked")
       @Override
@@ -194,14 +193,14 @@ public class BasicApi {
   protected byte[] readStream(InputStream is) {
     try {
       return ByteStreams.toByteArray(is);
-    } catch (IOException e) {
-      e.printStackTrace();
+    } catch (IOException ex) {
+      logger.error("weixin basic api", ex);
       return null;
     } finally {
       try {
         is.close();
-      } catch (IOException e) {
-        e.printStackTrace();
+      } catch (IOException ex) {
+        logger.error("weixin basic api", ex);
       }
     }
   }
@@ -216,6 +215,17 @@ public class BasicApi {
   abstract class RetryableRunner<R> {
 
     private final Logger logger = LoggerFactory.getLogger(RetryableRunner.class);
+
+    private int getRetryTimes() {
+      return Registration.account(accountKey).getRetryTimes();
+    }
+
+    /**
+     * 刷新access_token.
+     */
+    private void refreshAccessToken() {
+      Weixin.with(accountKey).certificate().refreshAccessToken();
+    }
 
     /**
      * 执行.
@@ -234,6 +244,8 @@ public class BasicApi {
           result = pending();
           break;
         } catch (MaydayMaydaySaveMeBecauseAccessTokenSetMeFuckUpException ex) {
+          logger.debug("weixin basic api", ex);
+
           if (times++ >= getRetryTimes()) {
             logger.error("For:{} >> 失败！已尝试重新执行{}次", accountKey, times - 1);
             break;

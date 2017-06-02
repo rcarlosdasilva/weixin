@@ -1,5 +1,8 @@
 package io.github.rcarlosdasilva.weixin.common.dictionary;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * 微信推送通知事件
  * 
@@ -52,6 +55,8 @@ public enum NotificationEvent {
   /** 未知. */
   UNKNOWN("");
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(NotificationEvent.class);
+
   private String text;
 
   private NotificationEvent(String text) {
@@ -80,7 +85,9 @@ public enum NotificationEvent {
         return result;
       }
     }
-    throw new IllegalArgumentException("No matching result for [" + text + "]");
+
+    LOGGER.warn("No matching result for [{}]", text);
+    return UNKNOWN;
   }
 
 }

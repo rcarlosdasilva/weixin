@@ -1,5 +1,8 @@
 package io.github.rcarlosdasilva.weixin.common.dictionary;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * 微信推送通知类型
  * 
@@ -40,6 +43,8 @@ public enum NotificationMessageType {
    */
   LINK("link");
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(NotificationMessageType.class);
+
   private String text;
 
   private NotificationMessageType(String text) {
@@ -68,7 +73,9 @@ public enum NotificationMessageType {
         return result;
       }
     }
-    throw new IllegalArgumentException("No matching result for [" + text + "]");
+
+    LOGGER.warn("No matching result for [{}]", text);
+    return null;
   }
 
 }

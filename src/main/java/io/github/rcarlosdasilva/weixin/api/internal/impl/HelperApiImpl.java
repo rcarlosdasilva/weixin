@@ -2,6 +2,9 @@ package io.github.rcarlosdasilva.weixin.api.internal.impl;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import io.github.rcarlosdasilva.weixin.api.Weixin;
 import io.github.rcarlosdasilva.weixin.api.internal.BasicApi;
 import io.github.rcarlosdasilva.weixin.api.internal.HelperApi;
@@ -15,8 +18,10 @@ import io.github.rcarlosdasilva.weixin.core.cache.impl.MixCacheHandler;
  */
 public class HelperApiImpl extends BasicApi implements HelperApi {
 
+  private final Logger logger = LoggerFactory.getLogger(getClass());
+
   public HelperApiImpl(String accountKey) {
-    this.accountKey = accountKey;
+    super(accountKey);
   }
 
   @Override
@@ -39,7 +44,8 @@ public class HelperApiImpl extends BasicApi implements HelperApi {
     try {
       Weixin.with(accountKey).certificate().askAccessToken();
       return true;
-    } catch (Exception e) {
+    } catch (Exception ex) {
+      logger.debug("weixin helper api", ex);
       return false;
     }
   }

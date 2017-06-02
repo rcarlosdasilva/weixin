@@ -1,5 +1,8 @@
 package io.github.rcarlosdasilva.weixin.common.dictionary;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * 微信开放平台InfoType
  * 
@@ -23,6 +26,8 @@ public enum NotificationInfoType {
    * 授权更新通知.
    */
   AUTHORIZE_UPDATED("updateauthorized");
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(NotificationInfoType.class);
 
   private String text;
 
@@ -52,7 +57,9 @@ public enum NotificationInfoType {
         return result;
       }
     }
-    throw new IllegalArgumentException("No matching result for [" + text + "]");
+
+    LOGGER.warn("No matching result for [{}]", text);
+    return null;
   }
 
 }

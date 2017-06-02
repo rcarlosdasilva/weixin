@@ -5,6 +5,10 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 
 import okhttp3.FormBody;
@@ -22,21 +26,25 @@ import okhttp3.Response;
  */
 public class Http {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(Http.class);
+
   private static final OkHttpClient CLIENT = new OkHttpClient.Builder()
       .connectTimeout(3, TimeUnit.SECONDS).readTimeout(10, TimeUnit.SECONDS).build();
   private static final MediaType JSON_TYPE = MediaType.parse("application/json; charset=utf-8");
   private static final MediaType XML_TYPE = MediaType.parse("application/xml; charset=utf-8");
   private static final MediaType MULTI_FORM_TYPE = MultipartBody.FORM;
 
+  private Http() {
+  }
+
   private static Request generatePlainRequest(String url, HttpMethod method, String content,
       ContentType type) {
     MediaType mediaType = type == ContentType.JSON ? JSON_TYPE : XML_TYPE;
-    if (content == null) {
-      content = "";
-    }
+    content = Strings.nullToEmpty(content);
 
     okhttp3.Request.Builder builder = new Request.Builder().url(url);
-    Request request = null;
+
+    Request request;
     switch (method) {
       case GET: {
         request = builder.build();
@@ -83,7 +91,7 @@ public class Http {
       }
     }
 
-    Request request = null;
+    Request request;
     switch (method) {
       case POST: {
         request = builder.post(formBuilder.build()).build();
@@ -136,7 +144,7 @@ public class Http {
       }
       return response.body().string();
     } catch (IOException ex) {
-      ex.printStackTrace();
+      LOGGER.error("weixin http", ex);
     }
     return "";
   }
@@ -165,7 +173,7 @@ public class Http {
       }
       return response.body().byteStream();
     } catch (IOException ex) {
-      ex.printStackTrace();
+      LOGGER.error("weixin http", ex);
     }
     return null;
   }
@@ -194,7 +202,7 @@ public class Http {
       }
       return response.body().string();
     } catch (IOException ex) {
-      ex.printStackTrace();
+      LOGGER.error("weixin http", ex);
     }
     return "";
   }
@@ -224,7 +232,7 @@ public class Http {
       }
       return response.body().byteStream();
     } catch (IOException ex) {
-      ex.printStackTrace();
+      LOGGER.error("weixin http", ex);
     }
     return null;
   }
@@ -282,7 +290,7 @@ public class Http {
       }
       return response.body().string();
     } catch (IOException ex) {
-      ex.printStackTrace();
+      LOGGER.error("weixin http", ex);
     }
     return "";
   }

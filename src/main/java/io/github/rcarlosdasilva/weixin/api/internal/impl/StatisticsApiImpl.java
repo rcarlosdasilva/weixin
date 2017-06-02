@@ -21,7 +21,7 @@ import io.github.rcarlosdasilva.weixin.model.response.statistics.StatisticsGetUs
 public class StatisticsApiImpl extends BasicApi implements StatisticsApi {
 
   public StatisticsApiImpl(String accountKey) {
-    this.accountKey = accountKey;
+    super(accountKey);
   }
 
   @Override

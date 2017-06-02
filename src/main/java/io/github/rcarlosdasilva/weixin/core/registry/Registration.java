@@ -95,6 +95,7 @@ public class Registration implements Serializable {
       account = lookup(key);
       key = account.getKey();
     }
+
     if (account != null) {
       AccountCacheHandler.getInstance().remove(key);
       AccessTokenCacheHandler.getInstance().remove(key);
@@ -120,15 +121,19 @@ public class Registration implements Serializable {
    * 通过appId或原始ID获取账号配置信息.
    * 
    * @param id
-   *          可以为公众号appId或者公众号原始ID
+   *          可以为公众号appId或者公众号原始ID，也可以是注册时的key
    * @return {@link Account}
    */
-  public static Account lookup(String id) {
-    id = id == null ? "" : id;
-    Account account = new Account(id, null);
-    account.setMpId(id);
-    String key = AccountCacheHandler.getInstance().lookup(account);
-    return AccountCacheHandler.getInstance().get(key);
+  public static Account lookup(String key) {
+    Account account = AccountCacheHandler.getInstance().get(key);
+    if (account != null) {
+      return account;
+    }
+
+    account = new Account(key, null);
+    account.setMpId(key);
+    String realKey = AccountCacheHandler.getInstance().lookup(account);
+    return AccountCacheHandler.getInstance().get(realKey);
   }
 
 }

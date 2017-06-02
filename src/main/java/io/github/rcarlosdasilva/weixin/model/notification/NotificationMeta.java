@@ -55,11 +55,7 @@ public class NotificationMeta {
    * @return {@link NotificationMessageType}
    */
   public NotificationMessageType getMessageType() {
-    try {
-      return NotificationMessageType.byValue(messageType);
-    } catch (Exception ex) {
-      return null;
-    }
+    return NotificationMessageType.byValue(messageType);
   }
 
   /**
@@ -68,11 +64,7 @@ public class NotificationMeta {
    * @return {@link NotificationMessageType}
    */
   public NotificationInfoType getInfoType() {
-    try {
-      return NotificationInfoType.byValue(infoType);
-    } catch (Exception ex) {
-      return null;
-    }
+    return NotificationInfoType.byValue(infoType);
   }
 
   /**

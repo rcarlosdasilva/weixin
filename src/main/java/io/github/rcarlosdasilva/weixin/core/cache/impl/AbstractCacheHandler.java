@@ -1,8 +1,12 @@
 package io.github.rcarlosdasilva.weixin.core.cache.impl;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Function;
 import com.google.common.base.Splitter;
@@ -19,6 +23,8 @@ import io.github.rcarlosdasilva.weixin.core.registry.Registration;
 import redis.clients.jedis.Jedis;
 
 public class AbstractCacheHandler<V> implements CacheHandler<V> {
+
+  private final Logger logger = LoggerFactory.getLogger(getClass());
 
   private static final String REDIS_KEY_PREFIX = Convention.DEFAULT_REDIS_KEY_PREFIX
       + Convention.DEFAULT_REDIS_KEY_SEPARATOR;
@@ -51,7 +57,7 @@ public class AbstractCacheHandler<V> implements CacheHandler<V> {
   private String realKey(final String redisKey) {
     if (!Strings.isNullOrEmpty(redisKey)) {
       List<String> parts = SPLITTER.splitToList(redisKey);
-      if (parts != null && parts.size() > 0) {
+      if (parts != null && !parts.isEmpty()) {
         return parts.get(parts.size() - 1);
       }
     }
@@ -60,7 +66,7 @@ public class AbstractCacheHandler<V> implements CacheHandler<V> {
 
   private Collection<String> realKeys(final Set<String> redisKeys) {
     if (redisKeys == null) {
-      return null;
+      return Collections.emptyList();
     }
 
     return Collections2.transform(redisKeys, new Function<String, String>() {
@@ -118,13 +124,14 @@ public class AbstractCacheHandler<V> implements CacheHandler<V> {
       if (value == null) {
         return null;
       }
-      return Utils.<V>unserialize(value);
+      return Utils.unserialize(value);
     } else if (isSpringRedis()) {
       return (V) RedisTemplateHandler.redisTemplate.opsForValue().get(realRedisKey(key));
     } else {
       try {
         return MapHandler.<V>getObject(mark).get(key);
-      } catch (Exception e) {
+      } catch (Exception ex) {
+        logger.error("weixin abstract cache", ex);
         return null;
       }
     }
@@ -142,7 +149,8 @@ public class AbstractCacheHandler<V> implements CacheHandler<V> {
     } else {
       try {
         MapHandler.<V>getObject(mark).put(key, object);
-      } catch (Exception e) {
+      } catch (Exception ex) {
+        logger.error("weixin abstract cache", ex);
         return null;
       }
     }
@@ -173,7 +181,8 @@ public class AbstractCacheHandler<V> implements CacheHandler<V> {
     } else {
       try {
         return MapHandler.<V>getObject(mark).remove(key);
-      } catch (Exception e) {
+      } catch (Exception ex) {
+        logger.error("weixin abstract cache", ex);
         return null;
       }
     }

@@ -28,7 +28,7 @@ import io.github.rcarlosdasilva.weixin.model.response.user.bean.User;
 public class UserApiImpl extends BasicApi implements UserApi {
 
   public UserApiImpl(String accountKey) {
-    this.accountKey = accountKey;
+    super(accountKey);
   }
 
   @Override

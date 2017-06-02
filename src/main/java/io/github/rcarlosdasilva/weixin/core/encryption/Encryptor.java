@@ -11,6 +11,8 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Preconditions;
 
@@ -40,12 +42,17 @@ import io.github.rcarlosdasilva.weixin.model.notification.NotificationResponseEn
  */
 public class Encryptor {
 
-  private static final int randomStart = '0' - 1;
-  private static final int randomEnd = 'z' + 1;
-  private static final int randomGap = randomEnd - randomStart;
-  private static final Random random = new Random();
-  private static final Charset charset = Charset.forName("utf-8");
-  private static final Base64 base64 = new Base64();
+  private static final Logger LOGGER = LoggerFactory.getLogger(Encryptor.class);
+
+  private static final int RANDOM_START = '0' - 1;
+  private static final int RANDOM_END = 'z' + 1;
+  private static final int RANDOM_GAP = RANDOM_END - RANDOM_START;
+  private static final Random RANDOM = new Random();
+  private static final Charset CHARSET = Charset.forName("utf-8");
+  private static final Base64 BASE64 = new Base64();
+
+  private Encryptor() {
+  }
 
   /**
    * 将公众平台回复用户的消息加密打包.
@@ -76,10 +83,10 @@ public class Encryptor {
     String annex = random(16);
     byte[] aesKey = Base64.decodeBase64(key + "=");
     ByteGroup byteCollector = new ByteGroup();
-    byte[] annexBytes = annex.getBytes(charset);
-    byte[] contentBytes = originalContent.getBytes(charset);
+    byte[] annexBytes = annex.getBytes(CHARSET);
+    byte[] contentBytes = originalContent.getBytes(CHARSET);
     byte[] networkBytesOrder = getNetworkBytesOrder(contentBytes.length);
-    byte[] appidBytes = appid.getBytes(charset);
+    byte[] appidBytes = appid.getBytes(CHARSET);
 
     // annex + networkBytesOrder + originalContent + appid
     byteCollector.addBytes(annexBytes);
@@ -105,9 +112,9 @@ public class Encryptor {
       byte[] encrypted = cipher.doFinal(unencrypted);
 
       // 使用BASE64对加密后的字符串进行编码
-      ciphertext = base64.encodeToString(encrypted);
+      ciphertext = BASE64.encodeToString(encrypted);
     } catch (Exception ex) {
-      ex.printStackTrace();
+      LOGGER.error("weixin encryptor", ex);
       return null;
     }
 
@@ -169,7 +176,7 @@ public class Encryptor {
       // 解密
       original = cipher.doFinal(encrypted);
     } catch (Exception ex) {
-      ex.printStackTrace();
+      LOGGER.error("weixin encryptor", ex);
       return null;
     }
 
@@ -185,11 +192,13 @@ public class Encryptor {
 
       int xmlLength = recoverNetworkBytesOrder(networkOrder);
 
-      originalContent = new String(Arrays.copyOfRange(bytes, 20, 20 + xmlLength), charset);
-      appId = new String(Arrays.copyOfRange(bytes, 20 + xmlLength, bytes.length), charset);
+      originalContent = new String(Arrays.copyOfRange(bytes, 20, 20 + xmlLength), CHARSET);
+      appId = new String(Arrays.copyOfRange(bytes, 20 + xmlLength, bytes.length), CHARSET);
       notification = NotificationParser.parse(originalContent);
       notification.setAppId(appId);
     } catch (Exception ex) {
+      LOGGER.debug("weixin encryptor", ex);
+
       notification = new Notification();
       notification.setAppId(appId);
       notification.setPlaintext(originalContent);
@@ -226,7 +235,7 @@ public class Encryptor {
     final char[] buffer = new char[count];
 
     while (count-- != 0) {
-      char ch = (char) (random.nextInt(randomGap) + randomStart);
+      char ch = (char) (RANDOM.nextInt(RANDOM_GAP) + RANDOM_START);
 
       if (ch >= '0' && ch <= '9' || ch >= 'A' && ch <= 'Z' || ch >= 'a' && ch <= 'z') {
         buffer[count] = ch;

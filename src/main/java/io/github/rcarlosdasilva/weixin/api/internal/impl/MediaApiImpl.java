@@ -48,7 +48,7 @@ import io.github.rcarlosdasilva.weixin.model.response.media.MediaTransformMassVi
 public class MediaApiImpl extends BasicApi implements MediaApi {
 
   public MediaApiImpl(String accountKey) {
-    this.accountKey = accountKey;
+    super(accountKey);
   }
 
   @Override

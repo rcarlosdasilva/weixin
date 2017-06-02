@@ -27,6 +27,7 @@ public class AccountCacheHandler extends AbstractCacheHandler<Account> {
     if (value == null) {
       return null;
     }
+    
     String appid = value.getAppId();
     String mpid = value.getMpId();
     if (appid == null && mpid == null) {

@@ -27,11 +27,13 @@ import io.github.rcarlosdasilva.weixin.model.response.menu.MenuInfoResponse;
 public class MenuApiImpl extends BasicApi implements MenuApi {
 
   public MenuApiImpl(String accountKey) {
-    this.accountKey = accountKey;
+    super(accountKey);
   }
 
   @Override
   public boolean create(List<Button> buttons) {
+    Preconditions.checkNotNull(buttons);
+
     MenuCreateRequest requestModel = new MenuCreateRequest();
     requestModel.setButtons(buttons);
 
@@ -40,13 +42,15 @@ public class MenuApiImpl extends BasicApi implements MenuApi {
 
   @Override
   public boolean create(Menu menu) {
-    Preconditions.checkArgument(menu != null && menu.getButtons() != null,
-        "Expect non-null buttons");
+    Preconditions.checkNotNull(menu);
     return create(menu.getButtons());
   }
 
   @Override
   public long createWithConditional(List<Button> buttons, MatchRule matchRule) {
+    Preconditions.checkNotNull(buttons);
+    Preconditions.checkNotNull(matchRule);
+
     MenuCreateRequest requestModel = new MenuCreateRequest();
     requestModel.setButtons(buttons);
     requestModel.setMatchRule(matchRule);
@@ -58,9 +62,7 @@ public class MenuApiImpl extends BasicApi implements MenuApi {
 
   @Override
   public long createWithConditional(Menu menu) {
-    Preconditions.checkArgument(
-        menu != null && menu.getButtons() != null && menu.getMatchRule() != null,
-        "Expect non-null buttons and match rules");
+    Preconditions.checkNotNull(menu);
     return createWithConditional(menu.getButtons(), menu.getMatchRule());
   }
 

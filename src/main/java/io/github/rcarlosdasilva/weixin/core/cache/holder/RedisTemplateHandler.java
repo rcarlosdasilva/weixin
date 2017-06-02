@@ -5,6 +5,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 public class RedisTemplateHandler {
 
   @SuppressWarnings("rawtypes")
-  public static RedisTemplate redisTemplate;
+  public static RedisTemplate redisTemplate = null;
 
 }

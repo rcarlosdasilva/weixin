@@ -25,7 +25,7 @@ import io.github.rcarlosdasilva.weixin.model.response.user.tag.bean.UserTag;
 public class UserTagApiImpl extends BasicApi implements UserTagApi {
 
   public UserTagApiImpl(String accountKey) {
-    this.accountKey = accountKey;
+    super(accountKey);
   }
 
   @Override
