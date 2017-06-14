@@ -78,11 +78,7 @@ public class Event {
    * @return {@link NotificationEvent}
    */
   public NotificationEvent getType() {
-    try {
-      return NotificationEvent.byValue(type);
-    } catch (Exception ex) {
-      return NotificationEvent.UNKNOWN;
-    }
+    return NotificationEvent.byValue(type);
   }
 
   /**

@@ -115,7 +115,7 @@ public class NotificationHandlerProxy {
         : notification.getToUser();
 
     if (Strings.isNullOrEmpty(recipient)) {
-      logger.warn("微信通知判断为{}类型，但获取不到appid/tousername", (openPlatformActived ? "开放平台" : "公众号"));
+      logger.warn("微信通知判断为{}类型，但获取不到appid/tousername", openPlatformActived ? "开放平台" : "公众号");
       if (Registration.getInstance().getConfiguration().isThrowException()) {
         throw new WeirdWeixinNotificationException();
       }
@@ -149,16 +149,12 @@ public class NotificationHandlerProxy {
 
     NotificationResponseBuilder builder = Builder.buildNotificationResponse().with(notification);
     if (messageType != null) {
-      switch (messageType) {
-        case EVENT: {
-          logger.debug("开始处理事件推送..");
-          processEvent(builder, notification);
-          break;
-        }
-        default: {
-          logger.debug("开始处理消息推送..");
-          processMessage(builder, notification);
-        }
+      if (messageType == NotificationMessageType.EVENT) {
+        logger.debug("开始处理事件推送..");
+        processEvent(builder, notification);
+      } else {
+        logger.debug("开始处理消息推送..");
+        processMessage(builder, notification);
       }
     }
     if (infoType != null) {
@@ -206,100 +202,80 @@ public class NotificationHandlerProxy {
     NotificationEvent type = event.getType();
 
     switch (type) {
-      case CLICK: {
+      case CLICK:
         handler.doEventOfMenuForClick(builder, notification, event.getKey());
         break;
-      }
-      case VIEW: {
+      case VIEW:
         handler.doEventOfMenuForView(builder, notification, event.getKey(), event.getMenuId());
         break;
-      }
-      case SCAN_QR_PUSH: {
+      case SCAN_QR_PUSH:
         handler.doEventOfMenuForScanQrPush(builder, notification, event.getKey(),
             event.getScanCodeInfo());
         break;
-      }
-      case SCAN_QR_WAIT_MSG: {
+      case SCAN_QR_WAIT_MSG:
         handler.doEventOfMenuForScanQrWait(builder, notification, event.getKey(),
             event.getScanCodeInfo());
         break;
-      }
-      case PIC_PHOTO: {
+      case PIC_PHOTO:
         handler.doEventOfMenuForPicPhoto(builder, notification, event.getKey(),
             event.getPicsInfo());
         break;
-      }
-      case PIC_PHOTO_OR_ALBUM: {
+      case PIC_PHOTO_OR_ALBUM:
         handler.doEventOfMenuForPicPhotoOrAlbum(builder, notification, event.getKey(),
             event.getPicsInfo());
         break;
-      }
-      case PIC_WX_ALBUM: {
+      case PIC_WX_ALBUM:
         handler.doEventOfMenuForPicWxAlbum(builder, notification, event.getKey(),
             event.getPicsInfo());
         break;
-      }
-      case LOCATION: {
+      case LOCATION:
         handler.doEventOfMenuForLocation(builder, notification, event.getKey(),
             event.getLocationInfo());
         break;
-      }
-      case MASS_SEND_FINISH: {
+      case MASS_SEND_FINISH:
         handler.doEventOfMessageForMass(builder, notification, event.getMessageId(),
             event.getStatus(), event.getTotalCount(), event.getFilterCount(), event.getSentCount(),
             event.getErrorCount());
         break;
-      }
-      case TEMPLATE_SEND_FINISH: {
+      case TEMPLATE_SEND_FINISH:
         handler.doEventOfMessageForTemplate(builder, notification, event.getMessageId(),
             event.getStatus());
         break;
-      }
-      case SUBSCRIBE: {
+      case SUBSCRIBE:
         handler.doEventOfCommonForSubscribe(builder, notification, event.getKey(),
             event.getTicket());
         break;
-      }
-      case UNSUBSCRIBE: {
+      case UNSUBSCRIBE:
         handler.doEventOfCommonForUnsubscribe(builder, notification);
         break;
-      }
-      case SCAN: {
+      case SCAN:
         handler.doEventOfCommonForScanQr(builder, notification, event.getKey(), event.getTicket());
         break;
-      }
-      case REPORT_LOCATION: {
+      case REPORT_LOCATION:
         handler.doEventOfCommonForLocation(builder, notification, event.getLatitude(),
             event.getLongitude(), event.getPrecision());
         break;
-      }
-      case VERIFY_QUALIFICATION_SUCCESS: {
+      case VERIFY_QUALIFICATION_SUCCESS:
         handler.doEventOfVerifyForQualificationSuccess(builder, notification,
             event.getExpiredTime());
         break;
-      }
-      case VERIFY_QUALIFICATION_FAIL: {
+      case VERIFY_QUALIFICATION_FAIL:
         handler.doEventOfVerifyForQualificationFail(builder, notification, event.getFailTime(),
             event.getFailReason());
         break;
-      }
-      case VERIFY_NAMING_SUCCESS: {
+      case VERIFY_NAMING_SUCCESS:
         handler.doEventOfVerifyForNamingSuccess(builder, notification, event.getExpiredTime());
         break;
-      }
-      case VERIFY_NAMING_FAIL: {
+      case VERIFY_NAMING_FAIL:
         handler.doEventOfVerifyForNamingFail(builder, notification, event.getFailTime(),
             event.getFailReason());
         break;
-      }
-      case VERIFY_ANNUAL: {
+      case VERIFY_ANNUAL:
         handler.doEventOfVerifyForAnnual(builder, notification, event.getExpiredTime());
         break;
-      }
-      case VERIFY_EXPIRED: {
+      case VERIFY_EXPIRED:
         handler.doEventOfVerifyForExpired(builder, notification, event.getExpiredTime());
         break;
-      }
       default:
     }
   }
@@ -312,42 +288,35 @@ public class NotificationHandlerProxy {
     Message message = notification.getMessage();
 
     switch (type) {
-      case TEXT: {
+      case TEXT:
         handler.doMessageForText(builder, notification, message.getMessageId(),
             message.getContent());
         break;
-      }
-      case IMAGE: {
+      case IMAGE:
         handler.doMessageForImage(builder, notification, message.getMessageId(),
             message.getMediaId(), message.getPicUrl());
         break;
-      }
-      case VOICE: {
+      case VOICE:
         handler.doMessageForVoice(builder, notification, message.getMessageId(),
             message.getMediaId(), message.getFormat(), message.getRecognition());
         break;
-      }
-      case VIDEO: {
+      case VIDEO:
         handler.doMessageForVideo(builder, notification, message.getMessageId(),
             message.getMediaId(), message.getMediaThumbId());
         break;
-      }
-      case SHORT_VIDEO: {
+      case SHORT_VIDEO:
         handler.doMessageForShortVideo(builder, notification, message.getMessageId(),
             message.getMediaId(), message.getMediaThumbId());
         break;
-      }
-      case LOCATION: {
+      case LOCATION:
         handler.doMessageForLocation(builder, notification, message.getMessageId(),
             message.getLocationX(), message.getLocationY(), message.getScale(),
             message.getAddress());
         break;
-      }
-      case LINK: {
+      case LINK:
         handler.doMessageForLink(builder, notification, message.getMessageId(), message.getTitle(),
             message.getDescription(), message.getUrl());
         break;
-      }
       default:
     }
   }
@@ -370,7 +339,8 @@ public class NotificationHandlerProxy {
         break;
       }
       case AUTHORIZE_SUCCEEDED: {
-        updateLicensorAccount(notification);
+        OpenInfo openInfo = notification.getOpenInfo();
+        updateLicensorAccount(openInfo.getLicense(), openInfo.getLicensorAppId());
 
         handler.doInfoOfAuthorizeSucceeded(builder, notification, info.getLicensorAppId(),
             info.getLicense(), info.getLicenseExpireAt());
@@ -390,7 +360,8 @@ public class NotificationHandlerProxy {
         break;
       }
       case AUTHORIZE_UPDATED: {
-        updateLicensorAccount(notification);
+        OpenInfo openInfo = notification.getOpenInfo();
+        updateLicensorAccount(openInfo.getLicense(), openInfo.getLicensorAppId());
 
         handler.doInfoOfAuthorizeUpdated(builder, notification, info.getLicensorAppId(),
             info.getLicense(), info.getLicenseExpireAt());
@@ -406,9 +377,7 @@ public class NotificationHandlerProxy {
    * @param notification
    *          notification
    */
-  private void updateLicensorAccount(Notification notification) {
-    String license = notification.getOpenInfo().getLicense();
-    String licensorAppId = notification.getOpenInfo().getLicensorAppId();
+  private void updateLicensorAccount(String license, String licensorAppId) {
     if (Strings.isNullOrEmpty(license) || Strings.isNullOrEmpty(licensorAppId)) {
       logger.warn("无法获取到开放平台发放的授权码或授权者appid");
       throw new CanNotFetchOpenPlatformLicenseException();

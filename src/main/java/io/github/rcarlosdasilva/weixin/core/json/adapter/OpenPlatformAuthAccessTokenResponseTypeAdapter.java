@@ -14,7 +14,7 @@ public class OpenPlatformAuthAccessTokenResponseTypeAdapter
 
   @Override
   public void write(JsonWriter out, OpenPlatformAuthAccessTokenResponse value) throws IOException {
-
+    // 不需要实现
   }
 
   @Override

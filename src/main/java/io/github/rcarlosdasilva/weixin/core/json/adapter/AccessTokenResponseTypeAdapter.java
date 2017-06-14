@@ -13,7 +13,7 @@ public class AccessTokenResponseTypeAdapter extends TypeAdapter<AccessTokenRespo
 
   @Override
   public void write(JsonWriter out, AccessTokenResponse value) throws IOException {
-
+    // 不需要实现
   }
 
   @Override

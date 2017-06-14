@@ -29,6 +29,7 @@ public class MessageSendWithMassRequestUserTypeAdapter
 
   @Override
   public MessageSendWithMassRequestUser read(JsonReader in) throws IOException {
+    // 不需要实现
     return null;
   }
 

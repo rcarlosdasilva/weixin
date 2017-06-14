@@ -17,7 +17,7 @@ public class OpenPlatformAuthGetLicenseInformationResponseTypeAdapter
   @Override
   public void write(JsonWriter out, OpenPlatformAuthGetLicenseInformationResponse value)
       throws IOException {
-
+    // 不需要实现
   }
 
   @Override
@@ -27,28 +27,22 @@ public class OpenPlatformAuthGetLicenseInformationResponseTypeAdapter
     in.beginObject();
     while (in.hasNext()) {
       switch (in.nextName()) {
-        case Convention.OPEN_PLATFORM_AUTH_LICENSED_INFORMATION_KEY: {
+        case Convention.OPEN_PLATFORM_AUTH_LICENSED_INFORMATION_KEY:
           readLicensedAccessToken(in, model);
           break;
-        }
-        case Convention.OPEN_PLATFORM_AUTH_LICENSOR_INFORMATION_KEY: {
+        case Convention.OPEN_PLATFORM_AUTH_LICENSOR_INFORMATION_KEY:
           readLicensorInformation(in, model);
           break;
-        }
-        case Convention.OPEN_PLATFORM_AUTH_LICENSED_ACCESS_TOKEN_KEY: {
+        case Convention.OPEN_PLATFORM_AUTH_LICENSED_ACCESS_TOKEN_KEY:
           model.getLicensedAccessToken().setAccessToken(in.nextString());
           break;
-        }
-        case Convention.OPEN_PLATFORM_AUTH_LICENSED_ACCESS_TOKEN_EXPIRES_IN_KEY: {
+        case Convention.OPEN_PLATFORM_AUTH_LICENSED_ACCESS_TOKEN_EXPIRES_IN_KEY:
           model.getLicensedAccessToken().setExpiresIn(in.nextInt());
           break;
-        }
-        case Convention.OPEN_PLATFORM_AUTH_LICENSED_REFRESH_TOKEN_KEY: {
+        case Convention.OPEN_PLATFORM_AUTH_LICENSED_REFRESH_TOKEN_KEY:
           model.getLicensedAccessToken().setRefreshToken(in.nextString());
           break;
-        }
         default:
-          break;
       }
     }
 
@@ -65,22 +59,18 @@ public class OpenPlatformAuthGetLicenseInformationResponseTypeAdapter
     while (in.hasNext()) {
       switch (in.nextName()) {
         case Convention.OPEN_PLATFORM_AUTH_LICENSED_APPID_ALIAS_KEY:
-        case Convention.OPEN_PLATFORM_AUTH_LICENSED_APPID_KEY: {
+        case Convention.OPEN_PLATFORM_AUTH_LICENSED_APPID_KEY:
           licensingInformation.setAppId(in.nextString());
           break;
-        }
-        case Convention.OPEN_PLATFORM_AUTH_LICENSED_ACCESS_TOKEN_KEY: {
+        case Convention.OPEN_PLATFORM_AUTH_LICENSED_ACCESS_TOKEN_KEY:
           model.getLicensedAccessToken().setAccessToken(in.nextString());
           break;
-        }
-        case Convention.OPEN_PLATFORM_AUTH_LICENSED_ACCESS_TOKEN_EXPIRES_IN_KEY: {
+        case Convention.OPEN_PLATFORM_AUTH_LICENSED_ACCESS_TOKEN_EXPIRES_IN_KEY:
           model.getLicensedAccessToken().setExpiresIn(in.nextInt());
           break;
-        }
-        case Convention.OPEN_PLATFORM_AUTH_LICENSED_REFRESH_TOKEN_KEY: {
+        case Convention.OPEN_PLATFORM_AUTH_LICENSED_REFRESH_TOKEN_KEY:
           model.getLicensedAccessToken().setRefreshToken(in.nextString());
           break;
-        }
         case Convention.OPEN_PLATFORM_AUTH_LICENSED_FUNCTIONS_INFO_KEY: {
           in.beginArray();
 
@@ -97,6 +87,7 @@ public class OpenPlatformAuthGetLicenseInformationResponseTypeAdapter
           in.endArray();
           break;
         }
+        default:
       }
     }
 
@@ -111,14 +102,12 @@ public class OpenPlatformAuthGetLicenseInformationResponseTypeAdapter
 
     while (in.hasNext()) {
       switch (in.nextName()) {
-        case Convention.OPEN_PLATFORM_AUTH_LICENSOR_NICKNAME_KEY: {
+        case Convention.OPEN_PLATFORM_AUTH_LICENSOR_NICKNAME_KEY:
           licensorInfromation.setNickName(in.nextString());
           break;
-        }
-        case Convention.OPEN_PLATFORM_AUTH_LICENSOR_LOGO_KEY: {
+        case Convention.OPEN_PLATFORM_AUTH_LICENSOR_LOGO_KEY:
           licensorInfromation.setLogo(in.nextString());
           break;
-        }
         case Convention.OPEN_PLATFORM_AUTH_LICENSOR_ACCOUNT_TYPE_KEY: {
           in.beginObject();
           in.nextName();
@@ -133,61 +122,53 @@ public class OpenPlatformAuthGetLicenseInformationResponseTypeAdapter
           in.endObject();
           break;
         }
-        case Convention.OPEN_PLATFORM_AUTH_LICENSOR_MPID_KEY: {
+        case Convention.OPEN_PLATFORM_AUTH_LICENSOR_MPID_KEY:
           licensorInfromation.setMpId(in.nextString());
           break;
-        }
-        case Convention.OPEN_PLATFORM_AUTH_LICENSOR_PRINCIPAL_NAME_KEY: {
+        case Convention.OPEN_PLATFORM_AUTH_LICENSOR_PRINCIPAL_NAME_KEY:
           licensorInfromation.setPrincipalName(in.nextString());
           break;
-        }
-        case Convention.OPEN_PLATFORM_AUTH_LICENSOR_ACCOUNT_NAME_KEY: {
+        case Convention.OPEN_PLATFORM_AUTH_LICENSOR_ACCOUNT_NAME_KEY:
           licensorInfromation.setAccountName(in.nextString());
           break;
-        }
-        case Convention.OPEN_PLATFORM_AUTH_LICENSOR_QRCODE_URL_KEY: {
+        case Convention.OPEN_PLATFORM_AUTH_LICENSOR_QRCODE_URL_KEY:
           licensorInfromation.setQrCodeUrl(in.nextString());
           break;
-        }
-        case Convention.OPEN_PLATFORM_AUTH_LICENSOR_BUSINESS_INFO_KEY: {
-          in.beginObject();
-          while (in.hasNext()) {
-            switch (in.nextName()) {
-              case Convention.OPEN_PLATFORM_AUTH_LICENSOR_BUSINESS_STORE_KEY: {
-                licensorInfromation
-                    .setBusinessStoreOpened(in.nextInt() == Convention.GLOBAL_TRUE_NUMBER);
-                break;
-              }
-              case Convention.OPEN_PLATFORM_AUTH_LICENSOR_BUSINESS_SCAN_KEY: {
-                licensorInfromation
-                    .setBusinessScanOpened(in.nextInt() == Convention.GLOBAL_TRUE_NUMBER);
-                break;
-              }
-              case Convention.OPEN_PLATFORM_AUTH_LICENSOR_BUSINESS_PAY_KEY: {
-                licensorInfromation
-                    .setBusinessPayOpened(in.nextInt() == Convention.GLOBAL_TRUE_NUMBER);
-                break;
-              }
-              case Convention.OPEN_PLATFORM_AUTH_LICENSOR_BUSINESS_CARD_KEY: {
-                licensorInfromation
-                    .setBusinessCardOpened(in.nextInt() == Convention.GLOBAL_TRUE_NUMBER);
-                break;
-              }
-              case Convention.OPEN_PLATFORM_AUTH_LICENSOR_BUSINESS_SHAKE_KEY: {
-                licensorInfromation
-                    .setBusinessShakeOpened(in.nextInt() == Convention.GLOBAL_TRUE_NUMBER);
-                break;
-              }
-            }
-          }
-          in.endObject();
+        case Convention.OPEN_PLATFORM_AUTH_LICENSOR_BUSINESS_INFO_KEY:
+          readBusinessInfo(in, licensorInfromation);
           break;
-        }
+        default:
       }
     }
 
     in.endObject();
     model.setLicensorInfromation(licensorInfromation);
+  }
+
+  private void readBusinessInfo(JsonReader in, LicensorInfromation licensorInfromation)
+      throws IOException {
+    in.beginObject();
+    while (in.hasNext()) {
+      switch (in.nextName()) {
+        case Convention.OPEN_PLATFORM_AUTH_LICENSOR_BUSINESS_STORE_KEY:
+          licensorInfromation.setBusinessStoreOpened(in.nextInt() == Convention.GLOBAL_TRUE_NUMBER);
+          break;
+        case Convention.OPEN_PLATFORM_AUTH_LICENSOR_BUSINESS_SCAN_KEY:
+          licensorInfromation.setBusinessScanOpened(in.nextInt() == Convention.GLOBAL_TRUE_NUMBER);
+          break;
+        case Convention.OPEN_PLATFORM_AUTH_LICENSOR_BUSINESS_PAY_KEY:
+          licensorInfromation.setBusinessPayOpened(in.nextInt() == Convention.GLOBAL_TRUE_NUMBER);
+          break;
+        case Convention.OPEN_PLATFORM_AUTH_LICENSOR_BUSINESS_CARD_KEY:
+          licensorInfromation.setBusinessCardOpened(in.nextInt() == Convention.GLOBAL_TRUE_NUMBER);
+          break;
+        case Convention.OPEN_PLATFORM_AUTH_LICENSOR_BUSINESS_SHAKE_KEY:
+          licensorInfromation.setBusinessShakeOpened(in.nextInt() == Convention.GLOBAL_TRUE_NUMBER);
+          break;
+        default:
+      }
+    }
+    in.endObject();
   }
 
 }

@@ -30,8 +30,6 @@ import io.github.rcarlosdasilva.weixin.api.internal.impl.UserApiImpl;
 import io.github.rcarlosdasilva.weixin.api.internal.impl.UserGroupApiImpl;
 import io.github.rcarlosdasilva.weixin.api.internal.impl.UserTagApiImpl;
 import io.github.rcarlosdasilva.weixin.common.Convention;
-import io.github.rcarlosdasilva.weixin.core.cache.impl.AccountCacheHandler;
-import io.github.rcarlosdasilva.weixin.model.Account;
 
 /**
  * 微信API使用统一入口.
@@ -54,8 +52,6 @@ public class Weixin {
 
   private static final Map<String, Weixin> weixinMap = new ConcurrentHashMap<String, Weixin>();
 
-  private String accountKey;
-
   private final CertificateApi certificate;
   private final CommonApi common;
   private final CustomApi custom;
@@ -71,8 +67,6 @@ public class Weixin {
   private final OpenAuthApi openAuth;
 
   private Weixin(String accountKey) {
-    this.accountKey = accountKey;
-
     this.certificate = new CertificateApiImpl(accountKey);
     this.common = new CommonApiImpl(accountKey);
     this.custom = new CustomApiImpl(accountKey);
