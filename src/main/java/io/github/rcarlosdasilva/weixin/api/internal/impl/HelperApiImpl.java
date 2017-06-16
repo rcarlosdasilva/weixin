@@ -9,7 +9,11 @@ import io.github.rcarlosdasilva.weixin.api.Weixin;
 import io.github.rcarlosdasilva.weixin.api.internal.BasicApi;
 import io.github.rcarlosdasilva.weixin.api.internal.HelperApi;
 import io.github.rcarlosdasilva.weixin.common.Convention;
+import io.github.rcarlosdasilva.weixin.common.dictionary.ResultCode;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.MixCacheHandler;
+import io.github.rcarlosdasilva.weixin.core.exception.ExecuteException;
+import io.github.rcarlosdasilva.weixin.core.registry.Registration;
+import io.github.rcarlosdasilva.weixin.model.request.helper.HelperResetQuotaRequest;
 
 /**
  * 相关工具实现
@@ -22,6 +26,21 @@ public class HelperApiImpl extends BasicApi implements HelperApi {
 
   public HelperApiImpl(String accountKey) {
     super(accountKey);
+  }
+
+  @Override
+  public boolean resetQuota() {
+    HelperResetQuotaRequest requestModel = new HelperResetQuotaRequest();
+    requestModel.setAppId(Registration.account(accountKey).getAppId());
+
+    try {
+      return post(Boolean.class, requestModel);
+    } catch (ExecuteException ex) {
+      if (ex.getCode() != null && ex.getCode() == ResultCode.RESULT_48006) {
+        return false;
+      }
+      throw ex;
+    }
   }
 
   @Override

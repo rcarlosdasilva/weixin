@@ -26,6 +26,8 @@ public class ApiAddress {
       + "sns/oauth2/refresh_token";
   public static final String URL_CERTIFICATE_WEB_AUTHORIZE_TOKEN_VERIFY = URL_API_DOMAIN
       + "sns/auth";
+
+  public static final String URL_WEB_AUTHORIZE = URL_OPEN_DOMAIN + "connect/oauth2/authorize";
   // ======================== Certificate ======================
 
   // ------------------------ User Group ----------------------
@@ -207,7 +209,7 @@ public class ApiAddress {
       + "datacube/getinterfacesummaryhour";
   // ======================== Statistics ======================
 
-  // ------------------------ Helper ----------------------
+  // ------------------------ Common & Helper ----------------------
   public static final String URL_COMMON_SHORT_URL = URL_API_DOMAIN + "cgi-bin/shorturl";
   public static final String URL_COMMON_QR_CREATE = URL_API_DOMAIN + "cgi-bin/qrcode/create";
   public static final String URL_COMMON_QR_SHOW = URL_MP_DOMAIN + "cgi-bin/showqrcode";
@@ -215,8 +217,8 @@ public class ApiAddress {
   public static final String URL_COMMON_SEMANTIC_ANALYZE = URL_API_DOMAIN
       + "semantic/semproxy/search";
 
-  public static final String URL_WEB_AUTHORIZE = URL_OPEN_DOMAIN + "connect/oauth2/authorize";
-  // ======================== Helper ======================
+  public static final String URL_HELPER_RESET_QUOTA = URL_API_DOMAIN + "cgi-bin/clear_quota";
+  // ======================== Common & Helper ======================
 
   // ------------------------ Open Platform Auth ----------------------
   public static final String URL_OPEN_PLATFORM_ACCESS_TOKEN = URL_API_DOMAIN
@@ -233,6 +235,8 @@ public class ApiAddress {
       + "cgi-bin/component/api_get_authorizer_option";
   public static final String URL_OPEN_PLATFORM_SET_LICENSOR_OPTION = URL_API_DOMAIN
       + "cgi-bin/component/api_set_authorizer_option";
+  public static final String URL_OPEN_PLATFORM_RESET_QUOTA = URL_API_DOMAIN
+      + "cgi-bin/component/clear_quota";
 
   public static final String URL_OPEN_PLATFORM_AUTHORIZE = URL_MP_DOMAIN
       + "cgi-bin/componentloginpage";

@@ -110,10 +110,17 @@ public interface OpenAuthApi {
   boolean setLicensorOption(String licensoraAppId, String optionName, String value);
 
   /**
+   * 第三方平台对其所有API调用次数清零（只与第三方平台相关，与公众号无关，接口如api_component_token）.
+   * 
+   * @return 如果是超出清零的请求次数限制返回false
+   */
+  boolean resetQuota();
+
+  /**
    * 微信开放平台第三方平台授权页面地址.
    * <p>
-   * 第三方平台方可以在自己的网站:中放置“微信公众号授权”或者“小程序授权”的入口，引导公众号和小程序管理员进入授权页。 授权页网址为
-   * <a href="#">https://mp.weixin.qq.com/cgi-bin/componentloginpage?component_appid=xxxx&amp;pre_auth_code=xxxxx&amp;redirect_uri=xxxx</a>
+   * 第三方平台方可以在自己的网站:中放置“微信公众号授权”或者“小程序授权”的入口，引导公众号和小程序管理员进入授权页。 授权页网址为 <a href=
+   * "#">https://mp.weixin.qq.com/cgi-bin/componentloginpage?component_appid=xxxx&amp;pre_auth_code=xxxxx&amp;redirect_uri=xxxx</a>
    * ， 该网址中第三方平台方需要提供第三方平台方appid、预授权码和回调URI<br>
    * 授权流程完成后，授权页会自动跳转进入回调URI，并在URL参数中返回授权码和过期时间<b>(redirect_url?auth_code=xxx&amp;expires_in=600)</b>
    * <p>

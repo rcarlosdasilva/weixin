@@ -11,10 +11,12 @@ import io.github.rcarlosdasilva.weixin.api.internal.OpenAuthApi;
 import io.github.rcarlosdasilva.weixin.common.ApiAddress;
 import io.github.rcarlosdasilva.weixin.common.Convention;
 import io.github.rcarlosdasilva.weixin.common.Utils;
+import io.github.rcarlosdasilva.weixin.common.dictionary.ResultCode;
 import io.github.rcarlosdasilva.weixin.common.dictionary.WebAuthorizeScope;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.MixCacheHandler;
 import io.github.rcarlosdasilva.weixin.core.exception.CanNotFetchOpenPlatformAccessTokenException;
 import io.github.rcarlosdasilva.weixin.core.exception.CanNotFetchOpenPlatformPreAuthCodeException;
+import io.github.rcarlosdasilva.weixin.core.exception.ExecuteException;
 import io.github.rcarlosdasilva.weixin.core.exception.OpenPlatformNotFoundException;
 import io.github.rcarlosdasilva.weixin.core.exception.OpenPlatformTicketNotFoundException;
 import io.github.rcarlosdasilva.weixin.core.registry.Registration;
@@ -27,6 +29,7 @@ import io.github.rcarlosdasilva.weixin.model.request.open.auth.OpenPlatformAuthG
 import io.github.rcarlosdasilva.weixin.model.request.open.auth.OpenPlatformAuthPreAuthCodeRequest;
 import io.github.rcarlosdasilva.weixin.model.request.open.auth.OpenPlatformAuthRefreshLicensorAccessTokenRequest;
 import io.github.rcarlosdasilva.weixin.model.request.open.auth.OpenPlatformAuthSetLicensorOptionRequest;
+import io.github.rcarlosdasilva.weixin.model.request.open.auth.OpenPlatformResetQuotaRequest;
 import io.github.rcarlosdasilva.weixin.model.response.open.auth.OpenPlatformAuthAccessTokenResponse;
 import io.github.rcarlosdasilva.weixin.model.response.open.auth.OpenPlatformAuthGetLicenseInformationResponse;
 import io.github.rcarlosdasilva.weixin.model.response.open.auth.OpenPlatformAuthGetLicensorOptionResponse;
@@ -186,6 +189,21 @@ public class OpenAuthApiImpl extends BasicApi implements OpenAuthApi {
     requestModel.setValue(value);
 
     return post(Boolean.class, requestModel);
+  }
+
+  @Override
+  public boolean resetQuota() {
+    OpenPlatformResetQuotaRequest requestModel = new OpenPlatformResetQuotaRequest();
+    requestModel.setAppId(Registration.getInstance().getOpenPlatform().getAppId());
+
+    try {
+      return post(Boolean.class, requestModel);
+    } catch (ExecuteException ex) {
+      if (ex.getCode() != null && ex.getCode() == ResultCode.RESULT_48006) {
+        return false;
+      }
+      throw ex;
+    }
   }
 
   @Override
