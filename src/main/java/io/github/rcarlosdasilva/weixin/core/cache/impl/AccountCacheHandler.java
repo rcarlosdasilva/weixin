@@ -2,6 +2,8 @@ package io.github.rcarlosdasilva.weixin.core.cache.impl;
 
 import java.util.Collection;
 
+import com.google.common.base.Strings;
+
 import io.github.rcarlosdasilva.weixin.model.Account;
 
 /**
@@ -23,25 +25,21 @@ public class AccountCacheHandler extends AbstractCacheHandler<Account> {
   }
 
   @Override
-  public String lookup(Account value) {
-    if (value == null) {
+  public Account lookup(Account value) {
+    if (value == null || Strings.isNullOrEmpty(value.getAppId())) {
       return null;
     }
-    
-    String appid = value.getAppId();
-    String mpid = value.getMpId();
-    if (appid == null && mpid == null) {
-      return null;
-    }
+
+    String identify = value.getAppId();
 
     Collection<String> keys = keys();
     for (String key : keys) {
       Account account = get(key);
-      if (appid != null && appid.equals(account.getAppId())) {
-        return key;
+      if (account.getAppId() != null && account.getAppId().equals(identify)) {
+        return account;
       }
-      if (mpid != null && mpid.equals(account.getMpId())) {
-        return key;
+      if (account.getMpId() != null && account.getMpId().equals(identify)) {
+        return account;
       }
     }
     return null;

@@ -3,6 +3,7 @@ package io.github.rcarlosdasilva.weixin.core.cache.impl;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -117,6 +118,10 @@ public class AbstractCacheHandler<V> implements CacheHandler<V> {
   @SuppressWarnings("unchecked")
   @Override
   public V get(final String key) {
+    if (Strings.isNullOrEmpty(key)) {
+      return null;
+    }
+
     if (isSimpleRedis()) {
       Jedis jedis = SimpleRedisHandler.getRedis();
       byte[] value = jedis.get(realRedisKey(key).getBytes());
@@ -129,7 +134,11 @@ public class AbstractCacheHandler<V> implements CacheHandler<V> {
       return (V) RedisTemplateHandler.redisTemplate.opsForValue().get(realRedisKey(key));
     } else {
       try {
-        return MapHandler.<V>getObject(mark).get(key);
+        Map<String, V> cache = MapHandler.<V>getObject(mark);
+        if (cache.containsKey(key)) {
+          return cache.get(key);
+        }
+        return null;
       } catch (Exception ex) {
         logger.error("weixin abstract cache", ex);
         return null;
@@ -189,7 +198,7 @@ public class AbstractCacheHandler<V> implements CacheHandler<V> {
   }
 
   @Override
-  public String lookup(final V value) {
+  public V lookup(final V value) {
     return null;
   }
 

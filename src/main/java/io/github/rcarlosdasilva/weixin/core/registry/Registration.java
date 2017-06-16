@@ -128,9 +128,7 @@ public class Registration implements Serializable {
     }
 
     account = new Account(key, null);
-    account.setMpId(key);
-    String realKey = AccountCacheHandler.getInstance().lookup(account);
-    return AccountCacheHandler.getInstance().get(realKey);
+    return AccountCacheHandler.getInstance().lookup(account);
   }
 
 }

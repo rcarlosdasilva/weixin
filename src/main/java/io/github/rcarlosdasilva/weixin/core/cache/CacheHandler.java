@@ -64,6 +64,6 @@ public interface CacheHandler<V> {
    *          值
    * @return boolean
    */
-  String lookup(final V value);
+  V lookup(final V value);
 
 }

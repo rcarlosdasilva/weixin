@@ -391,8 +391,7 @@ public class NotificationHandlerProxy {
     Account account = Registration.lookup(licensorAppId);
     if (account != null) {
       key = account.getKey();
-    }
-    if (account == null) {
+    } else {
       account = new Account(licensorAppId, null);
     }
 
