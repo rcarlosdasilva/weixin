@@ -8,7 +8,7 @@ import com.google.common.base.Strings;
 
 import io.github.rcarlosdasilva.weixin.api.Weixin;
 import io.github.rcarlosdasilva.weixin.common.Convention;
-import io.github.rcarlosdasilva.weixin.common.dictionary.NotificationEvent;
+import io.github.rcarlosdasilva.weixin.common.dictionary.NotificationEventType;
 import io.github.rcarlosdasilva.weixin.common.dictionary.NotificationInfoType;
 import io.github.rcarlosdasilva.weixin.common.dictionary.NotificationMessageType;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.AccessTokenCacheHandler;
@@ -43,7 +43,7 @@ import io.github.rcarlosdasilva.weixin.model.response.open.auth.OpenPlatformAuth
  */
 public class NotificationHandlerProxy {
 
-  private final Logger logger = LoggerFactory.getLogger(NotificationHandlerProxy.class);
+  private final Logger logger = LoggerFactory.getLogger(getClass());
 
   private static NotificationHandlerProxy instance = null;
 
@@ -91,9 +91,7 @@ public class NotificationHandlerProxy {
    * @param content
    *          推送内容，对应POST请求的数据
    * @param signature
-   *          签名串，对应URL参数的signature
-   * @param messageSignature
-   *          开放平台的消息签名，对应msg_signature参数
+   *          签名串，对应URL参数的signature，开放平台的消息签名，对应msg_signature参数
    * @param timestamp
    *          时间戳，对应URL参数的timestamp
    * @param nonce
@@ -199,7 +197,7 @@ public class NotificationHandlerProxy {
    */
   private void processEvent(NotificationResponseBuilder builder, Notification notification) {
     Event event = notification.getEvent();
-    NotificationEvent type = event.getType();
+    NotificationEventType type = event.getType();
 
     switch (type) {
       case CLICK:

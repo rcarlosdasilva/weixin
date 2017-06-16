@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
  * 
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
-public enum NotificationEvent {
+public enum NotificationEventType {
 
   /** 点击推事件. */
   CLICK("click"),
@@ -55,11 +55,11 @@ public enum NotificationEvent {
   /** 未知. */
   UNKNOWN("");
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(NotificationEvent.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(NotificationEventType.class);
 
   private String text;
 
-  private NotificationEvent(String text) {
+  private NotificationEventType(String text) {
     this.text = text;
   }
 
@@ -79,8 +79,8 @@ public enum NotificationEvent {
    *          内容
    * @return 枚举
    */
-  public static NotificationEvent byValue(String text) {
-    for (NotificationEvent result : values()) {
+  public static NotificationEventType byValue(String text) {
+    for (NotificationEventType result : values()) {
       if (result.text.equalsIgnoreCase(text)) {
         return result;
       }

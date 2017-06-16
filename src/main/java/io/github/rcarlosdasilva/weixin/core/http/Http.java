@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 
+import io.github.rcarlosdasilva.weixin.core.exception.HttpException;
 import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -46,36 +47,30 @@ public class Http {
 
     Request request;
     switch (method) {
-      case GET: {
+      case GET:
         request = builder.build();
         break;
-      }
-      case HEAD: {
+      case HEAD:
         request = builder.head().build();
         break;
-      }
-      case POST: {
+      case POST:
         request = builder.post(RequestBody.create(mediaType, content)).build();
         break;
-      }
-      case PUT: {
+      case PUT:
         request = builder.put(RequestBody.create(mediaType, content)).build();
         break;
-      }
-      case PATCH: {
+      case PATCH:
         request = builder.patch(RequestBody.create(mediaType, content)).build();
         break;
-      }
-      case DELETE: {
+      case DELETE:
         request = builder.delete(RequestBody.create(mediaType, content)).build();
         break;
-      }
       default:
         request = null;
     }
 
     if (request == null) {
-      throw new RuntimeException("Unsupported or unknown request method");
+      throw new HttpException("Unsupported or unknown request method");
     }
 
     return request;
@@ -93,28 +88,24 @@ public class Http {
 
     Request request;
     switch (method) {
-      case POST: {
+      case POST:
         request = builder.post(formBuilder.build()).build();
         break;
-      }
-      case PUT: {
+      case PUT:
         request = builder.put(formBuilder.build()).build();
         break;
-      }
-      case PATCH: {
+      case PATCH:
         request = builder.patch(formBuilder.build()).build();
         break;
-      }
-      case DELETE: {
+      case DELETE:
         request = builder.delete(formBuilder.build()).build();
         break;
-      }
       default:
         request = null;
     }
 
     if (request == null) {
-      throw new RuntimeException("Unsupported or unknown request method");
+      throw new HttpException("Unsupported or unknown request method");
     }
 
     return request;
@@ -140,7 +131,7 @@ public class Http {
     try {
       response = CLIENT.newCall(request).execute();
       if (!response.isSuccessful()) {
-        throw new RuntimeException(response.message());
+        throw new HttpException(response.message());
       }
       return response.body().string();
     } catch (IOException ex) {
@@ -169,7 +160,7 @@ public class Http {
     try {
       response = CLIENT.newCall(request).execute();
       if (!response.isSuccessful()) {
-        throw new RuntimeException(response.message());
+        throw new HttpException(response.message());
       }
       return response.body().byteStream();
     } catch (IOException ex) {
@@ -198,7 +189,7 @@ public class Http {
     try {
       response = CLIENT.newCall(request).execute();
       if (!response.isSuccessful()) {
-        throw new RuntimeException(response.message());
+        throw new HttpException(response.message());
       }
       return response.body().string();
     } catch (IOException ex) {
@@ -228,7 +219,7 @@ public class Http {
     try {
       response = CLIENT.newCall(request).execute();
       if (!response.isSuccessful()) {
-        throw new RuntimeException(response.message());
+        throw new HttpException(response.message());
       }
       return response.body().byteStream();
     } catch (IOException ex) {
@@ -286,7 +277,7 @@ public class Http {
     try {
       response = CLIENT.newCall(request).execute();
       if (!response.isSuccessful()) {
-        throw new RuntimeException(response.message());
+        throw new HttpException(response.message());
       }
       return response.body().string();
     } catch (IOException ex) {

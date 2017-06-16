@@ -4,7 +4,7 @@ import java.util.Date;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
-import io.github.rcarlosdasilva.weixin.common.dictionary.NotificationEvent;
+import io.github.rcarlosdasilva.weixin.common.dictionary.NotificationEventType;
 import io.github.rcarlosdasilva.weixin.model.notification.bean.LocationInfo;
 import io.github.rcarlosdasilva.weixin.model.notification.bean.PicsInfo;
 import io.github.rcarlosdasilva.weixin.model.notification.bean.ScanCodeInfo;
@@ -75,10 +75,10 @@ public class Event {
   /**
    * 事件类型 (Event).
    * 
-   * @return {@link NotificationEvent}
+   * @return {@link NotificationEventType}
    */
-  public NotificationEvent getType() {
-    return NotificationEvent.byValue(type);
+  public NotificationEventType getType() {
+    return NotificationEventType.byValue(type);
   }
 
   /**

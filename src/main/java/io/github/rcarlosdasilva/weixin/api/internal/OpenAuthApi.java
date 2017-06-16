@@ -112,12 +112,12 @@ public interface OpenAuthApi {
   /**
    * 微信开放平台第三方平台授权页面地址.
    * <p>
-   * 第三方平台方可以在自己的网站:中放置“微信公众号授权”或者“小程序授权”的入口，引导公众号和小程序管理员进入授权页。
-   * 授权页网址为https://mp.weixin.qq.com/cgi-bin/componentloginpage?component_appid=xxxx&pre_auth_code=xxxxx&redirect_uri=xxxx，
-   * 该网址中第三方平台方需要提供第三方平台方appid、预授权码和回调URI<br>
-   * 授权流程完成后，授权页会自动跳转进入回调URI，并在URL参数中返回授权码和过期时间(redirect_url?auth_code=xxx&expires_in=600)
+   * 第三方平台方可以在自己的网站:中放置“微信公众号授权”或者“小程序授权”的入口，引导公众号和小程序管理员进入授权页。 授权页网址为
+   * <a href="#">https://mp.weixin.qq.com/cgi-bin/componentloginpage?component_appid=xxxx&amp;pre_auth_code=xxxxx&amp;redirect_uri=xxxx</a>
+   * ， 该网址中第三方平台方需要提供第三方平台方appid、预授权码和回调URI<br>
+   * 授权流程完成后，授权页会自动跳转进入回调URI，并在URL参数中返回授权码和过期时间<b>(redirect_url?auth_code=xxx&amp;expires_in=600)</b>
    * <p>
-   * <b> 这个方法会自动获取新的预授权码，不需要再去调用 {@link #askPreAuthCode()}接口 <br>
+   * <b> 这个方法会自动获取新的预授权码，不需要再去调用 {@link #askPreAuthCode()}接口</b> <br>
    * 授权码(auth_code)会在回调地址中当参数传递回来，同时，微信服务器会通知当前服务器“授权成功通知(InfoType =
    * authorized)”。注意：这里
    * {@link NotificationHandlerProxy}会在这个微信的通知中，自动使用授权码获取以下信息：,<br>

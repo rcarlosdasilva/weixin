@@ -495,6 +495,7 @@ public interface NotificationHandler {
    * @param notification
    *          微信推送基本信息, see {@link NotificationMeta}
    * @param ticket
+   *          ticket
    */
   void doInfoOfComponentVerifyTicket(NotificationResponseBuilder builder,
       NotificationMeta notification, String ticket);

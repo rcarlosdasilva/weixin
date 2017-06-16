@@ -21,7 +21,7 @@ public enum OpenPlatformLisensableFunction {
   /**
    * 微信小店权限
    */
-  WX_STORE(5),
+  WX_SHOP(5),
   /**
    * 微信多客服权限
    */
@@ -53,7 +53,7 @@ public enum OpenPlatformLisensableFunction {
   /**
    * 微信门店权限
    */
-  WX_MARKET(13),
+  WX_STORE(13),
   /**
    * 微信支付权限
    */

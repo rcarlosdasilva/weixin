@@ -112,6 +112,7 @@ public class Configuration {
    * 设置Redis缓存服务器的配置（当使用Spring的Redis时，无需设置）.
    * 
    * @param redisConfiguration
+   *          config
    */
   public void setRedisConfiguration(RedisConfiguration redisConfiguration) {
     this.useRedisCache = true;

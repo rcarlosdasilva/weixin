@@ -52,6 +52,10 @@ public class WeixinRegistry {
    *          appid
    * @param appSecret
    *          appsecret
+   * @param token
+   *          加密token
+   * @param aesKey
+   *          加密aesKey
    */
   public static void openPlatform(String appId, String appSecret, String token, String aesKey) {
     registration.setOpenPlatform(new OpenPlatform(appId, appSecret, token, aesKey));

@@ -48,6 +48,7 @@ public class OpenPlatformAuthRefreshLicensorAccessTokenRequest extends BasicOpen
    * 只会在授权时刻提供，请妥善保存。一旦丢失，只能让用户重新授权，才能再次拿到新的刷新令牌.
    * 
    * @param licensorRefreshToken
+   *          刷新token
    */
   public void setLicensorRefreshToken(String licensorRefreshToken) {
     this.licensorRefreshToken = licensorRefreshToken;

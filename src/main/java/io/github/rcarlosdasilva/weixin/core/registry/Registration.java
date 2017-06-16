@@ -85,20 +85,17 @@ public class Registration implements Serializable {
    * @param key
    *          注册时的key，或是公众号appid
    */
-  public static void unregister(String key) {
+  public static void unregister(final String key) {
     if (Strings.isNullOrEmpty(key)) {
       throw new UnmakableAccountKeyException();
     }
 
-    Account account = AccountCacheHandler.getInstance().get(key);
-    if (account == null) {
-      account = lookup(key);
-      key = account.getKey();
-    }
+    final Account account = lookup(key);
+    final String realKey = account.getKey();
 
     if (account != null) {
-      AccountCacheHandler.getInstance().remove(key);
-      AccessTokenCacheHandler.getInstance().remove(key);
+      AccountCacheHandler.getInstance().remove(realKey);
+      AccessTokenCacheHandler.getInstance().remove(realKey);
     }
   }
 
@@ -120,7 +117,7 @@ public class Registration implements Serializable {
   /**
    * 通过appId或原始ID获取账号配置信息.
    * 
-   * @param id
+   * @param key
    *          可以为公众号appId或者公众号原始ID，也可以是注册时的key
    * @return {@link Account}
    */

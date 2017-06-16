@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonObject;
@@ -47,6 +50,8 @@ import io.github.rcarlosdasilva.weixin.model.response.media.MediaTransformMassVi
  */
 public class MediaApiImpl extends BasicApi implements MediaApi {
 
+  private final Logger logger = LoggerFactory.getLogger(getClass());
+
   public MediaApiImpl(String accountKey) {
     super(accountKey);
   }
@@ -82,7 +87,8 @@ public class MediaApiImpl extends BasicApi implements MediaApi {
           ContentType.JSON);
       result = readStream(is);
       is.close();
-    } catch (Exception e) {
+    } catch (Exception ex) {
+      logger.error("media api get temporary media", ex);
     }
 
     return result;
@@ -141,6 +147,7 @@ public class MediaApiImpl extends BasicApi implements MediaApi {
     try {
       responseModel = post(MediaGetTimelessResponse.class, requestModel);
     } catch (Exception ex) {
+      logger.error("media api get timeless media", ex);
       responseModel = new MediaGetTimelessResponse();
       responseModel.setStream(readStream(postStream(requestModel)));
     }

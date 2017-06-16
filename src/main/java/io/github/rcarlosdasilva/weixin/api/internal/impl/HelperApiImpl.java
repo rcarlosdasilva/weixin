@@ -45,7 +45,7 @@ public class HelperApiImpl extends BasicApi implements HelperApi {
       Weixin.with(accountKey).certificate().askAccessToken();
       return true;
     } catch (Exception ex) {
-      logger.debug("weixin helper api", ex);
+      logger.trace("weixin helper api", ex);
       return false;
     }
   }
