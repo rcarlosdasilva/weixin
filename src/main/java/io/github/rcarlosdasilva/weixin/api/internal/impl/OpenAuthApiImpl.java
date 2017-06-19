@@ -217,7 +217,7 @@ public class OpenAuthApiImpl extends BasicApi implements OpenAuthApi {
 
     return new StringBuilder(ApiAddress.URL_OPEN_PLATFORM_AUTHORIZE).append("?component_appid=")
         .append(openPlatform.getAppId()).append("&pre_auth_code=").append(preAuthCode)
-        .append("&redirect_uri=").append(redirectTo).toString();
+        .append("&redirect_uri=").append(Utils.urlEncode(redirectTo)).toString();
   }
 
   @Override

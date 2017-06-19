@@ -22,6 +22,7 @@ import io.github.rcarlosdasilva.weixin.core.parser.ResponseParser;
 import io.github.rcarlosdasilva.weixin.core.registry.Registration;
 import io.github.rcarlosdasilva.weixin.model.request.base.Request;
 import io.github.rcarlosdasilva.weixin.model.request.certificate.AccessTokenRequest;
+import io.github.rcarlosdasilva.weixin.model.request.open.auth.OpenPlatformAuthAccessTokenRequest;
 
 /**
  * API访问基础类
@@ -39,7 +40,8 @@ public class BasicApi {
   }
 
   private void updateAccessToken(Request requestModel) {
-    if (!(requestModel instanceof AccessTokenRequest)) {
+    if (!(requestModel instanceof AccessTokenRequest)
+        && !(requestModel instanceof OpenPlatformAuthAccessTokenRequest)) {
       String accessToken = null;
       if (Convention.DEFAULT_OPEN_PLATFORM_KEY.equals(this.accountKey)) {
         accessToken = Weixin.withOpenPlatform().openAuth().askAccessToken();
