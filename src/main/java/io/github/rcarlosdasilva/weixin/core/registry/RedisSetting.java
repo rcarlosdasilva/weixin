@@ -3,7 +3,7 @@ package io.github.rcarlosdasilva.weixin.core.registry;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.Protocol;
 
-public class RedisConfiguration {
+public class RedisSetting {
 
   private JedisPoolConfig config = new JedisPoolConfig();
   private String host = Protocol.DEFAULT_HOST;
@@ -17,7 +17,7 @@ public class RedisConfiguration {
     return config;
   }
 
-  public RedisConfiguration setConfig(JedisPoolConfig config) {
+  public RedisSetting setConfig(JedisPoolConfig config) {
     this.config = config;
     return this;
   }
@@ -26,7 +26,7 @@ public class RedisConfiguration {
     return host;
   }
 
-  public RedisConfiguration setHost(String host) {
+  public RedisSetting setHost(String host) {
     this.host = host;
     return this;
   }
@@ -35,7 +35,7 @@ public class RedisConfiguration {
     return port;
   }
 
-  public RedisConfiguration setPort(int port) {
+  public RedisSetting setPort(int port) {
     this.port = port;
     return this;
   }
@@ -44,7 +44,7 @@ public class RedisConfiguration {
     return timeout;
   }
 
-  public RedisConfiguration setTimeout(int timeout) {
+  public RedisSetting setTimeout(int timeout) {
     this.timeout = timeout;
     return this;
   }
@@ -53,7 +53,7 @@ public class RedisConfiguration {
     return password;
   }
 
-  public RedisConfiguration setPassword(String password) {
+  public RedisSetting setPassword(String password) {
     this.password = password;
     return this;
   }
@@ -62,7 +62,7 @@ public class RedisConfiguration {
     return database;
   }
 
-  public RedisConfiguration setDatabase(int database) {
+  public RedisSetting setDatabase(int database) {
     this.database = database;
     return this;
   }
@@ -71,7 +71,7 @@ public class RedisConfiguration {
     return useSsl;
   }
 
-  public RedisConfiguration setUseSsl(boolean useSsl) {
+  public RedisSetting setUseSsl(boolean useSsl) {
     this.useSsl = useSsl;
     return this;
   }

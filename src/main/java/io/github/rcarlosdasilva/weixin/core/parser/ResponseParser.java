@@ -49,7 +49,7 @@ public class ResponseParser {
           throw new MaydayMaydaySaveMeBecauseAccessTokenSetMeFuckUpException();
         }
 
-        if (Registration.getInstance().getConfiguration().isThrowException()) {
+        if (Registration.getInstance().getSetting().isThrowException()) {
           throw new ExecuteException(errorResponse);
         }
 

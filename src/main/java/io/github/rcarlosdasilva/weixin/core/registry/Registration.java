@@ -19,7 +19,7 @@ public class Registration implements Serializable {
 
   public static final Registration instance = new Registration();
 
-  private Configuration configuration;
+  private Setting setting;
   private OpenPlatform openPlatform;
   private List<Account> pending = Lists.newArrayList();
 
@@ -30,12 +30,12 @@ public class Registration implements Serializable {
     return instance;
   }
 
-  public Configuration getConfiguration() {
-    return configuration;
+  public Setting getSetting() {
+    return setting;
   }
 
-  public void setConfiguration(Configuration configuration) {
-    this.configuration = configuration;
+  public void setSetting(Setting setting) {
+    this.setting = setting;
   }
 
   public OpenPlatform getOpenPlatform() {

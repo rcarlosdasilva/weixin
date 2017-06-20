@@ -14,7 +14,7 @@ import io.github.rcarlosdasilva.weixin.core.listener.OpenPlatformAccessTokenUpda
 import io.github.rcarlosdasilva.weixin.core.listener.OpenPlatformLisensorAccessTokenUpdatedListener;
 import io.github.rcarlosdasilva.weixin.core.listener.WeixinListener;
 
-public class Configuration {
+public class Setting {
 
   private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -23,7 +23,7 @@ public class Configuration {
   private boolean useRedisCache = false;
   private boolean useSpringRedis = false;
   private Map<String, WeixinListener> listeners = Maps.newHashMap();
-  private RedisConfiguration redisConfiguration = null;
+  private RedisSetting redisSetting = null;
 
   public boolean isStrictUseOpenPlatform() {
     return strictUseOpenPlatform;
@@ -110,20 +110,20 @@ public class Configuration {
     }
   }
 
-  public RedisConfiguration getRedisConfiguration() {
-    return redisConfiguration;
+  public RedisSetting getRedisSetting() {
+    return redisSetting;
   }
 
   /**
    * 设置Redis缓存服务器的配置（当使用Spring的Redis时，无需设置）.
    * 
-   * @param redisConfiguration
+   * @param redisSetting
    *          config
    */
-  public void setRedisConfiguration(RedisConfiguration redisConfiguration) {
+  public void setRedisSetting(RedisSetting redisSetting) {
     this.useRedisCache = true;
     this.useSpringRedis = false;
-    this.redisConfiguration = redisConfiguration;
+    this.redisSetting = redisSetting;
   }
 
 }

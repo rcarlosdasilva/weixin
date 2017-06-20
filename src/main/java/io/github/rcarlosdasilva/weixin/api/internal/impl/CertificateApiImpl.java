@@ -164,7 +164,7 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
       AccessTokenCacheHandler.getInstance().put(this.accountKey, accessToken);
       logger.debug("For:{} >> 获取到access_token：[{}]", this.accountKey, accessToken.getAccessToken());
 
-      final AccessTokenUpdatedListener listener = Registration.getInstance().getConfiguration()
+      final AccessTokenUpdatedListener listener = Registration.getInstance().getSetting()
           .getListener(AccessTokenUpdatedListener.class);
       if (listener != null) {
         logger.debug("For:{} >> 调用监听器AccessTokenUpdatedListener", this.accountKey);
@@ -238,7 +238,7 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
       JsTicketCacheHandler.getInstance().put(this.accountKey, responseModel);
       logger.debug("For:{} >> 获取jsapi_ticket：[{}]", this.accountKey, responseModel.getJsTicket());
 
-      final JsTicketUpdatedListener listener = Registration.getInstance().getConfiguration()
+      final JsTicketUpdatedListener listener = Registration.getInstance().getSetting()
           .getListener(JsTicketUpdatedListener.class);
       if (listener != null) {
         logger.debug("For:{} >> 调用监听器JsTicketUpdatedListener", this.accountKey);

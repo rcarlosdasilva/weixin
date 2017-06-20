@@ -116,7 +116,7 @@ public class OpenAuthApiImpl extends BasicApi implements OpenAuthApi {
       logger.debug("For: >> 获取到access_token：[{}]", responseModel.getAccessToken());
 
       final OpenPlatformAccessTokenUpdatedListener listener = Registration.getInstance()
-          .getConfiguration().getListener(OpenPlatformAccessTokenUpdatedListener.class);
+          .getSetting().getListener(OpenPlatformAccessTokenUpdatedListener.class);
       if (listener != null) {
         logger.debug("For: >> 调用监听器OpenPlatformAccessTokenUpdatedListener");
         listener.updated(responseModel.getAccessToken(), responseModel.getExpiresIn());
@@ -175,7 +175,7 @@ public class OpenAuthApiImpl extends BasicApi implements OpenAuthApi {
 
   private void invokeListener(String licensoraAppId, LicensedAccessToken licensedAccessToken) {
     final OpenPlatformLisensorAccessTokenUpdatedListener listener = Registration.getInstance()
-        .getConfiguration().getListener(OpenPlatformLisensorAccessTokenUpdatedListener.class);
+        .getSetting().getListener(OpenPlatformLisensorAccessTokenUpdatedListener.class);
     if (listener != null) {
       logger.debug("For: >> 调用监听器OpenPlatformLisensorAccessTokenUpdatedListener");
       listener.updated(licensoraAppId, licensedAccessToken.getAccessToken(),

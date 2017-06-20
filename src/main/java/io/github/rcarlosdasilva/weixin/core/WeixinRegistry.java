@@ -5,7 +5,7 @@ import com.google.common.base.Preconditions;
 import io.github.rcarlosdasilva.weixin.api.Weixin;
 import io.github.rcarlosdasilva.weixin.common.Convention;
 import io.github.rcarlosdasilva.weixin.core.cache.holder.SimpleRedisHandler;
-import io.github.rcarlosdasilva.weixin.core.registry.Configuration;
+import io.github.rcarlosdasilva.weixin.core.registry.Setting;
 import io.github.rcarlosdasilva.weixin.core.registry.Registration;
 import io.github.rcarlosdasilva.weixin.model.Account;
 import io.github.rcarlosdasilva.weixin.model.OpenPlatform;
@@ -17,32 +17,30 @@ import io.github.rcarlosdasilva.weixin.model.OpenPlatform;
  */
 public class WeixinRegistry {
 
-  private static final Configuration DEFAULT_CONFIG = new Configuration();
+  private static final Setting DEFAULT_SETTING = new Setting();
 
-  private static Registration registration = Registration.getInstance();
+  private static Registration instance = Registration.getInstance();
 
   private WeixinRegistry() {
   }
 
-  public static void withConfig(Configuration configuration) {
-    Preconditions.checkNotNull(configuration);
-    registration.setConfiguration(configuration);
+  public static void withSetting(Setting setting) {
+    Preconditions.checkNotNull(setting);
+    instance.setSetting(setting);
   }
 
-  public static void withDefaultConfig() {
-    withConfig(DEFAULT_CONFIG);
+  public static void withDefaultSetting() {
+    withSetting(DEFAULT_SETTING);
   }
 
   public static void done() {
-    Preconditions.checkNotNull(registration);
-    Preconditions.checkNotNull(registration.getConfiguration());
+    Preconditions.checkNotNull(instance.getSetting());
 
-    if (registration.getConfiguration().isUseRedisCache()
-        && !registration.getConfiguration().isUseSpringRedis()) {
-      SimpleRedisHandler.init(registration.getConfiguration().getRedisConfiguration());
+    if (instance.getSetting().isUseRedisCache() && !instance.getSetting().isUseSpringRedis()) {
+      SimpleRedisHandler.init(instance.getSetting().getRedisSetting());
     }
 
-    registration.process();
+    instance.process();
   }
 
   /**
@@ -58,7 +56,7 @@ public class WeixinRegistry {
    *          加密aesKey
    */
   public static void openPlatform(String appId, String appSecret, String token, String aesKey) {
-    registration.setOpenPlatform(new OpenPlatform(appId, appSecret, token, aesKey));
+    instance.setOpenPlatform(new OpenPlatform(appId, appSecret, token, aesKey));
   }
 
   /**
@@ -74,7 +72,7 @@ public class WeixinRegistry {
     Preconditions.checkNotNull(key);
     Preconditions.checkNotNull(account);
     account.setKey(key);
-    registration.addAccount(account);
+    instance.addAccount(account);
 
     return account;
   }

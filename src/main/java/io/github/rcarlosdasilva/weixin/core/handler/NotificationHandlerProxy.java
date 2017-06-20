@@ -114,7 +114,7 @@ public class NotificationHandlerProxy {
 
     if (Strings.isNullOrEmpty(recipient)) {
       logger.warn("微信通知判断为{}类型，但获取不到appid/tousername", openPlatformActived ? "开放平台" : "公众号");
-      if (Registration.getInstance().getConfiguration().isThrowException()) {
+      if (Registration.getInstance().getSetting().isThrowException()) {
         throw new WeirdWeixinNotificationException();
       }
     }
