@@ -33,12 +33,16 @@ public class AbstractCacheHandler<V> implements CacheHandler<V> {
 
   protected String mark;
 
-  private boolean isSimpleRedis() {
+  protected boolean isRedis() {
+    return Registration.getInstance().getSetting().isUseRedisCache();
+  }
+
+  protected boolean isSimpleRedis() {
     return Registration.getInstance().getSetting().isUseRedisCache()
         && !Registration.getInstance().getSetting().isUseSpringRedis();
   }
 
-  private boolean isSpringRedis() {
+  protected boolean isSpringRedis() {
     return Registration.getInstance().getSetting().isUseSpringRedis();
   }
 

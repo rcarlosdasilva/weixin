@@ -31,7 +31,7 @@ public class HelperApiImpl extends BasicApi implements HelperApi {
   @Override
   public boolean resetQuota() {
     HelperResetQuotaRequest requestModel = new HelperResetQuotaRequest();
-    requestModel.setAppId(Registration.account(accountKey).getAppId());
+    requestModel.setAppId(Registration.lookup(accountKey).getAppId());
 
     try {
       return post(Boolean.class, requestModel);

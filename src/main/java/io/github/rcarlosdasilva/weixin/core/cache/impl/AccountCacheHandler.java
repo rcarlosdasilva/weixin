@@ -1,9 +1,14 @@
 package io.github.rcarlosdasilva.weixin.core.cache.impl;
 
 import java.util.Collection;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Strings;
 
+import io.github.rcarlosdasilva.weixin.core.cache.holder.MapHandler;
 import io.github.rcarlosdasilva.weixin.model.Account;
 
 /**
@@ -12,6 +17,8 @@ import io.github.rcarlosdasilva.weixin.model.Account;
  * @author Dean Zhao (rcarlosdasilva@qq.com)
  */
 public class AccountCacheHandler extends AbstractCacheHandler<Account> {
+
+  private final Logger logger = LoggerFactory.getLogger(getClass());
 
   private static final String DEFAULT_MARK = "account";
   private static final AccountCacheHandler instance = new AccountCacheHandler();
@@ -43,6 +50,22 @@ public class AccountCacheHandler extends AbstractCacheHandler<Account> {
       }
     }
     return null;
+  }
+
+  /**
+   * 将公众号信息从Map中迁移到Redis中
+   */
+  public void migrateAccount() {
+    if (!isRedis()) {
+      logger.warn("未配置Redis环境");
+      return;
+    }
+
+    Map<String, Account> rejected = MapHandler.<Account>getObject(mark);
+    for (String key : rejected.keySet()) {
+      put(key, rejected.get(key));
+    }
+    rejected.clear();
   }
 
 }

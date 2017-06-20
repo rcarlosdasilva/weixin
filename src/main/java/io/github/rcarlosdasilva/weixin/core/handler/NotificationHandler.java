@@ -508,7 +508,7 @@ public interface NotificationHandler {
    * <b>1. 开发者应该在这里将授权的公众号信息保存起来<br>
    * 2. 公众号已经自动注册到缓存，默认用授权方的appid做key（如果之前开发者已经先行注册过公众号，
    * 则使用注册时的key），之后的操作就可以使用Weixin.with(key)<br>
-   * 3. 在这方法中可以使用{@link Registration#account(String)}得到授权方信息，
+   * 3. 在这方法中可以使用{@link Registration#lookup(String)}得到授权方信息，
    * 其中包含授权内容以及授权方基本信息</b>
    * 
    * @param builder

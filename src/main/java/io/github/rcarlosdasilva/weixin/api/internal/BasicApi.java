@@ -219,7 +219,7 @@ public class BasicApi {
     private final Logger logger = LoggerFactory.getLogger(RetryableRunner.class);
 
     private int getRetryTimes() {
-      return Registration.account(accountKey).getRetryTimes();
+      return Registration.lookup(accountKey).getRetryTimes();
     }
 
     /**

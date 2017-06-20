@@ -1,10 +1,8 @@
 package io.github.rcarlosdasilva.weixin.core.registry;
 
 import java.io.Serializable;
-import java.util.List;
 
 import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
 
 import io.github.rcarlosdasilva.weixin.common.Convention;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.AccessTokenCacheHandler;
@@ -19,9 +17,8 @@ public class Registration implements Serializable {
 
   public static final Registration instance = new Registration();
 
-  private Setting setting;
+  private Setting setting = new Setting();
   private OpenPlatform openPlatform;
-  private List<Account> pending = Lists.newArrayList();
 
   private Registration() {
   }
@@ -47,28 +44,9 @@ public class Registration implements Serializable {
   }
 
   public void addAccount(Account account) {
-    this.pending.add(account);
-  }
-
-  public List<Account> getPending() {
-    return pending;
-  }
-
-  public void process() {
-    for (Account account : pending) {
-      cacheAccount(account);
-    }
-    pending.clear();
-  }
-
-  private void cacheAccount(Account account) {
     if (!Registration.accountExists(account.getKey())) {
       AccountCacheHandler.getInstance().put(account.getKey(), account);
     }
-  }
-
-  private static boolean accountExists(String key) {
-    return AccountCacheHandler.getInstance().get(key) != null;
   }
 
   public static void updateAccount(String key, Account account) {
@@ -77,6 +55,10 @@ public class Registration implements Serializable {
     }
     account.setKey(key);
     AccountCacheHandler.getInstance().put(key, account);
+  }
+
+  private static boolean accountExists(String key) {
+    return lookup(key) != null;
   }
 
   /**
@@ -101,17 +83,6 @@ public class Registration implements Serializable {
 
   public static void unregisterUnique() {
     unregister(Convention.DEFAULT_UNIQUE_WEIXIN_KEY);
-  }
-
-  /**
-   * 获取公众号信息
-   * 
-   * @param key
-   *          注册时的key（如果是使用开放平台，则默认是appid）
-   * @return 公众号信息
-   */
-  public static Account account(String key) {
-    return AccountCacheHandler.getInstance().get(key);
   }
 
   /**
