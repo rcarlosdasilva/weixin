@@ -19,6 +19,8 @@ import io.github.rcarlosdasilva.weixin.core.exception.CanNotFetchOpenPlatformPre
 import io.github.rcarlosdasilva.weixin.core.exception.ExecuteException;
 import io.github.rcarlosdasilva.weixin.core.exception.OpenPlatformNotFoundException;
 import io.github.rcarlosdasilva.weixin.core.exception.OpenPlatformTicketNotFoundException;
+import io.github.rcarlosdasilva.weixin.core.listener.OpenPlatformAccessTokenUpdatedListener;
+import io.github.rcarlosdasilva.weixin.core.listener.OpenPlatformLisensorAccessTokenUpdatedListener;
 import io.github.rcarlosdasilva.weixin.core.registry.Registration;
 import io.github.rcarlosdasilva.weixin.model.AccessToken.AccessTokenType;
 import io.github.rcarlosdasilva.weixin.model.OpenPlatform;
@@ -34,6 +36,7 @@ import io.github.rcarlosdasilva.weixin.model.response.open.auth.OpenPlatformAuth
 import io.github.rcarlosdasilva.weixin.model.response.open.auth.OpenPlatformAuthGetLicenseInformationResponse;
 import io.github.rcarlosdasilva.weixin.model.response.open.auth.OpenPlatformAuthGetLicensorOptionResponse;
 import io.github.rcarlosdasilva.weixin.model.response.open.auth.OpenPlatformAuthPreAuthCodeResponse;
+import io.github.rcarlosdasilva.weixin.model.response.open.auth.bean.LicensedAccessToken;
 
 public class OpenAuthApiImpl extends BasicApi implements OpenAuthApi {
 
@@ -112,6 +115,13 @@ public class OpenAuthApiImpl extends BasicApi implements OpenAuthApi {
           responseModel);
       logger.debug("For: >> 获取到access_token：[{}]", responseModel.getAccessToken());
 
+      final OpenPlatformAccessTokenUpdatedListener listener = Registration.getInstance()
+          .getConfiguration().getListener(OpenPlatformAccessTokenUpdatedListener.class);
+      if (listener != null) {
+        logger.debug("For: >> 调用监听器OpenPlatformAccessTokenUpdatedListener");
+        listener.updated(responseModel.getAccessToken(), responseModel.getExpiresIn());
+      }
+
       return responseModel;
     }
 
@@ -141,7 +151,11 @@ public class OpenAuthApiImpl extends BasicApi implements OpenAuthApi {
     requestModel.setAppId(openPlatform.getAppId());
     requestModel.setAuthCode(license);
 
-    return post(OpenPlatformAuthGetLicenseInformationResponse.class, requestModel);
+    OpenPlatformAuthGetLicenseInformationResponse responseModel = post(
+        OpenPlatformAuthGetLicenseInformationResponse.class, requestModel);
+    invokeListener(responseModel.getLicensingInformation().getAppId(),
+        responseModel.getLicensedAccessToken());
+    return responseModel;
   }
 
   @Override
@@ -153,7 +167,20 @@ public class OpenAuthApiImpl extends BasicApi implements OpenAuthApi {
     requestModel.setLicensorAppId(licensoraAppId);
     requestModel.setLicensorRefreshToken(refreshToken);
 
-    return post(OpenPlatformAuthGetLicenseInformationResponse.class, requestModel);
+    OpenPlatformAuthGetLicenseInformationResponse responseModel = post(
+        OpenPlatformAuthGetLicenseInformationResponse.class, requestModel);
+    invokeListener(licensoraAppId, responseModel.getLicensedAccessToken());
+    return responseModel;
+  }
+
+  private void invokeListener(String licensoraAppId, LicensedAccessToken licensedAccessToken) {
+    final OpenPlatformLisensorAccessTokenUpdatedListener listener = Registration.getInstance()
+        .getConfiguration().getListener(OpenPlatformLisensorAccessTokenUpdatedListener.class);
+    if (listener != null) {
+      logger.debug("For: >> 调用监听器OpenPlatformLisensorAccessTokenUpdatedListener");
+      listener.updated(licensoraAppId, licensedAccessToken.getAccessToken(),
+          licensedAccessToken.getRefreshToken(), licensedAccessToken.getExpiresIn());
+    }
   }
 
   @Override

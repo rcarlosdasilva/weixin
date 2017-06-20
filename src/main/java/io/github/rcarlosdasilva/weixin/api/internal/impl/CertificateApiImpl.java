@@ -23,6 +23,8 @@ import io.github.rcarlosdasilva.weixin.core.exception.LostWeixinAccountException
 import io.github.rcarlosdasilva.weixin.core.exception.LostWeixinLicensedRefreshTokenException;
 import io.github.rcarlosdasilva.weixin.core.exception.WrongAccessTokenTypeException;
 import io.github.rcarlosdasilva.weixin.core.json.Json;
+import io.github.rcarlosdasilva.weixin.core.listener.AccessTokenUpdatedListener;
+import io.github.rcarlosdasilva.weixin.core.listener.JsTicketUpdatedListener;
 import io.github.rcarlosdasilva.weixin.core.registry.Registration;
 import io.github.rcarlosdasilva.weixin.model.AccessToken;
 import io.github.rcarlosdasilva.weixin.model.AccessToken.AccessTokenType;
@@ -162,10 +164,11 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
       AccessTokenCacheHandler.getInstance().put(this.accountKey, accessToken);
       logger.debug("For:{} >> 获取到access_token：[{}]", this.accountKey, accessToken.getAccessToken());
 
-      if (Registration.getInstance().getConfiguration() != null
-          && Registration.getInstance().getConfiguration().getAccessTokenUpdatListener() != null) {
-        Registration.getInstance().getConfiguration().getAccessTokenUpdatListener().updated(
-            account.getKey(), account.getAppId(), accessToken.getAccessToken(),
+      final AccessTokenUpdatedListener listener = Registration.getInstance().getConfiguration()
+          .getListener(AccessTokenUpdatedListener.class);
+      if (listener != null) {
+        logger.debug("For:{} >> 调用监听器AccessTokenUpdatedListener", this.accountKey);
+        listener.updated(account.getKey(), account.getAppId(), accessToken.getAccessToken(),
             accessToken.getExpiresIn());
       }
 
@@ -235,11 +238,12 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
       JsTicketCacheHandler.getInstance().put(this.accountKey, responseModel);
       logger.debug("For:{} >> 获取jsapi_ticket：[{}]", this.accountKey, responseModel.getJsTicket());
 
-      if (Registration.getInstance().getConfiguration() != null
-          && Registration.getInstance().getConfiguration().getJsTicketUpdatedListener() != null) {
-        Account account = AccountCacheHandler.getInstance().get(this.accountKey);
-        Registration.getInstance().getConfiguration().getJsTicketUpdatedListener().updated(
-            account.getKey(), account.getAppId(), responseModel.getJsTicket(),
+      final JsTicketUpdatedListener listener = Registration.getInstance().getConfiguration()
+          .getListener(JsTicketUpdatedListener.class);
+      if (listener != null) {
+        logger.debug("For:{} >> 调用监听器JsTicketUpdatedListener", this.accountKey);
+        Account account = Registration.lookup(this.accountKey);
+        listener.updated(account.getKey(), account.getAppId(), responseModel.getJsTicket(),
             responseModel.getExpiresIn());
       }
 

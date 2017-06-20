@@ -1,16 +1,28 @@
 package io.github.rcarlosdasilva.weixin.core.registry;
 
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.common.base.Preconditions;
+import com.google.common.collect.Maps;
+
 import io.github.rcarlosdasilva.weixin.core.listener.AccessTokenUpdatedListener;
 import io.github.rcarlosdasilva.weixin.core.listener.JsTicketUpdatedListener;
+import io.github.rcarlosdasilva.weixin.core.listener.OpenPlatformAccessTokenUpdatedListener;
+import io.github.rcarlosdasilva.weixin.core.listener.OpenPlatformLisensorAccessTokenUpdatedListener;
+import io.github.rcarlosdasilva.weixin.core.listener.WeixinListener;
 
 public class Configuration {
+
+  private final Logger logger = LoggerFactory.getLogger(getClass());
 
   private boolean strictUseOpenPlatform = false;
   private boolean throwException = true;
   private boolean useRedisCache = false;
   private boolean useSpringRedis = false;
-  private AccessTokenUpdatedListener accessTokenUpdatListener = null;
-  private JsTicketUpdatedListener jsTicketUpdatedListener = null;
+  private Map<String, WeixinListener> listeners = Maps.newHashMap();
   private RedisConfiguration redisConfiguration = null;
 
   public boolean isStrictUseOpenPlatform() {
@@ -74,34 +86,28 @@ public class Configuration {
     this.useSpringRedis = useSpringRedis;
   }
 
-  public AccessTokenUpdatedListener getAccessTokenUpdatListener() {
-    return accessTokenUpdatListener;
+  public void addListener(WeixinListener listener) {
+    Preconditions.checkNotNull(listener);
+
+    if (listener instanceof AccessTokenUpdatedListener) {
+      listeners.put(AccessTokenUpdatedListener.class.getName(), listener);
+    } else if (listener instanceof JsTicketUpdatedListener) {
+      listeners.put(JsTicketUpdatedListener.class.getName(), listener);
+    } else if (listener instanceof OpenPlatformAccessTokenUpdatedListener) {
+      listeners.put(OpenPlatformAccessTokenUpdatedListener.class.getName(), listener);
+    } else if (listener instanceof OpenPlatformLisensorAccessTokenUpdatedListener) {
+      listeners.put(OpenPlatformLisensorAccessTokenUpdatedListener.class.getName(), listener);
+    }
   }
 
-  /**
-   * 设置公众号的access_token更新时的监听器（当使用开放平台时，监听器将无用）.
-   * <p>
-   * 当ccess_token变更时，将会通知到该监听器，开发者可在监听器中做响应的处理
-   * 
-   * @param accessTokenUpdatListener
-   *          listener
-   */
-  public void setAccessTokenUpdatListener(AccessTokenUpdatedListener accessTokenUpdatListener) {
-    this.accessTokenUpdatListener = accessTokenUpdatListener;
-  }
-
-  public JsTicketUpdatedListener getJsTicketUpdatedListener() {
-    return jsTicketUpdatedListener;
-  }
-
-  /**
-   * 设置公众号js_ticket更新时的监听器（与setAccessTokenUpdatListener相似）.
-   * 
-   * @param jsTicketUpdatedListener
-   *          listener
-   */
-  public void setJsTicketUpdatedListener(JsTicketUpdatedListener jsTicketUpdatedListener) {
-    this.jsTicketUpdatedListener = jsTicketUpdatedListener;
+  @SuppressWarnings("unchecked")
+  public <T extends WeixinListener> T getListener(Class<T> classType) {
+    try {
+      return (T) listeners.get(classType.getName());
+    } catch (Exception ex) {
+      logger.error("weixin config listener", ex);
+      return null;
+    }
   }
 
   public RedisConfiguration getRedisConfiguration() {
