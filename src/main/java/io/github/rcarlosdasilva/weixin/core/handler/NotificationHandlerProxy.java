@@ -21,7 +21,6 @@ import io.github.rcarlosdasilva.weixin.core.exception.WeirdWeixinNotificationExc
 import io.github.rcarlosdasilva.weixin.core.parser.NotificationParser;
 import io.github.rcarlosdasilva.weixin.core.registry.Registration;
 import io.github.rcarlosdasilva.weixin.model.AccessToken;
-import io.github.rcarlosdasilva.weixin.model.AccessToken.AccessTokenType;
 import io.github.rcarlosdasilva.weixin.model.Account;
 import io.github.rcarlosdasilva.weixin.model.OpenPlatform;
 import io.github.rcarlosdasilva.weixin.model.builder.Builder;
@@ -396,7 +395,6 @@ public class NotificationHandlerProxy {
     }
 
     AccessToken accessToken = response.getLicensedAccessToken();
-    accessToken.setType(AccessTokenType.LICENSED_WEIXIN);
     AccessTokenCacheHandler.getInstance().put(key, accessToken);
 
     account.setLicensingInformation(response.getLicensingInformation());

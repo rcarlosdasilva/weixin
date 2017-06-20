@@ -6,6 +6,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 
 import io.github.rcarlosdasilva.weixin.api.Weixin;
@@ -19,15 +20,12 @@ import io.github.rcarlosdasilva.weixin.core.cache.impl.AccountCacheHandler;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.JsTicketCacheHandler;
 import io.github.rcarlosdasilva.weixin.core.exception.CanNotFetchAccessTokenException;
 import io.github.rcarlosdasilva.weixin.core.exception.CanNotFetchOpenPlatformLicensorAccessTokenException;
-import io.github.rcarlosdasilva.weixin.core.exception.LostWeixinAccountException;
 import io.github.rcarlosdasilva.weixin.core.exception.LostWeixinLicensedRefreshTokenException;
-import io.github.rcarlosdasilva.weixin.core.exception.WrongAccessTokenTypeException;
 import io.github.rcarlosdasilva.weixin.core.json.Json;
 import io.github.rcarlosdasilva.weixin.core.listener.AccessTokenUpdatedListener;
 import io.github.rcarlosdasilva.weixin.core.listener.JsTicketUpdatedListener;
 import io.github.rcarlosdasilva.weixin.core.registry.Registration;
 import io.github.rcarlosdasilva.weixin.model.AccessToken;
-import io.github.rcarlosdasilva.weixin.model.AccessToken.AccessTokenType;
 import io.github.rcarlosdasilva.weixin.model.Account;
 import io.github.rcarlosdasilva.weixin.model.JsapiSignature;
 import io.github.rcarlosdasilva.weixin.model.request.certificate.AccessTokenRequest;
@@ -67,15 +65,15 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
               token);
         }
 
-        if (token == null || token.getType() == AccessTokenType.WEIXIN) {
-          // 使用公众号appid和appsecret在第一次获取access_token之前，token为空
-          token = requestAccessToken();
-        } else if (token.getType() == AccessTokenType.LICENSED_WEIXIN) {
-          // 使用微信开放平台，在公众号授权后，会自动获取第一次授权方的access_token，所以token不会为空
-          token = refreshLicensedAccessToken(token);
+        final Account account = Registration.lookup(this.accountKey);
+        if (account.isWithOpenPlatform()) {
+          // 使用微信开放平台获取access_token。在公众号授权后，会自动获取第一次授权方的access_token
+          final String refreshToken = null == token ? account.getRefreshToken()
+              : token.getRefreshToken();
+          token = refreshLicensedAccessToken(account.getAppId(), refreshToken);
         } else {
-          logger.error("错误的AccessToken类型，不应该出现这个错误");
-          throw new WrongAccessTokenTypeException();
+          // 使用公众号appid和appsecret获取access_token
+          token = requestAccessToken();
         }
       }
     }
@@ -107,7 +105,6 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
     String responseMock = String.format("{'access_token':'%s','expires_in':%s}", token,
         (expiresIn / 1000));
     AccessTokenResponse responseModel = Json.fromJson(responseMock, AccessTokenResponse.class);
-    responseModel.setType(AccessTokenType.WEIXIN);
     AccessTokenCacheHandler.getInstance().put(this.accountKey, responseModel);
   }
 
@@ -116,20 +113,17 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
    * 
    * @return 请求结果
    */
-  private synchronized AccessToken refreshLicensedAccessToken(AccessToken expiredToken) {
-    if (expiredToken == null || Strings.isNullOrEmpty(expiredToken.getRefreshToken())) {
+  private synchronized AccessToken refreshLicensedAccessToken(String licensorAppId,
+      String refreshToken) {
+    Preconditions.checkNotNull(licensorAppId);
+
+    if (Strings.isNullOrEmpty(refreshToken)) {
       logger.error("找不到正确的授权方access_token刷新令牌，或许需要授权方重新授权");
       throw new LostWeixinLicensedRefreshTokenException();
     }
 
-    Account account = AccountCacheHandler.getInstance().get(this.accountKey);
-    if (account == null) {
-      logger.error("找不到授权方公众号信息");
-      throw new LostWeixinAccountException();
-    }
-
     OpenPlatformAuthGetLicenseInformationResponse response = Weixin.withOpenPlatform().openAuth()
-        .refreshLicensorAccessToken(account.getAppId(), expiredToken.getRefreshToken());
+        .refreshLicensorAccessToken(licensorAppId, refreshToken);
     if (response == null
         || Strings.isNullOrEmpty(response.getLicensedAccessToken().getAccessToken())) {
       logger.error("获取不到授权方的access_token");
@@ -137,7 +131,6 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
     }
 
     AccessToken accessToken = response.getLicensedAccessToken();
-    accessToken.setType(AccessTokenType.LICENSED_WEIXIN);
     AccessTokenCacheHandler.getInstance().put(this.accountKey, accessToken);
     logger.debug("For:{} >> 开放平台更新授权方access_token：[{}]", this.accountKey,
         accessToken.getAccessToken());
@@ -160,7 +153,6 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
     AccessToken accessToken = get(AccessTokenResponse.class, requestModel);
 
     if (accessToken != null) {
-      accessToken.setType(AccessTokenType.WEIXIN);
       AccessTokenCacheHandler.getInstance().put(this.accountKey, accessToken);
       logger.debug("For:{} >> 获取到access_token：[{}]", this.accountKey, accessToken.getAccessToken());
 

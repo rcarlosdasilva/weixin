@@ -10,19 +10,10 @@ public abstract class AccessToken implements Serializable {
 
   private static final long serialVersionUID = 3553323869805808582L;
 
-  private AccessTokenType type;
   private String accessToken;
   private String refreshToken;
   private int expiresIn;
   private long expireAt;
-
-  public AccessTokenType getType() {
-    return type;
-  }
-
-  public void setType(AccessTokenType type) {
-    this.type = type;
-  }
 
   /**
    * 获取到的凭证.
@@ -86,10 +77,6 @@ public abstract class AccessToken implements Serializable {
    */
   public boolean isExpired() {
     return this.expireAt < System.currentTimeMillis() || Strings.isNullOrEmpty(this.accessToken);
-  }
-
-  public static enum AccessTokenType {
-    WEIXIN, OPEN_PLATFORM, LICENSED_WEIXIN;
   }
 
 }

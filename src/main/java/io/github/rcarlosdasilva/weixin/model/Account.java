@@ -21,6 +21,7 @@ public class Account implements Serializable {
   private String key;
   private String appId;
   private String appSecret;
+  private String refreshToken;
   private String mpId;
   private String nickname;
   private AccountType accountType;
@@ -29,6 +30,7 @@ public class Account implements Serializable {
   private String aesKey;
   private EncryptionType encryptionType = EncryptionType.PLAIN_TEXT;
   private int retryTimes = 2;
+  private boolean withOpenPlatform = true;
   private LicensingInformation licensingInformation;
   private LicensorInfromation licensorInfromation;
 
@@ -36,12 +38,28 @@ public class Account implements Serializable {
   }
 
   /**
-   * 指定必须的AppId与AppSecret.
+   * 指定必须的AppId（开发平台授权方）.
    * 
    * @param appId
    *          appid
    * @param appSecret
    *          appsecret
+   * @return {@link Account}
+   */
+  public Account(String appId) {
+    this.appId = appId;
+  }
+
+  /**
+   * 指定必须的AppId与AppSecret.
+   * <p>
+   * <b>建议使用开放平台</b>
+   * 
+   * @param appId
+   *          appid
+   * @param appSecret
+   *          appsecret
+   * @return {@link Account}
    */
   public Account(String appId, String appSecret) {
     this.appId = appId;
@@ -50,6 +68,8 @@ public class Account implements Serializable {
 
   /**
    * 设置服务器配置，用于消息加解密，推荐使用安全模式.
+   * <p>
+   * <b>建议使用开放平台，开放平台的通知均为加密</b>
    * 
    * @param token
    *          Token(令牌)
@@ -125,6 +145,14 @@ public class Account implements Serializable {
 
   public String getAppSecret() {
     return appSecret;
+  }
+
+  public String getRefreshToken() {
+    return refreshToken;
+  }
+
+  public void setRefreshToken(String refreshToken) {
+    this.refreshToken = refreshToken;
   }
 
   public String getMpId() {
@@ -263,8 +291,16 @@ public class Account implements Serializable {
         && !Strings.isNullOrEmpty(this.token) && !Strings.isNullOrEmpty(this.aesKey);
   }
 
+  public boolean isWithOpenPlatform() {
+    return withOpenPlatform;
+  }
+
+  public void setWithOpenPlatform(boolean withOpenPlatform) {
+    this.withOpenPlatform = withOpenPlatform;
+  }
+
   /**
-   * （当使用开放平台时）授权方（公众号）的授权信息.
+   * （当使用开放平台时）授权方（公众号）的授权信息，临时，只在授权时（调用接口）有值，请尽快存储.
    * 
    * @return {@link LicensingInformation}
    */
@@ -277,7 +313,7 @@ public class Account implements Serializable {
   }
 
   /**
-   * （当使用开放平台时）授权方（公众号）的基本信息.
+   * （当使用开放平台时）授权方（公众号）的基本信息，临时，只在授权时（调用接口）有值，请尽快存储.
    * 
    * @return {@link LicensorInfromation}
    */

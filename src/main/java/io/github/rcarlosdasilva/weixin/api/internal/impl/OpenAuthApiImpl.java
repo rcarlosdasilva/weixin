@@ -22,7 +22,6 @@ import io.github.rcarlosdasilva.weixin.core.exception.OpenPlatformTicketNotFound
 import io.github.rcarlosdasilva.weixin.core.listener.OpenPlatformAccessTokenUpdatedListener;
 import io.github.rcarlosdasilva.weixin.core.listener.OpenPlatformLisensorAccessTokenUpdatedListener;
 import io.github.rcarlosdasilva.weixin.core.registry.Registration;
-import io.github.rcarlosdasilva.weixin.model.AccessToken.AccessTokenType;
 import io.github.rcarlosdasilva.weixin.model.OpenPlatform;
 import io.github.rcarlosdasilva.weixin.model.request.open.auth.OpenPlatformAuthAccessTokenRequest;
 import io.github.rcarlosdasilva.weixin.model.request.open.auth.OpenPlatformAuthGetLicenseInformationRequest;
@@ -110,7 +109,6 @@ public class OpenAuthApiImpl extends BasicApi implements OpenAuthApi {
         OpenPlatformAuthAccessTokenResponse.class, requestModel);
 
     if (responseModel != null) {
-      responseModel.setType(AccessTokenType.OPEN_PLATFORM);
       MixCacheHandler.getInstance().put(Convention.DEFAULT_CACHE_KEY_OPEN_PLATFORM_ACCESS_TOKEN,
           responseModel);
       logger.debug("For: >> 获取到access_token：[{}]", responseModel.getAccessToken());
