@@ -167,8 +167,9 @@ public class NotificationHandlerProxy {
       String reply = NotificationParser.toXml(response);
       if (safeMode) {
         logger.debug("正在加密..");
-        reply = Encryptor.encrypt(account.getAppId(), account.getToken(), account.getAesKey(),
-            reply);
+        final String appid = openPlatformActived && account.isWithOpenPlatform()
+            ? openPlatform.getAppId() : account.getAppId();
+        reply = Encryptor.encrypt(appid, account.getToken(), account.getAesKey(), reply);
         if (Strings.isNullOrEmpty(reply)) {
           logger.error("无法加密：{}", account);
           return null;
@@ -391,7 +392,7 @@ public class NotificationHandlerProxy {
     if (account != null) {
       key = account.getKey();
     } else {
-      account = new Account(licensorAppId, null);
+      account = new Account(licensorAppId);
     }
 
     AccessToken accessToken = response.getLicensedAccessToken();

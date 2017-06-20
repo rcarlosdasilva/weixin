@@ -42,9 +42,6 @@ public class Account implements Serializable {
    * 
    * @param appId
    *          appid
-   * @param appSecret
-   *          appsecret
-   * @return {@link Account}
    */
   public Account(String appId) {
     this.appId = appId;
@@ -59,7 +56,6 @@ public class Account implements Serializable {
    *          appid
    * @param appSecret
    *          appsecret
-   * @return {@link Account}
    */
   public Account(String appId, String appSecret) {
     this.appId = appId;
@@ -295,6 +291,12 @@ public class Account implements Serializable {
     return withOpenPlatform;
   }
 
+  /**
+   * 公众号是否是通过开放平台授权获取.
+   * 
+   * @param withOpenPlatform
+   *          boolean
+   */
   public void setWithOpenPlatform(boolean withOpenPlatform) {
     this.withOpenPlatform = withOpenPlatform;
   }
