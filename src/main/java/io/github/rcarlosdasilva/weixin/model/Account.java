@@ -6,6 +6,7 @@ import com.google.common.base.Strings;
 
 import io.github.rcarlosdasilva.weixin.common.dictionary.AccountType;
 import io.github.rcarlosdasilva.weixin.common.dictionary.EncryptionType;
+import io.github.rcarlosdasilva.weixin.core.registry.Registration;
 import io.github.rcarlosdasilva.weixin.model.response.open.auth.bean.LicensingInformation;
 import io.github.rcarlosdasilva.weixin.model.response.open.auth.bean.LicensorInfromation;
 
@@ -30,6 +31,7 @@ public class Account implements Serializable {
   private String aesKey;
   private EncryptionType encryptionType = EncryptionType.PLAIN_TEXT;
   private int retryTimes = 2;
+  private Object extension;
   private boolean withOpenPlatform = true;
   private LicensingInformation licensingInformation;
   private LicensorInfromation licensorInfromation;
@@ -275,6 +277,22 @@ public class Account implements Serializable {
    */
   public void setRetryTimes(int retryTimes) {
     this.retryTimes = retryTimes;
+  }
+
+  public Object getExtension() {
+    return extension;
+  }
+
+  /**
+   * 可用来设置与业务层面相关的扩展参数，当做传递载体使用.
+   * <p>
+   * 开在代码中借用{@link Registration#lookup(String)}获取公众号信息
+   * 
+   * @param extension
+   *          扩展信息
+   */
+  public void setExtension(Object extension) {
+    this.extension = extension;
   }
 
   /**
