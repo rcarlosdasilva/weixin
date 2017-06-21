@@ -1,10 +1,6 @@
 package io.github.rcarlosdasilva.weixin.api.internal;
 
-import java.util.List;
-
 import io.github.rcarlosdasilva.weixin.model.builder.Builder;
-import io.github.rcarlosdasilva.weixin.model.request.menu.bean.Button;
-import io.github.rcarlosdasilva.weixin.model.request.menu.bean.MatchRule;
 import io.github.rcarlosdasilva.weixin.model.request.menu.bean.Menu;
 import io.github.rcarlosdasilva.weixin.model.response.menu.MenuCompleteResponse;
 import io.github.rcarlosdasilva.weixin.model.response.menu.MenuInfoResponse;
@@ -26,27 +22,6 @@ public interface MenuApi {
    * 如果发现上一次拉取菜单的请求在5分钟以前，就会拉取一下菜单，如果菜单有更新，
    * 就会刷新客户端的菜单。测试时可以尝试取消关注公众账号后再次关注，则可以看到创建后的效果。
    * 
-   * @param buttons
-   *          菜单具体信息，参考 {@link Builder#buildMenu()}
-   * @return 是否创建
-   * @deprecated see {@link #create(Menu)}
-   * @see <a href=
-   *      "https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421141013&token=&lang=zh_CN"
-   *      >自定义菜单创建接口</a>
-   */
-  @Deprecated
-  boolean create(List<Button> buttons);
-
-  /**
-   * 创建自定义菜单.
-   * 
-   * <p>
-   * 1、自定义菜单最多包括3个一级菜单，每个一级菜单最多包含5个二级菜单。<br>
-   * 2、一级菜单最多4个汉字，二级菜单最多7个汉字，多出来的部分将会以“...”代替。<br>
-   * 3、创建自定义菜单后，菜单的刷新策略是，在用户进入公众号会话页或公众号profile页时，
-   * 如果发现上一次拉取菜单的请求在5分钟以前，就会拉取一下菜单，如果菜单有更新，
-   * 就会刷新客户端的菜单。测试时可以尝试取消关注公众账号后再次关注，则可以看到创建后的效果。
-   * 
    * @param menu
    *          菜单具体信息，参考 {@link Builder#buildMenu()}
    * @return 是否创建
@@ -55,28 +30,6 @@ public interface MenuApi {
    *      >自定义菜单创建接口</a>
    */
   boolean create(Menu menu);
-
-  /**
-   * 创建个性化菜单.
-   * 
-   * <p>
-   * 参看 {@code Builder.buildMenu().withConditional()}
-   * 
-   * <p>
-   * {@code create(MenuCreateRequest menu)} 创建的是默认菜单。个性化菜单可以创建多个，依照最新创建的开始依次匹配。
-   * 
-   * @param buttons
-   *          菜单具体信息，参考 {@link Builder#buildMenu()}
-   * @param matchRule
-   *          匹配规则，参考 {@link Builder#buildMenu()}
-   * @return 个性化菜单id
-   * @deprecated see {@link #createWithConditional(Menu)}
-   * @see <a href=
-   *      "https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1455782296&token=&lang=zh_CN"
-   *      >个性化菜单接口</a>
-   */
-  @Deprecated
-  long createWithConditional(List<Button> buttons, MatchRule matchRule);
 
   /**
    * 创建个性化菜单.

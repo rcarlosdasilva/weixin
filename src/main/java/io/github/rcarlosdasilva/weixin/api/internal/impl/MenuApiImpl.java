@@ -1,7 +1,5 @@
 package io.github.rcarlosdasilva.weixin.api.internal.impl;
 
-import java.util.List;
-
 import com.google.common.base.Preconditions;
 
 import io.github.rcarlosdasilva.weixin.api.internal.BasicApi;
@@ -12,8 +10,6 @@ import io.github.rcarlosdasilva.weixin.model.request.menu.MenuDeleteRequest;
 import io.github.rcarlosdasilva.weixin.model.request.menu.MenuQueryCompleteRequest;
 import io.github.rcarlosdasilva.weixin.model.request.menu.MenuQueryRequest;
 import io.github.rcarlosdasilva.weixin.model.request.menu.MenuTestRequest;
-import io.github.rcarlosdasilva.weixin.model.request.menu.bean.Button;
-import io.github.rcarlosdasilva.weixin.model.request.menu.bean.MatchRule;
 import io.github.rcarlosdasilva.weixin.model.request.menu.bean.Menu;
 import io.github.rcarlosdasilva.weixin.model.response.menu.MenuCompleteResponse;
 import io.github.rcarlosdasilva.weixin.model.response.menu.MenuCreateResponse;
@@ -31,39 +27,29 @@ public class MenuApiImpl extends BasicApi implements MenuApi {
   }
 
   @Override
-  public boolean create(List<Button> buttons) {
-    Preconditions.checkNotNull(buttons);
+  public boolean create(Menu menu) {
+    Preconditions.checkNotNull(menu);
+    Preconditions.checkNotNull(menu.getButtons());
 
     MenuCreateRequest requestModel = new MenuCreateRequest();
-    requestModel.setButtons(buttons);
+    requestModel.setButtons(menu.getButtons());
 
     return post(Boolean.class, requestModel);
   }
 
   @Override
-  public boolean create(Menu menu) {
+  public long createWithConditional(Menu menu) {
     Preconditions.checkNotNull(menu);
-    return create(menu.getButtons());
-  }
-
-  @Override
-  public long createWithConditional(List<Button> buttons, MatchRule matchRule) {
-    Preconditions.checkNotNull(buttons);
-    Preconditions.checkNotNull(matchRule);
+    Preconditions.checkNotNull(menu.getButtons());
+    Preconditions.checkNotNull(menu.getMatchRule());
 
     MenuCreateRequest requestModel = new MenuCreateRequest();
-    requestModel.setButtons(buttons);
-    requestModel.setMatchRule(matchRule);
+    requestModel.setButtons(menu.getButtons());
+    requestModel.setMatchRule(menu.getMatchRule());
     requestModel.withConditional();
 
     MenuCreateResponse responseModel = post(MenuCreateResponse.class, requestModel);
     return responseModel == null ? Convention.GLOBAL_FAIL_ID : responseModel.getMenuId();
-  }
-
-  @Override
-  public long createWithConditional(Menu menu) {
-    Preconditions.checkNotNull(menu);
-    return createWithConditional(menu.getButtons(), menu.getMatchRule());
   }
 
   @Override

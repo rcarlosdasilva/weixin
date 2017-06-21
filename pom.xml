@@ -157,6 +157,9 @@
           <source>${jdk.version}</source>
           <target>${jdk.version}</target>
           <encoding>${project.build.sourceEncoding}</encoding>
+          <compilerArgs>
+            <arg>-Xlint:deprecation</arg>
+          </compilerArgs>
         </configuration>
       </plugin>
 
