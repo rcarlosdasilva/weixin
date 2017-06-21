@@ -16,7 +16,6 @@ import io.github.rcarlosdasilva.weixin.common.ApiAddress;
 import io.github.rcarlosdasilva.weixin.common.Utils;
 import io.github.rcarlosdasilva.weixin.common.dictionary.WebAuthorizeScope;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.AccessTokenCacheHandler;
-import io.github.rcarlosdasilva.weixin.core.cache.impl.AccountCacheHandler;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.JsTicketCacheHandler;
 import io.github.rcarlosdasilva.weixin.core.exception.CanNotFetchAccessTokenException;
 import io.github.rcarlosdasilva.weixin.core.exception.CanNotFetchOpenPlatformLicensorAccessTokenException;
@@ -145,7 +144,7 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
    */
   private synchronized AccessToken requestAccessToken() {
     logger.debug("For:{} >> 正在获取access_token", this.accountKey);
-    Account account = AccountCacheHandler.getInstance().get(this.accountKey);
+    Account account = Registration.lookup(this.accountKey);
     AccessTokenRequest requestModel = new AccessTokenRequest();
     requestModel.setAppId(account.getAppId());
     requestModel.setAppSecret(account.getAppSecret());
@@ -247,7 +246,7 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
 
   @Override
   public WaAccessTokenResponse askWebAuthorizeAccessToken(String code) {
-    Account account = AccountCacheHandler.getInstance().get(this.accountKey);
+    Account account = Registration.lookup(this.accountKey);
     WaAccessTokenRequest requestModel = new WaAccessTokenRequest();
     requestModel.setAppId(account.getAppId());
     requestModel.setAppSecret(account.getAppSecret());
@@ -258,7 +257,7 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
 
   @Override
   public WaAccessTokenResponse refreshWebAuthorizeAccessToken(String refreshToken) {
-    Account account = AccountCacheHandler.getInstance().get(this.accountKey);
+    Account account = Registration.lookup(this.accountKey);
     WaAccessTokenRefreshRequest requestModel = new WaAccessTokenRefreshRequest();
     requestModel.setAppId(account.getAppId());
     requestModel.setRefreshToken(refreshToken);
@@ -277,7 +276,7 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
 
   @Override
   public String webAuthorize(WebAuthorizeScope scope, String redirectTo, String param) {
-    Account account = AccountCacheHandler.getInstance().get(this.accountKey);
+    Account account = Registration.lookup(this.accountKey);
 
     return new StringBuilder(ApiAddress.URL_WEB_AUTHORIZE).append("?appid=")
         .append(account.getAppId()).append("&redirect_uri=").append(Utils.urlEncode(redirectTo))
@@ -293,7 +292,7 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
 
   @Override
   public JsapiSignature generateJsapiSignature(String url) {
-    Account account = AccountCacheHandler.getInstance().get(this.accountKey);
+    Account account = Registration.lookup(this.accountKey);
     String ticket = Weixin.with(this.accountKey).certificate().askJsTicket();
     String timestamp = Long.toString(System.currentTimeMillis() / 1000);
     String nonce = UUID.randomUUID().toString();

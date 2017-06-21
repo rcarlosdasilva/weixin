@@ -7,7 +7,7 @@ import java.util.List;
 import io.github.rcarlosdasilva.weixin.api.internal.BasicApi;
 import io.github.rcarlosdasilva.weixin.api.internal.CustomApi;
 import io.github.rcarlosdasilva.weixin.common.Convention;
-import io.github.rcarlosdasilva.weixin.core.cache.impl.AccountCacheHandler;
+import io.github.rcarlosdasilva.weixin.core.registry.Registration;
 import io.github.rcarlosdasilva.weixin.model.Account;
 import io.github.rcarlosdasilva.weixin.model.request.custom.CustomAccountAppendRequest;
 import io.github.rcarlosdasilva.weixin.model.request.custom.CustomAccountBindingRequest;
@@ -61,7 +61,7 @@ public class CustomApiImpl extends BasicApi implements CustomApi {
 
   @Override
   public boolean accountAppend(String accountPrefix, String nickname) {
-    Account account = AccountCacheHandler.getInstance().get(this.accountKey);
+    Account account = Registration.lookup(this.accountKey);
     CustomAccountAppendRequest requestModel = new CustomAccountAppendRequest();
     requestModel.setAccount(accountPrefix + "@" + account.getMpId());
     requestModel.setNickname(nickname);
@@ -71,7 +71,7 @@ public class CustomApiImpl extends BasicApi implements CustomApi {
 
   @Override
   public boolean accountBinding(String accountPrefix, String wxId) {
-    Account account = AccountCacheHandler.getInstance().get(this.accountKey);
+    Account account = Registration.lookup(this.accountKey);
     CustomAccountBindingRequest requestModel = new CustomAccountBindingRequest();
     requestModel.setAccount(accountPrefix + "@" + account.getMpId());
     requestModel.setWxId(wxId);
@@ -81,7 +81,7 @@ public class CustomApiImpl extends BasicApi implements CustomApi {
 
   @Override
   public boolean accountDelete(String accountPrefix) {
-    Account account = AccountCacheHandler.getInstance().get(this.accountKey);
+    Account account = Registration.lookup(this.accountKey);
     CustomAccountDeleteRequest requestModel = new CustomAccountDeleteRequest();
     requestModel.setAccount(accountPrefix + "@" + account.getMpId());
 
@@ -90,7 +90,7 @@ public class CustomApiImpl extends BasicApi implements CustomApi {
 
   @Override
   public boolean accountUpdate(String accountPrefix, String nickname) {
-    Account account = AccountCacheHandler.getInstance().get(this.accountKey);
+    Account account = Registration.lookup(this.accountKey);
     CustomAccountUpdateRequest requestModel = new CustomAccountUpdateRequest();
     requestModel.setAccount(accountPrefix + "@" + account.getMpId());
     requestModel.setNickname(nickname);
@@ -100,7 +100,7 @@ public class CustomApiImpl extends BasicApi implements CustomApi {
 
   @Override
   public boolean accountUploadAvatar(String accountPrefix, String fileName, File file) {
-    Account account = AccountCacheHandler.getInstance().get(this.accountKey);
+    Account account = Registration.lookup(this.accountKey);
     CustomAccountUploadAvatarRequest requestModel = new CustomAccountUploadAvatarRequest();
     requestModel.setAccount(accountPrefix + "@" + account.getMpId());
 
@@ -110,7 +110,7 @@ public class CustomApiImpl extends BasicApi implements CustomApi {
 
   @Override
   public boolean sessionCreate(String accountPrefix, String openId) {
-    Account account = AccountCacheHandler.getInstance().get(this.accountKey);
+    Account account = Registration.lookup(this.accountKey);
     CustomSessionCreateRequest requestModel = new CustomSessionCreateRequest();
     requestModel.setAccount(accountPrefix + "@" + account.getMpId());
     requestModel.setOpenId(openId);
@@ -120,7 +120,7 @@ public class CustomApiImpl extends BasicApi implements CustomApi {
 
   @Override
   public boolean sessionClose(String accountPrefix, String openId) {
-    Account account = AccountCacheHandler.getInstance().get(this.accountKey);
+    Account account = Registration.lookup(this.accountKey);
     CustomSessionCloseRequest requestModel = new CustomSessionCloseRequest();
     requestModel.setAccount(accountPrefix + "@" + account.getMpId());
     requestModel.setOpenId(openId);
@@ -138,7 +138,7 @@ public class CustomApiImpl extends BasicApi implements CustomApi {
 
   @Override
   public List<CustomSession> sessionList(String accountPrefix) {
-    Account account = AccountCacheHandler.getInstance().get(this.accountKey);
+    Account account = Registration.lookup(this.accountKey);
     CustomSessionListRequest requestModel = new CustomSessionListRequest();
     requestModel.setAccount(accountPrefix + "@" + account.getMpId());
 
