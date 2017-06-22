@@ -358,8 +358,7 @@ public class NotificationHandlerProxy {
         break;
       }
       case AUTHORIZE_UPDATED: {
-        OpenInfo openInfo = notification.getOpenInfo();
-        updateLicensorAccount(openInfo.getLicense(), openInfo.getLicensorAppId());
+        updateLicensorAccount(info.getLicense(), info.getLicensorAppId());
 
         handler.doInfoOfAuthorizeUpdated(builder, notification, info.getLicensorAppId(),
             info.getLicense(), info.getLicenseExpireAt());

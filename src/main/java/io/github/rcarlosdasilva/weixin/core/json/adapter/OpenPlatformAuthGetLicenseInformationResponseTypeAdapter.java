@@ -2,6 +2,9 @@ package io.github.rcarlosdasilva.weixin.core.json.adapter;
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
@@ -13,6 +16,8 @@ import io.github.rcarlosdasilva.weixin.model.response.open.auth.bean.LicensorInf
 
 public class OpenPlatformAuthGetLicenseInformationResponseTypeAdapter
     extends TypeAdapter<OpenPlatformAuthGetLicenseInformationResponse> {
+
+  private final Logger logger = LoggerFactory.getLogger(getClass());
 
   @Override
   public void write(JsonWriter out, OpenPlatformAuthGetLicenseInformationResponse value)
@@ -26,7 +31,8 @@ public class OpenPlatformAuthGetLicenseInformationResponseTypeAdapter
 
     in.beginObject();
     while (in.hasNext()) {
-      switch (in.nextName()) {
+      String key = in.nextName();
+      switch (key) {
         case Convention.OPEN_PLATFORM_AUTH_LICENSED_INFORMATION_KEY:
           readLicensedAccessToken(in, model);
           break;
@@ -43,6 +49,9 @@ public class OpenPlatformAuthGetLicenseInformationResponseTypeAdapter
           model.getLicensedAccessToken().setRefreshToken(in.nextString());
           break;
         default:
+          if (in.hasNext()) {
+            logger.warn("未知的json键值： [{}: {}]", key, in.nextString());
+          }
       }
     }
 
@@ -57,7 +66,8 @@ public class OpenPlatformAuthGetLicenseInformationResponseTypeAdapter
     in.beginObject();
 
     while (in.hasNext()) {
-      switch (in.nextName()) {
+      String key = in.nextName();
+      switch (key) {
         case Convention.OPEN_PLATFORM_AUTH_LICENSED_APPID_ALIAS_KEY:
         case Convention.OPEN_PLATFORM_AUTH_LICENSED_APPID_KEY:
           licensingInformation.setAppId(in.nextString());
@@ -88,6 +98,9 @@ public class OpenPlatformAuthGetLicenseInformationResponseTypeAdapter
           break;
         }
         default:
+          if (in.hasNext()) {
+            logger.warn("未知的json键值： [{}: {}]", key, in.nextString());
+          }
       }
     }
 
@@ -101,7 +114,8 @@ public class OpenPlatformAuthGetLicenseInformationResponseTypeAdapter
     in.beginObject();
 
     while (in.hasNext()) {
-      switch (in.nextName()) {
+      String key = in.nextName();
+      switch (key) {
         case Convention.OPEN_PLATFORM_AUTH_LICENSOR_NICKNAME_KEY:
           licensorInfromation.setNickName(in.nextString());
           break;
@@ -138,6 +152,9 @@ public class OpenPlatformAuthGetLicenseInformationResponseTypeAdapter
           readBusinessInfo(in, licensorInfromation);
           break;
         default:
+          if (in.hasNext()) {
+            logger.warn("未知的json键值： [{}: {}]", key, in.nextString());
+          }
       }
     }
 
@@ -149,7 +166,8 @@ public class OpenPlatformAuthGetLicenseInformationResponseTypeAdapter
       throws IOException {
     in.beginObject();
     while (in.hasNext()) {
-      switch (in.nextName()) {
+      String key = in.nextName();
+      switch (key) {
         case Convention.OPEN_PLATFORM_AUTH_LICENSOR_BUSINESS_STORE_KEY:
           licensorInfromation.setBusinessStoreOpened(in.nextInt() == Convention.GLOBAL_TRUE_NUMBER);
           break;
@@ -166,6 +184,9 @@ public class OpenPlatformAuthGetLicenseInformationResponseTypeAdapter
           licensorInfromation.setBusinessShakeOpened(in.nextInt() == Convention.GLOBAL_TRUE_NUMBER);
           break;
         default:
+          if (in.hasNext()) {
+            logger.warn("未知的json键值： [{}: {}]", key, in.nextString());
+          }
       }
     }
     in.endObject();
