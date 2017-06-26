@@ -397,6 +397,7 @@ public class NotificationHandlerProxy {
     AccessToken accessToken = response.getLicensedAccessToken();
     AccessTokenCacheHandler.getInstance().put(key, accessToken);
 
+    account.setRefreshToken(accessToken.getAccessToken());
     account.setLicensingInformation(response.getLicensingInformation());
 
     response = Weixin.withOpenPlatform().openAuth().getLicensorInformation(licensorAppId);
