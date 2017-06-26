@@ -60,7 +60,7 @@ public interface MessageApi {
    *          消息内容，请使用{@code Builder.buildTemplate()}创建。
    * @param appid
    *          所需跳转到的小程序appid（该小程序appid必须与发模板消息的公众号是绑定关联关系）
-   * @param path
+   * @param route
    *          所需跳转到小程序的具体页面路径，支持带参数,（示例index?foo=bar）
    * @return 消息编号
    * @see Builder#buildTemplateMessage()
@@ -69,7 +69,7 @@ public interface MessageApi {
    *      >模板消息接口</a>
    */
   long sendWithTemplate(String to, String templateId, String url, Map<String, Template> data,
-      String appid, String path);
+      String appid, String route);
 
   /**
    * 发送客服消息.

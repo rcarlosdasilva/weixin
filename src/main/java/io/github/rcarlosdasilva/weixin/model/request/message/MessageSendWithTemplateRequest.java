@@ -23,7 +23,7 @@ public class MessageSendWithTemplateRequest extends BasicWeixinRequest {
   private String url;
   private String appid;
   @SerializedName("pagepath")
-  private String path;
+  private String route;
   private Map<String, Template> data;
 
   public MessageSendWithTemplateRequest() {
@@ -64,8 +64,8 @@ public class MessageSendWithTemplateRequest extends BasicWeixinRequest {
     this.appid = appid;
   }
 
-  public void setPath(String path) {
-    this.path = path;
+  public void setRoute(String route) {
+    this.route = route;
   }
 
   /**

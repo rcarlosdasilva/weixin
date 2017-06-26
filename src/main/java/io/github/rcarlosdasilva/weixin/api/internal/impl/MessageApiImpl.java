@@ -57,14 +57,14 @@ public class MessageApiImpl extends BasicApi implements MessageApi {
 
   @Override
   public long sendWithTemplate(String to, String templateId, String url, Map<String, Template> data,
-      String appid, String path) {
+      String appid, String route) {
     MessageSendWithTemplateRequest requestModel = new MessageSendWithTemplateRequest();
     requestModel.setTo(to);
     requestModel.setTemplateId(templateId);
     requestModel.setUrl(url);
     requestModel.setData(data);
     requestModel.setAppid(appid);
-    requestModel.setPath(path);
+    requestModel.setRoute(route);
 
     MessageSendWithTemplateResponse responseModel = post(MessageSendWithTemplateResponse.class,
         requestModel);
