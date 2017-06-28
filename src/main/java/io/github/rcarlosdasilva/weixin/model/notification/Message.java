@@ -11,7 +11,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 public class Message {
 
   @XStreamAlias("MsgId")
-  private long messageId;
+  private Long messageId;
   @XStreamAlias("Content")
   private String content;
   @XStreamAlias("MediaId")
@@ -31,11 +31,11 @@ public class Message {
   @XStreamAlias("Url")
   private String url;
   @XStreamAlias("Location_X")
-  private double locationX;
+  private Double locationX;
   @XStreamAlias("Location_Y")
-  private double locationY;
+  private Double locationY;
   @XStreamAlias("Scale")
-  private int scale;
+  private Integer scale;
   @XStreamAlias("Label")
   private String address;
 
@@ -44,7 +44,7 @@ public class Message {
    * 
    * @return message id
    */
-  public long getMessageId() {
+  public Long getMessageId() {
     return messageId;
   }
 
@@ -134,7 +134,7 @@ public class Message {
    * 
    * @return x
    */
-  public double getLocationX() {
+  public Double getLocationX() {
     return locationX;
   }
 
@@ -143,7 +143,7 @@ public class Message {
    * 
    * @return y
    */
-  public double getLocationY() {
+  public Double getLocationY() {
     return locationY;
   }
 
@@ -152,7 +152,7 @@ public class Message {
    * 
    * @return scale
    */
-  public int getScale() {
+  public Integer getScale() {
     return scale;
   }
 

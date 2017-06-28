@@ -19,7 +19,7 @@ public class OpenInfo {
   @XStreamAlias("AuthorizationCode")
   private String license;
   @XStreamAlias("AuthorizationCodeExpiredTime")
-  private long licenseExpireAt;
+  private Long licenseExpireAt;
 
   /**
    * Ticket内容

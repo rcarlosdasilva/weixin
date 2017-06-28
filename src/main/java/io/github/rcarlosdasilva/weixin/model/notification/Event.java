@@ -26,29 +26,29 @@ public class Event {
   @XStreamAlias("Ticket")
   private String ticket;
   @XStreamAlias("Latitude")
-  private double latitude;
+  private Double latitude;
   @XStreamAlias("Longitude")
-  private double longitude;
+  private Double Longitude;
   @XStreamAlias("Precision")
-  private double precision;
+  private Double precision;
   @XStreamAlias("MsgId")
-  private long messageId;
+  private Long messageId;
   @XStreamAlias("MsgID")
-  private long messageID;
+  private Long messageID;
   @XStreamAlias("Status")
   private String status;
   @XStreamAlias("TotalCount")
-  private int totalCount;
+  private Integer totalCount;
   @XStreamAlias("FilterCount")
-  private int filterCount;
+  private Integer filterCount;
   @XStreamAlias("SentCount")
-  private int sentCount;
+  private Integer sentCount;
   @XStreamAlias("ErrorCount")
-  private int errorCount;
+  private Integer errorCount;
   @XStreamAlias("ExpiredTime")
-  private long expiredTime;
+  private Long expiredTime;
   @XStreamAlias("FailTime")
-  private long failTime;
+  private Long failTime;
   @XStreamAlias("FailReason")
   private String failReason;
   @XStreamAlias("ScanCodeInfo")
@@ -64,7 +64,7 @@ public class Event {
   @XStreamAlias("TransId")
   private String transactionId;
   @XStreamAlias("LocationId")
-  private int storeId;
+  private Integer storeId;
   @XStreamAlias("LocationName")
   private String storeName;
   @XStreamAlias("Fee")
@@ -118,17 +118,17 @@ public class Event {
    * 
    * @return latitude
    */
-  public double getLatitude() {
+  public Double getLatitude() {
     return latitude;
   }
 
   /**
    * 地理位置经度.
    * 
-   * @return longitude
+   * @return Longitude
    */
-  public double getLongitude() {
-    return longitude;
+  public Double getLongitude() {
+    return Longitude;
   }
 
   /**
@@ -136,7 +136,7 @@ public class Event {
    * 
    * @return precision
    */
-  public double getPrecision() {
+  public Double getPrecision() {
     return precision;
   }
 
@@ -147,7 +147,7 @@ public class Event {
    * 
    * @return message id
    */
-  public long getMessageId() {
+  public Long getMessageId() {
     return messageId;
   }
 
@@ -158,7 +158,7 @@ public class Event {
    * 
    * @return message id
    */
-  public long getMessageID() {
+  public Long getMessageID() {
     return messageID;
   }
 
@@ -185,7 +185,7 @@ public class Event {
    * 
    * @return 粉丝数
    */
-  public int getTotalCount() {
+  public Integer getTotalCount() {
     return totalCount;
   }
 
@@ -195,7 +195,7 @@ public class Event {
    * 
    * @return 过滤后粉丝数
    */
-  public int getFilterCount() {
+  public Integer getFilterCount() {
     return filterCount;
   }
 
@@ -204,7 +204,7 @@ public class Event {
    * 
    * @return 成功粉丝数
    */
-  public int getSentCount() {
+  public Integer getSentCount() {
     return sentCount;
   }
 
@@ -213,7 +213,7 @@ public class Event {
    * 
    * @return 失败粉丝数
    */
-  public int getErrorCount() {
+  public Integer getErrorCount() {
     return errorCount;
   }
 
@@ -303,7 +303,7 @@ public class Event {
    * 
    * @return store id
    */
-  public int getStoreId() {
+  public Integer getStoreId() {
     return storeId;
   }
 
