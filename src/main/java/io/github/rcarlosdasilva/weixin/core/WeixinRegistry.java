@@ -1,17 +1,13 @@
 package io.github.rcarlosdasilva.weixin.core;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.google.common.base.Preconditions;
-import com.google.common.base.Strings;
 
 import io.github.rcarlosdasilva.weixin.api.Weixin;
 import io.github.rcarlosdasilva.weixin.common.Convention;
 import io.github.rcarlosdasilva.weixin.core.cache.holder.SimpleRedisHandler;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.AccountCacheHandler;
-import io.github.rcarlosdasilva.weixin.core.registry.Setting;
 import io.github.rcarlosdasilva.weixin.core.registry.Registration;
+import io.github.rcarlosdasilva.weixin.core.registry.Setting;
 import io.github.rcarlosdasilva.weixin.model.Account;
 import io.github.rcarlosdasilva.weixin.model.OpenPlatform;
 
@@ -22,7 +18,6 @@ import io.github.rcarlosdasilva.weixin.model.OpenPlatform;
  */
 public class WeixinRegistry {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(WeixinRegistry.class);
   private static Registration registration = Registration.getInstance();
 
   private WeixinRegistry() {
@@ -59,47 +54,16 @@ public class WeixinRegistry {
   }
 
   /**
-   * 注册一个公众号配置，建议尽量使用这个方法注册.
+   * 注册一个公众号配置，建议尽量使用这个方法注册<b>建议使用开放平台授权方式管理公众号</b>.
    * <p>
-   * <b>注意：请保证在{@link Account}中指明公众号是直接持有appid和appsecret（可兼容使用），
-   * 还是通过开放平台授权过来（默认，必须有authorizer_refresh_token）</b>
+   * <b>注意：在{@link Account}中指明withOpenPlatform变量，如果为true（默认）代表公众号是通过开放平台授权过来（必须包含authorizer_refresh_token），
+   * 否则会直接使用appid和appsecret（可兼容使用）管理公众号API调用凭证</b>
    * 
-   * @param key
-   *          公众号键，在之后调用接口时，通过该键决定使用哪一个公众号
    * @param account
-   *          公众号
-   * @return {@link Account}
+   *          公众号信息
    */
-  public static Account register(String key, Account account) {
-    Preconditions.checkNotNull(key);
-    Preconditions.checkNotNull(account);
-
-    if (account.isWithOpenPlatform() && Strings.isNullOrEmpty(account.getRefreshToken())) {
-      LOGGER.warn("未找到开放平台授权方的刷新令牌authorizer_refresh_token，该公众号将不被注册");
-      return account;
-    }
-
-    account.setKey(key);
+  public static void register(Account account) {
     registration.addAccount(account);
-
-    return account;
-  }
-
-  /**
-   * 注册一个公众号配置.
-   * <p>
-   * 具体配置可以修改{@link Account}，<b>建议使用开放平台授权方式管理公众号</b>
-   * 
-   * @param key
-   *          公众号键，在之后调用接口时，通过该键决定使用哪一个公众号
-   * @param appId
-   *          appid
-   * @param appSecret
-   *          appsecret
-   * @return {@link Account}
-   */
-  public static Account register(String key, String appId, String appSecret) {
-    return register(key, new Account(appId, appSecret));
   }
 
   /**
@@ -109,28 +73,11 @@ public class WeixinRegistry {
    * 当只需要操作一个公众号时，可使用该方法，使用 {@link Weixin#withUnique()}获取注册的配置.
    * 
    * @param account
-   *          公众号
-   * @return {@link Account}
+   *          公众号信息
    */
-  public static Account registerUnique(Account account) {
-    return register(Convention.DEFAULT_UNIQUE_WEIXIN_KEY, account);
-  }
-
-  /**
-   * 注册一个唯一的公众号配置.
-   * 
-   * <p>
-   * 当只需要操作一个公众号时，可使用该方法，使用
-   * {@link Weixin#withUnique()}获取注册的配置，<b>建议使用开放平台授权方式管理公众号</b>.
-   * 
-   * @param appId
-   *          appid
-   * @param appSecret
-   *          appsecret
-   * @return {@link Account}
-   */
-  public static Account registerUnique(String appId, String appSecret) {
-    return register(Convention.DEFAULT_UNIQUE_WEIXIN_KEY, appId, appSecret);
+  public static void registerUnique(Account account) {
+    account.setKey(Convention.DEFAULT_UNIQUE_WEIXIN_KEY);
+    register(account);
   }
 
 }

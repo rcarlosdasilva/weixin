@@ -9,13 +9,13 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import io.github.rcarlosdasilva.weixin.api.Weixin;
-import io.github.rcarlosdasilva.weixin.core.WeixinRegistry;
+import io.github.rcarlosdasilva.weixin.test.basic.RegisterAndUse;
 
 public class MediaApiTest {
 
   @BeforeClass
   public static void setUpBeforeClass() {
-    WeixinRegistry.registerUnique(Property.get("appid"), Property.get("appsecret"));
+    RegisterAndUse.reg();
   }
 
   @Test

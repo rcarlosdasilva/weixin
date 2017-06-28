@@ -336,78 +336,102 @@ public class NotificationHandlerProxy {
         handler.doInfoOfComponentVerifyTicket(builder, notification, info.getTicket());
         break;
       }
-      case AUTHORIZE_SUCCEEDED: {
-        OpenInfo openInfo = notification.getOpenInfo();
-        updateLicensorAccount(openInfo.getLicense(), openInfo.getLicensorAppId());
-
-        handler.doInfoOfAuthorizeSucceeded(builder, notification, info.getLicensorAppId(),
-            info.getLicense(), info.getLicenseExpireAt());
+      case AUTHORIZE_SUCCEEDED:
+        processInfoWhenSuccessed(info, builder, notification);
         break;
-      }
-      case AUTHORIZE_CANCELED: {
-        // 取消对appid对应的公众号的缓存
-        String licensorAppId = notification.getOpenInfo().getLicensorAppId();
-        if (Strings.isNullOrEmpty(licensorAppId)) {
-          logger.warn("无法获取到开放平台授权者appid");
-          throw new CanNotFetchOpenPlatformLicenseException();
-        } else {
-          Registration.unregister(licensorAppId);
-        }
-
-        handler.doInfoOfAuthorizeCanceled(builder, notification, info.getLicensorAppId());
+      case AUTHORIZE_CANCELED:
+        processInfoWhenCanceled(info, builder, notification);
         break;
-      }
-      case AUTHORIZE_UPDATED: {
-        updateLicensorAccount(info.getLicense(), info.getLicensorAppId());
-
-        handler.doInfoOfAuthorizeUpdated(builder, notification, info.getLicensorAppId(),
-            info.getLicense(), info.getLicenseExpireAt());
+      case AUTHORIZE_UPDATED:
+        processInfoWhenUpdated(info, builder, notification);
         break;
-      }
       default:
     }
   }
 
+  private void processInfoWhenSuccessed(OpenInfo info, NotificationResponseBuilder builder,
+      Notification notification) {
+    OpenPlatformAuthGetLicenseInformationResponse licensingInformationResponse = fetchLicensingInformation(
+        info.getLicense());
+    OpenPlatformAuthGetLicenseInformationResponse licensorInformationResponse = fetchLicensorInformation(
+        info.getLicensorAppId());
+
+    AccessToken accessToken = licensingInformationResponse.getLicensedAccessToken();
+    Account account = handler.doInfoOfAuthorizeSucceeded(builder, notification,
+        info.getLicensorAppId(), info.getLicense(), info.getLicenseExpireAt(), accessToken,
+        licensingInformationResponse.getLicensingInformation(),
+        licensorInformationResponse.getLicensorInfromation());
+
+    Registration.getInstance().updateAccount(account);
+    AccessTokenCacheHandler.getInstance().put(account.getKey(), accessToken);
+  }
+
+  private void processInfoWhenCanceled(OpenInfo info, NotificationResponseBuilder builder,
+      Notification notification) {
+    String licensorAppId = notification.getOpenInfo().getLicensorAppId();
+    if (Strings.isNullOrEmpty(licensorAppId)) {
+      logger.warn("无法获取到开放平台授权者appid");
+      throw new CanNotFetchOpenPlatformLicenseException();
+    } else {
+      Registration.getInstance().unregister(licensorAppId);
+    }
+
+    handler.doInfoOfAuthorizeCanceled(builder, notification, info.getLicensorAppId());
+  }
+
+  private void processInfoWhenUpdated(OpenInfo info, NotificationResponseBuilder builder,
+      Notification notification) {
+    OpenPlatformAuthGetLicenseInformationResponse licensingInformationResponse = fetchLicensingInformation(
+        info.getLicense());
+    OpenPlatformAuthGetLicenseInformationResponse licensorInformationResponse = fetchLicensorInformation(
+        info.getLicensorAppId());
+
+    AccessToken accessToken = licensingInformationResponse.getLicensedAccessToken();
+    Account account = handler.doInfoOfAuthorizeUpdated(builder, notification,
+        info.getLicensorAppId(), info.getLicense(), info.getLicenseExpireAt(), accessToken,
+        licensingInformationResponse.getLicensingInformation(),
+        licensorInformationResponse.getLicensorInfromation());
+
+    Registration.getInstance().updateAccount(account);
+    AccessTokenCacheHandler.getInstance().put(account.getKey(), accessToken);
+  }
+
   /**
-   * 自动获取授权方信息，包括更新授权方的授权access_token.
+   * 自动换取公众号或小程序的接口调用凭据和授权信息
    * 
    * @param notification
    *          notification
    */
-  private void updateLicensorAccount(String license, String licensorAppId) {
-    if (Strings.isNullOrEmpty(license) || Strings.isNullOrEmpty(licensorAppId)) {
-      logger.warn("无法获取到开放平台发放的授权码或授权者appid");
-      throw new CanNotFetchOpenPlatformLicenseException();
-    }
+  private OpenPlatformAuthGetLicenseInformationResponse fetchLicensingInformation(String license) {
+    Preconditions.checkNotNull(license);
 
     OpenPlatformAuthGetLicenseInformationResponse response = Weixin.withOpenPlatform().openAuth()
         .getLicenseInformation(license);
     if (response == null || response.getLicensedAccessToken() == null) {
       throw new CanNotFetchOpenPlatformLicensorAccessTokenException();
     }
-
-    String key = licensorAppId;
-    Account account = Registration.lookup(licensorAppId);
-    if (account != null) {
-      key = account.getKey();
-    } else {
-      account = new Account(licensorAppId);
+    if (response == null || response.getLicensingInformation() == null) {
+      throw new CanNotFetchOpenPlatformLicenseException();
     }
 
-    AccessToken accessToken = response.getLicensedAccessToken();
-    AccessTokenCacheHandler.getInstance().put(key, accessToken);
+    return response;
+  }
 
-    account.setRefreshToken(accessToken.getAccessToken());
-    account.setLicensingInformation(response.getLicensingInformation());
+  /**
+   * 自动获取授权方的帐号基本信息
+   */
+  private OpenPlatformAuthGetLicenseInformationResponse fetchLicensorInformation(
+      String licensorAppId) {
+    Preconditions.checkNotNull(licensorAppId);
 
-    response = Weixin.withOpenPlatform().openAuth().getLicensorInformation(licensorAppId);
+    OpenPlatformAuthGetLicenseInformationResponse response = Weixin.withOpenPlatform().openAuth()
+        .getLicensorInformation(licensorAppId);
     if (response == null || response.getLicensorInfromation() == null) {
       logger.warn("无法获取到开放平台授权方的基本信息，但不影响主要功能");
-    } else {
-      account.setLicensorInfromation(response.getLicensorInfromation());
+      throw new CanNotFetchOpenPlatformLicenseException();
     }
 
-    Registration.updateAccount(key, account);
+    return response;
   }
 
 }

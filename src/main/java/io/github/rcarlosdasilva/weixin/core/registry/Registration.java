@@ -2,18 +2,24 @@ package io.github.rcarlosdasilva.weixin.core.registry;
 
 import java.io.Serializable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.common.base.Strings;
 
 import io.github.rcarlosdasilva.weixin.common.Convention;
+import io.github.rcarlosdasilva.weixin.core.WeixinRegistry;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.AccessTokenCacheHandler;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.AccountCacheHandler;
-import io.github.rcarlosdasilva.weixin.core.exception.UnmakableAccountKeyException;
+import io.github.rcarlosdasilva.weixin.core.exception.InvalidAccountException;
 import io.github.rcarlosdasilva.weixin.model.Account;
 import io.github.rcarlosdasilva.weixin.model.OpenPlatform;
 
 public class Registration implements Serializable {
 
   private static final long serialVersionUID = 5219550386903571660L;
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(WeixinRegistry.class);
 
   public static final Registration instance = new Registration();
 
@@ -44,21 +50,42 @@ public class Registration implements Serializable {
   }
 
   public void addAccount(Account account) {
-    if (!Registration.accountExists(account.getKey())) {
+    if (Registration.accountExists(account.getKey())) {
+      LOGGER.warn("尝试添加一个已经存在的公众号信息：[{}]，本方法无法覆盖已有公众号信息，请使用updateAccount", account.getKey());
+      return;
+    }
+
+    if (verifyAccount(account)) {
       AccountCacheHandler.getInstance().put(account.getKey(), account);
     }
   }
 
-  public static void updateAccount(String key, Account account) {
-    if (accountExists(key)) {
-      unregister(key);
+  public void updateAccount(Account account) {
+    if (verifyAccount(account)) {
+      unregister(account.getKey());
+      AccountCacheHandler.getInstance().put(account.getKey(), account);
     }
-    account.setKey(key);
-    AccountCacheHandler.getInstance().put(key, account);
   }
 
-  private static boolean accountExists(String key) {
-    return lookup(key) != null;
+  private boolean verifyAccount(Account account) {
+    if (account == null || Strings.isNullOrEmpty(account.getAppId())) {
+      throw new InvalidAccountException();
+    }
+
+    if (!account.isWithOpenPlatform() && Strings.isNullOrEmpty(account.getAppSecret())) {
+      LOGGER.warn("未找到公众号的app_scret，该公众号将不被注册");
+      return false;
+    }
+    if (account.isWithOpenPlatform() && Strings.isNullOrEmpty(account.getRefreshToken())) {
+      LOGGER.warn("未找到开放平台授权方的刷新令牌authorizer_refresh_token，该公众号将不被注册");
+      return false;
+    }
+
+    if (Strings.isNullOrEmpty(account.getKey())) {
+      account.withKey(account.getAppId());
+    }
+
+    return true;
   }
 
   /**
@@ -67,22 +94,29 @@ public class Registration implements Serializable {
    * @param key
    *          注册时的key，或是公众号appid
    */
-  public static void unregister(final String key) {
+  public void unregister(final String key) {
     if (Strings.isNullOrEmpty(key)) {
-      throw new UnmakableAccountKeyException();
+      return;
     }
 
     final Account account = lookup(key);
-    final String realKey = account.getKey();
 
     if (account != null) {
+      final String realKey = account.getKey();
       AccountCacheHandler.getInstance().remove(realKey);
       AccessTokenCacheHandler.getInstance().remove(realKey);
+      LOGGER.info("已取消注册公众号信息：[{}]", key);
+    } else {
+      LOGGER.warn("未找到可取消注册的公众号信息：[{}]", key);
     }
   }
 
-  public static void unregisterUnique() {
+  public void unregisterUnique() {
     unregister(Convention.DEFAULT_UNIQUE_WEIXIN_KEY);
+  }
+
+  private static boolean accountExists(String key) {
+    return lookup(key) != null;
   }
 
   /**
@@ -98,8 +132,7 @@ public class Registration implements Serializable {
       return account;
     }
 
-    account = new Account(key, null);
-    return AccountCacheHandler.getInstance().lookup(account);
+    return AccountCacheHandler.getInstance().lookup(Account.create(key));
   }
 
 }

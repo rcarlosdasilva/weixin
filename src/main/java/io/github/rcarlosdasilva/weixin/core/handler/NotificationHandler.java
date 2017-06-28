@@ -2,12 +2,15 @@ package io.github.rcarlosdasilva.weixin.core.handler;
 
 import java.util.Date;
 
-import io.github.rcarlosdasilva.weixin.core.registry.Registration;
+import io.github.rcarlosdasilva.weixin.model.AccessToken;
+import io.github.rcarlosdasilva.weixin.model.Account;
 import io.github.rcarlosdasilva.weixin.model.builder.NotificationResponseBuilder;
 import io.github.rcarlosdasilva.weixin.model.notification.NotificationMeta;
 import io.github.rcarlosdasilva.weixin.model.notification.bean.LocationInfo;
 import io.github.rcarlosdasilva.weixin.model.notification.bean.PicsInfo;
 import io.github.rcarlosdasilva.weixin.model.notification.bean.ScanCodeInfo;
+import io.github.rcarlosdasilva.weixin.model.response.open.auth.bean.LicensingInformation;
+import io.github.rcarlosdasilva.weixin.model.response.open.auth.bean.LicensorInfromation;
 
 /**
  * 统一处理器接口，自动根据微信推送通知内容，执行响应代码.
@@ -505,11 +508,11 @@ public interface NotificationHandler {
    * <p>
    * 当公众号对第三方平台进行授权、取消授权、更新授权后，微信服务器会向第三方平台方的授权事件接收URL（创建第三方平台时填写）推送相关通知。
    * <p>
-   * <b>1. 开发者应该在这里将授权的公众号信息保存起来<br>
-   * 2. 公众号已经自动注册到缓存，默认用授权方的appid做key（如果之前开发者已经先行注册过公众号，
-   * 则使用注册时的key），之后的操作就可以使用Weixin.with(key)<br>
-   * 3. 在这方法中可以使用{@link Registration#lookup(String)}得到授权方信息，
-   * 其中包含授权内容以及授权方基本信息</b>
+   * <b>1.
+   * 开发者应该在这里将授权的公众号信息（licensingInformation与licensorInfromation）保存到数据库</b><br>
+   * <b>2. 需要开发者在处理完业务相关之后，返回公众号信息的Bean - {@link Account}</b><br>
+   * <b>3. 公众号会自动注册到缓存，推荐使用授权方的appid做key（实际key由开发者确定），
+   * 之后的操作就可以使用Weixin.with(key)</b><br>
    * 
    * @param builder
    *          微信推送响应构建器， see {@link NotificationResponseBuilder}，需使用
@@ -522,9 +525,18 @@ public interface NotificationHandler {
    *          授权码，可用于换取公众号的接口调用凭据，详细见上面的说明
    * @param expireAt
    *          授权码过期时间
+   * @param accessToken
+   *          授权方的access_token及refresh_token
+   * @param licensingInformation
+   *          授权信息
+   * @param licensorInfromation
+   *          授权方基本信息
+   * @return 公众号信息，一定要包含key
    */
-  void doInfoOfAuthorizeSucceeded(NotificationResponseBuilder builder,
-      NotificationMeta notification, String appId, String license, Date expireAt);
+  Account doInfoOfAuthorizeSucceeded(NotificationResponseBuilder builder,
+      NotificationMeta notification, String appId, String license, Date expireAt,
+      AccessToken accessToken, LicensingInformation licensingInformation,
+      LicensorInfromation licensorInfromation);
 
   /**
    * 推送授权相关通知：取消授权通知.
@@ -543,7 +555,7 @@ public interface NotificationHandler {
       String appId);
 
   /**
-   * 推送授权相关通知：授权更新通知.
+   * 推送授权相关通知：授权更新通知，基本同授权成功.
    * <p>
    * 当公众号对第三方平台进行授权、取消授权、更新授权后，微信服务器会向第三方平台方的授权事件接收URL（创建第三方平台时填写）推送相关通知。
    * 
@@ -558,8 +570,17 @@ public interface NotificationHandler {
    *          授权码，可用于换取公众号的接口调用凭据，详细见上面的说明
    * @param expireAt
    *          授权码过期时间
+   * @param accessToken
+   *          授权方的access_token及refresh_token
+   * @param licensingInformation
+   *          授权信息
+   * @param licensorInfromation
+   *          授权方基本信息
+   * @return 公众号信息，一定要包含key
    */
-  void doInfoOfAuthorizeUpdated(NotificationResponseBuilder builder, NotificationMeta notification,
-      String appId, String license, Date expireAt);
+  Account doInfoOfAuthorizeUpdated(NotificationResponseBuilder builder,
+      NotificationMeta notification, String appId, String license, Date expireAt,
+      AccessToken accessToken, LicensingInformation licensingInformation,
+      LicensorInfromation licensorInfromation);
 
 }

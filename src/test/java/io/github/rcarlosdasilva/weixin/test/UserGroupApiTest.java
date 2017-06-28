@@ -9,15 +9,15 @@ import org.junit.Test;
 import com.google.common.collect.Lists;
 
 import io.github.rcarlosdasilva.weixin.api.Weixin;
-import io.github.rcarlosdasilva.weixin.core.WeixinRegistry;
 import io.github.rcarlosdasilva.weixin.model.response.user.UserOpenIdListResponse;
 import io.github.rcarlosdasilva.weixin.model.response.user.group.bean.UserGroup;
+import io.github.rcarlosdasilva.weixin.test.basic.RegisterAndUse;
 
 public class UserGroupApiTest {
 
   @BeforeClass
   public static void setUpBeforeClass() throws Exception {
-    WeixinRegistry.registerUnique(Property.get("appid"), Property.get("appsecret"));
+    RegisterAndUse.reg();
   }
 
   @SuppressWarnings("deprecation")

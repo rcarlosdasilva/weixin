@@ -2,11 +2,15 @@ package io.github.rcarlosdasilva.weixin.core.handler;
 
 import java.util.Date;
 
+import io.github.rcarlosdasilva.weixin.model.AccessToken;
+import io.github.rcarlosdasilva.weixin.model.Account;
 import io.github.rcarlosdasilva.weixin.model.builder.NotificationResponseBuilder;
 import io.github.rcarlosdasilva.weixin.model.notification.NotificationMeta;
 import io.github.rcarlosdasilva.weixin.model.notification.bean.LocationInfo;
 import io.github.rcarlosdasilva.weixin.model.notification.bean.PicsInfo;
 import io.github.rcarlosdasilva.weixin.model.notification.bean.ScanCodeInfo;
+import io.github.rcarlosdasilva.weixin.model.response.open.auth.bean.LicensingInformation;
+import io.github.rcarlosdasilva.weixin.model.response.open.auth.bean.LicensorInfromation;
 
 /**
  * 如果大部分的通知都不需要处理，建议继承该类
@@ -186,9 +190,12 @@ public class DefaultNotificationHandler implements NotificationHandler {
   }
 
   @Override
-  public void doInfoOfAuthorizeSucceeded(NotificationResponseBuilder builder,
-      NotificationMeta notification, String appId, String license, Date expireAt) {
+  public Account doInfoOfAuthorizeSucceeded(NotificationResponseBuilder builder,
+      NotificationMeta notification, String appId, String license, Date expireAt,
+      AccessToken accessToken, LicensingInformation licensingInformation,
+      LicensorInfromation licensorInfromation) {
     builder.responseNothing();
+    return null;
   }
 
   @Override
@@ -198,9 +205,12 @@ public class DefaultNotificationHandler implements NotificationHandler {
   }
 
   @Override
-  public void doInfoOfAuthorizeUpdated(NotificationResponseBuilder builder,
-      NotificationMeta notification, String appId, String license, Date expireAt) {
+  public Account doInfoOfAuthorizeUpdated(NotificationResponseBuilder builder,
+      NotificationMeta notification, String appId, String license, Date expireAt,
+      AccessToken accessToken, LicensingInformation licensingInformation,
+      LicensorInfromation licensorInfromation) {
     builder.responseNothing();
+    return null;
   }
 
 }

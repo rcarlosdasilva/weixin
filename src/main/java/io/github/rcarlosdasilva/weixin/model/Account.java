@@ -7,8 +7,6 @@ import com.google.common.base.Strings;
 import io.github.rcarlosdasilva.weixin.common.dictionary.AccountType;
 import io.github.rcarlosdasilva.weixin.common.dictionary.EncryptionType;
 import io.github.rcarlosdasilva.weixin.core.registry.Registration;
-import io.github.rcarlosdasilva.weixin.model.response.open.auth.bean.LicensingInformation;
-import io.github.rcarlosdasilva.weixin.model.response.open.auth.bean.LicensorInfromation;
 
 /**
  * 公众号账号模型
@@ -33,10 +31,8 @@ public class Account implements Serializable {
   private int retryTimes = 2;
   private Object extension;
   private boolean withOpenPlatform = true;
-  private LicensingInformation licensingInformation;
-  private LicensorInfromation licensorInfromation;
 
-  public Account() {
+  private Account() {
   }
 
   /**
@@ -44,9 +40,12 @@ public class Account implements Serializable {
    * 
    * @param appId
    *          appid
+   * @return {@link Account}
    */
-  public Account(String appId) {
-    this.appId = appId;
+  public static Account create(String appId) {
+    Account account = new Account();
+    account.appId = appId;
+    return account;
   }
 
   /**
@@ -58,10 +57,25 @@ public class Account implements Serializable {
    *          appid
    * @param appSecret
    *          appsecret
+   * @return {@link Account}
    */
-  public Account(String appId, String appSecret) {
-    this.appId = appId;
-    this.appSecret = appSecret;
+  public static Account create(String appId, String appSecret) {
+    Account account = new Account();
+    account.appId = appId;
+    account.appSecret = appSecret;
+    return account;
+  }
+
+  /**
+   * 设置key.
+   * 
+   * @param key
+   *          key
+   * @return {@link Account}
+   */
+  public Account withKey(String key) {
+    this.key = key;
+    return this;
   }
 
   /**
@@ -317,32 +331,6 @@ public class Account implements Serializable {
    */
   public void setWithOpenPlatform(boolean withOpenPlatform) {
     this.withOpenPlatform = withOpenPlatform;
-  }
-
-  /**
-   * （当使用开放平台时）授权方（公众号）的授权信息，临时，只在授权时（调用接口）有值，请尽快存储.
-   * 
-   * @return {@link LicensingInformation}
-   */
-  public LicensingInformation getLicensingInformation() {
-    return licensingInformation;
-  }
-
-  public void setLicensingInformation(LicensingInformation licensingInformation) {
-    this.licensingInformation = licensingInformation;
-  }
-
-  /**
-   * （当使用开放平台时）授权方（公众号）的基本信息，临时，只在授权时（调用接口）有值，请尽快存储.
-   * 
-   * @return {@link LicensorInfromation}
-   */
-  public LicensorInfromation getLicensorInfromation() {
-    return licensorInfromation;
-  }
-
-  public void setLicensorInfromation(LicensorInfromation licensorInfromation) {
-    this.licensorInfromation = licensorInfromation;
   }
 
   @Override

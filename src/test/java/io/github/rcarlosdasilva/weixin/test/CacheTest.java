@@ -8,8 +8,9 @@ import org.junit.Test;
 
 import io.github.rcarlosdasilva.weixin.api.Weixin;
 import io.github.rcarlosdasilva.weixin.core.WeixinRegistry;
-import io.github.rcarlosdasilva.weixin.core.registry.Setting;
 import io.github.rcarlosdasilva.weixin.core.registry.RedisSetting;
+import io.github.rcarlosdasilva.weixin.core.registry.Setting;
+import io.github.rcarlosdasilva.weixin.model.Account;
 import io.github.rcarlosdasilva.weixin.model.response.user.UserOpenIdListResponse;
 import io.github.rcarlosdasilva.weixin.model.response.user.tag.bean.UserTag;
 
@@ -28,8 +29,10 @@ public class CacheTest {
 
     WeixinRegistry.withSetting(config);
 
-    WeixinRegistry.register(self, "wx4a1d70e8f0d2a4ec", "9a258c341245bc3f7f9640dda4f4b82e");
-    WeixinRegistry.register(test, "wx89e4a038cb7a8ce0", "1574ab11c2355835678f9e1b246bb510");
+    WeixinRegistry.register(
+        Account.create("wx4a1d70e8f0d2a4ec", "9a258c341245bc3f7f9640dda4f4b82e").withKey(self));
+    WeixinRegistry.register(
+        Account.create("wx89e4a038cb7a8ce0", "1574ab11c2355835678f9e1b246bb510").withKey(test));
 
     UserOpenIdListResponse uoil1 = Weixin.with(self).user().listAllUsersOpenId();
     int t_uoil1 = uoil1.getTotal();

@@ -7,15 +7,15 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import io.github.rcarlosdasilva.weixin.api.Weixin;
-import io.github.rcarlosdasilva.weixin.core.WeixinRegistry;
 import io.github.rcarlosdasilva.weixin.model.builder.Builder;
 import io.github.rcarlosdasilva.weixin.model.request.message.bean.Template;
+import io.github.rcarlosdasilva.weixin.test.basic.RegisterAndUse;
 
 public class MessageApiTest {
 
   @BeforeClass
   public static void setUpBeforeClass() throws Exception {
-    WeixinRegistry.registerUnique(Property.get("appid"), Property.get("appsecret"));
+    RegisterAndUse.reg();
   }
 
   @Test
