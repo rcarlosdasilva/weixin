@@ -107,40 +107,22 @@ public class NotificationHandlerProxy {
       return null;
     }
 
-    final boolean openPlatformActived = isOpenPlatformActive(notification);
-    final String recipient = openPlatformActived ? notification.getAppId()
-        : notification.getToUser();
+    // final boolean openPlatformActived = isOpenPlatformActive(notification);
+    final String recipient = Strings.isNullOrEmpty(notification.getAppId())
+        ? notification.getToUser() : notification.getAppId();
 
     if (Strings.isNullOrEmpty(recipient)) {
-      logger.warn("微信通知判断为{}类型，但获取不到appid/tousername", openPlatformActived ? "开放平台" : "公众号");
+      logger.warn("获取不到appid或tousername：{}", content);
       if (Registration.getInstance().getSetting().isThrowException()) {
         throw new WeirdWeixinNotificationException();
       }
     }
 
-    final OpenPlatform openPlatform = Registration.getInstance().getOpenPlatform();
-    Account account = Registration.lookup(recipient);
-    if (!openPlatformActived && account == null) {
-      logger.warn("找不到对应的公众号配置(Account): {}", recipient);
+    notification = decryptNotification(notification, recipient, signature, timestamp, nonce);
+    if (notification == null) {
       return null;
     }
 
-    final boolean safeMode = openPlatformActived || account.isSafeMode();
-    final String token = openPlatformActived ? openPlatform.getToken() : account.getToken();
-    final String aeskey = openPlatformActived ? openPlatform.getAesKey() : account.getAesKey();
-
-    if (safeMode) {
-      logger.debug("正在解密..");
-      notification = Encryptor.decrypt(token, aeskey, notification.getCiphertext(), signature,
-          timestamp, nonce);
-      if (notification == null) {
-        logger.warn("无法解密: {}", account);
-        return null;
-      }
-      logger.debug("解密成功");
-    }
-
-    notification.setAccount(account);
     NotificationMessageType messageType = notification.getMessageType();
     NotificationInfoType infoType = notification.getInfoType();
 
@@ -158,23 +140,78 @@ public class NotificationHandlerProxy {
       processInfo(infoType, builder, notification);
     }
 
+    return encryptNotification(builder, notification.getAccount());
+  }
+
+  private Notification decryptNotification(Notification notification, String recipient,
+      String signature, long timestamp, String nonce) {
+    final OpenPlatform openPlatform = Registration.getInstance().getOpenPlatform();
+    Account account = Registration.lookup(recipient);
+    if (account == null && openPlatform == null) {
+      logger.warn("没有配置开放平台，并且找不到对应的公众号配置(Account): {}", recipient);
+      return null;
+    }
+
+    if (account == null) {
+      logger.debug("未找到对应的公众号配置(Account): {}，正在使用开放平台配置解密..", recipient);
+      notification = Encryptor.decrypt(openPlatform.getAesToken(), openPlatform.getAesKey(),
+          notification.getCiphertext(), signature, timestamp, nonce);
+    } else {
+      if (account.isWithOpenPlatform()) {
+        if (openPlatform == null) {
+          logger.warn("没有配置开放平台，但公众号配置(Account): {} 为开放平台授权", recipient);
+          return null;
+        }
+
+        logger.debug("正在使用开放平台配置对公众号(Account): {} 解密..", recipient);
+        notification = Encryptor.decrypt(openPlatform.getAesToken(), openPlatform.getAesKey(),
+            notification.getCiphertext(), signature, timestamp, nonce);
+      } else {
+        if (account.isSafeMode()) {
+          logger.debug("正在使用公众号配置(Account): {} 解密..", recipient);
+          notification = Encryptor.decrypt(account.getAesToken(), account.getAesKey(),
+              notification.getCiphertext(), signature, timestamp, nonce);
+        } else {
+          logger.debug("检测到公众号配置(Account): {} 为明文模式，不需要解密", recipient);
+          return notification;
+        }
+      }
+    }
+
+    if (notification == null) {
+      logger.warn("无法解密: {}", recipient);
+      return null;
+    }
+    logger.debug("解密成功");
+
+    notification.setAccount(account);
+
+    return notification;
+  }
+
+  private String encryptNotification(NotificationResponseBuilder builder, Account account) {
     NotificationResponse response = builder.build();
     logger.debug("处理完毕，已生成返回数据");
 
     if (response == null) {
       return Convention.WEIXIN_NOTIFICATION_RESPONSE_NOTHING;
     } else {
+      final OpenPlatform openPlatform = Registration.getInstance().getOpenPlatform();
+
       String reply = NotificationParser.toXml(response);
-      if (safeMode) {
-        logger.debug("正在加密..");
-        final String appid = account.isWithOpenPlatform() ? openPlatform.getAppId()
-            : account.getAppId();
-        reply = Encryptor.encrypt(appid, account.getToken(), account.getAesKey(), reply);
+      if (account == null || account.isWithOpenPlatform()) {
+        logger.debug("正在使用开放平台配置加密..");
+        reply = Encryptor.encrypt(openPlatform.getAppId(), openPlatform.getAesToken(),
+            openPlatform.getAesKey(), reply);
         if (Strings.isNullOrEmpty(reply)) {
           logger.error("无法加密：{}", account);
           return null;
         }
         logger.debug("加密成功");
+      } else {
+        logger.debug("正在使用公众号配置(Account): {} 加密..", account.getAppId());
+        reply = Encryptor.encrypt(account.getAppId(), account.getAesToken(), account.getAesKey(),
+            reply);
       }
       return reply;
     }

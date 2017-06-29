@@ -8,14 +8,14 @@ public class OpenPlatform implements Serializable {
 
   private String appId;
   private String appSecret;
-  private String token;
+  private String aesToken;
   private String aesKey;
 
-  public OpenPlatform(String appId, String appSecret, String token, String aesKey) {
+  public OpenPlatform(String appId, String appSecret, String aesToken, String aesKey) {
     super();
     this.appId = appId;
     this.appSecret = appSecret;
-    this.token = token;
+    this.aesToken = aesToken;
     this.aesKey = aesKey;
   }
 
@@ -35,12 +35,12 @@ public class OpenPlatform implements Serializable {
     this.appSecret = appSecret;
   }
 
-  public String getToken() {
-    return token;
+  public String getAesToken() {
+    return aesToken;
   }
 
-  public void setToken(String token) {
-    this.token = token;
+  public void setAesToken(String aesToken) {
+    this.aesToken = aesToken;
   }
 
   public String getAesKey() {

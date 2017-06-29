@@ -25,7 +25,7 @@ public class Account implements Serializable {
   private String nickname;
   private AccountType accountType;
   private boolean certified;
-  private String token;
+  private String aesToken;
   private String aesKey;
   private EncryptionType encryptionType = EncryptionType.PLAIN_TEXT;
   private int retryTimes = 2;
@@ -83,7 +83,7 @@ public class Account implements Serializable {
    * <p>
    * <b>建议使用开放平台，开放平台的通知均为加密</b>
    * 
-   * @param token
+   * @param aesToken
    *          Token(令牌)
    * @param aesKey
    *          EncodingAESKey(消息加解密密钥)
@@ -94,8 +94,8 @@ public class Account implements Serializable {
    *      "https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419318479&token=&lang=zh_CN"
    *      >消息加解密接入指引</a>
    */
-  public Account setServerSecurity(String token, String aesKey, EncryptionType encryptionType) {
-    this.token = token;
+  public Account setServerSecurity(String aesToken, String aesKey, EncryptionType encryptionType) {
+    this.aesToken = aesToken;
     this.aesKey = aesKey;
     this.encryptionType = encryptionType;
     return this;
@@ -231,8 +231,8 @@ public class Account implements Serializable {
     return this;
   }
 
-  public String getToken() {
-    return token;
+  public String getAesToken() {
+    return aesToken;
   }
 
   /**
@@ -242,8 +242,8 @@ public class Account implements Serializable {
    *          令牌
    * @return {@link Account}
    */
-  public Account setToken(String token) {
-    this.token = token;
+  public Account setAesToken(String aesToken) {
+    this.aesToken = aesToken;
     return this;
   }
 
@@ -316,7 +316,7 @@ public class Account implements Serializable {
    */
   public boolean isSafeMode() {
     return this.encryptionType != null && this.encryptionType != EncryptionType.PLAIN_TEXT
-        && !Strings.isNullOrEmpty(this.token) && !Strings.isNullOrEmpty(this.aesKey);
+        && !Strings.isNullOrEmpty(this.aesToken) && !Strings.isNullOrEmpty(this.aesKey);
   }
 
   public boolean isWithOpenPlatform() {

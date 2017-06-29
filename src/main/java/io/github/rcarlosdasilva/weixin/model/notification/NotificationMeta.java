@@ -9,6 +9,8 @@ import io.github.rcarlosdasilva.weixin.common.dictionary.NotificationMessageType
 
 public class NotificationMeta {
 
+  @XStreamAlias("AppId")
+  private String appId;
   @XStreamAlias("ToUserName")
   private String toUser;
   @XStreamAlias("FromUserName")
@@ -21,6 +23,22 @@ public class NotificationMeta {
   private String infoType;
   @XStreamAlias("Encrypt")
   private String ciphertext;
+
+  /**
+   * appid.
+   * <p>
+   * 公众号平台的通知：appid = 公众号appid<br>
+   * 开放平台的通知：appid = 第三方appid
+   * 
+   * @return appid
+   */
+  public String getAppId() {
+    return appId;
+  }
+
+  public void setAppId(String appId) {
+    this.appId = appId;
+  }
 
   /**
    * 开发者微信号 (ToUserName).
