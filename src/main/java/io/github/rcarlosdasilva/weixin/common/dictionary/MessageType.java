@@ -54,6 +54,15 @@ public enum MessageType {
     return text;
   }
 
+  public static MessageType byValue(String text) {
+    for (MessageType result : values()) {
+      if (result.text.equalsIgnoreCase(text)) {
+        return result;
+      }
+    }
+    return null;
+  }
+  
   @Override
   public String toString() {
     return this.text;
