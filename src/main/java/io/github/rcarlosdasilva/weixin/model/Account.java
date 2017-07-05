@@ -63,6 +63,7 @@ public class Account implements Serializable {
     Account account = new Account();
     account.appId = appId;
     account.appSecret = appSecret;
+    account.withOpenPlatform = false;
     return account;
   }
 
@@ -238,7 +239,7 @@ public class Account implements Serializable {
   /**
    * 令牌.
    * 
-   * @param token
+   * @param aesToken
    *          令牌
    * @return {@link Account}
    */

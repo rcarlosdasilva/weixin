@@ -82,6 +82,7 @@ public class Registration implements Serializable {
     }
 
     if (Strings.isNullOrEmpty(account.getKey())) {
+      LOGGER.warn("未设置Account.key，将使用公众号的appid：[{}]作为默认key", account.getAppId());
       account.withKey(account.getAppId());
     }
 

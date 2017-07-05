@@ -18,6 +18,7 @@ public class Setting {
 
   private final Logger logger = LoggerFactory.getLogger(getClass());
 
+  @Deprecated
   private boolean strictUseOpenPlatform = false;
   private boolean throwException = true;
   private boolean useRedisCache = false;
