@@ -1,5 +1,6 @@
 package io.github.rcarlosdasilva.weixin.core.registry;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -14,7 +15,9 @@ import io.github.rcarlosdasilva.weixin.core.listener.OpenPlatformAccessTokenUpda
 import io.github.rcarlosdasilva.weixin.core.listener.OpenPlatformLisensorAccessTokenUpdatedListener;
 import io.github.rcarlosdasilva.weixin.core.listener.WeixinListener;
 
-public class Setting {
+public class Setting implements Serializable {
+
+  private static final long serialVersionUID = 8209890361261136725L;
 
   private final Logger logger = LoggerFactory.getLogger(getClass());
 

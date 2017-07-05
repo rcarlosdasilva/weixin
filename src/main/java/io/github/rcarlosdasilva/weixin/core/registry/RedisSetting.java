@@ -1,11 +1,15 @@
 package io.github.rcarlosdasilva.weixin.core.registry;
 
+import java.io.Serializable;
+
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.Protocol;
 
-public class RedisSetting {
+public class RedisSetting implements Serializable {
 
-  private JedisPoolConfig config = new JedisPoolConfig();
+  private static final long serialVersionUID = -6266708767633847417L;
+
+  private transient JedisPoolConfig config = new JedisPoolConfig();
   private String host = Protocol.DEFAULT_HOST;
   private int port = Protocol.DEFAULT_PORT;
   private int timeout = Protocol.DEFAULT_TIMEOUT;

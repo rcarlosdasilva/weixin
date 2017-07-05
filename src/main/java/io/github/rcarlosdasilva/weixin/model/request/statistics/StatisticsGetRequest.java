@@ -16,7 +16,7 @@ import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
  */
 public class StatisticsGetRequest extends BasicWeixinRequest {
 
-  private static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+  private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
   @SerializedName("begin_date")
   private String begin;
@@ -91,12 +91,18 @@ public class StatisticsGetRequest extends BasicWeixinRequest {
     this.path = ApiAddress.URL_STATISTICS_INTERFACE_SUMMARY_HOUR;
   }
 
-  public void setBegin(Date begin) {
-    this.begin = dateFormat.format(begin);
+  /**
+   * DateFormats在多线程下是不安全的，容易造成异常
+   * 
+   * @param begin
+   *          begin
+   */
+  public synchronized void setBegin(Date begin) {
+    this.begin = StatisticsGetRequest.DATE_FORMAT.format(begin);
   }
 
-  public void setEnd(Date end) {
-    this.end = dateFormat.format(end);
+  public synchronized void setEnd(Date end) {
+    this.end = StatisticsGetRequest.DATE_FORMAT.format(end);
   }
 
 }

@@ -3,6 +3,8 @@ package io.github.rcarlosdasilva.weixin.api;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.google.common.collect.Maps;
+
 import io.github.rcarlosdasilva.weixin.api.internal.CertificateApi;
 import io.github.rcarlosdasilva.weixin.api.internal.CommonApi;
 import io.github.rcarlosdasilva.weixin.api.internal.CustomApi;
@@ -50,7 +52,7 @@ import io.github.rcarlosdasilva.weixin.common.Convention;
  */
 public class Weixin {
 
-  private static final Map<String, Weixin> weixinMap = new ConcurrentHashMap<String, Weixin>();
+  private static final Map<String, Weixin> weixinMap = Maps.newHashMap();
 
   private final CertificateApi certificate;
   private final CommonApi common;
