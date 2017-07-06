@@ -1,6 +1,5 @@
 package io.github.rcarlosdasilva.weixin.api.internal;
 
-import io.github.rcarlosdasilva.weixin.common.dictionary.WebAuthorizeScope;
 import io.github.rcarlosdasilva.weixin.core.handler.NotificationHandlerProxy;
 import io.github.rcarlosdasilva.weixin.model.response.open.auth.OpenPlatformAuthGetLicenseInformationResponse;
 import io.github.rcarlosdasilva.weixin.model.response.open.auth.OpenPlatformAuthGetLicensorOptionResponse;
@@ -110,13 +109,6 @@ public interface OpenAuthApi {
   boolean setLicensorOption(String licensoraAppId, String optionName, String value);
 
   /**
-   * 第三方平台对其所有API调用次数清零（只与第三方平台相关，与公众号无关，接口如api_component_token）.
-   * 
-   * @return 如果是超出清零的请求次数限制返回false
-   */
-  boolean resetQuota();
-
-  /**
    * 微信开放平台第三方平台授权页面地址.
    * <p>
    * 第三方平台方可以在自己的网站:中放置“微信公众号授权”或者“小程序授权”的入口，引导公众号和小程序管理员进入授权页。 授权页网址为 <a href=
@@ -138,54 +130,10 @@ public interface OpenAuthApi {
   String openPlatformAuthorize(String redirectTo);
 
   /**
-   * 开放平台代理公众号的网页授权获取code地址跳转.
-   * <p>
-   * 与普通公众平台的规则基本一致，多一个开放平台appid
-   * <p>
-   * 在确保微信公众账号拥有授权作用域（scope参数）的权限的前提下（服务号获得高级接口后，
-   * 默认拥有scope参数中的snsapi_base和snsapi_userinfo），引导关注者打开一个微信页面，
-   * 该页面最终会跳转到开发者指定的页面。这里会将开发者指定的页面处理成可被微信授权的地址链接。
+   * 第三方平台对其所有API调用次数清零（只与第三方平台相关，与公众号无关，接口如api_component_token）.
    * 
-   * @param licensoraAppId
-   *          授权方appid
-   * @param scope
-   *          {@link WebAuthorizeScope} 应用授权作用域，snsapi_base
-   *          （不弹出授权页面，直接跳转，只能获取用户openid），snsapi_userinfo
-   *          （弹出授权页面，可通过openid拿到昵称、性别、所在地。并且，即使在未关注的情况下，只要用户授权， 也能获取其信息）
-   * @param redirectTo
-   *          授权后跳转到url
-   * @param param
-   *          重定向后会带上state参数，开发者可以填写a-zA-Z0-9的参数值，最多128字节
-   * @return 授权链接
-   * @see <a href=
-   *      "https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842&token=&lang=zh_CN"
-   *      >微信网页授权</a>
+   * @return 如果是超出清零的请求次数限制返回false
    */
-  String webAuthorize(String licensoraAppId, WebAuthorizeScope scope, String redirectTo,
-      String param);
-
-  /**
-   * 开放平台代理公众号的网页授权获取code地址跳转.
-   * <p>
-   * 与普通公众平台的规则基本一致，多一个开放平台appid
-   * <p>
-   * 在确保微信公众账号拥有授权作用域（scope参数）的权限的前提下（服务号获得高级接口后，
-   * 默认拥有scope参数中的snsapi_base和snsapi_userinfo），引导关注者打开一个微信页面，
-   * 该页面最终会跳转到开发者指定的页面。这里会将开发者指定的页面处理成可被微信授权的地址链接。
-   * 
-   * @param licensoraAppId
-   *          授权方appid
-   * @param scope
-   *          {@link WebAuthorizeScope} 应用授权作用域，snsapi_base
-   *          （不弹出授权页面，直接跳转，只能获取用户openid），snsapi_userinfo
-   *          （弹出授权页面，可通过openid拿到昵称、性别、所在地。并且，即使在未关注的情况下，只要用户授权， 也能获取其信息）
-   * @param redirectTo
-   *          授权后跳转到url
-   * @return 授权链接
-   * @see <a href=
-   *      "https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842&token=&lang=zh_CN"
-   *      >微信网页授权</a>
-   */
-  String webAuthorize(String licensoraAppId, WebAuthorizeScope scope, String redirectTo);
+  boolean resetQuota();
 
 }

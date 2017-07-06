@@ -12,7 +12,6 @@ import io.github.rcarlosdasilva.weixin.common.ApiAddress;
 import io.github.rcarlosdasilva.weixin.common.Convention;
 import io.github.rcarlosdasilva.weixin.common.Utils;
 import io.github.rcarlosdasilva.weixin.common.dictionary.ResultCode;
-import io.github.rcarlosdasilva.weixin.common.dictionary.WebAuthorizeScope;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.MixCacheHandler;
 import io.github.rcarlosdasilva.weixin.core.exception.CanNotFetchOpenPlatformAccessTokenException;
 import io.github.rcarlosdasilva.weixin.core.exception.CanNotFetchOpenPlatformPreAuthCodeException;
@@ -217,21 +216,6 @@ public class OpenAuthApiImpl extends BasicApi implements OpenAuthApi {
   }
 
   @Override
-  public boolean resetQuota() {
-    OpenPlatformResetQuotaRequest requestModel = new OpenPlatformResetQuotaRequest();
-    requestModel.setAppId(Registration.getInstance().getOpenPlatform().getAppId());
-
-    try {
-      return post(Boolean.class, requestModel);
-    } catch (ExecuteException ex) {
-      if (ex.getCode() != null && ex.getCode() == ResultCode.RESULT_48006) {
-        return false;
-      }
-      throw ex;
-    }
-  }
-
-  @Override
   public String openPlatformAuthorize(String redirectTo) {
     String preAuthCode = Weixin.withOpenPlatform().openAuth().askPreAuthCode();
     OpenPlatform openPlatform = Registration.getInstance().getOpenPlatform();
@@ -246,20 +230,18 @@ public class OpenAuthApiImpl extends BasicApi implements OpenAuthApi {
   }
 
   @Override
-  public String webAuthorize(String licensoraAppId, WebAuthorizeScope scope, String redirectTo,
-      String param) {
-    OpenPlatform openPlatform = getOpenPlatformInfo();
+  public boolean resetQuota() {
+    OpenPlatformResetQuotaRequest requestModel = new OpenPlatformResetQuotaRequest();
+    requestModel.setAppId(Registration.getInstance().getOpenPlatform().getAppId());
 
-    return new StringBuilder(ApiAddress.URL_WEB_AUTHORIZE).append("?appid=").append(licensoraAppId)
-        .append("&redirect_uri=").append(Utils.urlEncode(redirectTo))
-        .append("&response_type=code&scope=").append(scope)
-        .append(Strings.isNullOrEmpty(param) ? "" : ("&state=" + param)).append("&component_appid=")
-        .append(openPlatform.getAppId()).append("#wechat_redirect").toString();
-  }
-
-  @Override
-  public String webAuthorize(String licensoraAppId, WebAuthorizeScope scope, String redirectTo) {
-    return webAuthorize(licensoraAppId, scope, redirectTo, null);
+    try {
+      return post(Boolean.class, requestModel);
+    } catch (ExecuteException ex) {
+      if (ex.getCode() != null && ex.getCode() == ResultCode.RESULT_48006) {
+        return false;
+      }
+      throw ex;
+    }
   }
 
 }

@@ -238,6 +238,11 @@ public class ApiAddress {
   public static final String URL_OPEN_PLATFORM_RESET_QUOTA = URL_API_DOMAIN
       + "cgi-bin/component/clear_quota";
 
+  public static final String URL_OPEN_PLATFORM_WEB_AUTHORIZE_TOKEN = URL_API_DOMAIN
+      + "sns/oauth2/component/access_token";
+  public static final String URL_OPEN_PLATFORM_WEB_AUTHORIZE_TOKEN_REFRESH = URL_API_DOMAIN
+      + "sns/oauth2/component/refresh_token";
+
   public static final String URL_OPEN_PLATFORM_AUTHORIZE = URL_MP_DOMAIN
       + "cgi-bin/componentloginpage";
   // ======================== Open Platform Auth ======================

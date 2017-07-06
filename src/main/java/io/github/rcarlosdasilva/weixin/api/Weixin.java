@@ -1,7 +1,6 @@
 package io.github.rcarlosdasilva.weixin.api;
 
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import com.google.common.collect.Maps;
 
@@ -13,6 +12,7 @@ import io.github.rcarlosdasilva.weixin.api.internal.MediaApi;
 import io.github.rcarlosdasilva.weixin.api.internal.MenuApi;
 import io.github.rcarlosdasilva.weixin.api.internal.MessageApi;
 import io.github.rcarlosdasilva.weixin.api.internal.OpenAuthApi;
+import io.github.rcarlosdasilva.weixin.api.internal.OpenCertificateApi;
 import io.github.rcarlosdasilva.weixin.api.internal.StatisticsApi;
 import io.github.rcarlosdasilva.weixin.api.internal.TemplateApi;
 import io.github.rcarlosdasilva.weixin.api.internal.UserApi;
@@ -26,6 +26,7 @@ import io.github.rcarlosdasilva.weixin.api.internal.impl.MediaApiImpl;
 import io.github.rcarlosdasilva.weixin.api.internal.impl.MenuApiImpl;
 import io.github.rcarlosdasilva.weixin.api.internal.impl.MessageApiImpl;
 import io.github.rcarlosdasilva.weixin.api.internal.impl.OpenAuthApiImpl;
+import io.github.rcarlosdasilva.weixin.api.internal.impl.OpenCertificateApiImpl;
 import io.github.rcarlosdasilva.weixin.api.internal.impl.StatisticsApiImpl;
 import io.github.rcarlosdasilva.weixin.api.internal.impl.TemplateApiImpl;
 import io.github.rcarlosdasilva.weixin.api.internal.impl.UserApiImpl;
@@ -67,6 +68,7 @@ public class Weixin {
   private final StatisticsApi statistics;
   private final TemplateApi template;
   private final OpenAuthApi openAuth;
+  private final OpenCertificateApi openCertificate;
 
   private Weixin(String accountKey) {
     this.certificate = new CertificateApiImpl(accountKey);
@@ -82,6 +84,7 @@ public class Weixin {
     this.statistics = new StatisticsApiImpl(accountKey);
     this.template = new TemplateApiImpl(accountKey);
     this.openAuth = null;
+    this.openCertificate = null;
   }
 
   private Weixin() {
@@ -98,6 +101,7 @@ public class Weixin {
     this.statistics = null;
     this.template = null;
     this.openAuth = new OpenAuthApiImpl(Convention.DEFAULT_OPEN_PLATFORM_KEY);
+    this.openCertificate = new OpenCertificateApiImpl(Convention.DEFAULT_OPEN_PLATFORM_KEY);
   }
 
   /**
@@ -257,6 +261,15 @@ public class Weixin {
    */
   public OpenAuthApi openAuth() {
     return openAuth;
+  }
+
+  /**
+   * 微信开放平台授权公众号的认证相关API功能.
+   * 
+   * @return 授权公众号认证入口
+   */
+  public OpenCertificateApi openCertificate() {
+    return openCertificate;
   }
 
 }
