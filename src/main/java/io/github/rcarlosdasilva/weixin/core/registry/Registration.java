@@ -81,6 +81,10 @@ public class Registration implements Serializable {
       return false;
     }
 
+    if (Strings.isNullOrEmpty(account.getMpId())) {
+      LOGGER.warn("未设置Account.mpId，对公众号appid: [{}]来说，当微信通知回调或其他操作的时候，不设置可能会导致无法正确找到对应的公众号信息",
+          account.getAppId());
+    }
     if (Strings.isNullOrEmpty(account.getKey())) {
       LOGGER.warn("未设置Account.key，将使用公众号的appid：[{}]作为默认key", account.getAppId());
       account.withKey(account.getAppId());
