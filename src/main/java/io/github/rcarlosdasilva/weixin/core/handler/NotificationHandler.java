@@ -5,7 +5,7 @@ import java.util.Date;
 import io.github.rcarlosdasilva.weixin.model.AccessToken;
 import io.github.rcarlosdasilva.weixin.model.Account;
 import io.github.rcarlosdasilva.weixin.model.builder.NotificationResponseBuilder;
-import io.github.rcarlosdasilva.weixin.model.notification.NotificationMeta;
+import io.github.rcarlosdasilva.weixin.model.notification.Notification;
 import io.github.rcarlosdasilva.weixin.model.notification.bean.LocationInfo;
 import io.github.rcarlosdasilva.weixin.model.notification.bean.PicsInfo;
 import io.github.rcarlosdasilva.weixin.model.notification.bean.ScanCodeInfo;
@@ -31,13 +31,13 @@ public interface NotificationHandler {
    *          微信推送响应构建器， see {@link NotificationResponseBuilder}，需使用 builder
    *          指定回复什么信息
    * @param notification
-   *          微信推送基本信息, see {@link NotificationMeta}
+   *          微信推送基本信息, see {@link Notification}
    * @param messageId
    *          消息id，64位整型
    * @param content
    *          文本消息内容
    */
-  void doMessageForText(NotificationResponseBuilder builder, NotificationMeta notification,
+  void doMessageForText(NotificationResponseBuilder builder, Notification notification,
       long messageId, String content);
 
   /**
@@ -47,7 +47,7 @@ public interface NotificationHandler {
    *          微信推送响应构建器， see {@link NotificationResponseBuilder}，需使用
    *          builder指定回复什么信息
    * @param notification
-   *          微信推送基本信息, see {@link NotificationMeta}
+   *          微信推送基本信息, see {@link Notification}
    * @param messageId
    *          消息id，64位整型
    * @param mediaId
@@ -55,7 +55,7 @@ public interface NotificationHandler {
    * @param picUrl
    *          图片链接（由系统生成）
    */
-  void doMessageForImage(NotificationResponseBuilder builder, NotificationMeta notification,
+  void doMessageForImage(NotificationResponseBuilder builder, Notification notification,
       long messageId, String mediaId, String picUrl);
 
   /**
@@ -65,7 +65,7 @@ public interface NotificationHandler {
    *          微信推送响应构建器， see {@link NotificationResponseBuilder}，需使用
    *          builder指定回复什么信息
    * @param notification
-   *          微信推送基本信息, see {@link NotificationMeta}
+   *          微信推送基本信息, see {@link Notification}
    * @param messageId
    *          消息id，64位整型
    * @param mediaId
@@ -75,7 +75,7 @@ public interface NotificationHandler {
    * @param recognition
    *          语音识别结果，UTF8编码。（开通语音识别后有值，具体查看微信文档）
    */
-  void doMessageForVoice(NotificationResponseBuilder builder, NotificationMeta notification,
+  void doMessageForVoice(NotificationResponseBuilder builder, Notification notification,
       long messageId, String mediaId, String format, String recognition);
 
   /**
@@ -85,7 +85,7 @@ public interface NotificationHandler {
    *          微信推送响应构建器， see {@link NotificationResponseBuilder}，需使用
    *          builder指定回复什么信息
    * @param notification
-   *          微信推送基本信息, see {@link NotificationMeta}
+   *          微信推送基本信息, see {@link Notification}
    * @param messageId
    *          消息id，64位整型
    * @param mediaId
@@ -93,7 +93,7 @@ public interface NotificationHandler {
    * @param mediaThumbId
    *          视频消息缩略图的媒体id，可以调用多媒体文件下载接口拉取数据。
    */
-  void doMessageForVideo(NotificationResponseBuilder builder, NotificationMeta notification,
+  void doMessageForVideo(NotificationResponseBuilder builder, Notification notification,
       long messageId, String mediaId, String mediaThumbId);
 
   /**
@@ -103,7 +103,7 @@ public interface NotificationHandler {
    *          微信推送响应构建器， see {@link NotificationResponseBuilder}，需使用
    *          builder指定回复什么信息
    * @param notification
-   *          微信推送基本信息, see {@link NotificationMeta}
+   *          微信推送基本信息, see {@link Notification}
    * @param messageId
    *          消息id，64位整型
    * @param mediaId
@@ -111,7 +111,7 @@ public interface NotificationHandler {
    * @param mediaThumbId
    *          视频消息缩略图的媒体id，可以调用多媒体文件下载接口拉取数据。
    */
-  void doMessageForShortVideo(NotificationResponseBuilder builder, NotificationMeta notification,
+  void doMessageForShortVideo(NotificationResponseBuilder builder, Notification notification,
       long messageId, String mediaId, String mediaThumbId);
 
   /**
@@ -121,7 +121,7 @@ public interface NotificationHandler {
    *          微信推送响应构建器， see {@link NotificationResponseBuilder}，需使用
    *          builder指定回复什么信息
    * @param notification
-   *          微信推送基本信息, see {@link NotificationMeta}
+   *          微信推送基本信息, see {@link Notification}
    * @param messageId
    *          消息id，64位整型
    * @param locationX
@@ -133,7 +133,7 @@ public interface NotificationHandler {
    * @param address
    *          地理位置信息
    */
-  void doMessageForLocation(NotificationResponseBuilder builder, NotificationMeta notification,
+  void doMessageForLocation(NotificationResponseBuilder builder, Notification notification,
       long messageId, double locationX, double locationY, int scale, String address);
 
   /**
@@ -143,7 +143,7 @@ public interface NotificationHandler {
    *          微信推送响应构建器， see {@link NotificationResponseBuilder}，需使用
    *          builder指定回复什么信息
    * @param notification
-   *          微信推送基本信息, see {@link NotificationMeta}
+   *          微信推送基本信息, see {@link Notification}
    * @param messageId
    *          消息id，64位整型
    * @param title
@@ -153,7 +153,7 @@ public interface NotificationHandler {
    * @param url
    *          消息链接
    */
-  void doMessageForLink(NotificationResponseBuilder builder, NotificationMeta notification,
+  void doMessageForLink(NotificationResponseBuilder builder, Notification notification,
       long messageId, String title, String description, String url);
 
   /**
@@ -163,11 +163,11 @@ public interface NotificationHandler {
    *          微信推送响应构建器， see {@link NotificationResponseBuilder}，需使用
    *          builder指定回复什么信息
    * @param notification
-   *          微信推送基本信息, see {@link NotificationMeta}
+   *          微信推送基本信息, see {@link Notification}
    * @param key
    *          事件KEY值，与自定义菜单接口中KEY值对应
    */
-  void doEventOfMenuForClick(NotificationResponseBuilder builder, NotificationMeta notification,
+  void doEventOfMenuForClick(NotificationResponseBuilder builder, Notification notification,
       String key);
 
   /**
@@ -177,13 +177,13 @@ public interface NotificationHandler {
    *          微信推送响应构建器， see {@link NotificationResponseBuilder}，需使用
    *          builder指定回复什么信息
    * @param notification
-   *          微信推送基本信息, see {@link NotificationMeta}
+   *          微信推送基本信息, see {@link Notification}
    * @param key
    *          事件KEY值，设置的跳转URL
    * @param menuId
    *          指菜单ID，如果是个性化菜单，则可以通过这个字段，知道是哪个规则的菜单被点击了。
    */
-  void doEventOfMenuForView(NotificationResponseBuilder builder, NotificationMeta notification,
+  void doEventOfMenuForView(NotificationResponseBuilder builder, Notification notification,
       String key, String menuId);
 
   /**
@@ -193,14 +193,14 @@ public interface NotificationHandler {
    *          微信推送响应构建器， see {@link NotificationResponseBuilder}，需使用
    *          builder指定回复什么信息
    * @param notification
-   *          微信推送基本信息, see {@link NotificationMeta}
+   *          微信推送基本信息, see {@link Notification}
    * @param key
    *          事件KEY值，由开发者在创建菜单时设定
    * @param scanCodeInfo
    *          扫描信息, see {@link ScanCodeInfo}
    */
-  void doEventOfMenuForScanQrPush(NotificationResponseBuilder builder,
-      NotificationMeta notification, String key, ScanCodeInfo scanCodeInfo);
+  void doEventOfMenuForScanQrPush(NotificationResponseBuilder builder, Notification notification,
+      String key, ScanCodeInfo scanCodeInfo);
 
   /**
    * 自定义菜单事件推送，扫码推事件且弹出“消息接收中”提示框的事件推送.
@@ -209,14 +209,14 @@ public interface NotificationHandler {
    *          微信推送响应构建器， see {@link NotificationResponseBuilder}，需使用
    *          builder指定回复什么信息
    * @param notification
-   *          微信推送基本信息, see {@link NotificationMeta}
+   *          微信推送基本信息, see {@link Notification}
    * @param key
    *          事件KEY值，由开发者在创建菜单时设定
    * @param scanCodeInfo
    *          扫描信息, see {@link ScanCodeInfo}
    */
-  void doEventOfMenuForScanQrWait(NotificationResponseBuilder builder,
-      NotificationMeta notification, String key, ScanCodeInfo scanCodeInfo);
+  void doEventOfMenuForScanQrWait(NotificationResponseBuilder builder, Notification notification,
+      String key, ScanCodeInfo scanCodeInfo);
 
   /**
    * 自定义菜单事件推送，弹出系统拍照发图的事件推送.
@@ -225,13 +225,13 @@ public interface NotificationHandler {
    *          微信推送响应构建器， see {@link NotificationResponseBuilder}，需使用
    *          builder指定回复什么信息
    * @param notification
-   *          微信推送基本信息, see {@link NotificationMeta}
+   *          微信推送基本信息, see {@link Notification}
    * @param key
    *          事件KEY值，由开发者在创建菜单时设定
    * @param picsInfo
    *          发送的图片信息, see {@link PicsInfo}
    */
-  void doEventOfMenuForPicPhoto(NotificationResponseBuilder builder, NotificationMeta notification,
+  void doEventOfMenuForPicPhoto(NotificationResponseBuilder builder, Notification notification,
       String key, PicsInfo picsInfo);
 
   /**
@@ -241,14 +241,14 @@ public interface NotificationHandler {
    *          微信推送响应构建器， see {@link NotificationResponseBuilder}，需使用
    *          builder指定回复什么信息
    * @param notification
-   *          微信推送基本信息, see {@link NotificationMeta}
+   *          微信推送基本信息, see {@link Notification}
    * @param key
    *          事件KEY值，由开发者在创建菜单时设定
    * @param picsInfo
    *          发送的图片信息, see {@link PicsInfo}
    */
   void doEventOfMenuForPicPhotoOrAlbum(NotificationResponseBuilder builder,
-      NotificationMeta notification, String key, PicsInfo picsInfo);
+      Notification notification, String key, PicsInfo picsInfo);
 
   /**
    * 自定义菜单事件推送，弹出微信相册发图器的事件推送.
@@ -257,14 +257,14 @@ public interface NotificationHandler {
    *          微信推送响应构建器， see {@link NotificationResponseBuilder}，需使用
    *          builder指定回复什么信息
    * @param notification
-   *          微信推送基本信息, see {@link NotificationMeta}
+   *          微信推送基本信息, see {@link Notification}
    * @param key
    *          事件KEY值，由开发者在创建菜单时设定
    * @param picsInfo
    *          发送的图片信息, see {@link PicsInfo}
    */
-  void doEventOfMenuForPicWxAlbum(NotificationResponseBuilder builder,
-      NotificationMeta notification, String key, PicsInfo picsInfo);
+  void doEventOfMenuForPicWxAlbum(NotificationResponseBuilder builder, Notification notification,
+      String key, PicsInfo picsInfo);
 
   /**
    * 自定义菜单事件推送，弹出地理位置选择器的事件推送.
@@ -273,13 +273,13 @@ public interface NotificationHandler {
    *          微信推送响应构建器， see {@link NotificationResponseBuilder}，需使用
    *          builder指定回复什么信息
    * @param notification
-   *          微信推送基本信息, see {@link NotificationMeta}
+   *          微信推送基本信息, see {@link Notification}
    * @param key
    *          事件KEY值，由开发者在创建菜单时设定
    * @param locationInfo
    *          发送的位置信息, see {@link LocationInfo}
    */
-  void doEventOfMenuForLocation(NotificationResponseBuilder builder, NotificationMeta notification,
+  void doEventOfMenuForLocation(NotificationResponseBuilder builder, Notification notification,
       String key, LocationInfo locationInfo);
 
   /**
@@ -289,7 +289,7 @@ public interface NotificationHandler {
    *          微信推送响应构建器， see {@link NotificationResponseBuilder}，需使用
    *          builder指定回复什么信息
    * @param notification
-   *          微信推送基本信息, see {@link NotificationMeta}
+   *          微信推送基本信息, see {@link Notification}
    * @param messageId
    *          群发的消息ID
    * @param status
@@ -308,7 +308,7 @@ public interface NotificationHandler {
    * @param errorCount
    *          发送失败的粉丝数
    */
-  void doEventOfMessageForMass(NotificationResponseBuilder builder, NotificationMeta notification,
+  void doEventOfMessageForMass(NotificationResponseBuilder builder, Notification notification,
       long messageId, String status, int totalCount, int filterCount, int sentCount,
       int errorCount);
 
@@ -319,15 +319,15 @@ public interface NotificationHandler {
    *          微信推送响应构建器， see {@link NotificationResponseBuilder}，需使用
    *          builder指定回复什么信息
    * @param notification
-   *          微信推送基本信息, see {@link NotificationMeta}
+   *          微信推送基本信息, see {@link Notification}
    * @param messageId
    *          消息id
    * @param status
    *          成功为success，由于用户拒收（用户设置拒绝接收公众号消息）而失败时为failed:user
    *          block，由于其他原因失败时为failed: system failed
    */
-  void doEventOfMessageForTemplate(NotificationResponseBuilder builder,
-      NotificationMeta notification, long messageId, String status);
+  void doEventOfMessageForTemplate(NotificationResponseBuilder builder, Notification notification,
+      long messageId, String status);
 
   /**
    * 关注事件.
@@ -340,14 +340,14 @@ public interface NotificationHandler {
    *          微信推送响应构建器， see {@link NotificationResponseBuilder}，需使用
    *          builder指定回复什么信息
    * @param notification
-   *          微信推送基本信息, see {@link NotificationMeta}
+   *          微信推送基本信息, see {@link Notification}
    * @param key
    *          事件KEY值，qrscene_为前缀，后面为二维码的参数值
    * @param ticket
    *          二维码的ticket，可用来换取二维码图片
    */
-  void doEventOfCommonForSubscribe(NotificationResponseBuilder builder,
-      NotificationMeta notification, String key, String ticket);
+  void doEventOfCommonForSubscribe(NotificationResponseBuilder builder, Notification notification,
+      String key, String ticket);
 
   /**
    * 取消关注事件.
@@ -356,10 +356,10 @@ public interface NotificationHandler {
    *          微信推送响应构建器， see {@link NotificationResponseBuilder}，需使用
    *          builder指定回复什么信息
    * @param notification
-   *          微信推送基本信息, see {@link NotificationMeta}
+   *          微信推送基本信息, see {@link Notification}
    */
   void doEventOfCommonForUnsubscribe(NotificationResponseBuilder builder,
-      NotificationMeta notification);
+      Notification notification);
 
   /**
    * 扫描带参数二维码事件，用户已关注时的事件推送.
@@ -372,13 +372,13 @@ public interface NotificationHandler {
    *          微信推送响应构建器， see {@link NotificationResponseBuilder}，需使用
    *          builder指定回复什么信息
    * @param notification
-   *          微信推送基本信息, see {@link NotificationMeta}
+   *          微信推送基本信息, see {@link Notification}
    * @param key
    *          事件KEY值，qrscene_为前缀，后面为二维码的参数值
    * @param ticket
    *          二维码的ticket，可用来换取二维码图片
    */
-  void doEventOfCommonForScanQr(NotificationResponseBuilder builder, NotificationMeta notification,
+  void doEventOfCommonForScanQr(NotificationResponseBuilder builder, Notification notification,
       String key, String ticket);
 
   /**
@@ -388,7 +388,7 @@ public interface NotificationHandler {
    *          微信推送响应构建器， see {@link NotificationResponseBuilder}，需使用
    *          builder指定回复什么信息
    * @param notification
-   *          微信推送基本信息, see {@link NotificationMeta}
+   *          微信推送基本信息, see {@link Notification}
    * @param latitude
    *          地理位置纬度
    * @param longitude
@@ -396,8 +396,8 @@ public interface NotificationHandler {
    * @param precision
    *          地理位置精度
    */
-  void doEventOfCommonForLocation(NotificationResponseBuilder builder,
-      NotificationMeta notification, double latitude, double longitude, double precision);
+  void doEventOfCommonForLocation(NotificationResponseBuilder builder, Notification notification,
+      double latitude, double longitude, double precision);
 
   /**
    * 微信认证事件推送，资质认证成功（此时立即获得接口权限）.
@@ -406,12 +406,12 @@ public interface NotificationHandler {
    *          微信推送响应构建器， see {@link NotificationResponseBuilder}，需使用
    *          builder指定回复什么信息
    * @param notification
-   *          微信推送基本信息, see {@link NotificationMeta}
+   *          微信推送基本信息, see {@link Notification}
    * @param expiredTime
    *          有效期 (整形)，指的是时间戳，将于该时间戳认证过期
    */
   void doEventOfVerifyForQualificationSuccess(NotificationResponseBuilder builder,
-      NotificationMeta notification, Date expiredTime);
+      Notification notification, Date expiredTime);
 
   /**
    * 微信认证事件推送，资质认证失败.
@@ -420,14 +420,14 @@ public interface NotificationHandler {
    *          微信推送响应构建器， see {@link NotificationResponseBuilder}，需使用
    *          builder指定回复什么信息
    * @param notification
-   *          微信推送基本信息, see {@link NotificationMeta}
+   *          微信推送基本信息, see {@link Notification}
    * @param failTime
    *          失败发生时间 (整形)，时间戳
    * @param failReason
    *          认证失败的原因
    */
   void doEventOfVerifyForQualificationFail(NotificationResponseBuilder builder,
-      NotificationMeta notification, Date failTime, String failReason);
+      Notification notification, Date failTime, String failReason);
 
   /**
    * 微信认证事件推送，名称认证成功（即命名成功）.
@@ -436,12 +436,12 @@ public interface NotificationHandler {
    *          微信推送响应构建器， see {@link NotificationResponseBuilder}，需使用
    *          builder指定回复什么信息
    * @param notification
-   *          微信推送基本信息, see {@link NotificationMeta}
+   *          微信推送基本信息, see {@link Notification}
    * @param expiredTime
    *          有效期 (整形)，指的是时间戳，将于该时间戳认证过期
    */
   void doEventOfVerifyForNamingSuccess(NotificationResponseBuilder builder,
-      NotificationMeta notification, Date expiredTime);
+      Notification notification, Date expiredTime);
 
   /**
    * 微信认证事件推送，名称认证失败（这时虽然客户端不打勾，但仍有接口权限）.
@@ -450,14 +450,14 @@ public interface NotificationHandler {
    *          微信推送响应构建器， see {@link NotificationResponseBuilder}，需使用
    *          builder指定回复什么信息
    * @param notification
-   *          微信推送基本信息, see {@link NotificationMeta}
+   *          微信推送基本信息, see {@link Notification}
    * @param failTime
    *          失败发生时间 (整形)，时间戳
    * @param failReason
    *          认证失败的原因
    */
-  void doEventOfVerifyForNamingFail(NotificationResponseBuilder builder,
-      NotificationMeta notification, Date failTime, String failReason);
+  void doEventOfVerifyForNamingFail(NotificationResponseBuilder builder, Notification notification,
+      Date failTime, String failReason);
 
   /**
    * 微信认证事件推送，年审通知.
@@ -466,11 +466,11 @@ public interface NotificationHandler {
    *          微信推送响应构建器， see {@link NotificationResponseBuilder}，需使用
    *          builder指定回复什么信息
    * @param notification
-   *          微信推送基本信息, see {@link NotificationMeta}
+   *          微信推送基本信息, see {@link Notification}
    * @param expiredTime
    *          有效期 (整形)，指的是时间戳，将于该时间戳认证过期，需尽快年审
    */
-  void doEventOfVerifyForAnnual(NotificationResponseBuilder builder, NotificationMeta notification,
+  void doEventOfVerifyForAnnual(NotificationResponseBuilder builder, Notification notification,
       Date expiredTime);
 
   /**
@@ -480,11 +480,11 @@ public interface NotificationHandler {
    *          微信推送响应构建器， see {@link NotificationResponseBuilder}，需使用
    *          builder指定回复什么信息
    * @param notification
-   *          微信推送基本信息, see {@link NotificationMeta}
+   *          微信推送基本信息, see {@link Notification}
    * @param expiredTime
    *          有效期 (整形)，指的是时间戳，表示已于该时间戳认证过期，需要重新发起微信认证
    */
-  void doEventOfVerifyForExpired(NotificationResponseBuilder builder, NotificationMeta notification,
+  void doEventOfVerifyForExpired(NotificationResponseBuilder builder, Notification notification,
       Date expiredTime);
 
   /**
@@ -496,12 +496,12 @@ public interface NotificationHandler {
    *          微信推送响应构建器， see {@link NotificationResponseBuilder}，需使用
    *          builder指定回复什么信息
    * @param notification
-   *          微信推送基本信息, see {@link NotificationMeta}
+   *          微信推送基本信息, see {@link Notification}
    * @param ticket
    *          ticket
    */
-  void doInfoOfComponentVerifyTicket(NotificationResponseBuilder builder,
-      NotificationMeta notification, String ticket);
+  void doInfoOfComponentVerifyTicket(NotificationResponseBuilder builder, Notification notification,
+      String ticket);
 
   /**
    * 推送授权相关通知：授权成功通知.
@@ -518,7 +518,7 @@ public interface NotificationHandler {
    *          微信推送响应构建器， see {@link NotificationResponseBuilder}，需使用
    *          builder指定回复什么信息
    * @param notification
-   *          微信推送基本信息, see {@link NotificationMeta}
+   *          微信推送基本信息, see {@link Notification}
    * @param appId
    *          公众号或小程序
    * @param license
@@ -533,10 +533,9 @@ public interface NotificationHandler {
    *          授权方基本信息
    * @return 公众号信息，一定要包含key
    */
-  Account doInfoOfAuthorizeSucceeded(NotificationResponseBuilder builder,
-      NotificationMeta notification, String appId, String license, Date expireAt,
-      AccessToken accessToken, LicensingInformation licensingInformation,
-      LicensorInfromation licensorInfromation);
+  Account doInfoOfAuthorizeSucceeded(NotificationResponseBuilder builder, Notification notification,
+      String appId, String license, Date expireAt, AccessToken accessToken,
+      LicensingInformation licensingInformation, LicensorInfromation licensorInfromation);
 
   /**
    * 推送授权相关通知：取消授权通知.
@@ -547,11 +546,11 @@ public interface NotificationHandler {
    *          微信推送响应构建器， see {@link NotificationResponseBuilder}，需使用
    *          builder指定回复什么信息
    * @param notification
-   *          微信推送基本信息, see {@link NotificationMeta}
+   *          微信推送基本信息, see {@link Notification}
    * @param appId
    *          公众号或小程序
    */
-  void doInfoOfAuthorizeCanceled(NotificationResponseBuilder builder, NotificationMeta notification,
+  void doInfoOfAuthorizeCanceled(NotificationResponseBuilder builder, Notification notification,
       String appId);
 
   /**
@@ -563,7 +562,7 @@ public interface NotificationHandler {
    *          微信推送响应构建器， see {@link NotificationResponseBuilder}，需使用
    *          builder指定回复什么信息
    * @param notification
-   *          微信推送基本信息, see {@link NotificationMeta}
+   *          微信推送基本信息, see {@link Notification}
    * @param appId
    *          公众号或小程序
    * @param license
@@ -578,9 +577,8 @@ public interface NotificationHandler {
    *          授权方基本信息
    * @return 公众号信息，一定要包含key
    */
-  Account doInfoOfAuthorizeUpdated(NotificationResponseBuilder builder,
-      NotificationMeta notification, String appId, String license, Date expireAt,
-      AccessToken accessToken, LicensingInformation licensingInformation,
-      LicensorInfromation licensorInfromation);
+  Account doInfoOfAuthorizeUpdated(NotificationResponseBuilder builder, Notification notification,
+      String appId, String license, Date expireAt, AccessToken accessToken,
+      LicensingInformation licensingInformation, LicensorInfromation licensorInfromation);
 
 }
