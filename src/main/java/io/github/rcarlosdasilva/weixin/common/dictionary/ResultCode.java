@@ -9,13 +9,11 @@ public enum ResultCode {
 
   RESULT_n1(-1, "系统繁忙，此时请开发者稍候再试"), //
   RESULT_0(0, "请求成功"), //
-  RESULT_40001(40001,
-      "获取access_token时AppSecret错误，或者access_token无效。请开发者认真比对AppSecret的正确性，" //
-          + "或查看是否正在为恰当的公众号调用接口"), //
+  RESULT_40001(40001, "获取access_token时AppSecret错误，或者access_token无效。请开发者认真比对AppSecret的正确性，" //
+      + "或查看是否正在为恰当的公众号调用接口"), //
   RESULT_40002(40002, "请确保grant_type字段值为client_credential"), //
-  RESULT_40003(40003,
-      "不合法的OpenID，请开发者确认OpenID（该用户）是否已关注公众号，" //
-          + "或是否是其他公众号的OpenID"), //
+  RESULT_40003(40003, "不合法的OpenID，请开发者确认OpenID（该用户）是否已关注公众号，" //
+      + "或是否是其他公众号的OpenID"), //
   RESULT_40004(40004, "不合法的媒体文件类型"), //
   RESULT_40005(40005, "不合法的文件类型"), //
   RESULT_40006(40006, "不合法的文件大小"), //
@@ -26,9 +24,8 @@ public enum ResultCode {
   RESULT_40011(40011, "不合法的视频文件大小"), //
   RESULT_40012(40012, "不合法的缩略图文件大小"), //
   RESULT_40013(40013, "不合法的AppID，请开发者检查AppID的正确性，避免异常字符，注意大小写"), //
-  RESULT_40014(40014,
-      "不合法的access_token，请开发者认真比对access_token的有效性（如是否过期），" //
-          + "或查看是否正在为恰当的公众号调用接口"), //
+  RESULT_40014(40014, "不合法的access_token，请开发者认真比对access_token的有效性（如是否过期），" //
+      + "或查看是否正在为恰当的公众号调用接口"), //
   RESULT_40015(40015, "不合法的菜单类型"), //
   RESULT_40016(40016, "不合法的按钮个数"), //
   RESULT_40017(40017, "不合法的按钮类型"), //
@@ -75,9 +72,8 @@ public enum ResultCode {
   RESULT_41007(41007, "缺少子菜单数据"), //
   RESULT_41008(41008, "缺少oauth code"), //
   RESULT_41009(41009, "缺少openid"), //
-  RESULT_42001(42001,
-      "access_token超时，请检查access_token的有效期，请参考基础支持-获取access_token中，" //
-          + "对access_token的详细机制说明"), //
+  RESULT_42001(42001, "access_token超时，请检查access_token的有效期，请参考基础支持-获取access_token中，" //
+      + "对access_token的详细机制说明"), //
   RESULT_42002(42002, "refresh_token超时"), //
   RESULT_42003(42003, "oauth_code超时"), //
   RESULT_42007(42007, "用户修改微信密码，accesstoken和refreshtoken失效，需要重新授权"), //
@@ -125,12 +121,12 @@ public enum ResultCode {
   RESULT_49003(49003, "传入的openid不属于此AppID"), //
   RESULT_50001(50001, "用户未授权该api"), //
   RESULT_50002(50002, "用户受限，可能是违规后接口被封禁"), //
+  RESULT_61005(61005, "开放平台票据（component_verify_ticket）已过期"), //
   RESULT_61451(61451, "参数错误(invalid parameter)"), //
   RESULT_61452(61452, "无效客服账号(invalid kf_account)"), //
   RESULT_61453(61453, "客服帐号已存在(kf_account exsited)"), //
-  RESULT_61454(61454,
-      "客服帐号名长度超过限制(仅允许10个英文字符，" //
-          + "不包括@及@后的公众号的微信号)(invalid kf_acount length)"), //
+  RESULT_61454(61454, "客服帐号名长度超过限制(仅允许10个英文字符，" //
+      + "不包括@及@后的公众号的微信号)(invalid kf_acount length)"), //
   RESULT_61455(61455, "客服帐号名包含非法字符(仅允许英文+数字)(illegal character in kf_account)"), //
   RESULT_61456(61456, "客服帐号个数超过限制(10个客服账号)(kf_account count exceeded)"), //
   RESULT_61457(61457, "无效头像文件类型(invalid file type)"), //
