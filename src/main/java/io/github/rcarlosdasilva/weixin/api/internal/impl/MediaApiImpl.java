@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 
 import io.github.rcarlosdasilva.weixin.api.internal.BasicApi;
 import io.github.rcarlosdasilva.weixin.api.internal.MediaApi;
@@ -146,8 +147,8 @@ public class MediaApiImpl extends BasicApi implements MediaApi {
     MediaGetTimelessResponse responseModel = null;
     try {
       responseModel = post(MediaGetTimelessResponse.class, requestModel);
-    } catch (Exception ex) {
-      logger.error("media api get timeless media", ex);
+    } catch (JsonSyntaxException ex) {
+      logger.info("Json字符串解析错误，尝试获取二进制流（文件），可能是在获取永久图片素材");
       responseModel = new MediaGetTimelessResponse();
       responseModel.setStream(readStream(postStream(requestModel)));
     }
