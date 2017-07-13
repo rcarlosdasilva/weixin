@@ -16,6 +16,10 @@ public class SimpleRedisHandler {
   public static final String DEFAULT_REDIS_KEY_PATTERN = "*";
   private static JedisPool pool = null;
 
+  private SimpleRedisHandler() {
+    throw new IllegalStateException("SimpleRedisHandler class");
+  }
+
   public static synchronized void init(RedisSetting redisSetting) {
     if (pool == null) {
       pool = new JedisPool(redisSetting.getConfig(), redisSetting.getHost(), redisSetting.getPort(),
@@ -24,12 +28,18 @@ public class SimpleRedisHandler {
     }
   }
 
-  public static Jedis getRedis() {
+  public static synchronized Jedis getRedis() {
     if (pool == null) {
       throw new RedisCacheNotInitializeException("Redis缓存未配置");
     }
 
     return pool.getResource();
+  }
+
+  public static synchronized void returnRedis(Jedis jedis) {
+    if (jedis != null && pool != null) {
+      jedis.close();
+    }
   }
 
 }

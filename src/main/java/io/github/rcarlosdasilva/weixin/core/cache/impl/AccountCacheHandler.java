@@ -62,8 +62,8 @@ public class AccountCacheHandler extends AbstractCacheHandler<Account> {
     }
 
     Map<String, Account> rejected = MapHandler.<Account>getObject(mark);
-    for (String key : rejected.keySet()) {
-      put(key, rejected.get(key));
+    for (Map.Entry<String, Account> entry : rejected.entrySet()) {
+      put(entry.getKey(), entry.getValue());
     }
     rejected.clear();
   }

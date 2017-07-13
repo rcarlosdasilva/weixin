@@ -148,7 +148,7 @@ public class MediaApiImpl extends BasicApi implements MediaApi {
     try {
       responseModel = post(MediaGetTimelessResponse.class, requestModel);
     } catch (JsonSyntaxException ex) {
-      logger.info("Json字符串解析错误，尝试获取二进制流（文件），可能是在获取永久图片素材");
+      logger.info("Json字符串解析错误，尝试获取二进制流（文件），可能是在获取永久图片、音频素材");
       responseModel = new MediaGetTimelessResponse();
       responseModel.setStream(readStream(postStream(requestModel)));
     }

@@ -7,6 +7,10 @@ package io.github.rcarlosdasilva.weixin.model.builder;
  */
 public class Builder {
 
+  private Builder() {
+    throw new IllegalStateException("Builder class");
+  }
+
   /**
    * 构建一个自定义菜单.
    * 

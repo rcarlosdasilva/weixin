@@ -29,6 +29,10 @@ public class NotificationParser {
 
   private static final XStream xs;
 
+  private NotificationParser() {
+    throw new IllegalStateException("NotificationParser class");
+  }
+
   static {
     xs = new XStream(new Xpp3Driver() {
       @Override

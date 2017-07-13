@@ -7,6 +7,10 @@ package io.github.rcarlosdasilva.weixin.common;
  */
 public class Convention {
 
+  private Convention() {
+    throw new IllegalStateException("Convention class");
+  }
+
   public static final String DEFAULT_UNIQUE_WEIXIN_KEY = "__UNIQ__";
   public static final String DEFAULT_OPEN_PLATFORM_KEY = "__OPEN_PLATFORM__";
   public static final String DEFAULT_ENCODING = "UTF-8";

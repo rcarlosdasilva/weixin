@@ -17,6 +17,8 @@ import io.github.rcarlosdasilva.weixin.model.response.open.auth.bean.LicensorInf
 public class OpenPlatformAuthGetLicenseInformationResponseTypeAdapter
     extends TypeAdapter<OpenPlatformAuthGetLicenseInformationResponse> {
 
+  private static final String LOG_UNKNOWN_JSON_KEY = "未知的json键值： [{}: {}]";
+
   private final Logger logger = LoggerFactory.getLogger(getClass());
 
   @Override
@@ -50,7 +52,8 @@ public class OpenPlatformAuthGetLicenseInformationResponseTypeAdapter
           break;
         default:
           if (in.hasNext()) {
-            logger.warn("未知的json键值： [{}: {}]", key, in.nextString());
+            String value = in.nextString();
+            logger.warn(LOG_UNKNOWN_JSON_KEY, key, value);
           }
       }
     }
@@ -99,7 +102,8 @@ public class OpenPlatformAuthGetLicenseInformationResponseTypeAdapter
         }
         default:
           if (in.hasNext()) {
-            logger.warn("未知的json键值： [{}: {}]", key, in.nextString());
+            String value = in.nextString();
+            logger.warn(LOG_UNKNOWN_JSON_KEY, key, value);
           }
       }
     }
@@ -153,7 +157,8 @@ public class OpenPlatformAuthGetLicenseInformationResponseTypeAdapter
           break;
         default:
           if (in.hasNext()) {
-            logger.warn("未知的json键值： [{}: {}]", key, in.nextString());
+            String value = in.nextString();
+            logger.warn(LOG_UNKNOWN_JSON_KEY, key, value);
           }
       }
     }
@@ -185,7 +190,8 @@ public class OpenPlatformAuthGetLicenseInformationResponseTypeAdapter
           break;
         default:
           if (in.hasNext()) {
-            logger.warn("未知的json键值： [{}: {}]", key, in.nextString());
+            String value = in.nextString();
+            logger.warn(LOG_UNKNOWN_JSON_KEY, key, value);
           }
       }
     }

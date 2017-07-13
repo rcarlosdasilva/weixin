@@ -9,7 +9,6 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Function;
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.Collections2;
@@ -74,20 +73,17 @@ public class AbstractCacheHandler<V> implements CacheHandler<V> {
       return Collections.emptyList();
     }
 
-    return Collections2.transform(redisKeys, new Function<String, String>() {
-
-      @Override
-      public String apply(String input) {
-        return realKey(input);
-      }
-    });
+    return Collections2.transform(redisKeys, input -> realKey(input));
   }
 
   @SuppressWarnings("unchecked")
   @Override
   public Collection<String> keys() {
     if (isSimpleRedis()) {
-      return realKeys(SimpleRedisHandler.getRedis().keys(new String(realRedisKeyPattern())));
+      Jedis jedis = SimpleRedisHandler.getRedis();
+      Collection<String> realKeys = realKeys(jedis.keys(String.valueOf(realRedisKeyPattern())));
+      SimpleRedisHandler.returnRedis(jedis);
+      return realKeys;
     } else if (isSpringRedis()) {
       return realKeys(RedisTemplateHandler.redisTemplate.keys(realRedisKeyPattern()));
     } else {
@@ -144,7 +140,7 @@ public class AbstractCacheHandler<V> implements CacheHandler<V> {
         }
         return null;
       } catch (Exception ex) {
-        logger.error("weixin abstract cache", ex);
+        logger.error("weixin abstract cache get", ex);
         return null;
       }
     }
@@ -163,7 +159,7 @@ public class AbstractCacheHandler<V> implements CacheHandler<V> {
       try {
         MapHandler.<V>getObject(mark).put(key, object);
       } catch (Exception ex) {
-        logger.error("weixin abstract cache", ex);
+        logger.error("weixin abstract cache put", ex);
         return null;
       }
     }

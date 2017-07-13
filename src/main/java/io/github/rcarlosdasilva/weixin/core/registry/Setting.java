@@ -21,7 +21,6 @@ public class Setting implements Serializable {
 
   private final Logger logger = LoggerFactory.getLogger(getClass());
 
-  @Deprecated
   private boolean strictUseOpenPlatform = false;
   private boolean throwException = true;
   private boolean useRedisCache = false;
@@ -29,6 +28,13 @@ public class Setting implements Serializable {
   private Map<String, WeixinListener> listeners = Maps.newHashMap();
   private RedisSetting redisSetting = null;
 
+  /**
+   * 是否强制使用开放平台代理公众号的api调用.
+   * 
+   * @return boolean
+   * @deprecated 暂不支持这项配置
+   */
+  @Deprecated
   public boolean isStrictUseOpenPlatform() {
     return strictUseOpenPlatform;
   }
@@ -43,7 +49,9 @@ public class Setting implements Serializable {
    * 
    * @param strictUseOpenPlatform
    *          是否强制，默认否
+   * @deprecated 暂不支持这项配置
    */
+  @Deprecated
   public void setStrictUseOpenPlatform(boolean strictUseOpenPlatform) {
     this.strictUseOpenPlatform = strictUseOpenPlatform;
   }

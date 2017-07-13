@@ -19,6 +19,10 @@ public class ResponseParser {
 
   private static final Logger logger = LoggerFactory.getLogger(ResponseParser.class);
 
+  private ResponseParser() {
+    throw new IllegalStateException("ResponseParser class");
+  }
+
   /**
    * 解析并封装响应结果为一个指定类型.
    * 

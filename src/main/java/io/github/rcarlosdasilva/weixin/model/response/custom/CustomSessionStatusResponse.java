@@ -16,6 +16,7 @@ public class CustomSessionStatusResponse extends CustomSession {
    * 
    * @return account
    */
+  @Override
   public String getAccount() {
     return account;
   }
@@ -25,6 +26,7 @@ public class CustomSessionStatusResponse extends CustomSession {
    * 
    * @return time
    */
+  @Override
   public long getCreateTime() {
     return createTime;
   }

@@ -7,6 +7,10 @@ package io.github.rcarlosdasilva.weixin.common;
  */
 public class ApiAddress {
 
+  private ApiAddress() {
+    throw new IllegalStateException("ApiAddress class");
+  }
+
   private static final String URL_API_DOMAIN = "https://api.weixin.qq.com/";
   private static final String URL_MP_DOMAIN = "https://mp.weixin.qq.com/";
   private static final String URL_OPEN_DOMAIN = "https://open.weixin.qq.com/";

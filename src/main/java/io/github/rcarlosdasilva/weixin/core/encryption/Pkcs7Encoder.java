@@ -13,6 +13,10 @@ class Pkcs7Encoder {
   private static final Charset CHARSET = Charset.forName("utf-8");
   private static final int BLOCK_SIZE = 32;
 
+  private Pkcs7Encoder() {
+    throw new IllegalStateException("Pkcs7Encoder class");
+  }
+
   /**
    * 获得对明文进行补位填充的字节.
    * 
@@ -29,11 +33,11 @@ class Pkcs7Encoder {
 
     // 获得补位所用的字符
     char padChr = charOf(amountToPad);
-    String tmp = new String();
+    StringBuilder tmp = new StringBuilder();
     for (int index = 0; index < amountToPad; index++) {
-      tmp += padChr;
+      tmp.append(padChr);
     }
-    return tmp.getBytes(CHARSET);
+    return tmp.toString().getBytes(CHARSET);
   }
 
   /**

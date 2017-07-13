@@ -14,6 +14,10 @@ import com.google.gson.GsonBuilder;
  */
 public final class Json {
 
+  private Json() {
+    throw new IllegalStateException("Json class");
+  }
+
   private static final Gson gson = new GsonBuilder().enableComplexMapKeySerialization()
       .disableHtmlEscaping().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
       .registerTypeAdapterFactory(new CustomTypeAdapterFactory())

@@ -39,7 +39,8 @@ public class OpenPlatformAuthAccessTokenResponseTypeAdapter
           break;
         default:
           if (in.hasNext()) {
-            logger.warn("未知的json键值： [{}: {}]", key, in.nextString());
+            String value = in.nextString();
+            logger.warn("未知的json键值： [{}: {}]", key, value);
           }
       }
     }

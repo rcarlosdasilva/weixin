@@ -5,6 +5,7 @@ import java.util.Calendar;
 import com.google.common.base.Preconditions;
 
 import io.github.rcarlosdasilva.weixin.common.dictionary.MessageType;
+import io.github.rcarlosdasilva.weixin.core.exception.InvalidNotificationResponseTypeException;
 import io.github.rcarlosdasilva.weixin.model.notification.NotificationMeta;
 import io.github.rcarlosdasilva.weixin.model.notification.NotificationResponsePlaintext;
 
@@ -170,7 +171,7 @@ public class NotificationResponseBuilder {
     }
 
     if (this.response.getType() == null) {
-      throw new RuntimeException("Response for weixin notification is not ensure yet.");
+      throw new InvalidNotificationResponseTypeException();
     }
     this.response.setFromUser(this.meta.getToUser());
     this.response.setToUser(this.meta.getFromUser());
