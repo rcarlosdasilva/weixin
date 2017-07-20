@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 
-import io.github.rcarlosdasilva.weixin.model.response.menu.bean.Menu;
+import io.github.rcarlosdasilva.weixin.model.response.menu.bean.info.Menu;
 
 public class MenuInfoResponse {
 

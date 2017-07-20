@@ -3,7 +3,7 @@ package io.github.rcarlosdasilva.weixin.model.response.menu;
 import com.google.gson.annotations.SerializedName;
 
 import io.github.rcarlosdasilva.weixin.common.Convention;
-import io.github.rcarlosdasilva.weixin.model.response.menu.bean.Menu;
+import io.github.rcarlosdasilva.weixin.model.response.menu.bean.complate.Menu;
 
 public class MenuCompleteResponse {
 

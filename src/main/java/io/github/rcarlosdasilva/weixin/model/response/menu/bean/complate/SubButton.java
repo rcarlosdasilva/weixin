@@ -1,4 +1,4 @@
-package io.github.rcarlosdasilva.weixin.model.response.menu.bean;
+package io.github.rcarlosdasilva.weixin.model.response.menu.bean.complate;
 
 import java.util.List;
 
