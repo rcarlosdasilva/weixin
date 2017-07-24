@@ -206,7 +206,8 @@ public enum ResultCode {
   RESULT_9001033(9001033, "门店ID不合法"), //
   RESULT_9001034(9001034, "设备备注信息过长"), //
   RESULT_9001035(9001035, "设备申请参数不合法"), //
-  RESULT_9001036(9001036, "查询起始值begin不合法");
+  RESULT_9001036(9001036, "查询起始值begin不合法"), //
+  RESULT_UNKNOW(-2, "未收录的微信错误代码");
 
   private int code;
   private String text;

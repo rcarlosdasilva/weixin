@@ -10,9 +10,9 @@ public class ExecuteException extends RuntimeException {
   private SimplestResponse errorResponse;
   private ResultCode code;
 
-  public ExecuteException(SimplestResponse errorResponse) {
+  public ExecuteException(SimplestResponse errorResponse, ResultCode code) {
     this.errorResponse = errorResponse;
-    this.code = ResultCode.byCode(errorResponse.getErrorCode());
+    this.code = code;
   }
 
   public SimplestResponse getErrorResponse() {

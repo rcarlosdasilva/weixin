@@ -43,18 +43,20 @@ public class ResponseParser {
       if (!success) {
         ResultCode resultCode = ResultCode.byCode(errorResponse.getErrorCode());
         if (resultCode == null) {
-          logger.warn("未收录的微信错误代码: code [{}]", errorResponse.getErrorCode());
+          resultCode = ResultCode.RESULT_UNKNOW;
+          logger.debug("未收录的微信错误代码: code [{}]", errorResponse.getErrorCode());
         }
-        logger.error("微信请求错误：code [{}] -- message [{}]", errorResponse.getErrorCode(),
-            errorResponse.getErrorMessage());
 
         if (errorResponse.isBadAccessToken()) {
-          logger.error("微信说access_token不大行，那我觉着是不是还可以再抢救一下，再试一遍来");
+          logger.debug("微信说我access_token不大行，那我觉着是不是还可以再抢救一下，再试一遍来");
           throw new MaydayMaydaySaveMeBecauseAccessTokenSetMeFuckUpException();
         }
 
+        logger.error("微信请求错误：code [{}] -- message [{}]", errorResponse.getErrorCode(),
+            errorResponse.getErrorMessage());
+
         if (Registration.getInstance().getSetting().isThrowException()) {
-          throw new ExecuteException(errorResponse);
+          throw new ExecuteException(errorResponse, resultCode);
         }
 
         if (target == Boolean.class) {
