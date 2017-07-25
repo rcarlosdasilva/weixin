@@ -508,6 +508,8 @@ public interface NotificationHandler {
    * <p>
    * 当公众号对第三方平台进行授权、取消授权、更新授权后，微信服务器会向第三方平台方的授权事件接收URL（创建第三方平台时填写）推送相关通知。
    * <p>
+   * 当Setting配置中autoLoadAuthorizedWeixinData为true时，这里会自动获取授权方的信息（accessToken、licensingInformation、licensorInfromation），并传入方法。否则这三个参数为null
+   * <p>
    * <b>1.
    * 开发者应该在这里将授权的公众号信息（licensingInformation与licensorInfromation）保存到数据库</b><br>
    * <b>2. 需要开发者在处理完业务相关之后，返回公众号信息的Bean - {@link Account}</b><br>
@@ -554,7 +556,7 @@ public interface NotificationHandler {
       String appId);
 
   /**
-   * 推送授权相关通知：授权更新通知，基本同授权成功.
+   * 推送授权相关通知：授权更新通知，参考同授权成功.
    * <p>
    * 当公众号对第三方平台进行授权、取消授权、更新授权后，微信服务器会向第三方平台方的授权事件接收URL（创建第三方平台时填写）推送相关通知。
    * 

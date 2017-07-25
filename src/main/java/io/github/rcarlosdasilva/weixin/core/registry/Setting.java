@@ -1,6 +1,5 @@
 package io.github.rcarlosdasilva.weixin.core.registry;
 
-import java.io.Serializable;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -15,9 +14,7 @@ import io.github.rcarlosdasilva.weixin.core.listener.OpenPlatformAccessTokenUpda
 import io.github.rcarlosdasilva.weixin.core.listener.OpenPlatformLisensorAccessTokenUpdatedListener;
 import io.github.rcarlosdasilva.weixin.core.listener.WeixinListener;
 
-public class Setting implements Serializable {
-
-  private static final long serialVersionUID = 8209890361261136725L;
+public class Setting {
 
   private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -25,6 +22,7 @@ public class Setting implements Serializable {
   private boolean throwException = true;
   private boolean useRedisCache = false;
   private boolean useSpringRedis = false;
+  private boolean autoLoadAuthorizedWeixinData = true;
   private Map<String, WeixinListener> listeners = Maps.newHashMap();
   private RedisSetting redisSetting = null;
 
@@ -96,6 +94,20 @@ public class Setting implements Serializable {
    */
   public void setUseSpringRedis(boolean useSpringRedis) {
     this.useSpringRedis = useSpringRedis;
+  }
+
+  public boolean isAutoLoadAuthorizedWeixinData() {
+    return autoLoadAuthorizedWeixinData;
+  }
+
+  /**
+   * （开放平台第三方平台下）是否在公众号管理员授权后，自动加载公众号的授权内容与公众号基本信息
+   * 
+   * @param autoLoadAuthorizedWeixinData
+   *          boolean
+   */
+  public void setAutoLoadAuthorizedWeixinData(boolean autoLoadAuthorizedWeixinData) {
+    this.autoLoadAuthorizedWeixinData = autoLoadAuthorizedWeixinData;
   }
 
   public void addListener(WeixinListener listener) {

@@ -32,6 +32,8 @@ import io.github.rcarlosdasilva.weixin.model.notification.Notification;
 import io.github.rcarlosdasilva.weixin.model.notification.NotificationResponse;
 import io.github.rcarlosdasilva.weixin.model.notification.OpenInfo;
 import io.github.rcarlosdasilva.weixin.model.response.open.auth.OpenPlatformAuthGetLicenseInformationResponse;
+import io.github.rcarlosdasilva.weixin.model.response.open.auth.bean.LicensingInformation;
+import io.github.rcarlosdasilva.weixin.model.response.open.auth.bean.LicensorInfromation;
 
 /**
  * 微信推送通知代理类.
@@ -422,16 +424,27 @@ public class NotificationHandlerProxy {
 
   private void processInfoWhenSuccessed(OpenInfo info, NotificationResponseBuilder builder,
       Notification notification) {
-    OpenPlatformAuthGetLicenseInformationResponse licensingInformationResponse = fetchLicensingInformation(
-        info.getLicense());
-    OpenPlatformAuthGetLicenseInformationResponse licensorInformationResponse = fetchLicensorInformation(
-        info.getLicensorAppId());
+    final boolean autoLoad = Registration.getInstance().getSetting()
+        .isAutoLoadAuthorizedWeixinData();
 
-    AccessToken accessToken = licensingInformationResponse.getLicensedAccessToken();
+    LicensingInformation licensingInformation = null;
+    LicensorInfromation licensorInfromation = null;
+    AccessToken accessToken = null;
+
+    if (autoLoad) {
+      OpenPlatformAuthGetLicenseInformationResponse licensingInformationResponse = fetchLicensingInformation(
+          info.getLicense());
+      OpenPlatformAuthGetLicenseInformationResponse licensorInformationResponse = fetchLicensorInformation(
+          info.getLicensorAppId());
+
+      accessToken = licensingInformationResponse.getLicensedAccessToken();
+      licensingInformation = licensingInformationResponse.getLicensingInformation();
+      licensorInfromation = licensorInformationResponse.getLicensorInfromation();
+    }
+
     Account account = handler.doInfoOfAuthorizeSucceeded(builder, notification,
         info.getLicensorAppId(), info.getLicense(), info.getLicenseExpireAt(), accessToken,
-        licensingInformationResponse.getLicensingInformation(),
-        licensorInformationResponse.getLicensorInfromation());
+        licensingInformation, licensorInfromation);
 
     Registration.getInstance().updateAccount(account);
     AccessTokenCacheHandler.getInstance().put(account.getKey(), accessToken);
@@ -452,16 +465,27 @@ public class NotificationHandlerProxy {
 
   private void processInfoWhenUpdated(OpenInfo info, NotificationResponseBuilder builder,
       Notification notification) {
-    OpenPlatformAuthGetLicenseInformationResponse licensingInformationResponse = fetchLicensingInformation(
-        info.getLicense());
-    OpenPlatformAuthGetLicenseInformationResponse licensorInformationResponse = fetchLicensorInformation(
-        info.getLicensorAppId());
+    final boolean autoLoad = Registration.getInstance().getSetting()
+        .isAutoLoadAuthorizedWeixinData();
 
-    AccessToken accessToken = licensingInformationResponse.getLicensedAccessToken();
+    LicensingInformation licensingInformation = null;
+    LicensorInfromation licensorInfromation = null;
+    AccessToken accessToken = null;
+
+    if (autoLoad) {
+      OpenPlatformAuthGetLicenseInformationResponse licensingInformationResponse = fetchLicensingInformation(
+          info.getLicense());
+      OpenPlatformAuthGetLicenseInformationResponse licensorInformationResponse = fetchLicensorInformation(
+          info.getLicensorAppId());
+
+      accessToken = licensingInformationResponse.getLicensedAccessToken();
+      licensingInformation = licensingInformationResponse.getLicensingInformation();
+      licensorInfromation = licensorInformationResponse.getLicensorInfromation();
+    }
+
     Account account = handler.doInfoOfAuthorizeUpdated(builder, notification,
         info.getLicensorAppId(), info.getLicense(), info.getLicenseExpireAt(), accessToken,
-        licensingInformationResponse.getLicensingInformation(),
-        licensorInformationResponse.getLicensorInfromation());
+        licensingInformation, licensorInfromation);
 
     Registration.getInstance().updateAccount(account);
     AccessTokenCacheHandler.getInstance().put(account.getKey(), accessToken);

@@ -1,25 +1,20 @@
 package io.github.rcarlosdasilva.weixin.core.registry;
 
-import java.io.Serializable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Strings;
 
 import io.github.rcarlosdasilva.weixin.common.Convention;
-import io.github.rcarlosdasilva.weixin.core.WeixinRegistry;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.AccessTokenCacheHandler;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.AccountCacheHandler;
 import io.github.rcarlosdasilva.weixin.core.exception.InvalidAccountException;
 import io.github.rcarlosdasilva.weixin.model.Account;
 import io.github.rcarlosdasilva.weixin.model.OpenPlatform;
 
-public class Registration implements Serializable {
+public class Registration {
 
-  private static final long serialVersionUID = 5219550386903571660L;
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(WeixinRegistry.class);
+  private final Logger logger = LoggerFactory.getLogger(getClass());
 
   public static final Registration instance = new Registration();
 
@@ -51,7 +46,7 @@ public class Registration implements Serializable {
 
   public void addAccount(Account account) {
     if (Registration.accountExists(account.getKey())) {
-      LOGGER.warn("尝试添加一个已经存在的公众号信息：[{}]，本方法无法覆盖已有公众号信息，请使用updateAccount", account.getKey());
+      logger.warn("尝试添加一个已经存在的公众号信息：[{}]，本方法无法覆盖已有公众号信息，请使用updateAccount", account.getKey());
       return;
     }
 
@@ -73,20 +68,20 @@ public class Registration implements Serializable {
     }
 
     if (!account.isWithOpenPlatform() && Strings.isNullOrEmpty(account.getAppSecret())) {
-      LOGGER.warn("未找到公众号的app_scret，该公众号将不被注册");
+      logger.warn("未找到公众号的app_scret，该公众号将不被注册");
       return false;
     }
     if (account.isWithOpenPlatform() && Strings.isNullOrEmpty(account.getRefreshToken())) {
-      LOGGER.warn("未找到开放平台授权方的刷新令牌authorizer_refresh_token，该公众号将不被注册");
+      logger.warn("未找到开放平台授权方的刷新令牌authorizer_refresh_token，该公众号将不被注册");
       return false;
     }
 
     if (Strings.isNullOrEmpty(account.getMpId())) {
-      LOGGER.warn("未设置Account.mpId，对公众号appid: [{}]来说，当微信通知回调或其他操作的时候，不设置可能会导致无法正确找到对应的公众号信息",
+      logger.warn("未设置Account.mpId，对公众号appid: [{}]来说，当微信通知回调或其他操作的时候，不设置可能会导致无法正确找到对应的公众号信息",
           account.getAppId());
     }
     if (Strings.isNullOrEmpty(account.getKey())) {
-      LOGGER.warn("未设置Account.key，将使用公众号的appid：[{}]作为默认key", account.getAppId());
+      logger.warn("未设置Account.key，将使用公众号的appid：[{}]作为默认key", account.getAppId());
       account.withKey(account.getAppId());
     }
 
@@ -110,9 +105,9 @@ public class Registration implements Serializable {
       final String realKey = account.getKey();
       AccountCacheHandler.getInstance().remove(realKey);
       AccessTokenCacheHandler.getInstance().remove(realKey);
-      LOGGER.info("已取消注册公众号信息：[{}]", key);
+      logger.info("已取消注册公众号信息：[{}]", key);
     } else {
-      LOGGER.warn("未找到可取消注册的公众号信息：[{}]", key);
+      logger.warn("未找到可取消注册的公众号信息：[{}]", key);
     }
   }
 
