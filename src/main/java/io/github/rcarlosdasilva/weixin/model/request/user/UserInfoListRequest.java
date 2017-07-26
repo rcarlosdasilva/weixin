@@ -12,7 +12,7 @@ import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 /**
  * 批量获取用户信息请求模型
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class UserInfoListRequest extends BasicWeixinRequest {
 

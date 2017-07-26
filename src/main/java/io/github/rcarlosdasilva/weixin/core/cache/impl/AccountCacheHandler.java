@@ -14,7 +14,7 @@ import io.github.rcarlosdasilva.weixin.model.Account;
 /**
  * 公众号配置缓存
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class AccountCacheHandler extends AbstractCacheHandler<Account> {
 

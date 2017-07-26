@@ -8,7 +8,7 @@ import io.github.rcarlosdasilva.weixin.model.request.base.BasicOpenPlatformReque
 /**
  * 获取第三方平台component_access_token请求模型
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class OpenPlatformAuthAccessTokenRequest extends BasicOpenPlatformRequest {
 

@@ -20,7 +20,7 @@ import io.github.rcarlosdasilva.weixin.model.response.user.tag.bean.UserTag;
 /**
  * 用户标签API实现
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class UserTagApiImpl extends BasicApi implements UserTagApi {
 

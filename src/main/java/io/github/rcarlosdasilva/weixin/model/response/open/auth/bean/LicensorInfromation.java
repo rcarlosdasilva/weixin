@@ -8,7 +8,7 @@ import io.github.rcarlosdasilva.weixin.common.dictionary.AccountVerifiedType;
 /**
  * 授权者信息
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class LicensorInfromation implements Serializable {
 

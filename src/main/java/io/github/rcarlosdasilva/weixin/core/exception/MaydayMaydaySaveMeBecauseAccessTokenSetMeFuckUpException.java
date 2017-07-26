@@ -3,7 +3,7 @@ package io.github.rcarlosdasilva.weixin.core.exception;
 /**
  * 名字就是搞笑用的
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class MaydayMaydaySaveMeBecauseAccessTokenSetMeFuckUpException extends RuntimeException {
 

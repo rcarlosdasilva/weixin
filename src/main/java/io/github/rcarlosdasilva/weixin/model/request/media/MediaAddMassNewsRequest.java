@@ -11,7 +11,7 @@ import io.github.rcarlosdasilva.weixin.model.request.media.bean.Article;
 /**
  * 上传图文消息素材（群发）
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class MediaAddMassNewsRequest extends BasicWeixinRequest {
 

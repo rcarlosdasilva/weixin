@@ -7,7 +7,7 @@ import io.github.rcarlosdasilva.weixin.model.request.user.tag.bean.UserTag;
 /**
  * 更新标签请求模型
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class UserTagUpdateRequest extends BasicWeixinRequest {
 

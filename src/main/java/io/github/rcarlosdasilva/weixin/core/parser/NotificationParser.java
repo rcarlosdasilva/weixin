@@ -23,7 +23,7 @@ import io.github.rcarlosdasilva.weixin.model.notification.OpenInfo;
 /**
  * 微信推送通知，消息解析器.
  *
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class NotificationParser {
 

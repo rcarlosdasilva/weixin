@@ -20,7 +20,7 @@ import io.github.rcarlosdasilva.weixin.model.response.open.auth.bean.LicensorInf
  * proxy，需要在系统中保持改代理 proxy，当微信推送内容到服务器时，使用 {@code proxy#process()} 处理接收到的数据，并按照
  * {@link NotificationHandler} 事先写好的代码执行
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public interface NotificationHandler {
 

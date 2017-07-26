@@ -10,7 +10,7 @@ import io.github.rcarlosdasilva.weixin.common.dictionary.OpenPlatformLisensableF
 /**
  * 授权信息
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class LicensingInformation implements Serializable {
 

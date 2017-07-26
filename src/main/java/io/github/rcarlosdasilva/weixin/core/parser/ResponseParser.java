@@ -13,7 +13,7 @@ import io.github.rcarlosdasilva.weixin.model.response.SimplestResponse;
 /**
  * 响应内容解析器
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class ResponseParser {
 

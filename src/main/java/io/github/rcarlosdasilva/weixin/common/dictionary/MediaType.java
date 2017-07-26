@@ -3,7 +3,7 @@ package io.github.rcarlosdasilva.weixin.common.dictionary;
 /**
  * 素材类型
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public enum MediaType {
 

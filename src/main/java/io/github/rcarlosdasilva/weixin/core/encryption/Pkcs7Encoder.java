@@ -6,7 +6,7 @@ import java.util.Arrays;
 /**
  * 提供基于PKCS7算法的加解密接口
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 class Pkcs7Encoder {
 

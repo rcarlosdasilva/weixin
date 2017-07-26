@@ -3,7 +3,7 @@ package io.github.rcarlosdasilva.weixin.model.request.message.bean;
 /**
  * 模板内容参数
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 @SuppressWarnings("unused")
 public class Template {

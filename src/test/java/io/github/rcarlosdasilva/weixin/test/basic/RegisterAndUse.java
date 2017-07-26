@@ -8,7 +8,7 @@ import io.github.rcarlosdasilva.weixin.test.Property;
 /**
  * 如何使用Aha-Weixin第一步，注册公众号信息，并演示如何使用
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class RegisterAndUse {
 

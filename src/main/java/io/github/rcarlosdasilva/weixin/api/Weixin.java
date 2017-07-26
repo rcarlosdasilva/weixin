@@ -49,7 +49,7 @@ import io.github.rcarlosdasilva.weixin.common.Convention;
  * <p>
  * 使用相关工具： {@code Weixin.with(key).helper()}<br>
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class Weixin {
 

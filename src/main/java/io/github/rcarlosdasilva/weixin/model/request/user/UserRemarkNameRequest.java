@@ -8,7 +8,7 @@ import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 /**
  * 设置用户备注名请求模型
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class UserRemarkNameRequest extends BasicWeixinRequest {
 

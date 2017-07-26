@@ -20,7 +20,7 @@ import io.github.rcarlosdasilva.weixin.model.response.user.group.bean.UserGroup;
 /**
  * 用户组相关API实现
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class UserGroupApiImpl extends BasicApi implements UserGroupApi {
 

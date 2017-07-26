@@ -3,7 +3,7 @@ package io.github.rcarlosdasilva.weixin.core.http;
 /**
  * HTTP请求Form表单内容
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class FormData {
 

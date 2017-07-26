@@ -3,7 +3,7 @@ package io.github.rcarlosdasilva.weixin.common.dictionary;
 /**
  * 自定义菜单按钮类型
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public enum MenuType {
 

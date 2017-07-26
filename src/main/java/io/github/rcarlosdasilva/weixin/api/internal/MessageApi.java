@@ -12,7 +12,7 @@ import io.github.rcarlosdasilva.weixin.model.response.message.MessageSendWithMas
 /**
  * 消息推送API
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public interface MessageApi {
 

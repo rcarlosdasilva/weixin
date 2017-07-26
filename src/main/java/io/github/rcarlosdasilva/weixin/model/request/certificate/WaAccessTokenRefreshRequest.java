@@ -7,7 +7,7 @@ import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 /**
  * 网页授权Token刷新请求模型
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class WaAccessTokenRefreshRequest extends BasicWeixinRequest {
 

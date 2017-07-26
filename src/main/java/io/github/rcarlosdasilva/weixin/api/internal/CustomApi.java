@@ -12,7 +12,7 @@ import io.github.rcarlosdasilva.weixin.model.response.custom.bean.CustomSession;
 /**
  * 客服API
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public interface CustomApi {
 

@@ -11,7 +11,7 @@ import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 /**
  * 取消拉黑用户请求模型
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class BlackListCancelRequest extends BasicWeixinRequest {
 

@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 /**
  * 微信推送通知类型
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public enum NotificationMessageType {
 

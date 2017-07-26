@@ -12,7 +12,7 @@ import io.github.rcarlosdasilva.weixin.test.basic.RegisterAndUse;
 /**
  * 自定义菜单的使用
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class AboutMenu {
 

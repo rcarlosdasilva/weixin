@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * 带参数的二维码创建结果.
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class QrCodeCreateResponse {
 

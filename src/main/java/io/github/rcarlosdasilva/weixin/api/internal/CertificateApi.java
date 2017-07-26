@@ -7,7 +7,7 @@ import io.github.rcarlosdasilva.weixin.model.response.certificate.WaAccessTokenR
 /**
  * 认证API
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public interface CertificateApi {
 

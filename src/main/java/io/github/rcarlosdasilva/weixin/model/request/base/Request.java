@@ -3,7 +3,7 @@ package io.github.rcarlosdasilva.weixin.model.request.base;
 /**
  * 请求模型
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public interface Request {
 

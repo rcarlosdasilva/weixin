@@ -41,7 +41,7 @@ import io.github.rcarlosdasilva.weixin.model.response.open.auth.bean.LicensorInf
  * 微信的加密解密使用AES，默认会引起JRE的一个java.security.InvalidKeyException: Illegal key
  * size异常，请参考{@link Encryptor}解决
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class NotificationHandlerProxy {
 
@@ -501,7 +501,7 @@ public class NotificationHandlerProxy {
     Preconditions.checkNotNull(license);
 
     OpenPlatformAuthGetLicenseInformationResponse response = Weixin.withOpenPlatform().openAuth()
-        .getLicenseInformation(license);
+        .getLicensingInformation(license);
 
     if (response == null) {
       throw new CanNotFetchOpenPlatformLiceningInformationException();

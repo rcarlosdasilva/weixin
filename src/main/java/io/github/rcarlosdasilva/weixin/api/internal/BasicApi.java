@@ -27,7 +27,7 @@ import io.github.rcarlosdasilva.weixin.model.request.open.auth.OpenPlatformAuthA
 /**
  * API访问基础类
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class BasicApi {
 
@@ -210,7 +210,7 @@ public class BasicApi {
   /**
    * 接口请求执行器
    * 
-   * @author Dean Zhao (rcarlosdasilva@qq.com)
+   * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
    * @param <R>
    *          返回类型
    */

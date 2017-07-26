@@ -3,7 +3,7 @@ package io.github.rcarlosdasilva.weixin.model.notification.bean;
 /**
  * 微信被动回复消息附加内容
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class ResponseAdditionalInfo {
 

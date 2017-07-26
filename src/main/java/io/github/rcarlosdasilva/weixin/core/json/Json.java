@@ -10,7 +10,7 @@ import com.google.gson.GsonBuilder;
 /**
  * JSON工具
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public final class Json {
 

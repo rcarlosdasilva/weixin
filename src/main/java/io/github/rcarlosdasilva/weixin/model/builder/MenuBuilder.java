@@ -14,7 +14,7 @@ import io.github.rcarlosdasilva.weixin.model.request.menu.bean.SubButton;
 /**
  * 自定义菜单构造器
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class MenuBuilder {
 
@@ -327,7 +327,7 @@ public class MenuBuilder {
   /**
    * 自定义菜单二级菜单构造器
    * 
-   * @author Dean Zhao (rcarlosdasilva@qq.com)
+   * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
    */
   public class SubMenuBuilder {
 
@@ -606,7 +606,7 @@ public class MenuBuilder {
   /**
    * 匹配规则构建器
    * 
-   * @author Dean Zhao (rcarlosdasilva@qq.com)
+   * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
    */
   public class MatchRuleBuilder {
 

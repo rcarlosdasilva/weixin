@@ -11,7 +11,7 @@ import io.github.rcarlosdasilva.weixin.model.response.user.bean.User;
 /**
  * 用户相关API
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public interface UserApi {
 
@@ -165,10 +165,42 @@ public interface UserApi {
    * 该接口每次调用最多可拉取 10000 个OpenID，当列表数较多时，可以通过多次拉取的方式来满足需求。
    * 
    * @return {@link BlackListQueryResponse}
+   * @deprecated use {@link #listUsersInBlack()}
    * @see <a href=
    *      "https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1471422259_pJMWA&token=&lang=zh_CN">黑名单管理</a>
    */
+  @Deprecated
   BlackListQueryResponse listUsersInBlackList();
+
+  /**
+   * 获取黑名单中的用户列表.
+   * 
+   * <p>
+   * 公众号可通过该接口来获取帐号的黑名单列表，黑名单列表由一串 OpenID（加密后的微信号，每个用户对每个公众号的OpenID是唯一的）组成。
+   * 该接口每次调用最多可拉取 10000 个OpenID，当列表数较多时，可以通过多次拉取的方式来满足需求。
+   * 
+   * @return {@link BlackListQueryResponse}
+   * @see <a href=
+   *      "https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1471422259_pJMWA&token=&lang=zh_CN">黑名单管理</a>
+   */
+  BlackListQueryResponse listUsersInBlack();
+
+  /**
+   * 获取黑名单中的用户列表.
+   * 
+   * <p>
+   * 公众号可通过该接口来获取帐号的黑名单列表，黑名单列表由一串 OpenID（加密后的微信号，每个用户对每个公众号的OpenID是唯一的）组成。
+   * 该接口每次调用最多可拉取 10000 个OpenID，当列表数较多时，可以通过多次拉取的方式来满足需求。
+   * 
+   * @param beginOpenId
+   *          当 begin_openid 为空时，默认从开头拉取
+   * @return {@link BlackListQueryResponse}
+   * @deprecated user {@link #listUsersInBlack(String)}
+   * @see <a href=
+   *      "https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1471422259_pJMWA&token=&lang=zh_CN">黑名单管理</a>
+   */
+  @Deprecated
+  BlackListQueryResponse listUsersInBlackList(String beginOpenId);
 
   /**
    * 获取黑名单中的用户列表.
@@ -183,7 +215,20 @@ public interface UserApi {
    * @see <a href=
    *      "https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1471422259_pJMWA&token=&lang=zh_CN">黑名单管理</a>
    */
-  BlackListQueryResponse listUsersInBlackList(String beginOpenId);
+  BlackListQueryResponse listUsersInBlack(String beginOpenId);
+
+  /**
+   * 把用户拉黑.
+   * 
+   * @param openIds
+   *          需要拉入黑名单的用户的openid，一次拉黑最多允许20个
+   * @return 成功
+   * @deprecated user {@link #appendUsersToBlack(List)}
+   * @see <a href=
+   *      "https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1471422259_pJMWA&token=&lang=zh_CN">黑名单管理</a>
+   */
+  @Deprecated
+  boolean appendUsersToBlackList(List<String> openIds);
 
   /**
    * 把用户拉黑.
@@ -194,7 +239,20 @@ public interface UserApi {
    * @see <a href=
    *      "https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1471422259_pJMWA&token=&lang=zh_CN">黑名单管理</a>
    */
-  boolean appendUsersToBlackList(List<String> openIds);
+  boolean appendUsersToBlack(List<String> openIds);
+
+  /**
+   * 取消拉黑用户.
+   * 
+   * @param openIds
+   *          需要取消拉黑名单的用户的openid，一次拉黑最多允许20个
+   * @return 成功
+   * @deprecated use {@link #cancelUsersFromBlack(List)}
+   * @see <a href=
+   *      "https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1471422259_pJMWA&token=&lang=zh_CN">黑名单管理</a>
+   */
+  @Deprecated
+  boolean cancelUsersFromBlackList(List<String> openIds);
 
   /**
    * 取消拉黑用户.
@@ -205,6 +263,6 @@ public interface UserApi {
    * @see <a href=
    *      "https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1471422259_pJMWA&token=&lang=zh_CN">黑名单管理</a>
    */
-  boolean cancelUsersFromBlackList(List<String> openIds);
+  boolean cancelUsersFromBlack(List<String> openIds);
 
 }

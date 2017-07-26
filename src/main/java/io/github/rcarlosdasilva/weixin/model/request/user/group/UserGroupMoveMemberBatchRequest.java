@@ -10,7 +10,7 @@ import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 /**
  * 批量移动用户到组请求模型
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class UserGroupMoveMemberBatchRequest extends BasicWeixinRequest {
 

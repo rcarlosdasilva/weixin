@@ -3,7 +3,7 @@ package io.github.rcarlosdasilva.weixin.common.dictionary;
 /**
  * 客服消息推送类型
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public enum MessageType {
 

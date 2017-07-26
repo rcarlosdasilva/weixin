@@ -7,7 +7,7 @@ import io.github.rcarlosdasilva.weixin.common.dictionary.ResultCode;
 /**
  * 最简微信响应模型
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class SimplestResponse {
 

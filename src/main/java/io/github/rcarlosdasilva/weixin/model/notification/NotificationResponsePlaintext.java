@@ -16,7 +16,7 @@ import io.github.rcarlosdasilva.weixin.model.notification.converter.ResponseConv
 /**
  * 微信推送通知后，被动回复用户消息，明文模式
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 @XStreamAlias("xml")
 @XStreamConverter(ResponseConverter.class)

@@ -7,7 +7,7 @@ import io.github.rcarlosdasilva.weixin.model.AccessToken;
 /**
  * 授权调用凭据（令牌）
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class LicensedAccessToken extends AccessToken implements Serializable {
 

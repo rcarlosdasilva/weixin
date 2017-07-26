@@ -8,7 +8,7 @@ import io.github.rcarlosdasilva.weixin.test.basic.RegisterAndUse;
 /**
  * 用户的使用
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class AboutUser {
 
@@ -38,12 +38,12 @@ public class AboutUser {
 
     // 下面代码和黑名单相关
     // 获取黑名单
-    Weixin.withUnique().user().listUsersInBlackList();
-    Weixin.withUnique().user().listUsersInBlackList("nextOpenId");
+    Weixin.withUnique().user().listUsersInBlack();
+    Weixin.withUnique().user().listUsersInBlack("nextOpenId");
     // 拉黑
-    Weixin.withUnique().user().appendUsersToBlackList(Lists.newArrayList("openid"));
+    Weixin.withUnique().user().appendUsersToBlack(Lists.newArrayList("openid"));
     // 取消拉黑
-    Weixin.withUnique().user().cancelUsersFromBlackList(Lists.newArrayList("openid"));
+    Weixin.withUnique().user().cancelUsersFromBlack(Lists.newArrayList("openid"));
 
     // 下面代码和标签相关
     // 创建删除更新查询标签

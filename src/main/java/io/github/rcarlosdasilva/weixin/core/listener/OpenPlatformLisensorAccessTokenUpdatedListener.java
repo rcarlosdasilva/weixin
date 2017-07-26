@@ -3,7 +3,7 @@ package io.github.rcarlosdasilva.weixin.core.listener;
 /**
  * 开放平台中授权方AccessToken更新监听器
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public interface OpenPlatformLisensorAccessTokenUpdatedListener extends WeixinListener {
 

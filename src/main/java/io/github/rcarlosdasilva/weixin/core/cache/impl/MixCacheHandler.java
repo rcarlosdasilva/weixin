@@ -3,7 +3,7 @@ package io.github.rcarlosdasilva.weixin.core.cache.impl;
 /**
  * 存储混杂属性
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class MixCacheHandler extends AbstractCacheHandler<Object> {
 

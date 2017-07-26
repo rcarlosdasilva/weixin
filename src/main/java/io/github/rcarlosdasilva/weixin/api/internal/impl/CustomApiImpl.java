@@ -34,7 +34,7 @@ import io.github.rcarlosdasilva.weixin.model.response.custom.bean.CustomSession;
 /**
  * 客服相关API实现
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class CustomApiImpl extends BasicApi implements CustomApi {
 

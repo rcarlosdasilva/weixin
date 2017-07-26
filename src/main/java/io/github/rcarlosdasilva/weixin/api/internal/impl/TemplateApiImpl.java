@@ -18,7 +18,7 @@ import io.github.rcarlosdasilva.weixin.model.response.template.bean.Template;
 /**
  * 模板消息API实现
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class TemplateApiImpl extends BasicApi implements TemplateApi {
 

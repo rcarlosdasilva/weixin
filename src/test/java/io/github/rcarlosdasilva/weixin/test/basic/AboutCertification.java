@@ -5,7 +5,7 @@ import io.github.rcarlosdasilva.weixin.api.Weixin;
 /**
  * 关于认证相关
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class AboutCertification {
 

@@ -15,7 +15,7 @@ import io.github.rcarlosdasilva.weixin.common.Convention;
 /**
  * 发送图片xml结构转换器
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class SendPicsConverter implements Converter {
 

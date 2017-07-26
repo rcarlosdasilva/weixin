@@ -3,7 +3,7 @@ package io.github.rcarlosdasilva.weixin.common.dictionary;
 /**
  * 模板所在行业
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public enum Industry {
 

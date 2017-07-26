@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * 语言
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public enum Language {
 

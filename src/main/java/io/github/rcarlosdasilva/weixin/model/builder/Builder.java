@@ -3,7 +3,7 @@ package io.github.rcarlosdasilva.weixin.model.builder;
 /**
  * 请求模型构建器
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class Builder {
 

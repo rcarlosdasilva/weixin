@@ -5,7 +5,7 @@ import io.github.rcarlosdasilva.weixin.model.response.certificate.JsTicketRespon
 /**
  * jsapi_ticket缓存
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class JsTicketCacheHandler extends AbstractCacheHandler<JsTicketResponse> {
 

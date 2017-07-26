@@ -5,7 +5,7 @@ import java.io.File;
 /**
  * HTTP请求文件信息
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class MultiFile {
 

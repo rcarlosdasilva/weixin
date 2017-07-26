@@ -3,7 +3,7 @@ package io.github.rcarlosdasilva.weixin.model.request.user.tag.bean;
 /**
  * 标签
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 @SuppressWarnings("unused")
 public class UserTag {

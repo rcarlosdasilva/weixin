@@ -16,7 +16,7 @@ import io.github.rcarlosdasilva.weixin.model.response.common.ShortUrlResponse;
 /**
  * 公共相关API实现
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class CommonApiImpl extends BasicApi implements CommonApi {
 

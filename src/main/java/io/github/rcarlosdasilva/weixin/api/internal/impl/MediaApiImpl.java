@@ -47,7 +47,7 @@ import io.github.rcarlosdasilva.weixin.model.response.media.MediaTransformMassVi
 /**
  * 素材管理相关API实现
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class MediaApiImpl extends BasicApi implements MediaApi {
 
@@ -73,23 +73,27 @@ public class MediaApiImpl extends BasicApi implements MediaApi {
     MediaGetTemporaryRequest requestModel = new MediaGetTemporaryRequest();
     requestModel.setMediaId(mediaId);
 
+    // 该接口如果是图片，则返回文件流，如是视频则返回json字符串
     InputStream is = getStream(requestModel);
 
     byte[] result = readStream(is);
+    // 假设返回的是json字符串
     String text = new String(result);
 
     try {
       is.close();
 
+      // 尝试解析前面请求返回的json字符串
       MediaGetTemporaryWithVideoResponse vedioResponse = ResponseParser
           .parse(MediaGetTemporaryWithVideoResponse.class, text);
 
+      // 如果能执行到这里，代表是视频，否则上边会解析出错，直接返回前面请求的文件流
       is = Http.requestStreamWithBodyContent(vedioResponse.getVideoUrl(), HttpMethod.GET, null,
           ContentType.JSON);
       result = readStream(is);
       is.close();
     } catch (Exception ex) {
-      logger.error("media api get temporary media", ex);
+      logger.debug("media api get temporary media", ex);
     }
 
     return result;

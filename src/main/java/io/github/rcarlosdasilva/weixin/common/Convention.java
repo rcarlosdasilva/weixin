@@ -3,7 +3,7 @@ package io.github.rcarlosdasilva.weixin.common;
 /**
  * 微信约定常量值
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class Convention {
 

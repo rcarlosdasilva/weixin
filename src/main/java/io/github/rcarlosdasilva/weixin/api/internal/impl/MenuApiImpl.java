@@ -18,7 +18,7 @@ import io.github.rcarlosdasilva.weixin.model.response.menu.MenuInfoResponse;
 /**
  * 自定义菜单相关API实现
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class MenuApiImpl extends BasicApi implements MenuApi {
 

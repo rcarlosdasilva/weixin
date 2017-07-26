@@ -8,7 +8,7 @@ import io.github.rcarlosdasilva.weixin.model.response.menu.MenuInfoResponse;
 /**
  * 自定义菜单API
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public interface MenuApi {
 

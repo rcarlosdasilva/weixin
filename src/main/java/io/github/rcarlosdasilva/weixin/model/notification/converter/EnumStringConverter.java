@@ -5,7 +5,7 @@ import com.thoughtworks.xstream.converters.enums.EnumSingleValueConverter;
 /**
  * 简单获取枚举toString()内容转换器
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class EnumStringConverter extends EnumSingleValueConverter {
 

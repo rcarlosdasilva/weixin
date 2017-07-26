@@ -7,7 +7,7 @@ import io.github.rcarlosdasilva.weixin.model.Account;
 /**
  * 微信推送通知模型
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 @XStreamAlias("notification")
 public class Notification extends NotificationMeta {

@@ -9,7 +9,7 @@ import io.github.rcarlosdasilva.weixin.model.request.media.bean.Article;
 /**
  * 修改永久图文素材请求模型
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 @SuppressWarnings("unused")
 public class MediaUpdateTimelessNewsRequest extends BasicWeixinRequest {

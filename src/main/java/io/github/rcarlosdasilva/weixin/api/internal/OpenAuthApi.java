@@ -7,9 +7,9 @@ import io.github.rcarlosdasilva.weixin.model.response.open.auth.OpenPlatformAuth
 public interface OpenAuthApi {
 
   /**
-   * 获取微信开放平台服务凭证(access_token).
+   * 获取微信开放平台服务凭证(component_access_token).
    * <p>
-   * 第三方平台compoment_access_token是第三方平台的下文中接口的调用凭据，也叫做令牌（component_access_token）。
+   * 第三方平台component_access_token是第三方平台的下文中接口的调用凭据，也叫做令牌（component_access_token）。
    * 每个令牌是存在有效期（2小时）的，且令牌的调用不是无限制的，请第三方平台做好令牌的管理，在令牌快过期时（比如1小时50分）再进行刷新。
    * 
    * @return component_access_token
@@ -40,8 +40,26 @@ public interface OpenAuthApi {
    * @param license
    *          授权码
    * @return {@link OpenPlatformAuthGetLicenseInformationResponse}
+   * @deprecated replaced by {@link #getLicensingInformation(String)}
    */
+  @Deprecated
   OpenPlatformAuthGetLicenseInformationResponse getLicenseInformation(String license);
+
+  /**
+   * 使用授权码换取公众号或小程序的接口调用凭据和授权信息.
+   * <p>
+   * 该API用于使用授权码换取授权公众号或小程序的授权信息，并换取authorizer_access_token和authorizer_refresh_token。
+   * 授权码的获取，需要在用户在第三方平台授权页中完成授权流程后，在回调URI中通过URL参数提供给第三方平台方。
+   * <b>请注意，由于现在公众号或小程序可以自定义选择部分权限授权给第三方平台，
+   * 因此第三方平台开发者需要通过该接口来获取公众号或小程序具体授权了哪些权限，而不是简单地认为自己声明的权限就是公众号或小程序授权的权限。</b>
+   * <p>
+   * <b>已使用{@link NotificationHandlerProxy}自动获取接口调用凭据和授权信息，如无特殊需要，无需调用</b>
+   * 
+   * @param license
+   *          授权码
+   * @return {@link OpenPlatformAuthGetLicenseInformationResponse}
+   */
+  OpenPlatformAuthGetLicenseInformationResponse getLicensingInformation(String license);
 
   /**
    * 获取（刷新）授权公众号或小程序的接口调用凭据（令牌）.

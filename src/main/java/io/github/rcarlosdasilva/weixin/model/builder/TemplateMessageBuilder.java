@@ -10,7 +10,7 @@ import io.github.rcarlosdasilva.weixin.model.request.message.bean.Template;
 /**
  * 模板内容构造器
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class TemplateMessageBuilder {
 

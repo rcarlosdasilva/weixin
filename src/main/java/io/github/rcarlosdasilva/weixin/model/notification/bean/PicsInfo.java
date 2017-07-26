@@ -10,7 +10,7 @@ import io.github.rcarlosdasilva.weixin.model.notification.converter.SendPicsConv
 /**
  * 发送的图片信息
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class PicsInfo {
 

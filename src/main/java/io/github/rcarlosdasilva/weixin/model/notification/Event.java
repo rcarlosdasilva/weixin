@@ -12,7 +12,7 @@ import io.github.rcarlosdasilva.weixin.model.notification.bean.ScanCodeInfo;
 /**
  * 微信通知消息中，事件相关内容
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 @XStreamAlias("event")
 public class Event {

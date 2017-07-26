@@ -40,7 +40,7 @@ import io.github.rcarlosdasilva.weixin.model.response.open.auth.OpenPlatformAuth
 /**
  * 认证相关API实现
  *
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class CertificateApiImpl extends BasicApi implements CertificateApi {
 

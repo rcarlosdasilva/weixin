@@ -15,7 +15,7 @@ import io.github.rcarlosdasilva.weixin.model.request.message.bean.Voice;
 /**
  * 客服消息内容构造器
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class MassOrCustomMessageBuilder {
 
@@ -185,7 +185,7 @@ public class MassOrCustomMessageBuilder {
   /**
    * 多图文消息（外链）构建器
    * 
-   * @author Dean Zhao (rcarlosdasilva@qq.com)
+   * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
    */
   public class NewsExternalBuilder {
 

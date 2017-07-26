@@ -8,7 +8,7 @@ import redis.clients.jedis.JedisPool;
 /**
  * 要使用Redis缓存，需要先初始化RedisHandler
  *
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class SimpleRedisHandler {
 

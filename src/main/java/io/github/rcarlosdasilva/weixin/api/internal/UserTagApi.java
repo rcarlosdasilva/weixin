@@ -4,6 +4,11 @@ import java.util.List;
 
 import io.github.rcarlosdasilva.weixin.model.response.user.tag.bean.UserTag;
 
+/**
+ * 用户标签API
+ * 
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
+ */
 public interface UserTagApi {
 
   /**

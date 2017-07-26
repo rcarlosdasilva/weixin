@@ -38,7 +38,7 @@ import io.github.rcarlosdasilva.weixin.model.notification.NotificationResponseEn
  * <li>如果安装了JDK，将两个jar文件放到%JDK_HOME%\jre\lib\security目录下覆盖原来文件</li>
  * </ol>
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class Encryptor {
 

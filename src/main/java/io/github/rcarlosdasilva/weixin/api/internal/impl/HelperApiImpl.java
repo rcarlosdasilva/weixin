@@ -18,7 +18,7 @@ import io.github.rcarlosdasilva.weixin.model.request.helper.HelperResetQuotaRequ
 /**
  * 相关工具实现
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class HelperApiImpl extends BasicApi implements HelperApi {
 

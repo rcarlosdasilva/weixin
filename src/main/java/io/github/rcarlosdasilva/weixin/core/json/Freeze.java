@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 /**
  * 标记某个字段不被Gson序列化为JSON字符串
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)

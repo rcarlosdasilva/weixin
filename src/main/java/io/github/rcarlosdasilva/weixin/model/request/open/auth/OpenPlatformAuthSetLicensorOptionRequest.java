@@ -8,7 +8,7 @@ import io.github.rcarlosdasilva.weixin.model.request.base.BasicOpenPlatformReque
 /**
  * 设置授权方选项信息请求模型
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class OpenPlatformAuthSetLicensorOptionRequest extends BasicOpenPlatformRequest {
 

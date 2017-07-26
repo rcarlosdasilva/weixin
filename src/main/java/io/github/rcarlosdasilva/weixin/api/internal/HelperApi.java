@@ -3,7 +3,7 @@ package io.github.rcarlosdasilva.weixin.api.internal;
 /**
  * 相关工具
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public interface HelperApi {
 
@@ -29,7 +29,7 @@ public interface HelperApi {
   boolean isLegalRequestIp(String ip);
 
   /**
-   * 判断当前公众号配置是否可用.
+   * 判断当前公众号配置是否可用，主要通过请求一下access_token来验证公众号信息是否正确.
    * 
    * @return 是否可用
    */

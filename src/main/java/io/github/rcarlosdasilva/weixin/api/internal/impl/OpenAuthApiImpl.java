@@ -143,6 +143,11 @@ public class OpenAuthApiImpl extends BasicApi implements OpenAuthApi {
 
   @Override
   public OpenPlatformAuthGetLicenseInformationResponse getLicenseInformation(String license) {
+    return getLicensingInformation(license);
+  }
+
+  @Override
+  public OpenPlatformAuthGetLicenseInformationResponse getLicensingInformation(String license) {
     OpenPlatform openPlatform = getOpenPlatformInfo();
     OpenPlatformAuthGetLicenseInformationRequest requestModel = new OpenPlatformAuthGetLicenseInformationRequest();
     requestModel.setAppId(openPlatform.getAppId());

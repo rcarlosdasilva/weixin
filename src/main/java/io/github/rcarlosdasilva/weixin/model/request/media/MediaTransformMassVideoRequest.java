@@ -6,7 +6,7 @@ import io.github.rcarlosdasilva.weixin.model.request.base.BasicWeixinRequest;
 /**
  * 转换视频media_id请求模型
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 @SuppressWarnings("unused")
 public class MediaTransformMassVideoRequest extends BasicWeixinRequest {

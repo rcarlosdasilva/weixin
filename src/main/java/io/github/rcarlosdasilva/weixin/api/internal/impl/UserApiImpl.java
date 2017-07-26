@@ -23,7 +23,7 @@ import io.github.rcarlosdasilva.weixin.model.response.user.bean.User;
 /**
  * 用户相关API实现
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class UserApiImpl extends BasicApi implements UserApi {
 
@@ -109,11 +109,21 @@ public class UserApiImpl extends BasicApi implements UserApi {
 
   @Override
   public BlackListQueryResponse listUsersInBlackList() {
+    return listUsersInBlack();
+  }
+
+  @Override
+  public BlackListQueryResponse listUsersInBlack() {
     return listUsersInBlackList(null);
   }
 
   @Override
   public BlackListQueryResponse listUsersInBlackList(String beginOpenId) {
+    return listUsersInBlack(beginOpenId);
+  }
+
+  @Override
+  public BlackListQueryResponse listUsersInBlack(String beginOpenId) {
     BlackListOpenIdListRequest requestModel = new BlackListOpenIdListRequest();
     requestModel.setBeginOpenId(beginOpenId);
 
@@ -122,6 +132,11 @@ public class UserApiImpl extends BasicApi implements UserApi {
 
   @Override
   public boolean appendUsersToBlackList(List<String> openIds) {
+    return appendUsersToBlack(openIds);
+  }
+
+  @Override
+  public boolean appendUsersToBlack(List<String> openIds) {
     BlackListAppendRequest requestModel = new BlackListAppendRequest();
     requestModel.setList(openIds);
 
@@ -130,6 +145,11 @@ public class UserApiImpl extends BasicApi implements UserApi {
 
   @Override
   public boolean cancelUsersFromBlackList(List<String> openIds) {
+    return cancelUsersFromBlack(openIds);
+  }
+
+  @Override
+  public boolean cancelUsersFromBlack(List<String> openIds) {
     BlackListCancelRequest requestModel = new BlackListCancelRequest();
     requestModel.setList(openIds);
 

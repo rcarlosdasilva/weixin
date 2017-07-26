@@ -18,7 +18,7 @@ import io.github.rcarlosdasilva.weixin.model.request.message.bean.Voice;
 /**
  * 客服消息推送请求模型
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 @SuppressWarnings("unused")
 public class MessageSendWithCustomRequest extends BasicWeixinRequest implements MessageRequest {

@@ -12,7 +12,7 @@ import io.github.rcarlosdasilva.weixin.model.notification.NotificationResponsePl
 /**
  * 微信推送通知的回复构建器
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class NotificationResponseBuilder {
 

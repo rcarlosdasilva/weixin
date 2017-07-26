@@ -15,7 +15,7 @@ import io.github.rcarlosdasilva.weixin.model.response.open.auth.bean.LicensorInf
 /**
  * 如果大部分的通知都不需要处理，建议继承该类
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class DefaultNotificationHandler implements NotificationHandler {
 

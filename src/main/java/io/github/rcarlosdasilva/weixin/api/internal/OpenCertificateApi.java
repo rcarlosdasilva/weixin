@@ -6,7 +6,7 @@ import io.github.rcarlosdasilva.weixin.model.response.certificate.WaAccessTokenR
 /**
  * 开放平台下，对公众号的认证相关API
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public interface OpenCertificateApi {
 

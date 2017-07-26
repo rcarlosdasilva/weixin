@@ -3,7 +3,7 @@ package io.github.rcarlosdasilva.weixin.model;
 /**
  * JS SDK签名模型
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class JsapiSignature {
 

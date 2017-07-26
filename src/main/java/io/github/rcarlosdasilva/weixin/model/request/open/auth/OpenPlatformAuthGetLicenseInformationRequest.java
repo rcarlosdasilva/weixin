@@ -8,7 +8,7 @@ import io.github.rcarlosdasilva.weixin.model.request.base.BasicOpenPlatformReque
 /**
  * 获取接口调用凭据和授权信息请求模型
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class OpenPlatformAuthGetLicenseInformationRequest extends BasicOpenPlatformRequest {
 

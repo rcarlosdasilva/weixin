@@ -11,7 +11,7 @@ import io.github.rcarlosdasilva.weixin.core.registry.Registration;
 /**
  * 公众号账号模型
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class Account implements Serializable {
 

@@ -67,15 +67,15 @@ public class UserApiTest {
     UserOpenIdListResponse users = Weixin.withUnique().user().listAllUsersOpenId();
 
     boolean success = Weixin.withUnique().user()
-        .appendUsersToBlackList(Lists.newArrayList(users.getLastOpenId()));
+        .appendUsersToBlack(Lists.newArrayList(users.getLastOpenId()));
     Assert.assertTrue(success);
 
-    BlackListQueryResponse blacks = Weixin.withUnique().user().listUsersInBlackList();
+    BlackListQueryResponse blacks = Weixin.withUnique().user().listUsersInBlack();
     Assert.assertNotNull(blacks);
     Assert.assertTrue(blacks.getCount() > 0);
 
     success = Weixin.withUnique().user()
-        .cancelUsersFromBlackList(Lists.newArrayList(users.getLastOpenId()));
+        .cancelUsersFromBlack(Lists.newArrayList(users.getLastOpenId()));
     Assert.assertTrue(success);
   }
 

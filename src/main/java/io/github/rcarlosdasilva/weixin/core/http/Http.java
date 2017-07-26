@@ -23,7 +23,7 @@ import okhttp3.Response;
 /**
  * Http请求工具
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class Http {
 

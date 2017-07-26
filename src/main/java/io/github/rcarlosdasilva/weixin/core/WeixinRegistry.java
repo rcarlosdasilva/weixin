@@ -14,7 +14,7 @@ import io.github.rcarlosdasilva.weixin.model.OpenPlatform;
 /**
  * 微信公众号注册器，支持多公众号
  * 
- * @author Dean Zhao (rcarlosdasilva@qq.com)
+ * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class WeixinRegistry {
 
