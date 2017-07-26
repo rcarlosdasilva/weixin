@@ -102,6 +102,10 @@ public class MessageApiImpl extends BasicApi implements MessageApi {
     requestModel.setType(messageContainer.getType());
     injectMessageContent(messageContainer, requestModel);
     requestModel.forTag();
+    requestModel.setCanReprint(messageContainer.isCanReprint());
+    if (!Strings.isNullOrEmpty(messageContainer.getBusinessMark())) {
+      requestModel.setMark(messageContainer.getBusinessMark());
+    }
 
     return post(MessageSendWithMassResponse.class, requestModel);
   }
@@ -113,6 +117,10 @@ public class MessageApiImpl extends BasicApi implements MessageApi {
     requestModel.setType(messageContainer.getType());
     injectMessageContent(messageContainer, requestModel);
     requestModel.forTag();
+    requestModel.setCanReprint(messageContainer.isCanReprint());
+    if (!Strings.isNullOrEmpty(messageContainer.getBusinessMark())) {
+      requestModel.setMark(messageContainer.getBusinessMark());
+    }
 
     return post(MessageSendWithMassResponse.class, requestModel);
   }
@@ -125,6 +133,10 @@ public class MessageApiImpl extends BasicApi implements MessageApi {
     requestModel.setType(messageContainer.getType());
     injectMessageContent(messageContainer, requestModel);
     requestModel.forUsers();
+    requestModel.setCanReprint(messageContainer.isCanReprint());
+    if (!Strings.isNullOrEmpty(messageContainer.getBusinessMark())) {
+      requestModel.setMark(messageContainer.getBusinessMark());
+    }
 
     return post(MessageSendWithMassResponse.class, requestModel);
   }

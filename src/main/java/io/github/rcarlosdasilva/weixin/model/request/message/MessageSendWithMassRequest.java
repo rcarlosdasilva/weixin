@@ -43,7 +43,7 @@ public class MessageSendWithMassRequest extends BasicWeixinRequest implements Me
   @SerializedName("wxcard")
   private Card card;
   @SerializedName("send_ignore_reprint")
-  private int canReprint = 0;
+  private int canReprint = Convention.GLOBAL_TRUE_NUMBER;
   @SerializedName("clientmsgid")
   private String mark;
 
