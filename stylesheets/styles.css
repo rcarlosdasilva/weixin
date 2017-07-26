@@ -212,6 +212,7 @@ abbr[title] {
 b,
 strong {
   font-weight: bold;
+  color: cadetblue;
 }
 
 blockquote {
@@ -631,7 +632,7 @@ strong {
 }
 
 .wrapper {
-  max-width: 650px;
+  max-width: 768px;
   margin: 0 auto;
   position: relative;
   padding: 0 20px;
@@ -680,13 +681,30 @@ table {
   border-collapse: collapse;
 }
 
+table caption {
+  font-size: 16px;
+}
+
+thead tr {
+  background-color: dimgray;
+}
+
+tbody tr.ord {
+  background-color: brown;
+}
+
+tbody tr.odd {
+  background-color: darkcyan;
+}
+
 th {
   text-align: left;
   padding: 5px 10px;
-  border-bottom: 1px solid #434343;
+  border-bottom: 4px solid #434343;
   color: #b6b6b6;
   font-family: 'OpenSansSemibold', "Helvetica Neue", Helvetica, Arial, sans-serif !important;
-  font-weight: normal;
+  font-weight: bolder;
+  font-size: 15px;
 }
 
 td {
@@ -707,12 +725,6 @@ dt {
   color: #F0E7D5;
   font-family: 'OpenSansSemibold', "Helvetica Neue", Helvetica, Arial, sans-serif !important;
   font-weight: normal;
-}
-
-.wrapper {
-  width: 100%;
-  max-width: 650px;
-  margin: 0 auto;
 }
 
 #header {

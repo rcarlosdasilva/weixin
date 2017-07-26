@@ -1,138 +1,952 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Midnight by mattgraham</title>
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="javascripts/respond.js"></script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <title>Aha-Weixin by Dean</title>
+  <link rel="stylesheet" href="stylesheets/styles.css">
+  <link rel="stylesheet" href="javascripts/google-code-prettify/skins/desert.css">
+  <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+  <script src="javascripts/respond.js"></script>
+  <script src="javascripts/google-code-prettify/run_prettify.js"></script>
+  <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
     <![endif]-->
-    <!--[if lt IE 8]>
+  <!--[if lt IE 8]>
     <link rel="stylesheet" href="stylesheets/ie.css">
     <![endif]-->
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+</head>
 
-  </head>
-  <body>
-    <div id="header">
-      <div class="wrapper">
-        <a href="https://github.com/mattgraham/midnight" class="btn">View On GitHub</a>
-        <ul class="nav">
-          <li class="download-title">Downloads</li>
-          <li class="downloads"><a href="https://github.com/mattgraham/midnight/zipball/master" class="btn">ZIP</a></li>
-          <li class="downloads"><a href="https://github.com/mattgraham/midnight/tarball/master" class="btn">TAR</a></li>
-        </ul>
-      </div>
-    </div><!-- end header -->
-
+<body>
+  <div id="header">
     <div class="wrapper">
-
-      <section>
-        <div id="title">
-          <h1>GitHub Pages Midnight Theme</h1>
-          <h5>Design for the web to succeed and you too will succeed.</h5>
-          <hr>
-          <span class="credits left">Project maintained by <a href="https://github.com/mattgraham">mattgraham</a></span>
-          <span class="credits right">This project is released under the terms of the MIT license.</span>
-        </div>
-
-        <p>The GitHub automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the gh-pages branch for your site files.</p>
-
-        <h3></h3>
-        <p><img src="https://scontent-iad3-1.cdninstagram.com/hphotos-xaf1/t51.2885-15/e35/11261377_516833338492357_1858954166_n.jpg" alt="New Haven South Beach by Matt Graham"></p>
-
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
-
-        <p>As we do, we're open sourcing the front end code for the new GitHub pages themes. This is just one of the many beautiful themes that can used to dynamically turn your static repo into a beautiful marketing site.  </p>
-
-        <h2>Designer Templates</h2>
-        <p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your page content will be preserved if it remained in markdown format.</p>
-
-        <ul>
-          <li>Hack by <a href="https://github.com/bleikamp">Ben Bleikamp</a> </li>
-          <li>Merlot by <a href="https://github.com/cameronmcefee">Cameron McEfee</a></li>
-          <li>Slate by <a href="https://github.com/jsncostello">Jason Costello</a></li>
-          <li>Time Machine by <a href="https://github.com/jonrohan">Jon Rohan</a></li>
-          <li>Leap Day by <a href="https://github.com/mattgraham">Matt Graham</a></li>
-          <li>Midnight by <a href="https://github.com/mattgraham">Matt Graham</a></li>
-          <li>Minimal by <a href="https://github.com/orderedlist">Steve Smith</a></li>
-          <li>Modernist by <a href="https://github.com/orderedlist">Steve Smith</a></li>
-        </ul>
-
-        <p>For more info on GitHub Pages, check out <a href="http://pages.github.com/">pages.github.com</a>. For help, check the <a href="http://help.github.com/pages">GitHub Pages documentation</a>.</p>
-
- <h2>What will code look like?</h2>
-
-<p>Your code should be beautiful, or at least that's what the designers think. </p>
-
-<div class="highlight">
-<pre><span class="nb">require</span> <span class="s1">'adapter/memory'</span>
-<span class="nb">require</span> <span class="s1">'toystore'</span>
-
-<span class="k">class</span> <span class="nc">User</span>
-  <span class="kp">include</span> <span class="no">Toy</span><span class="o">::</span><span class="no">Store</span>
-  <span class="n">adapter</span> <span class="ss">:memory</span><span class="p">,</span> <span class="p">{}</span>
-
-  <span class="n">attribute</span> <span class="ss">:name</span><span class="p">,</span> <span class="nb">String</span>
-<span class="k">end</span>
-</pre>
-</div>
-
-
-<p>So, this is what HTML Code looks like</p>
-
-<div class="highlight">
-<pre><span class="nt">&lt;html&gt;</span>
-   <span class="nt">&lt;body&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"header"</span><span class="nt">&gt;</span>
-          <span class="nt">&lt;nav&gt;</span>
-             <span class="nt">&lt;li&gt;</span>Home<span class="nt">&lt;/li&gt;</span>
-             <span class="nt">&lt;li&gt;</span>About Us<span class="nt">&lt;/li&gt;</span>
-             <span class="nt">&lt;li&gt;</span>Contact<span class="nt">&lt;/li&gt;</span>
-          <span class="nt">&lt;/nav&gt;</span>
-      <span class="nt">&lt;/div&gt;</span>
-   <span class="nt">&lt;/body&gt;</span>
-<span class="nt">&lt;/html&gt;</span>
-</pre>
-</div>
-
-
-<p>And, then maybe some CSS</p>
-
-<div class="highlight">
-<pre><span class="nt">body</span> <span class="p">{</span>
-  <span class="k">font</span><span class="o">:</span><span class="m">14px</span><span class="o">/</span><span class="m">22px</span> <span class="s1">'Quattrocento Sans'</span><span class="o">,</span> <span class="s2">"Helvetica Neue"</span><span class="o">,</span> <span class="n">Helvetica</span><span class="o">,</span> <span class="n">Arial</span><span class="o">,</span> <span class="k">sans-serif</span><span class="p">;</span>
-  <span class="k">color</span><span class="o">:</span><span class="m">#666</span><span class="p">;</span>
-  <span class="k">font-weight</span><span class="o">:</span><span class="m">300</span><span class="p">;</span>
-  <span class="k">margin</span><span class="o">:</span> <span class="m">0px</span><span class="p">;</span>
-  <span class="k">padding</span><span class="o">:</span><span class="m">0px</span> <span class="m">0</span> <span class="m">20px</span> <span class="m">0px</span><span class="p">;</span>
-  <span class="k">background</span><span class="o">:</span> <span class="sx">url(../images/body-background.png)</span> <span class="m">#eae6d1</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="nt">h1</span><span class="o">,</span> <span class="nt">h2</span><span class="o">,</span> <span class="nt">h3</span><span class="o">,</span> <span class="nt">h4</span><span class="o">,</span> <span class="nt">h5</span><span class="o">,</span> <span class="nt">h6</span> <span class="p">{</span>
-  <span class="k">color</span><span class="o">:</span><span class="m">#333</span><span class="p">;</span>
-  <span class="k">margin</span><span class="o">:</span><span class="m">0</span> <span class="m">0</span> <span class="m">10px</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="nt">p</span><span class="o">,</span> <span class="nt">ul</span><span class="o">,</span> <span class="nt">ol</span><span class="o">,</span> <span class="nt">table</span><span class="o">,</span> <span class="nt">pre</span><span class="o">,</span> <span class="nt">dl</span> <span class="p">{</span>
-  <span class="k">margin</span><span class="o">:</span><span class="m">0</span> <span class="m">0</span> <span class="m">20px</span><span class="p">;</span>
-<span class="p">}</span>
-</pre>
-</div>
-
-        <p>Inline code would look a little different. <code>We want you to see</code> where it is, but its going to be a little less noticeable. It might also be as simple as <code>:hover</code> and as unique as <code>:first-child</code>. It is up to you. </p>
-
-        <h2>Who's this Matt Graham?</h2>
-        <p>Product designer and frontend developer at Heroku. Formerly with GitHub, Ordered List etc. Rescue diver. He can be found on <a href="http://twitter.com/#!/michigangraham">Twitter</a>, <a href="http://github.com/mattgraham">GitHub</a> and around the country for numerous events. Feel free to fork and use this team as you wish.</p>
-      </section>
+      <a href="https://github.com/rcarlosdasilva/weixin" class="btn">View On GitHub</a>
+      <ul class="nav">
+        <li class="download-title">Downloads</li>
+        <li class="downloads"><a href="https://github.com/rcarlosdasilva/weixin/archive/master.zip" class="btn">ZIP</a></li>
+      </ul>
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
-  </body>
+  </div>
+  <!-- end header -->
+  <div class="wrapper">
+    <section>
+      <div id="title">
+        <h1>微信API工具包 [ Aha-Weixin ]</h1>
+        <h5>简化微信开发难度，上手简单，支持Spring Boot</h5>
+        <hr>
+        <span class="credits left">Project maintained by <a href="https://github.com/rcarlosdasilva">Dean</a></span>
+        <span class="credits right">This project is released under the terms of the Apache License 2.0.</span>
+      </div>
+      <p>支持两种方式调用微信提供的API功能，自动维护微信的API调用凭证，开发者无需关心这部分的规则，拆包即用，支持两种方式同时使用。</p>
+      <ul>
+        <li>使用<a href="https://mp.weixin.qq.com/wiki">微信公众号平台</a>，比较适合开发者自己持有或所在公司自有的公众号开发。推荐在只需要控制1个或少数几个公众号的时候使用这种方式</li>
+        <li>使用<a href="https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419318292&token=&lang=zh_CN">微信开放平台（第三方平台）</a>，比较适合做为通用的基于微信的功能支撑服务的供应商平台时使用。建议在需要开发一个平台，将功能提供给大量（并非自己持有或公司自有）的公众号时，一定要通过这种方式</li>
+      </ul>
+      <pre class="prettyprint lang-xml">
+  &lt;dependency&gt;
+    &lt;groupId&gt;io.github.rcarlosdasilva&lt;/groupId&gt;
+    &lt;artifactId&gt;weixin&lt;/artifactId&gt;
+    &lt;version&gt;0.5-SNAPSHOT&lt;/version&gt;
+  &lt;/dependency&gt;</pre>
+      <p>支持Spring Boot，并提供了starter：</p>
+      <pre class="prettyprint lang-xml">
+  &lt;dependency&gt;
+    &lt;groupId&gt;io.github.rcarlosdasilva&lt;/groupId&gt;
+    &lt;artifactId&gt;weixin-spring-boot-starter&lt;/artifactId&gt;
+    &lt;version&gt;0.2-SNAPSHOT&lt;/version&gt;
+  &lt;/dependency&gt;</pre>
+      <h2>1 依赖</h2>
+      <p>
+      常用工具类：Guava<br>
+      Json解析：Gson<br>
+      XML解析：XStream<br>
+      Http：okhttp<br>
+      缓存：jredis<br>
+      日志：slf4j
+      <p>
+      <h2>2 配置</h2>
+      <h4>2.1 配置项（具体可查看Setting类中的注释）</h4>
+      <ul>
+        <li><strong>throwException</strong>：boolean（默认true）：当微信API调用失败时，是否作为异常抛出。为false会将调用失败的code与message输出为日志</li>
+        <li><strong>useRedisCache</strong>：boolean（默认false）：是否使用redis作为缓存，存储微信API调用凭据等信息。默认是用普通Map类存储（不推荐）</li>
+        <li><strong>useSpringRedis</strong>：boolean（默认false）：是否使用spring中配置的redis作为缓存（只当useRedisCache为true时生效），需要在Spring Boot环境下，并添加spring-boot-starter-data-redis（暂时只支持这样）。为false并useRedisCache为true时，必须配置redisSetting</li>
+        <li><strong>autoLoadAuthorizedWeixinData</strong>：boolean（默认true）：使用开放平台时，公众号管理员授权成功后，是否自动获取公众号信息，设置为false则需要开发者根据授权码自己获取公众号信息（适用于希望使用微信GET跳转网页地址中的授权码获取公众号信息的场景）</li>
+        <li><strong>redisSetting</strong>：RedisSetting（默认null）：redis的配置信息，具体配置信息解释，参考JRedis的JedisPool类</li>
+        <li><strong>listeners</strong>：List：添加监听器（实例对象），具体解释会在后面说明</li>
+      </ul>
+      <h4>2.2 通用方式</h4>
+      <p>weixin工具包有默认的配置，如需改变，需要实例一个Setting对象，配置内容可参照 2.1</p>
+      <pre class="prettyprint lang-java">
+  Setting setting = new Setting();
+  // setting.setUseRedisCache(true);
+  // setting.setUseSpringRedis(true);
+  WeixinRegistry.withSetting(setting);
+
+  //如果使用第三方平台
+  WeixinRegistry.openPlatform(appId, appSecret, aesToken, aesKey);</pre>
+      <p></p>
+      <h4>2.3 或使用Spring Boot Starter</h4>
+      <p>如果使用Starter，则可借用Spring Boot的自动配置，以YAML做配置为例：</p>
+      <pre class="prettyprint lang-yml">
+weixin:
+  throw-exception: true
+  cache-type: reids
+  use-spring-redis-config: true
+  # 如果使用第三方平台
+  open-platform:
+    app-id: 三方平台appid
+    app-secret: 三方平台secret
+    aes-token: 加密aes token
+    aes-key: 加密aes key</pre>
+      <h2>3 加载公众号信息</h2>
+      <h4>3.1 公众号信息内容</h4>
+      <p>使用weixin工具包之前，需要将公众号的相关信息加载一下，工具包才能自动维护API调用凭证等数据。Account类用来存储这些信息，主要包含：</p>
+      <ul>
+        <li><strong>key</strong>：在weixin工具包中的key，在调用API的时候，需要使用key找到对应的公众号信息。建议使用appid作为key，如果为空，默认使用appid</li>
+        <li><strong>appId</strong>：公众号的appid，必填</li>
+        <li><strong>appSecret</strong>：（只有使用公众号平台管理时）公众号的appsecret，必填</li>
+        <li><strong>refreshToken</strong>：授权给第三方平台的公众号authorizer_refresh_token，使用第三方平台管理公众号时必填，否则不需要设置</li>
+        <li><strong>mpId</strong>：公众号的原始ID，必填（第三方平台授权时，会获取到）</li>
+        <li><strong>nickname</strong>：无所谓</li>
+        <li><strong>accountType</strong>：公众号类型，暂时无所谓</li>
+        <li><strong>certified</strong>：（只有使用公众号平台管理时）是否认证，暂时无所谓</li>
+        <li><strong>aesToken</strong>：（只有使用公众号平台管理时）加密token，加密方式为密文或兼容时，必填</li>
+        <li><strong>aesKey</strong>：（只有使用公众号平台管理时）加密key，加密方式为密文或兼容时，必填</li>
+        <li><strong>encryptionType</strong>：（只有使用公众号平台管理时）加密方式</li>
+        <li><strong>withOpenPlatform</strong>：如果为公众号管理员授权给第三方平台的形式管理公众号，则为true（默认）。如果是使用公众号平台管理，则应该设置为false</li>
+        <li><strong>retryTimes</strong>：假如调用微信API时发生任何错误，自动重试的次数（默认为2）</li>
+        <li><strong>extension</strong>：为开发者预留的扩展信息（Object类型），开发者可根据自己的需要，利用这个字段存放业务相关的信息（例如公众号在数据库中的id之类）</li>
+      </ul>
+      <p>使用<code>Account.create(appId, appSecret)</code>创建一个使用公众号平台管理的公众号信息（withOpenPlatform会自动设置为false）。使用<code>Account.create(appId)</code>创建一个使用第三方平台管理的公众号信息</p>
+      <h4>3.2 通用方式</h4>
+      <pre class="prettyprint lang-java">
+  Account accountWithNormalWeixin = Account.create(appId, appSecret);
+  // 配置其他内容 accountWithNormalWeixin.setMpId(mpid) 等
+  Account accountAuthorizedForOpenPlatform = Account.create(appId);
+
+  // weixin工具包可以自动识别，每个公众号应该通过哪种公众号管理方式来获取API调用凭证等数据
+  WeixinRegistry.register(accountWithNormalWeixin);
+  WeixinRegistry.register(accountAuthorizedForOpenPlatform);
+  // 有几个公众号就调用几遍WeixinRegistry.register方法
+
+  // 假如只需要控制一个公众号，则
+  // Account singleAccount = Account.create(appId, appSecret);
+  // WeixinRegistry.registerUnique(singleAccount);</pre>
+      <h4>3.3 或使用Spring Boot Starter</h4>
+      <p>实现Starter中的AccountLoader接口，并保证在Spring中注册Bean，在load方法中返回公众号信息，而不用关心如何加载，例如：</p>
+      <pre class="prettyprint lang-java">
+@Component
+public class WeixinAccountLoader implements AccountLoader {
+
+  @Override
+  public List<Account> load() {
+    List<Account> accounts = new ArrayList<Account>();
+
+    // 创建公众号信息集合
+
+    return accounts;
+  }
+
+}</pre>
+      <p>weixin starter会尝试注入AccountLoader并自动注册load方法返回的公众号</p>
+      <h2>4 监听器</h2>
+      <p>weixin工具包会自动维护管理所有与微信API调用凭证相关的数据，不需要开发者介入就可以简单实现微信开发。但有时开发者会有储存微信API调用凭据（access_token）等数据的需要，这里提供了几个监听器接口，开发者可自行实现这些接口，每次凭据有更新后，监听器都会获取到最新的数据，进行相应的业务处理。</p>
+      <h4>4.1 提供的接口</h4>
+      <ul>
+        <li><strong>AccessTokenUpdatedListener</strong>：公众号平台下有用，当weixin工具包使用appid和appsecret自动更新公众号的access_token时调用</li>
+        <li><strong>JsTicketUpdatedListener</strong>：公众号平台下有用，当weixin工具包使用access_token自动更新公众号的jsapi_ticket时调用</li>
+        <li><strong>OpenPlatformAccessTokenUpdatedListener</strong>：开放平台下有用，当weixin工具包使用verify_ticket和三方平台的component_appid, coomponent_appsecret自动更新三方平台的component_access_token时调用</li>
+        <li><strong>OpenPlatformLisensorAccessTokenUpdatedListener</strong>：开放平台下有用，当weixin工具包使用authorizer_refresh_token自动更新（刷新）授权方公众号的调用凭据（authorizer_access_token）时调用</li>
+      </ul>
+      <h4>4.2 通用注册监听器</h4>
+      <pre class="prettyprint lang-java">
+  // Setting配置参考2.2
+  Setting setting = new Setting();
+  // 实例化监听器的实现类
+  OpenPlatformAccessTokenUpdatedListener listener = new ListenerImpl();
+  setting.addListener(listener);</pre>
+      <h4>4.3 或使用Spring Boot Starter</h4>
+      <p>只要保证将监听器的实现类在Spring中注册Bean，weixin starter会自动注入监听器</p>
+      <h2>5 API调用</h2>
+      <p>当前weixin工具包实现了自定义菜单、素材管理、消息管理、用户管理、客服消息等功能API</p>
+      <ul>
+        <li><strong>Weixin.with(key).certificate()</strong>：主要提供页面授权连接生成和JS SDK的签名生成</li>
+        <li><strong>Weixin.with(key).common()</strong>：提供短连接生成和二维码功能相关</li>
+        <li><strong>Weixin.with(key).helper()</strong>：提供接口调用次数清零和ip验证等</li>
+        <li><strong>Weixin.with(key).user()</strong>：提供微信粉丝用户相关功能，包括黑名单</li>
+        <li><strong>Weixin.with(key).userTag()</strong>：提供微信粉丝标签的增删改查</li>
+        <li><strong>Weixin.with(key).menu()</strong>：提供自定义菜单全部功能</li>
+        <li><strong>Weixin.with(key).media()</strong>：提供素材管理相关功能</li>
+        <li><strong>Weixin.with(key).message()</strong>：提供消息发送相关功能（图文消息、模板消息、客服消息发送）</li>
+        <li><strong>Weixin.with(key).template()</strong>：提供模板消息相关功能（不包含模板消息发送）</li>
+        <li><strong>Weixin.with(key).custom()</strong>：提供客服消息全部功能（不包含客服消息发送）</li>
+        <li><strong>Weixin.with(key).statistics()</strong>：提供数据分析功能</li>
+        <li><strong>Weixin.withOpenPlatform().openAuth()</strong>：提供开放平台授权流程相关功能</li>
+        <li><strong>Weixin.withOpenPlatform().openCertificate()</strong>：提供开放平台中已授权的公众号认证相关功能</li>
+      </ul>
+      <h4>5.1 典型调用示例</h4>
+      <p>待完善&nbsp;&nbsp;&nbsp;&nbsp;<mark>具体功能与使用可参考io.github.rcarlosdasilva.weixin.api.internal包中API调用接口类中的注释</mark></p>
+      <h4>5.2 已实现API速查</h4>
+      <p>示例： 第一行：Weixin.with(key).certificate().askAccessToken()</p>
+      <table>
+        <caption>公众号平台API</caption>
+        <thead>
+          <tr>
+            <th>微信文档目录</th>
+            <th>调用入口</th>
+            <th>调用方法</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <td colspan="3">注意：使用generateJsapiSignature生成JS-SDK签名时，会自动获取js_ticket，无需开发者手动调用</td>
+          </tr>
+        </tfoot>
+        <tbody>
+          <tr class="odd">
+            <td>开始前必读 > 接口调用频次限制说明 > 公众号的所有api调用次数进行清零</td>
+            <td>helper</td>
+            <td>resetQuota</td>
+          </tr>
+          <tr class="ord">
+            <td>开始开发 > 获取access_token</td>
+            <td>certificate</td>
+            <td>askAccessToken</td>
+          </tr>
+          <tr class="ord">
+            <td>开始开发 > 获取微信服务器IP地址</td>
+            <td>common</td>
+            <td>getWeixinIps</td>
+          </tr>
+          <tr class="odd">
+            <td>自定义菜单 > 自定义菜单创建接口</td>
+            <td>menu</td>
+            <td>create</td>
+          </tr>
+          <tr class="odd">
+            <td>自定义菜单 > 自定义菜单查询接口</td>
+            <td>menu</td>
+            <td>query</td>
+          </tr>
+          <tr class="odd">
+            <td>自定义菜单 > 自定义菜单删除接口</td>
+            <td>menu</td>
+            <td>delete</td>
+          </tr>
+          <tr class="odd">
+            <td>自定义菜单 > 个性化菜单接口 > 创建个性化菜单</td>
+            <td>menu</td>
+            <td>createWithConditional</td>
+          </tr>
+          <tr class="odd">
+            <td>自定义菜单 > 个性化菜单接口 > 删除个性化菜单</td>
+            <td>menu</td>
+            <td>deleteWithConditional</td>
+          </tr>
+          <tr class="odd">
+            <td>自定义菜单 > 个性化菜单接口 > 测试个性化菜单匹配结果</td>
+            <td>menu</td>
+            <td>testWithConditional</td>
+          </tr>
+          <tr class="odd">
+            <td>自定义菜单 > 获取自定义菜单配置接口</td>
+            <td>menu</td>
+            <td>queryComplete</td>
+          </tr>
+          <tr class="ord">
+            <td>消息管理 > 发送消息-客服消息 > ? 请使用新版客服功能</td>
+            <td>-</td>
+            <td>-</td>
+          </tr>
+          <tr class="ord">
+            <td>消息管理 > 发送消息-群发接口和原创校验 > 上传图文消息内的图片获取URL</td>
+            <td>media</td>
+            <td>addMassMediaImage</td>
+          </tr>
+          <tr class="ord">
+            <td>消息管理 > 发送消息-群发接口和原创校验 > 上传图文消息素材</td>
+            <td>media</td>
+            <td>addMassMediaNews</td>
+          </tr>
+          <tr class="ord">
+            <td>消息管理 > 发送消息-群发接口和原创校验 > 视频特殊处理转换media_id</td>
+            <td>media</td>
+            <td>transformMassMediaVideo</td>
+          </tr>
+          <tr class="ord">
+            <td>消息管理 > 发送消息-群发接口和原创校验 > 根据标签进行群发</td>
+            <td>message</td>
+            <td>sendWithMass4Tag</td>
+          </tr>
+          <tr class="ord">
+            <td>消息管理 > 发送消息-群发接口和原创校验 > （发送给所有人）</td>
+            <td>message</td>
+            <td>sendWithMassAll</td>
+          </tr>
+          <tr class="ord">
+            <td>消息管理 > 发送消息-群发接口和原创校验 > 根据OpenID列表群发</td>
+            <td>message</td>
+            <td>sendWithMass4Users</td>
+          </tr>
+          <tr class="ord">
+            <td>消息管理 > 发送消息-群发接口和原创校验 > 删除群发</td>
+            <td>message</td>
+            <td>deleteMass</td>
+          </tr>
+          <tr class="ord">
+            <td>消息管理 > 发送消息-群发接口和原创校验 > 预览接口</td>
+            <td>message</td>
+            <td>sendWithMassPreview</td>
+          </tr>
+          <tr class="ord">
+            <td>消息管理 > 发送消息-群发接口和原创校验 > 查询群发消息发送状态</td>
+            <td>message</td>
+            <td>queryMassStatus</td>
+          </tr>
+          <tr class="ord">
+            <td>消息管理 > 发送消息-模板消息接口 > 设置所属行业</td>
+            <td>template</td>
+            <td>setIndustry</td>
+          </tr>
+          <tr class="ord">
+            <td>消息管理 > 发送消息-模板消息接口 > 获取设置的行业信息</td>
+            <td>template</td>
+            <td>getIndustry</td>
+          </tr>
+          <tr class="ord">
+            <td>消息管理 > 发送消息-模板消息接口 > 获得模板ID</td>
+            <td>template</td>
+            <td>append</td>
+          </tr>
+          <tr class="ord">
+            <td>消息管理 > 发送消息-模板消息接口 > 获取模板列表</td>
+            <td>template</td>
+            <td>query</td>
+          </tr>
+          <tr class="ord">
+            <td>消息管理 > 发送消息-模板消息接口 > 删除模板</td>
+            <td>template</td>
+            <td>delete</td>
+          </tr>
+          <tr class="ord">
+            <td>消息管理 > 发送消息-模板消息接口 > 发送模板消息</td>
+            <td>message</td>
+            <td>sendWithTemplate</td>
+          </tr>
+          <tr class="ord">
+            <td>消息管理 > 发送消息-一次性订阅消息 > ? 待开发</td>
+            <td>-</td>
+            <td>-</td>
+          </tr>
+          <tr class="ord">
+            <td>消息管理 > 获取公众号的自动回复规则</td>
+            <td>message</td>
+            <td>queryAutoReplyStatus</td>
+          </tr>
+          <tr class="odd">
+            <td>微信网页开发 > 微信网页授权 > 第一步</td>
+            <td>certificate</td>
+            <td>webAuthorize</td>
+          </tr>
+          <tr class="odd">
+            <td>微信网页开发 > 微信网页授权 > 第二步：通过code换取网页授权access_token</td>
+            <td>certificate</td>
+            <td>askWebAuthorizeAccessToken</td>
+          </tr>
+          <tr class="odd">
+            <td>微信网页开发 > 微信网页授权 > 第三步：刷新access_token</td>
+            <td>certificate</td>
+            <td>refreshWebAuthorizeAccessToken</td>
+          </tr>
+          <tr class="odd">
+            <td>微信网页开发 > 微信网页授权 > 第四步：拉取用户信息(需scope为 snsapi_userinfo)</td>
+            <td>user</td>
+            <td>getUserInfoByWebAuthorize</td>
+          </tr>
+          <tr class="odd">
+            <td>微信网页开发 > 微信网页授权 > 检验授权凭证（access_token）是否有效</td>
+            <td>certificate</td>
+            <td>verifyWebAuthorizeAccessToken</td>
+          </tr>
+          <tr class="odd">
+            <td>微信网页开发 > 微信JS-SDK > JS-SDK使用权限签名算法 > jsapi_ticket</td>
+            <td>certificate</td>
+            <td>askJsTicket</td>
+          </tr>
+          <tr class="odd">
+            <td>微信网页开发 > 微信JS-SDK > JS-SDK使用权限签名算法 > 签名算法</td>
+            <td>certificate</td>
+            <td>generateJsapiSignature</td>
+          </tr>
+          <tr class="ord">
+            <td>素材管理 > 新增临时素材</td>
+            <td>media</td>
+            <td>addTemporaryMedia</td>
+          </tr>
+          <tr class="ord">
+            <td>素材管理 > 获取临时素材</td>
+            <td>media</td>
+            <td>getTemporaryMedia</td>
+          </tr>
+          <tr class="ord">
+            <td>素材管理 > 获取临时素材 > 高清语音素材获取接口</td>
+            <td>media</td>
+            <td>getTemporaryMediaWithHqAudio</td>
+          </tr>
+          <tr class="ord">
+            <td>素材管理 > 新增永久素材 > 新增永久图文素材</td>
+            <td>media</td>
+            <td>addTimelessMediaNews</td>
+          </tr>
+          <tr class="ord">
+            <td>素材管理 > 新增永久素材 > 上传图文消息内的图片获取URL</td>
+            <td>media</td>
+            <td>addMassMediaImage</td>
+          </tr>
+          <tr class="ord">
+            <td>素材管理 > 新增永久素材 > 新增其他类型永久素材</td>
+            <td>media</td>
+            <td>addTimelessMedia</td>
+          </tr>
+          <tr class="ord">
+            <td>素材管理 > 新增永久素材 > 新增永久视频素材</td>
+            <td>media</td>
+            <td>addTimelessMediaVideo</td>
+          </tr>
+          <tr class="ord">
+            <td>素材管理 > 获取永久素材</td>
+            <td>media</td>
+            <td>getTimelessMedia</td>
+          </tr>
+          <tr class="ord">
+            <td>素材管理 > 删除永久素材</td>
+            <td>media</td>
+            <td>deleteTimelessMedia</td>
+          </tr>
+          <tr class="ord">
+            <td>素材管理 > 修改永久图文素材</td>
+            <td>media</td>
+            <td>updateTimelessMedia</td>
+          </tr>
+          <tr class="ord">
+            <td>素材管理 > 获取素材总数</td>
+            <td>media</td>
+            <td>countTimelessMedia</td>
+          </tr>
+          <tr class="ord">
+            <td>素材管理 > 获取素材列表</td>
+            <td>media</td>
+            <td>listTimelessMedia</td>
+          </tr>
+          <tr class="odd">
+            <td>图文消息留言管理 > ? 待开发</td>
+            <td>-</td>
+            <td>-</td>
+          </tr>
+          <tr class="ord">
+            <td>用户管理 > 用户标签管理 > 创建标签</td>
+            <td>userTag</td>
+            <td>create</td>
+          </tr>
+          <tr class="ord">
+            <td>用户管理 > 用户标签管理 > 获取公众号已创建的标签</td>
+            <td>userTag</td>
+            <td>list</td>
+          </tr>
+          <tr class="ord">
+            <td>用户管理 > 用户标签管理 > 编辑标签</td>
+            <td>userTag</td>
+            <td>update</td>
+          </tr>
+          <tr class="ord">
+            <td>用户管理 > 用户标签管理 > 删除标签</td>
+            <td>userTag</td>
+            <td>delete</td>
+          </tr>
+          <tr class="ord">
+            <td>用户管理 > 用户标签管理 > 获取标签下粉丝列表</td>
+            <td>user</td>
+            <td>listUsersOpenIdWithTag</td>
+          </tr>
+          <tr class="ord">
+            <td>用户管理 > 用户标签管理 > 批量为用户打标签</td>
+            <td>userTag</td>
+            <td>tagging</td>
+          </tr>
+          <tr class="ord">
+            <td>用户管理 > 用户标签管理 > 批量为用户取消标签</td>
+            <td>userTag</td>
+            <td>untagging</td>
+          </tr>
+          <tr class="ord">
+            <td>用户管理 > 用户标签管理 > 获取用户身上的标签列表</td>
+            <td>userTag</td>
+            <td>listBasedUser</td>
+          </tr>
+          <tr class="ord">
+            <td>用户管理 > 设置用户备注名</td>
+            <td>user</td>
+            <td>remarkName</td>
+          </tr>
+          <tr class="ord">
+            <td>用户管理 > 获取用户基本信息(UnionID机制)</td>
+            <td>user</td>
+            <td>getUserInfo</td>
+          </tr>
+          <tr class="ord">
+            <td>用户管理 > 获取用户基本信息(UnionID机制) > 批量获取用户基本信息</td>
+            <td>user</td>
+            <td>getUsersInfo</td>
+          </tr>
+          <tr class="ord">
+            <td>用户管理 > 获取用户列表</td>
+            <td>user</td>
+            <td>listAllUsersOpenId</td>
+          </tr>
+          <tr class="ord">
+            <td>用户管理 > 黑名单管理 > 获取公众号的黑名单列表</td>
+            <td>user</td>
+            <td>listUsersInBlack</td>
+          </tr>
+          <tr class="ord">
+            <td>用户管理 > 黑名单管理 > 拉黑用户</td>
+            <td>user</td>
+            <td>appendUsersToBlack</td>
+          </tr>
+          <tr class="ord">
+            <td>用户管理 > 黑名单管理 > 取消拉黑用户</td>
+            <td>user</td>
+            <td>cancelUsersFromBlack</td>
+          </tr>
+          <tr class="odd">
+            <td>账号管理 > 生成带参数的二维码 > 临时二维码请求</td>
+            <td>common</td>
+            <td>createQrWithTemporary</td>
+          </tr>
+          <tr class="odd">
+            <td>账号管理 > 生成带参数的二维码 > 永久二维码请求</td>
+            <td>common</td>
+            <td>createQrWithUnlimited</td>
+          </tr>
+          <tr class="odd">
+            <td>账号管理 > 生成带参数的二维码 > 通过ticket换取二维码</td>
+            <td>common</td>
+            <td>qrImage</td>
+          </tr>
+          <tr class="odd">
+            <td>账号管理 > 生成带参数的二维码 > ? 直接获取临时二维码</td>
+            <td>common</td>
+            <td>qrImageWithTemporary</td>
+          </tr>
+          <tr class="odd">
+            <td>账号管理 > 生成带参数的二维码 > ? 直接获取永久二维码</td>
+            <td>common</td>
+            <td>qrImageWithUnlimited</td>
+          </tr>
+          <tr class="odd">
+            <td>账号管理 > 长链接转短链接接口</td>
+            <td>common</td>
+            <td>getShortUrl</td>
+          </tr>
+          <tr class="ord">
+            <td>数据统计 > 用户分析数据接口 > 获取用户增减数据</td>
+            <td>statistics</td>
+            <td>getUserSummary</td>
+          </tr>
+          <tr class="ord">
+            <td>数据统计 > 用户分析数据接口 > 获取累计用户数据</td>
+            <td>statistics</td>
+            <td>getUserCumulate</td>
+          </tr>
+          <tr class="ord">
+            <td>数据统计 > 图文分析数据接口 > 获取图文群发每日数据</td>
+            <td>statistics</td>
+            <td>getNewsSummary</td>
+          </tr>
+          <tr class="ord">
+            <td>数据统计 > 图文分析数据接口 > 获取图文群发总数据</td>
+            <td>statistics</td>
+            <td>getNewsTotal</td>
+          </tr>
+          <tr class="ord">
+            <td>数据统计 > 图文分析数据接口 > 获取图文统计数据</td>
+            <td>statistics</td>
+            <td>getNewsRead</td>
+          </tr>
+          <tr class="ord">
+            <td>数据统计 > 图文分析数据接口 > 获取图文统计分时数据</td>
+            <td>statistics</td>
+            <td>getNewsReadHour</td>
+          </tr>
+          <tr class="ord">
+            <td>数据统计 > 图文分析数据接口 > 获取图文分享转发数据</td>
+            <td>statistics</td>
+            <td>getNewsShare</td>
+          </tr>
+          <tr class="ord">
+            <td>数据统计 > 图文分析数据接口 > 获取图文分享转发分时数据</td>
+            <td>statistics</td>
+            <td>getNewsShareHour</td>
+          </tr>
+          <tr class="ord">
+            <td>数据统计 > 消息分析数据接口 > 获取消息发送概况数据</td>
+            <td>statistics</td>
+            <td>getMessageSummary</td>
+          </tr>
+          <tr class="ord">
+            <td>数据统计 > 消息分析数据接口 > 获取消息发送分时数据</td>
+            <td>statistics</td>
+            <td>getMessageSummaryHour</td>
+          </tr>
+          <tr class="ord">
+            <td>数据统计 > 消息分析数据接口 > 获取消息发送周数据</td>
+            <td>statistics</td>
+            <td>getMessageSummaryWeek</td>
+          </tr>
+          <tr class="ord">
+            <td>数据统计 > 消息分析数据接口 > 获取消息发送月数据</td>
+            <td>statistics</td>
+            <td>getMessageSummaryMonth</td>
+          </tr>
+          <tr class="ord">
+            <td>数据统计 > 消息分析数据接口 > 获取消息发送分布数据</td>
+            <td>statistics</td>
+            <td>getMessageDistributed</td>
+          </tr>
+          <tr class="ord">
+            <td>数据统计 > 消息分析数据接口 > 获取消息发送分布周数据</td>
+            <td>statistics</td>
+            <td>getMessageDistributedWeek</td>
+          </tr>
+          <tr class="ord">
+            <td>数据统计 > 消息分析数据接口 > 获取消息发送分布月数据</td>
+            <td>statistics</td>
+            <td>getMessageDistributedMonth</td>
+          </tr>
+          <tr class="ord">
+            <td>数据统计 > 接口分析数据接口 > 获取接口分析数据</td>
+            <td>statistics</td>
+            <td>getInterfaceSummary</td>
+          </tr>
+          <tr class="ord">
+            <td>数据统计 > 接口分析数据接口 > 获取接口分析分时数据</td>
+            <td>statistics</td>
+            <td>getInterfaceSummaryHour</td>
+          </tr>
+          <tr class="odd">
+            <td>微信卡券 > ? 待开发</td>
+            <td>-</td>
+            <td>-</td>
+          </tr>
+          <tr class="ord">
+            <td>微信门店 > ? 待开发</td>
+            <td>-</td>
+            <td>-</td>
+          </tr>
+          <tr class="odd">
+            <td>微信小店 > ? 待开发</td>
+            <td>-</td>
+            <td>-</td>
+          </tr>
+          <tr class="ord">
+            <td>微信设备功能 > ? 待开发</td>
+            <td>-</td>
+            <td>-</td>
+          </tr>
+          <tr class="odd">
+            <td>新版客服功能 > 客服管理 > 获取客服基本信息</td>
+            <td>custom</td>
+            <td>accountList</td>
+          </tr>
+          <tr class="odd">
+            <td>新版客服功能 > 客服管理 > 获取在线客服基本信息</td>
+            <td>custom</td>
+            <td>accountListOnline</td>
+          </tr>
+          <tr class="odd">
+            <td>新版客服功能 > 客服管理 > 添加客服帐号</td>
+            <td>custom</td>
+            <td>accountAppend</td>
+          </tr>
+          <tr class="odd">
+            <td>新版客服功能 > 客服管理 > 邀请绑定客服帐号</td>
+            <td>custom</td>
+            <td>accountBinding</td>
+          </tr>
+          <tr class="odd">
+            <td>新版客服功能 > 客服管理 > 设置客服信息</td>
+            <td>custom</td>
+            <td>accountUpdate</td>
+          </tr>
+          <tr class="odd">
+            <td>新版客服功能 > 客服管理 > 上传客服头像</td>
+            <td>custom</td>
+            <td>accountUploadAvatar</td>
+          </tr>
+          <tr class="odd">
+            <td>新版客服功能 > 客服管理 > 删除客服帐号</td>
+            <td>custom</td>
+            <td>accountDelete</td>
+          </tr>
+          <tr class="odd">
+            <td>新版客服功能 > 会话控制 > 创建会话</td>
+            <td>custom</td>
+            <td>sessionCreate</td>
+          </tr>
+          <tr class="odd">
+            <td>新版客服功能 > 会话控制 > 关闭会话</td>
+            <td>custom</td>
+            <td>sessionClose</td>
+          </tr>
+          <tr class="odd">
+            <td>新版客服功能 > 会话控制 > 获取客户会话状态</td>
+            <td>custom</td>
+            <td>sessionStatus</td>
+          </tr>
+          <tr class="odd">
+            <td>新版客服功能 > 会话控制 > 获取客服会话列表</td>
+            <td>custom</td>
+            <td>sessionList</td>
+          </tr>
+          <tr class="odd">
+            <td>新版客服功能 > 会话控制 > 获取未接入会话列表</td>
+            <td>custom</td>
+            <td>sessionWaitings</td>
+          </tr>
+          <tr class="odd">
+            <td>新版客服功能 > 获取聊天记录</td>
+            <td>custom</td>
+            <td>messageRecords</td>
+          </tr>
+          <tr class="ord">
+            <td>微信摇一摇周边 > ? 待开发</td>
+            <td>-</td>
+            <td>-</td>
+          </tr>
+          <tr class="odd">
+            <td>微信连Wi-Fi > ? 待开发</td>
+            <td>-</td>
+            <td>-</td>
+          </tr>
+          <tr class="ord">
+            <td>微信扫一扫 > ? 待开发</td>
+            <td>-</td>
+            <td>-</td>
+          </tr>
+          <tr class="odd">
+            <td>微信发票 > ? 待开发</td>
+            <td>-</td>
+            <td>-</td>
+          </tr>
+          <tr class="ord">
+            <td>? 其他 > 判断是否合法微信ip</td>
+            <td>helper</td>
+            <td>isLegalRequestIp</td>
+          </tr>
+          <tr class="ord">
+            <td>? 其他 > 验证公众号信息是否正确</td>
+            <td>helper</td>
+            <td>isUsable</td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <caption>开放平台API</caption>
+        <thead>
+          <tr>
+            <th>微信文档目录</th>
+            <th>调用入口</th>
+            <th>调用方法</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <td colspan="3">注意：1. 使用openPlatformAuthorize生成授权地址时，会自动获取预授权码，正常情况下，无需手动调用askPreAuthCode获取。&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. getLicenseInformation与getLicensorInformation方法会根据Setting配置autoLoadAuthorizedWeixinData属性，自动调用（参考2.1）</td>
+          </tr>
+        </tfoot>
+        <tbody>
+          <tr class="odd">
+            <td>授权流程技术 > 获取第三方平台component_access_token</td>
+            <td>openAuth</td>
+            <td>askAccessToken</td>
+          </tr>
+          <tr class="odd">
+            <td>授权流程技术 > 获取预授权码pre_auth_code</td>
+            <td>openAuth</td>
+            <td>askPreAuthCode</td>
+          </tr>
+          <tr class="odd">
+            <td>授权流程技术 > 使用授权码换取公众号或小程序的接口调用凭据和授权信息</td>
+            <td>openAuth</td>
+            <td>getLicenseInformation</td>
+          </tr>
+          <tr class="odd">
+            <td>授权流程技术 > 获取（刷新）授权公众号或小程序的接口调用凭据（令牌）</td>
+            <td>openAuth</td>
+            <td>refreshLicensorAccessToken</td>
+          </tr>
+          <tr class="odd">
+            <td>授权流程技术 > 获取授权方的帐号基本信息</td>
+            <td>openAuth</td>
+            <td>getLicensorInformation</td>
+          </tr>
+          <tr class="odd">
+            <td>授权流程技术 > 获取授权方的选项设置信息</td>
+            <td>openAuth</td>
+            <td>getLicensorOption</td>
+          </tr>
+          <tr class="odd">
+            <td>授权流程技术 > 设置授权方的选项信息</td>
+            <td>openAuth</td>
+            <td>setLicensorOption</td>
+          </tr>
+          <tr class="odd">
+            <td>授权流程技术 > 引入用户进入授权页</td>
+            <td>openAuth</td>
+            <td>openPlatformAuthorize</td>
+          </tr>
+          <tr class="ord">
+            <td>开发前必读 > 权限说明 > 拉取当前所有已授权的帐号基本信息 ? 待开发</td>
+            <td>-</td>
+            <td>-</td>
+          </tr>
+          <tr class="odd">
+            <td>代公众号实现业务 > 调用接口 > 第三方平台对其所有API调用次数清零</td>
+            <td>openAuth</td>
+            <td>resetQuota</td>
+          </tr>
+          <tr class="odd">
+            <td>代公众号实现业务 > 发起网页授权 > 第一步</td>
+            <td>openCertificate</td>
+            <td>webAuthorize</td>
+          </tr>
+          <tr class="odd">
+            <td>代公众号实现业务 > 发起网页授权 > 第二步：通过code换取access_token</td>
+            <td>openCertificate</td>
+            <td>askWebAuthorizeAccessToken</td>
+          </tr>
+          <tr class="odd">
+            <td>代公众号实现业务 > 发起网页授权 > 第三步：刷新access_token（如果需要）</td>
+            <td>openCertificate</td>
+            <td>refreshWebAuthorizeAccessToken</td>
+          </tr>
+          <tr class="odd">
+            <td>代公众号实现业务 > 发起网页授权 > 第四步：通过网页授权access_token获取用户基本信息（需授权作用域为snsapi_userinfo）</td>
+            <td>user</td>
+            <td>getUserInfoByWebAuthorize</td>
+          </tr>
+          <tr class="odd">
+            <td>代公众号实现业务 > 使用JS SDK</td>
+            <td>certificate</td>
+            <td>generateJsapiSignature</td>
+          </tr>
+          <tr class="odd">
+            <td>代公众号实现业务 > 卡券强授权 ? 待开发</td>
+            <td>-</td>
+            <td>-</td>
+          </tr>
+          <tr class="odd">
+            <td>代公众号实现业务 > 微信广告接口 ? 待开发</td>
+            <td>-</td>
+            <td>-</td>
+          </tr>
+          <tr class="odd">
+            <td>代公众号实现业务 > 微信开放平台帐号管理 ? 待开发</td>
+            <td>-</td>
+            <td>-</td>
+          </tr>
+          <tr class="odd">
+            <td>全网发布 ? 待开发</td>
+            <td>-</td>
+            <td>-</td>
+          </tr>
+        </tbody>
+      </table>
+      <h2>6 微信通知回调处理</h2>
+      <p>微信的服务器会在粉丝用户给公众号发送文本、图片、语音等消息，或自定义菜单点击、扫码等事件产生时，对开发者服务器特定接口，发起通知请求，具体通知规则与内容参考微信文档。<br>另外，使用开放平台的第三方平台时，公众号对三方平台进行授权的过程，微信的服务器也会对开发者服务器特定接口进行通知请求。<br>接收并解析微信服务器发来的通知，需要开发实现NotificationHandler接口，或继承DefaultNotificationHandler（建议继承DefaultNotificationHandler）</p>
+      <p>NotificationHandler中定义了不同的方法，来响应微信文档中定义的不同通知内容。例如：</p>
+      <ul>
+        <li>doMessageForText方法中，处理粉丝用户对公众号发送了一条文本消息</li>
+        <li>doMessageForImage方法中，处理粉丝用户对公众号发送了一张图片</li>
+        <li>doEventOfMenuForClick方法中，处理粉丝用户点击了自定义菜单中类型为click的菜单按钮</li>
+      </ul>
+      <h4>6.1 指定通知处理类</h4>
+      <p>实例化NotificationHandler的实现类，在系统启动时（保证在微信服务器发来通知前），执行：</p>
+      <pre class="prettyprint lang-java">
+  NotificationHandlerProxy.proxy(notificationHandler);</pre>
+      <p>如果使用Spring Boot Starter，则只要保证将NotificationHandler的实现类在Spring中注册Bean即可，Starter会自动识别，例如：</p>
+      <pre class="prettyprint lang-java">
+@Component
+public class BusinessNotificationHandler extends DefaultNotificationHandler {
+  ...
+}</pre>
+      <h4>6.2 如何响应</h4>
+      <p>NotificationHandler接口中定义的每个方法中都有一个NotificationResponseBuilder（响应构造器）参数，开发者根据业务需求通过NotificationResponseBuilder构造响应内容。</p>
+      <p>构造器可响应给微信如下几种类型的内容：</p>
+      <ul>
+        <li>不响应：使用responseNothing方法，会返回给微信success</li>
+        <li>文本：使用responseText方法</li>
+        <li>图片：使用responseImage方法，需要指定一个已添加到微信（有media_id）的图片</li>
+        <li>语音：使用responseVoice方法，类似图片</li>
+        <li>视频：使用responseVideo方法，类似图片</li>
+        <li>音乐：使用responseMusic方法</li>
+        <li>图文：使用responseNewsOneOf方法，如果希望响应多图文，就调用多遍该方法</li>
+      </ul>
+      <p>在每个方法中都会有一个Notification类型参数，使用notification.getAccount()方法就可以获取到当前通知消息相关的公众号信息（在开放平台下，进行授权过程的相关方法中除外）。</p>
+      <h4>6.3 接收通知</h4>
+      <p>开发者在获取到微信传来的参数后，使用<code>NotificationHandlerProxy.instance().process()</code>方法获取返回微信的内容。在这个方法中，会自动解密，根据NotificationHandler实现类中对应的方法中构建的响应内容进行加密，生成加密后的XML格式响应结果。</p>
+      <p>使用Spring MVC的例子（开放平台）：</p>
+      <pre class="prettyprint lang-java">
+  @RequestMapping(value = "notification/open/{appId}", method = RequestMethod.POST)
+  @ResponseBody
+  public String notificationCallback(@PathVariable String appId,
+      @RequestParam(value = "msg_signature", required = true) String signature,
+      @RequestParam(value = "timestamp", required = true) long timestamp,
+      @RequestParam(value = "nonce", required = true) String nonce, @RequestBody String content) {
+
+    return NotificationHandlerProxy.instance().process(appId, content, signature, timestamp, nonce);
+  }</pre>
+      <p>使用Spring MVC的例子（公众号平台）：</p>
+      <pre class="prettyprint lang-java">
+  @RequestMapping(value = "notification", method = RequestMethod.POST)
+  @ResponseBody
+  public String notificationCallback(@RequestParam(value = "signature", required = true) String signature,
+      @RequestParam(value = "timestamp", required = true) long timestamp,
+      @RequestParam(value = "nonce", required = true) String nonce, @RequestBody String content) {
+
+    return NotificationHandlerProxy.instance().process(content, signature, timestamp, nonce);
+  }</pre>
+      <p><mark>注意</mark>：开放平台中，签名获取的参数名为msg_signature，公众号平台中是signature</p>
+      <h2>7 （开放平台）第三方平台公众号授权过程</h2>
+      <p>开发者需要暴露两个接口，授权事件接收URL和公众号消息与事件接收URL。这里解释授权事件接收URL中的代码。</p>
+      <p>使用Spring MVC的例子（与普通消息和事件消息类似）：</p>
+      <pre class="prettyprint lang-java">
+  @RequestMapping(value = "authorization", method = RequestMethod.POST)
+  @ResponseBody
+  public String authorizationCallback(@RequestParam(value = "msg_signature", required = true) String signature,
+      @RequestParam(value = "timestamp", required = true) long timestamp,
+      @RequestParam(value = "nonce", required = true) String nonce, @RequestBody String content) {
+
+    return NotificationHandlerProxy.instance().process(content, signature, timestamp, nonce);
+  }</pre>
+      <p>授权过程中会调用NotificationHandler的doInfoOfComponentVerifyTicket、doInfoOfAuthorizeSucceeded、doInfoOfAuthorizeCanceled、doInfoOfAuthorizeUpdated四个方法</p>
+      <ul>
+        <li><strong>doInfoOfComponentVerifyTicket</strong>：微信服务器每十分钟会通知一次开发者服务器，weixin工具包会自动缓存传过来的verify_ticket，开发者如无特别的需要，可不重写该方法</li>
+        <li><strong>doInfoOfAuthorizeSucceeded</strong>：公众号管理员授权成功后，微信服务器会通知开发者服务器，weixin工具包在这个时候，会自动使用授权码，将接口调用凭据（authorizer_access_token, authorizer_refresh_token）、授权信息以及授权方的帐号基本信息获取回来。在该方法中，开发者可直接将这部分信息进行相应的存储（authorizer_refresh_token必须要保存）。开发者在处理完必要的业务之后，需要参考3.1，返回公众号信息Bean（Account），weixin工具包会自动对该公众号进行加载</li>
+        <li><strong>doInfoOfAuthorizeCanceled</strong>：公众号管理员取消授权时，微信服务器会通知开发者服务器，开发者可在该方法中修改对应的业务信息</li>
+        <li><strong>doInfoOfAuthorizeUpdated</strong>：公众号管理员更新授权内容时，微信服务器会通知开发者服务器，传递的信息等与授权成功相同</li>
+      </ul>
+      <h4>7.1 授权地址</h4>
+      <p>开发者不用关心三方平台的component_access_token，也无须关心预授权码如何获取，在引导公众号管理员授权时，使用<code>Weixin.withOpenPlatform().openAuth()
+          .openPlatformAuthorize("成功后跳转地址")</code>方法获取授权地址。</p>
+      <h4>7.2 授权成功（更新）后的处理</h4>
+      <p>管理员授权成功后，微信会做两次请求：1. 页面的跳转（GET），并在页面地址后加上授权码。 2. 微信服务器会发起对开发者服务器的授权事件接收URL请求（POST），请求内容中会传递授权码过来</p>
+      <p>两次请求都有授权码，这里建议，在页面的跳转请求中，获取到授权码后不进行任何授权相关的操作，这部分工作应放在服务器端完成。如开发者需要在跳转页面中，显示本次授权的公众号相关信息，可利用授权码对开发者服务器做轮询调取</p>
+    </section>
+  </div>
+  <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+</body>
+
 </html>
