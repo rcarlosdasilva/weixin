@@ -5,6 +5,7 @@ import java.util.Map;
 import com.google.common.collect.Maps;
 
 import io.github.rcarlosdasilva.weixin.api.internal.CertificateApi;
+import io.github.rcarlosdasilva.weixin.api.internal.CommentApi;
 import io.github.rcarlosdasilva.weixin.api.internal.CommonApi;
 import io.github.rcarlosdasilva.weixin.api.internal.CustomApi;
 import io.github.rcarlosdasilva.weixin.api.internal.HelperApi;
@@ -19,6 +20,7 @@ import io.github.rcarlosdasilva.weixin.api.internal.UserApi;
 import io.github.rcarlosdasilva.weixin.api.internal.UserGroupApi;
 import io.github.rcarlosdasilva.weixin.api.internal.UserTagApi;
 import io.github.rcarlosdasilva.weixin.api.internal.impl.CertificateApiImpl;
+import io.github.rcarlosdasilva.weixin.api.internal.impl.CommentApiImpl;
 import io.github.rcarlosdasilva.weixin.api.internal.impl.CommonApiImpl;
 import io.github.rcarlosdasilva.weixin.api.internal.impl.CustomApiImpl;
 import io.github.rcarlosdasilva.weixin.api.internal.impl.HelperApiImpl;
@@ -63,6 +65,7 @@ public class Weixin {
   private final UserGroupApi userGroup;
   private final UserTagApi userTag;
   private final MediaApi media;
+  private final CommentApi comment;
   private final MenuApi menu;
   private final MessageApi message;
   private final StatisticsApi statistics;
@@ -79,6 +82,7 @@ public class Weixin {
     this.userGroup = new UserGroupApiImpl(accountKey);
     this.userTag = new UserTagApiImpl(accountKey);
     this.media = new MediaApiImpl(accountKey);
+    this.comment = new CommentApiImpl(accountKey);
     this.menu = new MenuApiImpl(accountKey);
     this.message = new MessageApiImpl(accountKey);
     this.statistics = new StatisticsApiImpl(accountKey);
@@ -96,6 +100,7 @@ public class Weixin {
     this.userGroup = null;
     this.userTag = null;
     this.media = null;
+    this.comment = null;
     this.menu = null;
     this.message = null;
     this.statistics = null;
@@ -216,6 +221,15 @@ public class Weixin {
    */
   public MediaApi media() {
     return media;
+  }
+
+  /**
+   * 图文消息留言管理相关API功能
+   * 
+   * @return 图文消息留言管理入口
+   */
+  public CommentApi comment() {
+    return comment;
   }
 
   /**

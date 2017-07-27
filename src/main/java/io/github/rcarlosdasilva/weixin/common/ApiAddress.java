@@ -178,6 +178,18 @@ public class ApiAddress {
       + "cgi-bin/media/uploadvideo";
   // ======================== Media ======================
 
+  // ------------------------ Comment ----------------------
+  public static final String URL_COMMENT_ABILITY_OPEN = URL_API_DOMAIN + "cgi-bin/comment/open";
+  public static final String URL_COMMENT_ABILITY_CLOSE = URL_API_DOMAIN + "cgi-bin/comment/close";
+  public static final String URL_COMMENT_LIST = URL_API_DOMAIN + "cgi-bin/comment/list";
+  public static final String URL_COMMENT_STAR = URL_API_DOMAIN + "cgi-bin/comment/markelect";
+  public static final String URL_COMMENT_UNSTAR = URL_API_DOMAIN + "cgi-bin/comment/unmarkelect";
+  public static final String URL_COMMENT_DELETE = URL_API_DOMAIN + "cgi-bin/comment/delete";
+  public static final String URL_COMMENT_REPLY = URL_API_DOMAIN + "cgi-bin/comment/reply/add";
+  public static final String URL_COMMENT_REPLY_DELETE = URL_API_DOMAIN
+      + "cgi-bin/comment/reply/delete";
+  // ======================== Comment ======================
+
   // ------------------------ Statistics ----------------------
   public static final String URL_STATISTICS_USER_SUMMARY = URL_API_DOMAIN
       + "datacube/getusersummary";

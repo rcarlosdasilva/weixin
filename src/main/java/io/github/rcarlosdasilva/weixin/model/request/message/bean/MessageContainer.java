@@ -43,7 +43,7 @@ public class MessageContainer {
    * <p>
    * 继续群发（转载）为true，否则停止群发。 默认为true
    * 
-   * @param breakForReprint
+   * @param canReprint
    *          boolean
    */
   public void setCanReprint(boolean canReprint) {
