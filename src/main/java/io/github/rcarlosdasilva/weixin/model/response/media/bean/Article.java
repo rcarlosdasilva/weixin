@@ -17,6 +17,10 @@ public class Article {
   private String url;
   @SerializedName("content_source_url")
   private String sourceUrl;
+  @SerializedName("need_open_comment")
+  private int openComment;
+  @SerializedName("only_fans_can_comment")
+  private int onlyFansComment;
 
   /**
    * 图文消息的标题.
@@ -88,6 +92,24 @@ public class Article {
    */
   public String getSourceUrl() {
     return sourceUrl;
+  }
+
+  /**
+   * 是否打开评论，0不打开，1打开.
+   * 
+   * @return open comment
+   */
+  public boolean isOpenComment() {
+    return openComment == Convention.GLOBAL_TRUE_NUMBER;
+  }
+
+  /**
+   * 是否粉丝才可评论，0所有人可评论，1粉丝才可评论.
+   * 
+   * @return only fans comment
+   */
+  public boolean isOnlyFansComment() {
+    return onlyFansComment == Convention.GLOBAL_TRUE_NUMBER;
   }
 
 }
