@@ -179,6 +179,7 @@ public class WeixinAccountLoader implements AccountLoader {
         <li><strong>Weixin.with(key).userTag()</strong>：提供微信粉丝标签的增删改查</li>
         <li><strong>Weixin.with(key).menu()</strong>：提供自定义菜单全部功能</li>
         <li><strong>Weixin.with(key).media()</strong>：提供素材管理相关功能</li>
+        <li><strong>Weixin.with(key).comment()</strong>：提供图文消息留言管理功能</li>
         <li><strong>Weixin.with(key).message()</strong>：提供消息发送相关功能（图文消息、模板消息、客服消息发送）</li>
         <li><strong>Weixin.with(key).template()</strong>：提供模板消息相关功能（不包含模板消息发送）</li>
         <li><strong>Weixin.with(key).custom()</strong>：提供客服消息全部功能（不包含客服消息发送）</li>
@@ -441,9 +442,44 @@ public class WeixinAccountLoader implements AccountLoader {
             <td>listTimelessMedia</td>
           </tr>
           <tr class="odd">
-            <td>图文消息留言管理 > ? 待开发</td>
-            <td>-</td>
-            <td>-</td>
+            <td>图文消息留言管理 > 打开已群发文章评论</td>
+            <td>comment</td>
+            <td>open</td>
+          </tr>
+          <tr class="odd">
+            <td>图文消息留言管理 > 关闭已群发文章评论</td>
+            <td>comment</td>
+            <td>close</td>
+          </tr>
+          <tr class="odd">
+            <td>图文消息留言管理 > 查看指定文章的评论数据</td>
+            <td>comment</td>
+            <td>list</td>
+          </tr>
+          <tr class="odd">
+            <td>图文消息留言管理 > 将评论标记精选</td>
+            <td>comment</td>
+            <td>star</td>
+          </tr>
+          <tr class="odd">
+            <td>图文消息留言管理 > 将评论取消精选</td>
+            <td>comment</td>
+            <td>unstar</td>
+          </tr>
+          <tr class="odd">
+            <td>图文消息留言管理 > 删除评论</td>
+            <td>comment</td>
+            <td>delete</td>
+          </tr>
+          <tr class="odd">
+            <td>图文消息留言管理 > 回复评论</td>
+            <td>comment</td>
+            <td>reply</td>
+          </tr>
+          <tr class="odd">
+            <td>图文消息留言管理 > 删除回复</td>
+            <td>comment</td>
+            <td>deleteReply</td>
           </tr>
           <tr class="ord">
             <td>用户管理 > 用户标签管理 > 创建标签</td>
