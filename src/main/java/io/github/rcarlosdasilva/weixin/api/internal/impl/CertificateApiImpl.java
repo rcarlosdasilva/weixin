@@ -19,6 +19,7 @@ import io.github.rcarlosdasilva.weixin.core.cache.impl.AccessTokenCacheHandler;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.JsTicketCacheHandler;
 import io.github.rcarlosdasilva.weixin.core.exception.CanNotFetchAccessTokenException;
 import io.github.rcarlosdasilva.weixin.core.exception.CanNotFetchOpenPlatformLicensorAccessTokenException;
+import io.github.rcarlosdasilva.weixin.core.exception.InvalidAccountException;
 import io.github.rcarlosdasilva.weixin.core.exception.LostWeixinLicensedRefreshTokenException;
 import io.github.rcarlosdasilva.weixin.core.json.Json;
 import io.github.rcarlosdasilva.weixin.core.listener.AccessTokenUpdatedListener;
@@ -65,6 +66,9 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
         }
 
         final Account account = Registration.lookup(this.accountKey);
+        if (account == null) { // 不应该为空
+          throw new InvalidAccountException();
+        }
         if (account.isWithOpenPlatform()) {
           // 使用微信开放平台获取access_token。在公众号授权后，会自动获取第一次授权方的access_token
           final String refreshToken = null == token ? account.getRefreshToken()
