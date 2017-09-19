@@ -9,6 +9,8 @@ public class MediaAddTemporaryResponse {
   private String mediaId;
   @SerializedName("created_at")
   private long createdAt;
+  @SerializedName("thumb_media_id")
+  private String thumbMediaId;
 
   /**
    * 媒体文件类型，分别有图片（image）、语音（voice）、视频（video）和缩略图（thumb，主要用于视频与音乐格式的缩略图）.
@@ -35,6 +37,15 @@ public class MediaAddTemporaryResponse {
    */
   public long getCreatedAt() {
     return createdAt;
+  }
+
+  /**
+   * 媒体文件上传后，获取时的唯一标识(用于缩略图文件).
+   * 
+   * @return
+   */
+  public String getThumbMediaId() {
+    return thumbMediaId;
   }
 
 }
