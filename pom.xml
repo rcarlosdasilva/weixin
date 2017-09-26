@@ -3,7 +3,7 @@
 
   <groupId>io.github.rcarlosdasilva</groupId>
   <artifactId>weixin</artifactId>
-  <version>0.5-SNAPSHOT</version>
+  <version>0.5</version>
   <packaging>jar</packaging>
 
   <name>Aha-Weixin</name>
@@ -32,7 +32,7 @@
     <connection>scm:git:https://github.com/rcarlosdasilva/weixin.git</connection>
     <developerConnection>scm:git:https://github.com/rcarlosdasilva/weixin.git</developerConnection>
     <url>https://github.com/rcarlosdasilva/weixin</url>
-    <tag>v${project.version}</tag>
+    <tag>v0.5</tag>
   </scm>
 
   <distributionManagement>
