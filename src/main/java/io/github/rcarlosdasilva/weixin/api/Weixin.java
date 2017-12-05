@@ -17,7 +17,6 @@ import io.github.rcarlosdasilva.weixin.api.internal.OpenCertificateApi;
 import io.github.rcarlosdasilva.weixin.api.internal.StatisticsApi;
 import io.github.rcarlosdasilva.weixin.api.internal.TemplateApi;
 import io.github.rcarlosdasilva.weixin.api.internal.UserApi;
-import io.github.rcarlosdasilva.weixin.api.internal.UserGroupApi;
 import io.github.rcarlosdasilva.weixin.api.internal.UserTagApi;
 import io.github.rcarlosdasilva.weixin.api.internal.impl.CertificateApiImpl;
 import io.github.rcarlosdasilva.weixin.api.internal.impl.CommentApiImpl;
@@ -32,7 +31,6 @@ import io.github.rcarlosdasilva.weixin.api.internal.impl.OpenCertificateApiImpl;
 import io.github.rcarlosdasilva.weixin.api.internal.impl.StatisticsApiImpl;
 import io.github.rcarlosdasilva.weixin.api.internal.impl.TemplateApiImpl;
 import io.github.rcarlosdasilva.weixin.api.internal.impl.UserApiImpl;
-import io.github.rcarlosdasilva.weixin.api.internal.impl.UserGroupApiImpl;
 import io.github.rcarlosdasilva.weixin.api.internal.impl.UserTagApiImpl;
 import io.github.rcarlosdasilva.weixin.common.Convention;
 
@@ -62,7 +60,6 @@ public class Weixin {
   private final CustomApi custom;
   private final HelperApi helper;
   private final UserApi user;
-  private final UserGroupApi userGroup;
   private final UserTagApi userTag;
   private final MediaApi media;
   private final CommentApi comment;
@@ -79,7 +76,6 @@ public class Weixin {
     this.custom = new CustomApiImpl(accountKey);
     this.helper = new HelperApiImpl(accountKey);
     this.user = new UserApiImpl(accountKey);
-    this.userGroup = new UserGroupApiImpl(accountKey);
     this.userTag = new UserTagApiImpl(accountKey);
     this.media = new MediaApiImpl(accountKey);
     this.comment = new CommentApiImpl(accountKey);
@@ -97,7 +93,6 @@ public class Weixin {
     this.custom = null;
     this.helper = null;
     this.user = null;
-    this.userGroup = null;
     this.userTag = null;
     this.media = null;
     this.comment = null;
@@ -193,16 +188,6 @@ public class Weixin {
    */
   public UserApi user() {
     return user;
-  }
-
-  /**
-   * 用户组相关API功能，微信文档中已无该功能.
-   * 
-   * @return 用户组入口
-   */
-  @Deprecated
-  public UserGroupApi userGroup() {
-    return userGroup;
   }
 
   /**
