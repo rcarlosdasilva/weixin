@@ -12,8 +12,8 @@ import io.github.rcarlosdasilva.weixin.core.cache.impl.AccessTokenCacheHandler;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.AccountCacheHandler;
 import io.github.rcarlosdasilva.weixin.core.exception.InvalidAccountException;
 import io.github.rcarlosdasilva.weixin.core.setting.Setting;
-import io.github.rcarlosdasilva.weixin.model.WeixinAccount;
 import io.github.rcarlosdasilva.weixin.model.OpAccount;
+import io.github.rcarlosdasilva.weixin.model.WeixinAccount;
 
 /**
  * 微信公众号（开放平台三方平台）注册器，支持多公众号
@@ -42,14 +42,10 @@ public class Registry {
     Preconditions.checkNotNull(setting);
 
     registryHandler.setSetting(setting);
-    if (setting.isUseRedisCache() && !setting.isUseSpringRedis()) {
-      SimpleRedisHandler.init(setting.getRedisSetting());
-    }
+  }
 
-    // 如果使用Redis缓存（普通Redis配置或Spring的Redis配置），则将之前注册到Map中（默认使用Map）的公众号信息迁移到Redis中
-    if (setting.isUseRedisCache()) {
-      AccountCacheHandler.getInstance().migrateAccount();
-    }
+  public static Setting setting() {
+    return registryHandler.getSetting();
   }
 
   /**
@@ -73,8 +69,11 @@ public class Registry {
    */
   public static void openPlatform(String componentAppId, String componentAppSecret, String token,
       String aesKey) {
-    registryHandler
-        .setOpenPlatform(new OpAccount(componentAppId, componentAppSecret, token, aesKey));
+    registryHandler.setOpAccount(new OpAccount(componentAppId, componentAppSecret, token, aesKey));
+  }
+
+  public static OpAccount openPlatform() {
+    return registryHandler.getOpAccount();
   }
 
   /**
@@ -93,8 +92,44 @@ public class Registry {
    * @param account
    *          公众号信息
    */
-  public static void weixin(WeixinAccount account) {
-    registryHandler.addAccount(account);
+  public static void checkin(WeixinAccount account) {
+    registryHandler.add(account);
+  }
+
+  public static void update(WeixinAccount account) {
+    registryHandler.set(account);
+  }
+
+  /**
+   * 注销公众号信息.
+   * 
+   * @param key
+   *          注册时的key，或是公众号appid
+   */
+  public static void remove(String key) {
+    registryHandler.del(key);
+  }
+
+  /**
+   * 通过appId或原始ID获取账号配置信息.
+   * 
+   * @param key
+   *          可以为公众号appId或者公众号原始ID，也可以是注册时的key
+   * @return {@link WeixinAccount}
+   */
+  public static WeixinAccount lookup(String key) {
+    return registryHandler.get(key);
+  }
+
+  /**
+   * 通过appId或原始ID查看公众号信息是否存在.
+   * 
+   * @param key
+   *          可以为公众号appId或者公众号原始ID，也可以是注册时的key
+   * @return boolean
+   */
+  public static boolean exists(String key) {
+    return registryHandler.get(key) != null;
   }
 
   /**
@@ -107,34 +142,43 @@ public class Registry {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private Setting setting = new Setting();
-    private OpAccount openPlatform;
+    private OpAccount opAccount;
 
     RegistryHandler() {
     }
 
-    public Setting getSetting() {
+    Setting getSetting() {
       return setting;
     }
 
     void setSetting(Setting setting) {
+      if (setting.isUseRedisCache() && !setting.isUseSpringRedis()) {
+        SimpleRedisHandler.init(setting.getRedisSetting());
+      }
+
+      // 如果使用Redis缓存（普通Redis配置或Spring的Redis配置），则将之前注册到Map中（默认使用Map）的公众号信息迁移到Redis中
+      if (setting.isUseRedisCache()) {
+        AccountCacheHandler.getInstance().migrateAccount();
+      }
+
       this.setting = setting;
     }
 
-    public OpAccount getOpenPlatform() {
-      return openPlatform;
+    OpAccount getOpAccount() {
+      return opAccount;
     }
 
-    void setOpenPlatform(OpAccount openPlatform) {
-      this.openPlatform = openPlatform;
+    void setOpAccount(OpAccount opAccount) {
+      this.opAccount = opAccount;
     }
 
-    public void addAccount(WeixinAccount account) {
-      if (RegistryHandler.accountExists(account.getKey())) {
+    void add(WeixinAccount account) {
+      if (get(account.getKey()) != null) {
         logger.warn("尝试添加一个已经存在的公众号信息：[{}]，本方法无法覆盖已有公众号信息，请使用updateAccount", account.getKey());
         return;
       }
 
-      if (verifyAccount(account)) {
+      if (verify(account)) {
         if (Strings.isNullOrEmpty(account.getKey())) {
           account.setKey(Convention.DEFAULT_UNIQUE_WEIXIN_KEY);
         }
@@ -142,14 +186,30 @@ public class Registry {
       }
     }
 
-    public void updateAccount(WeixinAccount account) {
-      if (verifyAccount(account)) {
-        unregister(account.getKey());
+    void set(WeixinAccount account) {
+      if (verify(account)) {
+        del(account.getKey());
         AccountCacheHandler.getInstance().put(account.getKey(), account);
       }
     }
 
-    private boolean verifyAccount(WeixinAccount account) {
+    void del(String key) {
+      if (Strings.isNullOrEmpty(key)) {
+        key = Convention.DEFAULT_UNIQUE_WEIXIN_KEY;
+      }
+      final WeixinAccount account = get(key);
+
+      if (account != null) {
+        final String realKey = account.getKey();
+        AccountCacheHandler.getInstance().remove(realKey);
+        AccessTokenCacheHandler.getInstance().remove(realKey);
+        logger.info("已取消注册公众号信息：[{}]", key);
+      } else {
+        logger.warn("未找到可取消注册的公众号信息：[{}]", key);
+      }
+    }
+
+    private boolean verify(WeixinAccount account) {
       if (account == null || Strings.isNullOrEmpty(account.getAppId())) {
         throw new InvalidAccountException();
       }
@@ -175,45 +235,7 @@ public class Registry {
       return true;
     }
 
-    /**
-     * 取消注册的公众号信息.
-     * 
-     * @param key
-     *          注册时的key，或是公众号appid
-     */
-    public void unregister(final String key) {
-      if (Strings.isNullOrEmpty(key)) {
-        return;
-      }
-
-      final WeixinAccount account = lookup(key);
-
-      if (account != null) {
-        final String realKey = account.getKey();
-        AccountCacheHandler.getInstance().remove(realKey);
-        AccessTokenCacheHandler.getInstance().remove(realKey);
-        logger.info("已取消注册公众号信息：[{}]", key);
-      } else {
-        logger.warn("未找到可取消注册的公众号信息：[{}]", key);
-      }
-    }
-
-    public void unregisterUnique() {
-      unregister(Convention.DEFAULT_UNIQUE_WEIXIN_KEY);
-    }
-
-    private static boolean accountExists(String key) {
-      return lookup(key) != null;
-    }
-
-    /**
-     * 通过appId或原始ID获取账号配置信息.
-     * 
-     * @param key
-     *          可以为公众号appId或者公众号原始ID，也可以是注册时的key
-     * @return {@link WeixinAccount}
-     */
-    public static WeixinAccount lookup(String key) {
+    WeixinAccount get(String key) {
       WeixinAccount account = AccountCacheHandler.getInstance().get(key);
       if (account != null) {
         return account;

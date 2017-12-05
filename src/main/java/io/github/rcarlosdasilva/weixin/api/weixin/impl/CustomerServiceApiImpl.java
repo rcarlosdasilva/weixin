@@ -7,7 +7,7 @@ import java.util.List;
 import io.github.rcarlosdasilva.weixin.api.BasicApi;
 import io.github.rcarlosdasilva.weixin.api.weixin.CustomerServiceApi;
 import io.github.rcarlosdasilva.weixin.common.Convention;
-import io.github.rcarlosdasilva.weixin.core.Registry.RegistryHandler;
+import io.github.rcarlosdasilva.weixin.core.Registry;
 import io.github.rcarlosdasilva.weixin.model.WeixinAccount;
 import io.github.rcarlosdasilva.weixin.model.request.custom.CustomAccountAppendRequest;
 import io.github.rcarlosdasilva.weixin.model.request.custom.CustomAccountBindingRequest;
@@ -61,7 +61,7 @@ public class CustomerServiceApiImpl extends BasicApi implements CustomerServiceA
 
   @Override
   public boolean accountAppend(String accountPrefix, String nickname) {
-    WeixinAccount account = RegistryHandler.lookup(this.accountKey);
+    WeixinAccount account = Registry.lookup(this.accountKey);
     CustomAccountAppendRequest requestModel = new CustomAccountAppendRequest();
     requestModel.setAccount(accountPrefix + "@" + account.getMpId());
     requestModel.setNickname(nickname);
@@ -71,7 +71,7 @@ public class CustomerServiceApiImpl extends BasicApi implements CustomerServiceA
 
   @Override
   public boolean accountBinding(String accountPrefix, String wxId) {
-    WeixinAccount account = RegistryHandler.lookup(this.accountKey);
+    WeixinAccount account = Registry.lookup(this.accountKey);
     CustomAccountBindingRequest requestModel = new CustomAccountBindingRequest();
     requestModel.setAccount(accountPrefix + "@" + account.getMpId());
     requestModel.setWxId(wxId);
@@ -81,7 +81,7 @@ public class CustomerServiceApiImpl extends BasicApi implements CustomerServiceA
 
   @Override
   public boolean accountDelete(String accountPrefix) {
-    WeixinAccount account = RegistryHandler.lookup(this.accountKey);
+    WeixinAccount account = Registry.lookup(this.accountKey);
     CustomAccountDeleteRequest requestModel = new CustomAccountDeleteRequest();
     requestModel.setAccount(accountPrefix + "@" + account.getMpId());
 
@@ -90,7 +90,7 @@ public class CustomerServiceApiImpl extends BasicApi implements CustomerServiceA
 
   @Override
   public boolean accountUpdate(String accountPrefix, String nickname) {
-    WeixinAccount account = RegistryHandler.lookup(this.accountKey);
+    WeixinAccount account = Registry.lookup(this.accountKey);
     CustomAccountUpdateRequest requestModel = new CustomAccountUpdateRequest();
     requestModel.setAccount(accountPrefix + "@" + account.getMpId());
     requestModel.setNickname(nickname);
@@ -100,7 +100,7 @@ public class CustomerServiceApiImpl extends BasicApi implements CustomerServiceA
 
   @Override
   public boolean accountUploadAvatar(String accountPrefix, String fileName, File file) {
-    WeixinAccount account = RegistryHandler.lookup(this.accountKey);
+    WeixinAccount account = Registry.lookup(this.accountKey);
     CustomAccountUploadAvatarRequest requestModel = new CustomAccountUploadAvatarRequest();
     requestModel.setAccount(accountPrefix + "@" + account.getMpId());
 
@@ -110,7 +110,7 @@ public class CustomerServiceApiImpl extends BasicApi implements CustomerServiceA
 
   @Override
   public boolean sessionCreate(String accountPrefix, String openId) {
-    WeixinAccount account = RegistryHandler.lookup(this.accountKey);
+    WeixinAccount account = Registry.lookup(this.accountKey);
     CustomSessionCreateRequest requestModel = new CustomSessionCreateRequest();
     requestModel.setAccount(accountPrefix + "@" + account.getMpId());
     requestModel.setOpenId(openId);
@@ -120,7 +120,7 @@ public class CustomerServiceApiImpl extends BasicApi implements CustomerServiceA
 
   @Override
   public boolean sessionClose(String accountPrefix, String openId) {
-    WeixinAccount account = RegistryHandler.lookup(this.accountKey);
+    WeixinAccount account = Registry.lookup(this.accountKey);
     CustomSessionCloseRequest requestModel = new CustomSessionCloseRequest();
     requestModel.setAccount(accountPrefix + "@" + account.getMpId());
     requestModel.setOpenId(openId);
@@ -138,7 +138,7 @@ public class CustomerServiceApiImpl extends BasicApi implements CustomerServiceA
 
   @Override
   public List<CustomSession> sessionList(String accountPrefix) {
-    WeixinAccount account = RegistryHandler.lookup(this.accountKey);
+    WeixinAccount account = Registry.lookup(this.accountKey);
     CustomSessionListRequest requestModel = new CustomSessionListRequest();
     requestModel.setAccount(accountPrefix + "@" + account.getMpId());
 

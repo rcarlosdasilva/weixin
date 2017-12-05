@@ -55,7 +55,7 @@ public class ResponseParser {
         logger.error("微信请求错误：code [{}] -- message [{}]", errorResponse.getErrorCode(),
             errorResponse.getErrorMessage());
 
-        if (Registry.handler().getSetting().isThrowException()) {
+        if (Registry.setting().isThrowException()) {
           throw new ExecuteException(errorResponse, resultCode);
         }
 

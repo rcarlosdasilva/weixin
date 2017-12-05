@@ -300,7 +300,7 @@ public class WeixinAccount implements Serializable {
   /**
    * 可用来设置与业务层面相关的扩展参数，当做传递载体使用.
    * <p>
-   * 开在代码中借用{@link Registration#lookup(String)}获取公众号信息
+   * 开在代码中借用{@link Registration#get(String)}获取公众号信息
    * 
    * @param extension
    *          扩展信息

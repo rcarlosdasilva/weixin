@@ -64,19 +64,19 @@ public class Weixin {
   private final StatisticsApi statistics;
   private final TemplateApi template;
 
-  private Weixin(String accountKey) {
-    this.certificate = new CertificateApiImpl(accountKey);
-    this.common = new CommonApiImpl(accountKey);
-    this.customerService = new CustomerServiceApiImpl(accountKey);
-    this.helper = new HelperApiImpl(accountKey);
-    this.user = new UserApiImpl(accountKey);
-    this.userTag = new UserTagApiImpl(accountKey);
-    this.material = new MaterialApiImpl(accountKey);
-    this.comment = new CommentApiImpl(accountKey);
-    this.menu = new MenuApiImpl(accountKey);
-    this.message = new MessageApiImpl(accountKey);
-    this.statistics = new StatisticsApiImpl(accountKey);
-    this.template = new TemplateApiImpl(accountKey);
+  private Weixin(String key) {
+    this.certificate = new CertificateApiImpl(key);
+    this.common = new CommonApiImpl(key);
+    this.customerService = new CustomerServiceApiImpl(key);
+    this.helper = new HelperApiImpl(key);
+    this.user = new UserApiImpl(key);
+    this.userTag = new UserTagApiImpl(key);
+    this.material = new MaterialApiImpl(key);
+    this.comment = new CommentApiImpl(key);
+    this.menu = new MenuApiImpl(key);
+    this.message = new MessageApiImpl(key);
+    this.statistics = new StatisticsApiImpl(key);
+    this.template = new TemplateApiImpl(key);
   }
 
   /**

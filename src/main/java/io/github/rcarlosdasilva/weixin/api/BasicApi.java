@@ -12,7 +12,7 @@ import com.google.common.base.Strings;
 import com.google.common.io.ByteStreams;
 
 import io.github.rcarlosdasilva.weixin.core.OpenPlatform;
-import io.github.rcarlosdasilva.weixin.core.Registry.RegistryHandler;
+import io.github.rcarlosdasilva.weixin.core.Registry;
 import io.github.rcarlosdasilva.weixin.core.Weixin;
 import io.github.rcarlosdasilva.weixin.core.exception.MaydayMaydaySaveMeBecauseAccessTokenSetMeFuckUpException;
 import io.github.rcarlosdasilva.weixin.core.http.ContentType;
@@ -224,7 +224,7 @@ public class BasicApi {
     private final Logger logger = LoggerFactory.getLogger(RetryableRunner.class);
 
     private int getRetryTimes() {
-      return RegistryHandler.lookup(accountKey).getRetryTimes();
+      return Registry.lookup(accountKey).getRetryTimes();
     }
 
     /**

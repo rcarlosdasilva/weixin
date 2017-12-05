@@ -26,7 +26,7 @@ public class OpWeixinCertificateApiImpl extends BasicApi implements OpWeixinCert
   }
 
   private OpAccount getOpenPlatformInfo() {
-    OpAccount openPlatform = Registry.handler().getOpenPlatform();
+    OpAccount openPlatform = Registry.openPlatform();
     if (openPlatform == null) {
       logger.warn("未配置微信开放平台信息");
       throw new OpenPlatformNotFoundException();

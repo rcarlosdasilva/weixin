@@ -46,7 +46,7 @@ public class OpCertificateApiImpl extends BasicApi implements OpCertificateApi {
   }
 
   private OpAccount getOpenPlatformInfo() {
-    OpAccount openPlatform = Registry.handler().getOpenPlatform();
+    OpAccount openPlatform = Registry.openPlatform();
     if (openPlatform == null) {
       logger.warn("未配置微信开放平台信息");
       throw new OpenPlatformNotFoundException();
@@ -112,7 +112,7 @@ public class OpCertificateApiImpl extends BasicApi implements OpCertificateApi {
           responseModel);
       logger.debug("For: >> 获取到access_token：[{}]", responseModel.getAccessToken());
 
-      final OpenPlatformAccessTokenUpdatedListener listener = Registry.handler().getSetting()
+      final OpenPlatformAccessTokenUpdatedListener listener = Registry.setting()
           .getListener(OpenPlatformAccessTokenUpdatedListener.class);
       if (listener != null) {
         logger.debug("For: >> 调用监听器OpenPlatformAccessTokenUpdatedListener");
@@ -176,7 +176,7 @@ public class OpCertificateApiImpl extends BasicApi implements OpCertificateApi {
   }
 
   private void invokeListener(String licensoraAppId, LicensedAccessToken licensedAccessToken) {
-    final OpenPlatformLisensorAccessTokenUpdatedListener listener = Registry.handler().getSetting()
+    final OpenPlatformLisensorAccessTokenUpdatedListener listener = Registry.setting()
         .getListener(OpenPlatformLisensorAccessTokenUpdatedListener.class);
     if (listener != null) {
       logger.debug("For: >> 调用监听器OpenPlatformLisensorAccessTokenUpdatedListener");
@@ -223,7 +223,7 @@ public class OpCertificateApiImpl extends BasicApi implements OpCertificateApi {
   @Override
   public String openPlatformAuthorize(String redirectTo) {
     String preAuthCode = OpenPlatform.certificate().askPreAuthCode();
-    OpAccount openPlatform = Registry.handler().getOpenPlatform();
+    OpAccount openPlatform = Registry.openPlatform();
     if (openPlatform == null) {
       logger.warn("未配置微信开放平台信息");
       throw new OpenPlatformNotFoundException();
@@ -237,7 +237,7 @@ public class OpCertificateApiImpl extends BasicApi implements OpCertificateApi {
   @Override
   public boolean resetQuota() {
     OpenPlatformResetQuotaRequest requestModel = new OpenPlatformResetQuotaRequest();
-    requestModel.setAppId(Registry.handler().getOpenPlatform().getAppId());
+    requestModel.setAppId(Registry.openPlatform().getAppId());
 
     try {
       return post(Boolean.class, requestModel);

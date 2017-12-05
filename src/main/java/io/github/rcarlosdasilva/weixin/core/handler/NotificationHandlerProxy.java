@@ -12,7 +12,6 @@ import io.github.rcarlosdasilva.weixin.common.dictionary.NotificationInfoType;
 import io.github.rcarlosdasilva.weixin.common.dictionary.NotificationMessageType;
 import io.github.rcarlosdasilva.weixin.core.OpenPlatform;
 import io.github.rcarlosdasilva.weixin.core.Registry;
-import io.github.rcarlosdasilva.weixin.core.Registry.RegistryHandler;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.AccessTokenCacheHandler;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.MixCacheHandler;
 import io.github.rcarlosdasilva.weixin.core.encryption.Encryptor;
@@ -144,7 +143,7 @@ public class NotificationHandlerProxy {
 
     if (Strings.isNullOrEmpty(recipient)) {
       logger.warn("获取不到appid或tousername：{}", content);
-      if (Registry.handler().getSetting().isThrowException()) {
+      if (Registry.setting().isThrowException()) {
         throw new WeirdWeixinNotificationException();
       }
     }
@@ -176,8 +175,8 @@ public class NotificationHandlerProxy {
 
   private Notification decryptNotification(final Notification originalNotification,
       String recipient, String signature, long timestamp, String nonce) {
-    final OpAccount openPlatform = Registry.handler().getOpenPlatform();
-    WeixinAccount account = RegistryHandler.lookup(recipient);
+    final OpAccount openPlatform = Registry.openPlatform();
+    WeixinAccount account = Registry.lookup(recipient);
     if (openPlatform == null && account == null) {
       logger.warn("没有配置开放平台，并且找不到对应的公众号配置(Account): {}", recipient);
       return null;
@@ -230,7 +229,7 @@ public class NotificationHandlerProxy {
     if (response == null) {
       return Convention.WEIXIN_NOTIFICATION_RESPONSE_NOTHING;
     } else {
-      final OpAccount openPlatform = Registry.handler().getOpenPlatform();
+      final OpAccount openPlatform = Registry.openPlatform();
 
       String reply = NotificationParser.toXml(response);
       if (account == null || account.isWithOpenPlatform()) {
@@ -259,8 +258,7 @@ public class NotificationHandlerProxy {
    * @return boolean
    */
   public boolean isOpenPlatformActive(Notification notification) {
-    return Registry.handler().getOpenPlatform() != null
-        && !Strings.isNullOrEmpty(notification.getAppId());
+    return Registry.openPlatform() != null && !Strings.isNullOrEmpty(notification.getAppId());
   }
 
   /**
@@ -425,7 +423,7 @@ public class NotificationHandlerProxy {
 
   private void processInfoWhenSuccessed(OpenInfo info, NotificationResponseBuilder builder,
       Notification notification) {
-    final boolean autoLoad = Registry.handler().getSetting().isAutoLoadAuthorizedWeixinData();
+    final boolean autoLoad = Registry.setting().isAutoLoadAuthorizedWeixinData();
 
     LicensingInformation licensingInformation = null;
     LicensorInfromation licensorInfromation = null;
@@ -446,7 +444,7 @@ public class NotificationHandlerProxy {
         info.getLicensorAppId(), info.getLicense(), info.getLicenseExpireAt(), accessToken,
         licensingInformation, licensorInfromation);
 
-    Registry.handler().updateAccount(account);
+    Registry.update(account);
     AccessTokenCacheHandler.getInstance().put(account.getKey(), accessToken);
   }
 
@@ -457,7 +455,7 @@ public class NotificationHandlerProxy {
       logger.warn("无法获取到开放平台授权者appid");
       throw new CanNotFetchOpenPlatformLicenseException();
     } else {
-      Registry.handler().unregister(licensorAppId);
+      Registry.remove(licensorAppId);
     }
 
     handler.doInfoOfAuthorizeCanceled(builder, notification, info.getLicensorAppId());
@@ -465,7 +463,7 @@ public class NotificationHandlerProxy {
 
   private void processInfoWhenUpdated(OpenInfo info, NotificationResponseBuilder builder,
       Notification notification) {
-    final boolean autoLoad = Registry.handler().getSetting().isAutoLoadAuthorizedWeixinData();
+    final boolean autoLoad = Registry.setting().isAutoLoadAuthorizedWeixinData();
 
     LicensingInformation licensingInformation = null;
     LicensorInfromation licensorInfromation = null;
@@ -486,7 +484,7 @@ public class NotificationHandlerProxy {
         info.getLicensorAppId(), info.getLicense(), info.getLicenseExpireAt(), accessToken,
         licensingInformation, licensorInfromation);
 
-    Registry.handler().updateAccount(account);
+    Registry.update(account);
     AccessTokenCacheHandler.getInstance().put(account.getKey(), accessToken);
   }
 

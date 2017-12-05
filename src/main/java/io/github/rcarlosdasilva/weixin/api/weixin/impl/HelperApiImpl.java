@@ -9,7 +9,7 @@ import io.github.rcarlosdasilva.weixin.api.BasicApi;
 import io.github.rcarlosdasilva.weixin.api.weixin.HelperApi;
 import io.github.rcarlosdasilva.weixin.common.Convention;
 import io.github.rcarlosdasilva.weixin.common.dictionary.ResultCode;
-import io.github.rcarlosdasilva.weixin.core.Registry.RegistryHandler;
+import io.github.rcarlosdasilva.weixin.core.Registry;
 import io.github.rcarlosdasilva.weixin.core.Weixin;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.MixCacheHandler;
 import io.github.rcarlosdasilva.weixin.core.exception.ExecuteException;
@@ -31,7 +31,7 @@ public class HelperApiImpl extends BasicApi implements HelperApi {
   @Override
   public boolean resetQuota() {
     HelperResetQuotaRequest requestModel = new HelperResetQuotaRequest();
-    requestModel.setAppId(RegistryHandler.lookup(accountKey).getAppId());
+    requestModel.setAppId(Registry.lookup(accountKey).getAppId());
 
     try {
       return post(Boolean.class, requestModel);
