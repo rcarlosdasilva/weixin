@@ -63,7 +63,7 @@ public class BasicApi {
    *          请求模型
    * @return 响应封装对象
    */
-  protected <T> T post(Class<T> target, Request requestModel) {
+  protected <T> T post(final Class<T> target, final Request requestModel) {
     updateAccessToken(requestModel);
 
     return new RetryableRunner<T>() {
@@ -88,7 +88,7 @@ public class BasicApi {
    *          请求模型
    * @return 二进制流
    */
-  protected InputStream postStream(Request requestModel) {
+  protected InputStream postStream(final Request requestModel) {
     updateAccessToken(requestModel);
 
     return new RetryableRunner<InputStream>() {
@@ -115,7 +115,7 @@ public class BasicApi {
    *          请求模型
    * @return 响应封装对象
    */
-  protected <T> T get(Class<T> target, Request requestModel) {
+  protected <T> T get(final Class<T> target, final Request requestModel) {
     updateAccessToken(requestModel);
 
     return new RetryableRunner<T>() {
@@ -139,7 +139,7 @@ public class BasicApi {
    *          请求模型
    * @return 二进制流
    */
-  protected InputStream getStream(Request requestModel) {
+  protected InputStream getStream(final Request requestModel) {
     updateAccessToken(requestModel);
 
     return new RetryableRunner<InputStream>() {
@@ -174,8 +174,8 @@ public class BasicApi {
    *          附加数据，可当做参数传递出去
    * @return 响应封装对象
    */
-  protected <T> T upload(Class<T> target, Request requestModel, String key, String fileName,
-      File file, List<FormData> additionalData) {
+  protected <T> T upload(final Class<T> target, final Request requestModel, final String key,
+      final String fileName, final File file, final List<FormData> additionalData) {
     updateAccessToken(requestModel);
 
     return new RetryableRunner<T>() {

@@ -1,7 +1,5 @@
 package io.github.rcarlosdasilva.weixin.model.builder;
 
-import com.google.common.collect.Lists;
-
 import io.github.rcarlosdasilva.weixin.common.dictionary.ClientPlatformType;
 import io.github.rcarlosdasilva.weixin.common.dictionary.Language;
 import io.github.rcarlosdasilva.weixin.common.dictionary.MenuType;
@@ -22,7 +20,6 @@ public class MenuBuilder {
 
   public MenuBuilder() {
     this.menu = new Menu();
-    this.menu.setButtons(Lists.newArrayList());
   }
 
   /**

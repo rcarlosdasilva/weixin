@@ -2,17 +2,15 @@ package io.github.rcarlosdasilva.weixin.model.request.menu.bean;
 
 import java.util.List;
 
+import com.google.common.collect.Lists;
+
 public class Menu {
 
-  private List<Button> buttons;
+  private List<Button> buttons = Lists.newArrayList();
   private MatchRule matchRule;
 
   public List<Button> getButtons() {
     return buttons;
-  }
-
-  public void setButtons(List<Button> buttons) {
-    this.buttons = buttons;
   }
 
   public MatchRule getMatchRule() {

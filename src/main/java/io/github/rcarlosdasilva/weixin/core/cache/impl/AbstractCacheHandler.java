@@ -9,6 +9,7 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Function;
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.Collections2;
@@ -58,22 +59,25 @@ public class AbstractCacheHandler<V> implements CacheHandler<V> {
     return realRedisKey(Convention.DEFAULT_REDIS_KEY_PATTERN);
   }
 
-  private String realKey(final String redisKey) {
-    if (!Strings.isNullOrEmpty(redisKey)) {
-      List<String> parts = SPLITTER.splitToList(redisKey);
-      if (parts != null && !parts.isEmpty()) {
-        return parts.get(parts.size() - 1);
-      }
-    }
-    return "";
-  }
-
   private Collection<String> realKeys(final Set<String> redisKeys) {
     if (redisKeys == null) {
       return Collections.emptyList();
     }
 
-    return Collections2.transform(redisKeys, input -> realKey(input));
+    return Collections2.transform(redisKeys, new Function<String, String>() {
+
+      @Override
+      public String apply(String input) {
+        if (!Strings.isNullOrEmpty(input)) {
+          List<String> parts = SPLITTER.splitToList(input);
+          if (parts != null && !parts.isEmpty()) {
+            return parts.get(parts.size() - 1);
+          }
+        }
+        return "";
+      }
+
+    });
   }
 
   @SuppressWarnings("unchecked")
