@@ -1,16 +1,24 @@
 package io.github.rcarlosdasilva.weixin.core;
 
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
+import com.google.common.collect.Maps;
 
 import io.github.rcarlosdasilva.weixin.common.Convention;
 import io.github.rcarlosdasilva.weixin.core.cache.holder.SimpleRedisHandler;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.AccessTokenCacheHandler;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.AccountCacheHandler;
 import io.github.rcarlosdasilva.weixin.core.exception.InvalidAccountException;
+import io.github.rcarlosdasilva.weixin.core.listener.AccessTokenUpdatedListener;
+import io.github.rcarlosdasilva.weixin.core.listener.JsTicketUpdatedListener;
+import io.github.rcarlosdasilva.weixin.core.listener.OpenPlatformAccessTokenUpdatedListener;
+import io.github.rcarlosdasilva.weixin.core.listener.OpenPlatformLisensorAccessTokenUpdatedListener;
+import io.github.rcarlosdasilva.weixin.core.listener.WeixinListener;
 import io.github.rcarlosdasilva.weixin.core.setting.Setting;
 import io.github.rcarlosdasilva.weixin.model.OpAccount;
 import io.github.rcarlosdasilva.weixin.model.WeixinAccount;
@@ -133,6 +141,17 @@ public class Registry {
   }
 
   /**
+   * 添加监听器
+   */
+  public static void listener(WeixinListener listener) {
+    registryHandler.addListener(listener);
+  }
+
+  public static <T extends WeixinListener> T listener(Class<T> classType) {
+    return registryHandler.getListener(classType);
+  }
+
+  /**
    * 注册信息处理器
    * 
    * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
@@ -143,6 +162,7 @@ public class Registry {
 
     private Setting setting = new Setting();
     private OpAccount opAccount;
+    private Map<String, WeixinListener> listeners = Maps.newHashMap();
 
     RegistryHandler() {
     }
@@ -172,9 +192,33 @@ public class Registry {
       this.opAccount = opAccount;
     }
 
+    void addListener(WeixinListener listener) {
+      Preconditions.checkNotNull(listener);
+
+      if (listener instanceof AccessTokenUpdatedListener) {
+        listeners.put(AccessTokenUpdatedListener.class.getName(), listener);
+      } else if (listener instanceof JsTicketUpdatedListener) {
+        listeners.put(JsTicketUpdatedListener.class.getName(), listener);
+      } else if (listener instanceof OpenPlatformAccessTokenUpdatedListener) {
+        listeners.put(OpenPlatformAccessTokenUpdatedListener.class.getName(), listener);
+      } else if (listener instanceof OpenPlatformLisensorAccessTokenUpdatedListener) {
+        listeners.put(OpenPlatformLisensorAccessTokenUpdatedListener.class.getName(), listener);
+      }
+    }
+
+    @SuppressWarnings("unchecked")
+    <T extends WeixinListener> T getListener(Class<T> classType) {
+      try {
+        return (T) listeners.get(classType.getName());
+      } catch (Exception ex) {
+        logger.error("weixin config listener", ex);
+        return null;
+      }
+    }
+
     void add(WeixinAccount account) {
       if (get(account.getKey()) != null) {
-        logger.warn("尝试添加一个已经存在的公众号信息：[{}]，本方法无法覆盖已有公众号信息，请使用updateAccount", account.getKey());
+        logger.warn("尝试添加一个已经存在的公众号信息：[{}]，本方法无法覆盖已有公众号信息，请使用update方法", account.getKey());
         return;
       }
 
@@ -183,6 +227,7 @@ public class Registry {
           account.setKey(Convention.DEFAULT_UNIQUE_WEIXIN_KEY);
         }
         AccountCacheHandler.getInstance().put(account.getKey(), account);
+        logger.info("注册公众号：[KEY: {}, APPID: {}]", account.getKey(), account.getAppId());
       }
     }
 
@@ -197,13 +242,13 @@ public class Registry {
       if (Strings.isNullOrEmpty(key)) {
         key = Convention.DEFAULT_UNIQUE_WEIXIN_KEY;
       }
-      final WeixinAccount account = get(key);
 
+      final WeixinAccount account = get(key);
       if (account != null) {
         final String realKey = account.getKey();
         AccountCacheHandler.getInstance().remove(realKey);
         AccessTokenCacheHandler.getInstance().remove(realKey);
-        logger.info("已取消注册公众号信息：[{}]", key);
+        logger.info("已注销公众号信息：[{}]", key);
       } else {
         logger.warn("未找到可取消注册的公众号信息：[{}]", key);
       }
@@ -216,6 +261,10 @@ public class Registry {
 
       if (!account.isWithOpenPlatform() && Strings.isNullOrEmpty(account.getAppSecret())) {
         logger.warn("未找到公众号的app_scret，该公众号将不被注册");
+        return false;
+      }
+      if (account.isWithOpenPlatform() && opAccount == null) {
+        logger.warn("未找到开放平台信息，但该公众号配置为使用开放平台，将不被注册");
         return false;
       }
       if (account.isWithOpenPlatform() && Strings.isNullOrEmpty(account.getRefreshToken())) {

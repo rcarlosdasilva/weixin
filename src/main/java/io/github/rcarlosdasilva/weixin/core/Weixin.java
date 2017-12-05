@@ -2,6 +2,9 @@ package io.github.rcarlosdasilva.weixin.core;
 
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.common.collect.Maps;
 
 import io.github.rcarlosdasilva.weixin.api.weixin.CertificateApi;
@@ -49,6 +52,7 @@ import io.github.rcarlosdasilva.weixin.common.Convention;
  */
 public class Weixin {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(Weixin.class);
   private static final Map<String, Weixin> HOLDER = Maps.newHashMap();
 
   private final CertificateApi certificate;
@@ -89,8 +93,12 @@ public class Weixin {
   public static Weixin with(String key) {
     Weixin weixin = HOLDER.get(key);
     if (weixin == null) {
-      synchronized (HOLDER) {
-        HOLDER.put(key, new Weixin(key));
+      if (Registry.exists(key)) {
+        synchronized (HOLDER) {
+          HOLDER.put(key, new Weixin(key));
+        }
+      } else {
+        LOGGER.warn("尝试获取一个未注册的公众号API入口：{}", key);
       }
     }
     return HOLDER.get(key);

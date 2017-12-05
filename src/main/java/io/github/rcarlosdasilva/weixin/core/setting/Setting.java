@@ -1,30 +1,28 @@
 package io.github.rcarlosdasilva.weixin.core.setting;
 
-import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Preconditions;
-import com.google.common.collect.Maps;
-
-import io.github.rcarlosdasilva.weixin.core.listener.AccessTokenUpdatedListener;
-import io.github.rcarlosdasilva.weixin.core.listener.JsTicketUpdatedListener;
-import io.github.rcarlosdasilva.weixin.core.listener.OpenPlatformAccessTokenUpdatedListener;
-import io.github.rcarlosdasilva.weixin.core.listener.OpenPlatformLisensorAccessTokenUpdatedListener;
-import io.github.rcarlosdasilva.weixin.core.listener.WeixinListener;
-
 public class Setting {
 
-  private final Logger logger = LoggerFactory.getLogger(getClass());
-
+  private int retries = 2;
   private boolean strictUseOpenPlatform = false;
   private boolean throwException = true;
   private boolean useRedisCache = false;
   private boolean useSpringRedis = false;
   private boolean autoLoadAuthorizedWeixinData = true;
-  private Map<String, WeixinListener> listeners = Maps.newHashMap();
   private RedisSetting redisSetting = null;
+
+  /**
+   * 接口请求失败后的重试次数.
+   * 
+   * @param retryTimes
+   *          次数
+   */
+  public int getRetries() {
+    return retries;
+  }
+
+  public void setRetries(int retries) {
+    this.retries = retries;
+  }
 
   /**
    * 是否强制使用开放平台代理公众号的api调用.
@@ -101,37 +99,15 @@ public class Setting {
   }
 
   /**
-   * （开放平台第三方平台下）是否在公众号管理员授权后，自动加载公众号的授权内容与公众号基本信息
+   * （开放平台第三方平台下）是否在公众号管理员授权后，自动加载公众号的授权内容与公众号基本信息.
+   * <p>
+   * <b>建议开启</b>
    * 
    * @param autoLoadAuthorizedWeixinData
    *          boolean
    */
   public void setAutoLoadAuthorizedWeixinData(boolean autoLoadAuthorizedWeixinData) {
     this.autoLoadAuthorizedWeixinData = autoLoadAuthorizedWeixinData;
-  }
-
-  public void addListener(WeixinListener listener) {
-    Preconditions.checkNotNull(listener);
-
-    if (listener instanceof AccessTokenUpdatedListener) {
-      listeners.put(AccessTokenUpdatedListener.class.getName(), listener);
-    } else if (listener instanceof JsTicketUpdatedListener) {
-      listeners.put(JsTicketUpdatedListener.class.getName(), listener);
-    } else if (listener instanceof OpenPlatformAccessTokenUpdatedListener) {
-      listeners.put(OpenPlatformAccessTokenUpdatedListener.class.getName(), listener);
-    } else if (listener instanceof OpenPlatformLisensorAccessTokenUpdatedListener) {
-      listeners.put(OpenPlatformLisensorAccessTokenUpdatedListener.class.getName(), listener);
-    }
-  }
-
-  @SuppressWarnings("unchecked")
-  public <T extends WeixinListener> T getListener(Class<T> classType) {
-    try {
-      return (T) listeners.get(classType.getName());
-    } catch (Exception ex) {
-      logger.error("weixin config listener", ex);
-      return null;
-    }
   }
 
   public RedisSetting getRedisSetting() {

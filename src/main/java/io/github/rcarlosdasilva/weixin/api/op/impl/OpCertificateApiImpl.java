@@ -112,8 +112,8 @@ public class OpCertificateApiImpl extends BasicApi implements OpCertificateApi {
           responseModel);
       logger.debug("For: >> 获取到access_token：[{}]", responseModel.getAccessToken());
 
-      final OpenPlatformAccessTokenUpdatedListener listener = Registry.setting()
-          .getListener(OpenPlatformAccessTokenUpdatedListener.class);
+      final OpenPlatformAccessTokenUpdatedListener listener = Registry
+          .listener(OpenPlatformAccessTokenUpdatedListener.class);
       if (listener != null) {
         logger.debug("For: >> 调用监听器OpenPlatformAccessTokenUpdatedListener");
         listener.updated(responseModel.getAccessToken(), responseModel.getExpiresIn());
@@ -176,8 +176,8 @@ public class OpCertificateApiImpl extends BasicApi implements OpCertificateApi {
   }
 
   private void invokeListener(String licensoraAppId, LicensedAccessToken licensedAccessToken) {
-    final OpenPlatformLisensorAccessTokenUpdatedListener listener = Registry.setting()
-        .getListener(OpenPlatformLisensorAccessTokenUpdatedListener.class);
+    final OpenPlatformLisensorAccessTokenUpdatedListener listener = Registry
+        .listener(OpenPlatformLisensorAccessTokenUpdatedListener.class);
     if (listener != null) {
       logger.debug("For: >> 调用监听器OpenPlatformLisensorAccessTokenUpdatedListener");
       listener.updated(licensoraAppId, licensedAccessToken.getAccessToken(),

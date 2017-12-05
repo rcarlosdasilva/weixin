@@ -224,7 +224,7 @@ public class BasicApi {
     private final Logger logger = LoggerFactory.getLogger(RetryableRunner.class);
 
     private int getRetryTimes() {
-      return Registry.lookup(accountKey).getRetryTimes();
+      return Registry.setting().getRetries();
     }
 
     /**

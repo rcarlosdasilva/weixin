@@ -1,11 +1,13 @@
 package io.github.rcarlosdasilva.weixin.model;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import com.google.common.base.Strings;
 
 import io.github.rcarlosdasilva.weixin.common.dictionary.AccountType;
 import io.github.rcarlosdasilva.weixin.common.dictionary.EncryptionType;
+import io.github.rcarlosdasilva.weixin.common.dictionary.WeixinCertificationType;
 
 /**
  * 公众号账号模型
@@ -20,16 +22,18 @@ public class WeixinAccount implements Serializable {
   private String appId;
   private String mpId;
   private AccountType accountType;
-  private String appSecret;
-  private String refreshToken;
+  private WeixinCertificationType certificationType;
   private String nickname;
-  private boolean certified;
+
+  private String appSecret;
+  private EncryptionType encryptionType = EncryptionType.PLAIN_TEXT;
   private String aesToken;
   private String aesKey;
-  private EncryptionType encryptionType = EncryptionType.PLAIN_TEXT;
-  private int retryTimes = 2;
-  private Object extension;
+
+  private String refreshToken;
   private boolean withOpenPlatform = true;
+
+  private Map<String, Object> extension;
 
   private WeixinAccount() {
   }
@@ -94,7 +98,8 @@ public class WeixinAccount implements Serializable {
    *      "https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419318479&token=&lang=zh_CN"
    *      >消息加解密接入指引</a>
    */
-  public WeixinAccount setServerSecurity(String aesToken, String aesKey, EncryptionType encryptionType) {
+  public WeixinAccount setServerSecurity(String aesToken, String aesKey,
+      EncryptionType encryptionType) {
     this.aesToken = aesToken;
     this.aesKey = aesKey;
     this.encryptionType = encryptionType;
@@ -110,9 +115,10 @@ public class WeixinAccount implements Serializable {
    *          是否认证
    * @return {@link WeixinAccount}
    */
-  public WeixinAccount setBasic(AccountType accountType, boolean certified) {
+  public WeixinAccount setBasic(AccountType accountType,
+      WeixinCertificationType certificationType) {
     this.accountType = accountType;
-    this.certified = certified;
+    this.certificationType = certificationType;
     return this;
   }
 
@@ -129,10 +135,10 @@ public class WeixinAccount implements Serializable {
    *          公众号昵称
    * @return {@link WeixinAccount}
    */
-  public WeixinAccount setBasic(AccountType accountType, boolean certified, String mpId,
-      String nickname) {
+  public WeixinAccount setBasic(AccountType accountType, WeixinCertificationType certificationType,
+      String mpId, String nickname) {
     this.accountType = accountType;
-    this.certified = certified;
+    this.certificationType = certificationType;
     this.mpId = mpId;
     this.nickname = nickname;
     return this;
@@ -215,19 +221,19 @@ public class WeixinAccount implements Serializable {
     return this;
   }
 
-  public boolean isCertified() {
-    return certified;
+  public WeixinCertificationType getCertificationType() {
+    return certificationType;
   }
 
   /**
-   * 是否认证.
+   * 认证类型.
    * 
-   * @param certified
-   *          是否认证
+   * @param certificationType
+   *          认证类型
    * @return {@link WeixinAccount}
    */
-  public WeixinAccount setCertified(boolean certified) {
-    this.certified = certified;
+  public WeixinAccount setCertificationType(WeixinCertificationType certificationType) {
+    this.certificationType = certificationType;
     return this;
   }
 
@@ -279,20 +285,6 @@ public class WeixinAccount implements Serializable {
     return this;
   }
 
-  public int getRetryTimes() {
-    return retryTimes;
-  }
-
-  /**
-   * 接口请求失败后的重试次数.
-   * 
-   * @param retryTimes
-   *          次数
-   */
-  public void setRetryTimes(int retryTimes) {
-    this.retryTimes = retryTimes;
-  }
-
   public Object getExtension() {
     return extension;
   }
@@ -305,7 +297,7 @@ public class WeixinAccount implements Serializable {
    * @param extension
    *          扩展信息
    */
-  public void setExtension(Object extension) {
+  public void setExtension(Map<String, Object> extension) {
     this.extension = extension;
   }
 

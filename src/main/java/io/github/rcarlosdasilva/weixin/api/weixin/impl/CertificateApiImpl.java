@@ -160,8 +160,8 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
       AccessTokenCacheHandler.getInstance().put(this.accountKey, accessToken);
       logger.debug("For:{} >> 获取到access_token：[{}]", this.accountKey, accessToken.getAccessToken());
 
-      final AccessTokenUpdatedListener listener = Registry.setting()
-          .getListener(AccessTokenUpdatedListener.class);
+      final AccessTokenUpdatedListener listener = Registry
+          .listener(AccessTokenUpdatedListener.class);
       if (listener != null) {
         logger.debug("For:{} >> 调用监听器AccessTokenUpdatedListener", this.accountKey);
         listener.updated(account.getKey(), account.getAppId(), accessToken.getAccessToken(),
@@ -234,8 +234,7 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
       JsTicketCacheHandler.getInstance().put(this.accountKey, responseModel);
       logger.debug("For:{} >> 获取jsapi_ticket：[{}]", this.accountKey, responseModel.getJsTicket());
 
-      final JsTicketUpdatedListener listener = Registry.setting()
-          .getListener(JsTicketUpdatedListener.class);
+      final JsTicketUpdatedListener listener = Registry.listener(JsTicketUpdatedListener.class);
       if (listener != null) {
         logger.debug("For:{} >> 调用监听器JsTicketUpdatedListener", this.accountKey);
         WeixinAccount account = Registry.lookup(this.accountKey);
