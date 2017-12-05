@@ -1,8 +1,8 @@
 package io.github.rcarlosdasilva.weixin.test.basic;
 
-import io.github.rcarlosdasilva.weixin.api.Weixin;
-import io.github.rcarlosdasilva.weixin.core.WeixinRegistry;
-import io.github.rcarlosdasilva.weixin.model.Account;
+import io.github.rcarlosdasilva.weixin.core.Weixin;
+import io.github.rcarlosdasilva.weixin.core.Registry;
+import io.github.rcarlosdasilva.weixin.model.WeixinAccount;
 import io.github.rcarlosdasilva.weixin.test.Property;
 
 /**
@@ -26,7 +26,7 @@ public class RegisterAndUse {
      * sample.properties 文件中的appId与appSecret替换成有效的值，可正常运行，
      * appId与appSecret就能满足所有的对微信API的主动调用
      */
-    WeixinRegistry.registerUnique(Account.create(Property.get("appid"), Property.get("appsecret")));
+    Registry.registerUnique(WeixinAccount.create(Property.get("appid"), Property.get("appsecret")));
     /*
      * 注册并完整其他信息。使用setBasic指定公众号为已认证的服务号。使用setServerSecurity指定服务器配置，用于消息加解密
      */

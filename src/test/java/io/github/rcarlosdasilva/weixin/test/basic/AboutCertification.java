@@ -1,6 +1,6 @@
 package io.github.rcarlosdasilva.weixin.test.basic;
 
-import io.github.rcarlosdasilva.weixin.api.Weixin;
+import io.github.rcarlosdasilva.weixin.core.Weixin;
 
 /**
  * 关于认证相关

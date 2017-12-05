@@ -3,7 +3,7 @@ package io.github.rcarlosdasilva.weixin.core.handler;
 import java.util.Date;
 
 import io.github.rcarlosdasilva.weixin.model.AccessToken;
-import io.github.rcarlosdasilva.weixin.model.Account;
+import io.github.rcarlosdasilva.weixin.model.WeixinAccount;
 import io.github.rcarlosdasilva.weixin.model.builder.NotificationResponseBuilder;
 import io.github.rcarlosdasilva.weixin.model.notification.Notification;
 import io.github.rcarlosdasilva.weixin.model.notification.bean.LocationInfo;
@@ -512,7 +512,7 @@ public interface NotificationHandler {
    * <p>
    * <b>1.
    * 开发者应该在这里将授权的公众号信息（licensingInformation与licensorInfromation）保存到数据库</b><br>
-   * <b>2. 需要开发者在处理完业务相关之后，返回公众号信息的Bean - {@link Account}</b><br>
+   * <b>2. 需要开发者在处理完业务相关之后，返回公众号信息的Bean - {@link WeixinAccount}</b><br>
    * <b>3. 公众号会自动注册到缓存，推荐使用授权方的appid做key（实际key由开发者确定），
    * 之后的操作就可以使用Weixin.with(key)</b><br>
    * 
@@ -535,7 +535,7 @@ public interface NotificationHandler {
    *          授权方基本信息
    * @return 公众号信息，一定要包含key
    */
-  Account doInfoOfAuthorizeSucceeded(NotificationResponseBuilder builder, Notification notification,
+  WeixinAccount doInfoOfAuthorizeSucceeded(NotificationResponseBuilder builder, Notification notification,
       String appId, String license, Date expireAt, AccessToken accessToken,
       LicensingInformation licensingInformation, LicensorInfromation licensorInfromation);
 
@@ -579,7 +579,7 @@ public interface NotificationHandler {
    *          授权方基本信息
    * @return 公众号信息，一定要包含key
    */
-  Account doInfoOfAuthorizeUpdated(NotificationResponseBuilder builder, Notification notification,
+  WeixinAccount doInfoOfAuthorizeUpdated(NotificationResponseBuilder builder, Notification notification,
       String appId, String license, Date expireAt, AccessToken accessToken,
       LicensingInformation licensingInformation, LicensorInfromation licensorInfromation);
 

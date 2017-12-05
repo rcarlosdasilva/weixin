@@ -16,11 +16,11 @@ import com.google.common.collect.Collections2;
 
 import io.github.rcarlosdasilva.weixin.common.Convention;
 import io.github.rcarlosdasilva.weixin.common.Utils;
+import io.github.rcarlosdasilva.weixin.core.Registry;
 import io.github.rcarlosdasilva.weixin.core.cache.CacheHandler;
 import io.github.rcarlosdasilva.weixin.core.cache.holder.MapHandler;
 import io.github.rcarlosdasilva.weixin.core.cache.holder.RedisTemplateHandler;
 import io.github.rcarlosdasilva.weixin.core.cache.holder.SimpleRedisHandler;
-import io.github.rcarlosdasilva.weixin.core.registry.Registration;
 import redis.clients.jedis.Jedis;
 
 public class AbstractCacheHandler<V> implements CacheHandler<V> {
@@ -34,16 +34,16 @@ public class AbstractCacheHandler<V> implements CacheHandler<V> {
   protected String mark;
 
   protected boolean isRedis() {
-    return Registration.getInstance().getSetting().isUseRedisCache();
+    return Registry.handler().getSetting().isUseRedisCache();
   }
 
   protected boolean isSimpleRedis() {
-    return Registration.getInstance().getSetting().isUseRedisCache()
-        && !Registration.getInstance().getSetting().isUseSpringRedis();
+    return Registry.handler().getSetting().isUseRedisCache()
+        && !Registry.handler().getSetting().isUseSpringRedis();
   }
 
   protected boolean isSpringRedis() {
-    return Registration.getInstance().getSetting().isUseSpringRedis();
+    return Registry.handler().getSetting().isUseSpringRedis();
   }
 
   private static String key(final String module, final String resource) {

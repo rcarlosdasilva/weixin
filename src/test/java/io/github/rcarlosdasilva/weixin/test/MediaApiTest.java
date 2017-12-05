@@ -8,7 +8,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import io.github.rcarlosdasilva.weixin.api.Weixin;
+import io.github.rcarlosdasilva.weixin.core.Weixin;
 import io.github.rcarlosdasilva.weixin.test.basic.RegisterAndUse;
 
 public class MediaApiTest {
@@ -38,7 +38,7 @@ public class MediaApiTest {
     // InputStream is = Weixin.withUnique().media()
     // .getTemporaryMedia("Co1RG2pGu38BVc58WhfJqKVSZ3ujL3-M6avj2Xy_KIMxJR8013TVnso2pJWMDHNV");
     // // 图片
-    byte[] buffer = Weixin.withUnique().media()
+    byte[] buffer = Weixin.withUnique().material()
         .getTemporaryMedia("Ej3zDhXh5LWPumqOeOAGmZcslH6JYn-4tilk4w4QrxVjRwB7QnRtCdN9qWR6u639");// 视频
     Assert.assertNotNull(buffer);
 

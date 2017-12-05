@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
 
-import io.github.rcarlosdasilva.weixin.api.Weixin;
+import io.github.rcarlosdasilva.weixin.core.Weixin;
 
 /**
  * 其他常用

@@ -1,7 +1,7 @@
 package io.github.rcarlosdasilva.weixin.core.cache.holder;
 
 import io.github.rcarlosdasilva.weixin.core.exception.RedisCacheNotInitializeException;
-import io.github.rcarlosdasilva.weixin.core.registry.RedisSetting;
+import io.github.rcarlosdasilva.weixin.core.setting.RedisSetting;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 

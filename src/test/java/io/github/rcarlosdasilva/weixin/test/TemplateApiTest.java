@@ -6,8 +6,8 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import io.github.rcarlosdasilva.weixin.api.Weixin;
 import io.github.rcarlosdasilva.weixin.common.dictionary.Industry;
+import io.github.rcarlosdasilva.weixin.core.Weixin;
 import io.github.rcarlosdasilva.weixin.model.response.template.TemplateIndustryGetResponse;
 import io.github.rcarlosdasilva.weixin.model.response.template.bean.Template;
 import io.github.rcarlosdasilva.weixin.test.basic.RegisterAndUse;

@@ -4,10 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.github.rcarlosdasilva.weixin.common.dictionary.ResultCode;
+import io.github.rcarlosdasilva.weixin.core.Registry;
 import io.github.rcarlosdasilva.weixin.core.exception.ExecuteException;
 import io.github.rcarlosdasilva.weixin.core.exception.MaydayMaydaySaveMeBecauseAccessTokenSetMeFuckUpException;
 import io.github.rcarlosdasilva.weixin.core.json.Json;
-import io.github.rcarlosdasilva.weixin.core.registry.Registration;
 import io.github.rcarlosdasilva.weixin.model.response.SimplestResponse;
 
 /**
@@ -55,7 +55,7 @@ public class ResponseParser {
         logger.error("微信请求错误：code [{}] -- message [{}]", errorResponse.getErrorCode(),
             errorResponse.getErrorMessage());
 
-        if (Registration.getInstance().getSetting().isThrowException()) {
+        if (Registry.handler().getSetting().isThrowException()) {
           throw new ExecuteException(errorResponse, resultCode);
         }
 

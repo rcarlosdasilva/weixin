@@ -12,7 +12,6 @@ public class Convention {
   }
 
   public static final String DEFAULT_UNIQUE_WEIXIN_KEY = "__UNIQ__";
-  public static final String DEFAULT_OPEN_PLATFORM_KEY = "__OPEN_PLATFORM__";
   public static final String DEFAULT_ENCODING = "UTF-8";
 
   public static final int AHEAD_OF_EXPIRED_SECONDS = 180;

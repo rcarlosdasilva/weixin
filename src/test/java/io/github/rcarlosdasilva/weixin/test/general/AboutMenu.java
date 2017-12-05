@@ -1,8 +1,8 @@
 package io.github.rcarlosdasilva.weixin.test.general;
 
-import io.github.rcarlosdasilva.weixin.api.Weixin;
 import io.github.rcarlosdasilva.weixin.common.dictionary.Language;
 import io.github.rcarlosdasilva.weixin.common.dictionary.Sex;
+import io.github.rcarlosdasilva.weixin.core.Weixin;
 import io.github.rcarlosdasilva.weixin.model.builder.Builder;
 import io.github.rcarlosdasilva.weixin.model.request.menu.bean.Menu;
 import io.github.rcarlosdasilva.weixin.model.response.menu.MenuCompleteResponse;

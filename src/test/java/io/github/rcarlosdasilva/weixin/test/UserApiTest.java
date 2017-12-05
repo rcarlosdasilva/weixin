@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import com.google.common.collect.Lists;
 
-import io.github.rcarlosdasilva.weixin.api.Weixin;
+import io.github.rcarlosdasilva.weixin.core.Weixin;
 import io.github.rcarlosdasilva.weixin.model.response.user.BlackListQueryResponse;
 import io.github.rcarlosdasilva.weixin.model.response.user.UserOpenIdListResponse;
 import io.github.rcarlosdasilva.weixin.model.response.user.bean.User;

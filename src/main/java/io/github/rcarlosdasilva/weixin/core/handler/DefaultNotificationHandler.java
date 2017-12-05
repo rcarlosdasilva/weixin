@@ -3,7 +3,7 @@ package io.github.rcarlosdasilva.weixin.core.handler;
 import java.util.Date;
 
 import io.github.rcarlosdasilva.weixin.model.AccessToken;
-import io.github.rcarlosdasilva.weixin.model.Account;
+import io.github.rcarlosdasilva.weixin.model.WeixinAccount;
 import io.github.rcarlosdasilva.weixin.model.builder.NotificationResponseBuilder;
 import io.github.rcarlosdasilva.weixin.model.notification.Notification;
 import io.github.rcarlosdasilva.weixin.model.notification.bean.LocationInfo;
@@ -189,7 +189,7 @@ public class DefaultNotificationHandler implements NotificationHandler {
   }
 
   @Override
-  public Account doInfoOfAuthorizeSucceeded(NotificationResponseBuilder builder,
+  public WeixinAccount doInfoOfAuthorizeSucceeded(NotificationResponseBuilder builder,
       Notification notification, String appId, String license, Date expireAt,
       AccessToken accessToken, LicensingInformation licensingInformation,
       LicensorInfromation licensorInfromation) {
@@ -204,7 +204,7 @@ public class DefaultNotificationHandler implements NotificationHandler {
   }
 
   @Override
-  public Account doInfoOfAuthorizeUpdated(NotificationResponseBuilder builder,
+  public WeixinAccount doInfoOfAuthorizeUpdated(NotificationResponseBuilder builder,
       Notification notification, String appId, String license, Date expireAt,
       AccessToken accessToken, LicensingInformation licensingInformation,
       LicensorInfromation licensorInfromation) {

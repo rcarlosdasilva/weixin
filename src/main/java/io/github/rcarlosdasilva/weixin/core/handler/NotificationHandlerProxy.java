@@ -6,11 +6,13 @@ import org.slf4j.LoggerFactory;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 
-import io.github.rcarlosdasilva.weixin.api.Weixin;
 import io.github.rcarlosdasilva.weixin.common.Convention;
 import io.github.rcarlosdasilva.weixin.common.dictionary.NotificationEventType;
 import io.github.rcarlosdasilva.weixin.common.dictionary.NotificationInfoType;
 import io.github.rcarlosdasilva.weixin.common.dictionary.NotificationMessageType;
+import io.github.rcarlosdasilva.weixin.core.OpenPlatform;
+import io.github.rcarlosdasilva.weixin.core.Registry;
+import io.github.rcarlosdasilva.weixin.core.Registry.RegistryHandler;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.AccessTokenCacheHandler;
 import io.github.rcarlosdasilva.weixin.core.cache.impl.MixCacheHandler;
 import io.github.rcarlosdasilva.weixin.core.encryption.Encryptor;
@@ -20,10 +22,9 @@ import io.github.rcarlosdasilva.weixin.core.exception.CanNotFetchOpenPlatformLic
 import io.github.rcarlosdasilva.weixin.core.exception.CanNotFetchOpenPlatformTicketException;
 import io.github.rcarlosdasilva.weixin.core.exception.WeirdWeixinNotificationException;
 import io.github.rcarlosdasilva.weixin.core.parser.NotificationParser;
-import io.github.rcarlosdasilva.weixin.core.registry.Registration;
 import io.github.rcarlosdasilva.weixin.model.AccessToken;
-import io.github.rcarlosdasilva.weixin.model.Account;
-import io.github.rcarlosdasilva.weixin.model.OpenPlatform;
+import io.github.rcarlosdasilva.weixin.model.OpAccount;
+import io.github.rcarlosdasilva.weixin.model.WeixinAccount;
 import io.github.rcarlosdasilva.weixin.model.builder.Builder;
 import io.github.rcarlosdasilva.weixin.model.builder.NotificationResponseBuilder;
 import io.github.rcarlosdasilva.weixin.model.notification.Event;
@@ -143,7 +144,7 @@ public class NotificationHandlerProxy {
 
     if (Strings.isNullOrEmpty(recipient)) {
       logger.warn("获取不到appid或tousername：{}", content);
-      if (Registration.getInstance().getSetting().isThrowException()) {
+      if (Registry.handler().getSetting().isThrowException()) {
         throw new WeirdWeixinNotificationException();
       }
     }
@@ -175,8 +176,8 @@ public class NotificationHandlerProxy {
 
   private Notification decryptNotification(final Notification originalNotification,
       String recipient, String signature, long timestamp, String nonce) {
-    final OpenPlatform openPlatform = Registration.getInstance().getOpenPlatform();
-    Account account = Registration.lookup(recipient);
+    final OpAccount openPlatform = Registry.handler().getOpenPlatform();
+    WeixinAccount account = RegistryHandler.lookup(recipient);
     if (openPlatform == null && account == null) {
       logger.warn("没有配置开放平台，并且找不到对应的公众号配置(Account): {}", recipient);
       return null;
@@ -222,14 +223,14 @@ public class NotificationHandlerProxy {
     return decryptedNotification;
   }
 
-  private String encryptNotification(NotificationResponseBuilder builder, Account account) {
+  private String encryptNotification(NotificationResponseBuilder builder, WeixinAccount account) {
     NotificationResponse response = builder.build();
     logger.debug("处理完毕，已生成返回数据");
 
     if (response == null) {
       return Convention.WEIXIN_NOTIFICATION_RESPONSE_NOTHING;
     } else {
-      final OpenPlatform openPlatform = Registration.getInstance().getOpenPlatform();
+      final OpAccount openPlatform = Registry.handler().getOpenPlatform();
 
       String reply = NotificationParser.toXml(response);
       if (account == null || account.isWithOpenPlatform()) {
@@ -258,7 +259,7 @@ public class NotificationHandlerProxy {
    * @return boolean
    */
   public boolean isOpenPlatformActive(Notification notification) {
-    return Registration.getInstance().getOpenPlatform() != null
+    return Registry.handler().getOpenPlatform() != null
         && !Strings.isNullOrEmpty(notification.getAppId());
   }
 
@@ -424,8 +425,7 @@ public class NotificationHandlerProxy {
 
   private void processInfoWhenSuccessed(OpenInfo info, NotificationResponseBuilder builder,
       Notification notification) {
-    final boolean autoLoad = Registration.getInstance().getSetting()
-        .isAutoLoadAuthorizedWeixinData();
+    final boolean autoLoad = Registry.handler().getSetting().isAutoLoadAuthorizedWeixinData();
 
     LicensingInformation licensingInformation = null;
     LicensorInfromation licensorInfromation = null;
@@ -442,11 +442,11 @@ public class NotificationHandlerProxy {
       licensorInfromation = licensorInformationResponse.getLicensorInfromation();
     }
 
-    Account account = handler.doInfoOfAuthorizeSucceeded(builder, notification,
+    WeixinAccount account = handler.doInfoOfAuthorizeSucceeded(builder, notification,
         info.getLicensorAppId(), info.getLicense(), info.getLicenseExpireAt(), accessToken,
         licensingInformation, licensorInfromation);
 
-    Registration.getInstance().updateAccount(account);
+    Registry.handler().updateAccount(account);
     AccessTokenCacheHandler.getInstance().put(account.getKey(), accessToken);
   }
 
@@ -457,7 +457,7 @@ public class NotificationHandlerProxy {
       logger.warn("无法获取到开放平台授权者appid");
       throw new CanNotFetchOpenPlatformLicenseException();
     } else {
-      Registration.getInstance().unregister(licensorAppId);
+      Registry.handler().unregister(licensorAppId);
     }
 
     handler.doInfoOfAuthorizeCanceled(builder, notification, info.getLicensorAppId());
@@ -465,8 +465,7 @@ public class NotificationHandlerProxy {
 
   private void processInfoWhenUpdated(OpenInfo info, NotificationResponseBuilder builder,
       Notification notification) {
-    final boolean autoLoad = Registration.getInstance().getSetting()
-        .isAutoLoadAuthorizedWeixinData();
+    final boolean autoLoad = Registry.handler().getSetting().isAutoLoadAuthorizedWeixinData();
 
     LicensingInformation licensingInformation = null;
     LicensorInfromation licensorInfromation = null;
@@ -483,11 +482,11 @@ public class NotificationHandlerProxy {
       licensorInfromation = licensorInformationResponse.getLicensorInfromation();
     }
 
-    Account account = handler.doInfoOfAuthorizeUpdated(builder, notification,
+    WeixinAccount account = handler.doInfoOfAuthorizeUpdated(builder, notification,
         info.getLicensorAppId(), info.getLicense(), info.getLicenseExpireAt(), accessToken,
         licensingInformation, licensorInfromation);
 
-    Registration.getInstance().updateAccount(account);
+    Registry.handler().updateAccount(account);
     AccessTokenCacheHandler.getInstance().put(account.getKey(), accessToken);
   }
 
@@ -500,7 +499,7 @@ public class NotificationHandlerProxy {
   private OpenPlatformAuthGetLicenseInformationResponse fetchLicensingInformation(String license) {
     Preconditions.checkNotNull(license);
 
-    OpenPlatformAuthGetLicenseInformationResponse response = Weixin.withOpenPlatform().openAuth()
+    OpenPlatformAuthGetLicenseInformationResponse response = OpenPlatform.certificate()
         .getLicensingInformation(license);
 
     if (response == null) {
@@ -523,7 +522,7 @@ public class NotificationHandlerProxy {
       String licensorAppId) {
     Preconditions.checkNotNull(licensorAppId);
 
-    OpenPlatformAuthGetLicenseInformationResponse response = Weixin.withOpenPlatform().openAuth()
+    OpenPlatformAuthGetLicenseInformationResponse response = OpenPlatform.certificate()
         .getLicensorInformation(licensorAppId);
     if (response == null || response.getLicensorInfromation() == null) {
       logger.warn("无法获取到开放平台授权方的基本信息，但不影响主要功能");

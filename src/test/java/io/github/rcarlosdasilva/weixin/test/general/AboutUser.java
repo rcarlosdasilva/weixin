@@ -2,7 +2,7 @@ package io.github.rcarlosdasilva.weixin.test.general;
 
 import com.google.common.collect.Lists;
 
-import io.github.rcarlosdasilva.weixin.api.Weixin;
+import io.github.rcarlosdasilva.weixin.core.Weixin;
 import io.github.rcarlosdasilva.weixin.test.basic.RegisterAndUse;
 
 /**

@@ -2,7 +2,7 @@ package io.github.rcarlosdasilva.weixin.model.notification;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
-import io.github.rcarlosdasilva.weixin.model.Account;
+import io.github.rcarlosdasilva.weixin.model.WeixinAccount;
 
 /**
  * 微信推送通知模型
@@ -16,7 +16,7 @@ public class Notification extends NotificationMeta {
   private Event event;
   private Message message;
   private OpenInfo openInfo;
-  private Account account;
+  private WeixinAccount account;
 
   /**
    * xml明文原文，在安全模式下，微信验证URL时解密后有值，对应URL中的echostr.
@@ -73,13 +73,13 @@ public class Notification extends NotificationMeta {
   /**
    * 获取推送对应的公众号配置信息.
    * 
-   * @return {@link Account}
+   * @return {@link WeixinAccount}
    */
-  public Account getAccount() {
+  public WeixinAccount getAccount() {
     return account;
   }
 
-  public void setAccount(Account account) {
+  public void setAccount(WeixinAccount account) {
     this.account = account;
   }
 
