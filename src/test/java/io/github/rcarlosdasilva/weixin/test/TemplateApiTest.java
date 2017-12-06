@@ -21,24 +21,24 @@ public class TemplateApiTest {
 
   @Test
   public void test() {
-    boolean success = Weixin.withUnique().template().setIndustry(Industry.EDUCATION_ACADEMY,
+    boolean success = Weixin.unique().template().setIndustry(Industry.EDUCATION_ACADEMY,
         Industry.IT_INTERNET_AND_ECOMMERCE);
     Assert.assertTrue(success);
 
-    TemplateIndustryGetResponse temp = Weixin.withUnique().template().getIndustry();
+    TemplateIndustryGetResponse temp = Weixin.unique().template().getIndustry();
     Assert.assertNotNull(temp);
     Assert.assertNotNull(temp.getPrimaryIndustry());
     Assert.assertNotNull(temp.getSecondaryIndustry());
 
     // TM00221 - 放假通知
-    String code = Weixin.withUnique().template().append("TM00221");
+    String code = Weixin.unique().template().append("TM00221");
     Assert.assertNotNull(code);
 
-    List<Template> temps = Weixin.withUnique().template().query();
+    List<Template> temps = Weixin.unique().template().query();
     Assert.assertNotNull(temps);
     Assert.assertTrue(temps.size() > 0);
 
-    success = Weixin.withUnique().template().delete(code);
+    success = Weixin.unique().template().delete(code);
     Assert.assertTrue(success);
   }
 

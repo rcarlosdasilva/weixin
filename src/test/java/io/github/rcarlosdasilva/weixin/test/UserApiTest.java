@@ -23,30 +23,30 @@ public class UserApiTest {
 
   @Test
   public void testListAllUsersOpenId() {
-    UserOpenIdListResponse users = Weixin.withUnique().user().listAllUsersOpenId();
+    UserOpenIdListResponse users = Weixin.unique().user().listAllUsersOpenId();
     Assert.assertNotNull(users);
 
-    users = Weixin.withUnique().user().listAllUsersOpenId(users.getLastOpenId());
+    users = Weixin.unique().user().listAllUsersOpenId(users.getLastOpenId());
     Assert.assertNotNull(users);
   }
 
   @Test
   public void testUserInfoAndRemark() {
-    UserOpenIdListResponse resp = Weixin.withUnique().user().listAllUsersOpenId();
-    User user = Weixin.withUnique().user().getUserInfo(resp.getLastOpenId());
+    UserOpenIdListResponse resp = Weixin.unique().user().listAllUsersOpenId();
+    User user = Weixin.unique().user().getUserInfo(resp.getLastOpenId());
     Assert.assertNotNull(user);
 
-    boolean success = Weixin.withUnique().user().remarkName(resp.getLastOpenId(), "newname");
+    boolean success = Weixin.unique().user().remarkName(resp.getLastOpenId(), "newname");
     Assert.assertTrue(success);
 
-    success = Weixin.withUnique().user().remarkName(resp.getLastOpenId(), user.getRemark());
+    success = Weixin.unique().user().remarkName(resp.getLastOpenId(), user.getRemark());
     Assert.assertTrue(success);
   }
 
   @Test
   public void testGetUsersInfo() {
-    UserOpenIdListResponse resp = Weixin.withUnique().user().listAllUsersOpenId();
-    List<User> users = Weixin.withUnique().user()
+    UserOpenIdListResponse resp = Weixin.unique().user().listAllUsersOpenId();
+    List<User> users = Weixin.unique().user()
         .getUsersInfo(Lists.newArrayList(resp.getLastOpenId()));
     Assert.assertNotNull(users);
     Assert.assertTrue(users.size() > 0);
@@ -54,27 +54,27 @@ public class UserApiTest {
 
   @Test
   public void testListUsersOpenIdWithTagInt() {
-    int tagid = Weixin.withUnique().userTag().create("temptag");
+    int tagid = Weixin.unique().userTag().create("temptag");
 
-    UserOpenIdListResponse resp = Weixin.withUnique().user().listUsersOpenIdWithTag(tagid);
+    UserOpenIdListResponse resp = Weixin.unique().user().listUsersOpenIdWithTag(tagid);
     Assert.assertNotNull(resp);
 
-    Weixin.withUnique().userTag().delete(tagid);
+    Weixin.unique().userTag().delete(tagid);
   }
 
   @Test
   public void testBlackList() {
-    UserOpenIdListResponse users = Weixin.withUnique().user().listAllUsersOpenId();
+    UserOpenIdListResponse users = Weixin.unique().user().listAllUsersOpenId();
 
-    boolean success = Weixin.withUnique().user()
+    boolean success = Weixin.unique().user()
         .appendUsersToBlack(Lists.newArrayList(users.getLastOpenId()));
     Assert.assertTrue(success);
 
-    BlackListQueryResponse blacks = Weixin.withUnique().user().listUsersInBlack();
+    BlackListQueryResponse blacks = Weixin.unique().user().listUsersInBlack();
     Assert.assertNotNull(blacks);
     Assert.assertTrue(blacks.getCount() > 0);
 
-    success = Weixin.withUnique().user()
+    success = Weixin.unique().user()
         .cancelUsersFromBlack(Lists.newArrayList(users.getLastOpenId()));
     Assert.assertTrue(success);
   }

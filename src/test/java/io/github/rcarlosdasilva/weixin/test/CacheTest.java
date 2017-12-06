@@ -29,9 +29,9 @@ public class CacheTest {
 
     Registry.withSetting(config);
 
-    Registry.register(
+    Registry.checkin(
         WeixinAccount.create("wx4a1d70e8f0d2a4ec", "9a258c341245bc3f7f9640dda4f4b82e").withKey(self));
-    Registry.register(
+    Registry.checkin(
         WeixinAccount.create("wx89e4a038cb7a8ce0", "1574ab11c2355835678f9e1b246bb510").withKey(test));
 
     UserOpenIdListResponse uoil1 = Weixin.with(self).user().listAllUsersOpenId();

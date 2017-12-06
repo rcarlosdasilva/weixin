@@ -26,7 +26,7 @@ public class MessageApiTest {
     Map<String, Template> params = Builder.buildTemplateMessage().begin("测试模板")
         .keyword("noticeSender", "王二麻子").keyword("time", "明天").keyword("status", "昂")
         .keyword("reason", "No Why").end("详情..").build();
-    Long msgid = Weixin.withUnique().message().sendWithTemplate("o4bFzwme0EES8Jz2mbN-AGlmUPKo",
+    Long msgid = Weixin.unique().message().sendWithTemplate("o4bFzwme0EES8Jz2mbN-AGlmUPKo",
         "35X9xk5Z5RgbfS_o9NpH7Vg5zu2x3SpuyJ2IHlaEXyI", "http://www.baidu.com", params);
     Assert.assertTrue(msgid > 0);
   }

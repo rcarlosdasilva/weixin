@@ -24,7 +24,7 @@ public class MediaApiTest {
     // System.out.println(file.exists());
     // Assert.assertTrue(file.exists());
     //
-    // MediaAddTemporaryResponse response = Weixin.withUnique().media()
+    // MediaAddTemporaryResponse response = Weixin.unique().media()
     // .addTemporaryMedia(MediaType.IMAGE, "abcxyz.jpg", file);
     // Assert.assertNotNull(response.getMediaId());
     // Assert.assertNotNull(response.getType());
@@ -34,11 +34,11 @@ public class MediaApiTest {
     // Thread.sleep(2000);
     //
     // byte[] buffer =
-    // Weixin.withUnique().media().getTemporaryMedia(response.getMediaId());
-    // InputStream is = Weixin.withUnique().media()
+    // Weixin.unique().media().getTemporaryMedia(response.getMediaId());
+    // InputStream is = Weixin.unique().media()
     // .getTemporaryMedia("Co1RG2pGu38BVc58WhfJqKVSZ3ujL3-M6avj2Xy_KIMxJR8013TVnso2pJWMDHNV");
     // // 图片
-    byte[] buffer = Weixin.withUnique().material()
+    byte[] buffer = Weixin.unique().material()
         .getTemporaryMedia("Ej3zDhXh5LWPumqOeOAGmZcslH6JYn-4tilk4w4QrxVjRwB7QnRtCdN9qWR6u639");// 视频
     Assert.assertNotNull(buffer);
 

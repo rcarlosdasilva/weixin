@@ -22,20 +22,20 @@ public class UserTagApiTest {
 
   @Test
   public void test() {
-    int tagid = Weixin.withUnique().userTag().create("newtag");
+    int tagid = Weixin.unique().userTag().create("newtag");
     Assert.assertTrue(tagid > 0);
 
-    List<UserTag> tags = Weixin.withUnique().userTag().list();
+    List<UserTag> tags = Weixin.unique().userTag().list();
     Assert.assertNotNull(tags);
     Assert.assertTrue(tags.size() > 0);
 
-    UserOpenIdListResponse users = Weixin.withUnique().user().listAllUsersOpenId();
+    UserOpenIdListResponse users = Weixin.unique().user().listAllUsersOpenId();
 
-    boolean success = Weixin.withUnique().userTag().tagging(tagid,
+    boolean success = Weixin.unique().userTag().tagging(tagid,
         Lists.newArrayList(users.getLastOpenId()));
 
     success = false;
-    List<Integer> tagidlist = Weixin.withUnique().userTag().listBasedUser(users.getLastOpenId());
+    List<Integer> tagidlist = Weixin.unique().userTag().listBasedUser(users.getLastOpenId());
     for (Integer id : tagidlist) {
       success = id == tagid;
       if (success) {
@@ -44,12 +44,12 @@ public class UserTagApiTest {
     }
     Assert.assertTrue(success);
 
-    Weixin.withUnique().userTag().untagging(tagid, Lists.newArrayList(users.getLastOpenId()));
+    Weixin.unique().userTag().untagging(tagid, Lists.newArrayList(users.getLastOpenId()));
 
-    success = Weixin.withUnique().userTag().update(tagid, "updatedtag");
+    success = Weixin.unique().userTag().update(tagid, "updatedtag");
     Assert.assertTrue(success);
 
-    success = Weixin.withUnique().userTag().delete(tagid);
+    success = Weixin.unique().userTag().delete(tagid);
     Assert.assertTrue(success);
   }
 

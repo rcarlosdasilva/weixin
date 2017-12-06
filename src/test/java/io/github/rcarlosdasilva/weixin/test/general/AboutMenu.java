@@ -27,26 +27,26 @@ public class AboutMenu {
     Menu menu = Builder.buildMenu().addRootClick("第一个", "一级菜单无子菜单").addRootWithSubButtons("第二个")
         .addClick("第一个", "二级菜单").addClick("第二个", "二级菜单").and().addRootView("第三个", "一级菜单无子菜单")
         .build();
-    Weixin.withUnique().menu().create(menu);
+    Weixin.unique().menu().create(menu);
 
     // 创建个性化菜单
     menu = Builder.buildMenu().addRootClick("第一个", "一级菜单无子菜单").addRootWithSubButtons("第二个")
         .addClick("第一个", "二级菜单").addClick("第二个", "二级菜单").and().addRootView("第三个", "一级菜单无子菜单")
         .withConditional().setSex(Sex.FEMALE).setLanguage(Language.ZH_CN).done().build();
-    Weixin.withUnique().menu().createWithConditional(menu);
+    Weixin.unique().menu().createWithConditional(menu);
 
     // 删除默认自定义菜单
-    Weixin.withUnique().menu().delete();
+    Weixin.unique().menu().delete();
 
     // 删除个性化菜单
-    Weixin.withUnique().menu().deleteWithConditional(0L);
+    Weixin.unique().menu().deleteWithConditional(0L);
 
     // 获取菜单信息
-    MenuInfoResponse info = Weixin.withUnique().menu().query();
-    MenuCompleteResponse complete = Weixin.withUnique().menu().queryComplete();
+    MenuInfoResponse info = Weixin.unique().menu().query();
+    MenuCompleteResponse complete = Weixin.unique().menu().queryComplete();
 
     // 测试个性化菜单
-    Weixin.withUnique().menu().testWithConditional("微信号");
+    Weixin.unique().menu().testWithConditional("微信号");
   }
 
 }
