@@ -10,9 +10,8 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Maps;
 
 import io.github.rcarlosdasilva.weixin.common.Convention;
-import io.github.rcarlosdasilva.weixin.core.cache.holder.SimpleRedisHandler;
-import io.github.rcarlosdasilva.weixin.core.cache.impl.AccessTokenCacheHandler;
-import io.github.rcarlosdasilva.weixin.core.cache.impl.AccountCacheHandler;
+import io.github.rcarlosdasilva.weixin.core.cache.CacheHandler;
+import io.github.rcarlosdasilva.weixin.core.cache.Lookup;
 import io.github.rcarlosdasilva.weixin.core.exception.InvalidAccountException;
 import io.github.rcarlosdasilva.weixin.core.listener.AccessTokenUpdatedListener;
 import io.github.rcarlosdasilva.weixin.core.listener.JsTicketUpdatedListener;
@@ -20,6 +19,7 @@ import io.github.rcarlosdasilva.weixin.core.listener.OpenPlatformAccessTokenUpda
 import io.github.rcarlosdasilva.weixin.core.listener.OpenPlatformLisensorAccessTokenUpdatedListener;
 import io.github.rcarlosdasilva.weixin.core.listener.WeixinListener;
 import io.github.rcarlosdasilva.weixin.core.setting.Setting;
+import io.github.rcarlosdasilva.weixin.model.AccessToken;
 import io.github.rcarlosdasilva.weixin.model.OpAccount;
 import io.github.rcarlosdasilva.weixin.model.WeixinAccount;
 
@@ -172,15 +172,6 @@ public class Registry {
     }
 
     void setSetting(Setting setting) {
-      if (setting.isUseRedisCache() && !setting.isUseSpringRedis()) {
-        SimpleRedisHandler.init(setting.getRedisSetting());
-      }
-
-      // 如果使用Redis缓存（普通Redis配置或Spring的Redis配置），则将之前注册到Map中（默认使用Map）的公众号信息迁移到Redis中
-      if (setting.isUseRedisCache()) {
-        AccountCacheHandler.getInstance().migrateAccount();
-      }
-
       this.setting = setting;
     }
 
@@ -226,7 +217,7 @@ public class Registry {
         if (Strings.isNullOrEmpty(account.getKey())) {
           account.setKey(Convention.DEFAULT_UNIQUE_WEIXIN_KEY);
         }
-        AccountCacheHandler.getInstance().put(account.getKey(), account);
+        CacheHandler.of(WeixinAccount.class).put(account.getKey(), account);
         logger.info("注册公众号：[KEY: {}, APPID: {}]", account.getKey(), account.getAppId());
       }
     }
@@ -234,7 +225,7 @@ public class Registry {
     void set(WeixinAccount account) {
       if (verify(account)) {
         del(account.getKey());
-        AccountCacheHandler.getInstance().put(account.getKey(), account);
+        CacheHandler.of(WeixinAccount.class).put(account.getKey(), account);
       }
     }
 
@@ -246,8 +237,8 @@ public class Registry {
       final WeixinAccount account = get(key);
       if (account != null) {
         final String realKey = account.getKey();
-        AccountCacheHandler.getInstance().remove(realKey);
-        AccessTokenCacheHandler.getInstance().remove(realKey);
+        CacheHandler.of(WeixinAccount.class).remove(realKey);
+        CacheHandler.of(AccessToken.class).remove(realKey);
         logger.info("已注销公众号信息：[{}]", key);
       } else {
         logger.warn("未找到可取消注册的公众号信息：[{}]", key);
@@ -284,13 +275,23 @@ public class Registry {
       return true;
     }
 
-    WeixinAccount get(String key) {
-      WeixinAccount account = AccountCacheHandler.getInstance().get(key);
+    WeixinAccount get(final String key) {
+      if (Strings.isNullOrEmpty(key)) {
+        return null;
+      }
+
+      WeixinAccount account = CacheHandler.of(WeixinAccount.class).get(key);
       if (account != null) {
         return account;
       }
 
-      return AccountCacheHandler.getInstance().lookup(WeixinAccount.create(key));
+      return CacheHandler.of(WeixinAccount.class).lookup(new Lookup<WeixinAccount>() {
+
+        @Override
+        public boolean isYou(WeixinAccount obj) {
+          return key.equals(obj.getAppId()) || key.equals(obj.getMpId());
+        }
+      });
     }
 
   }

@@ -17,8 +17,7 @@ import io.github.rcarlosdasilva.weixin.common.dictionary.WebAuthorizeScope;
 import io.github.rcarlosdasilva.weixin.core.OpenPlatform;
 import io.github.rcarlosdasilva.weixin.core.Registry;
 import io.github.rcarlosdasilva.weixin.core.Weixin;
-import io.github.rcarlosdasilva.weixin.core.cache.impl.AccessTokenCacheHandler;
-import io.github.rcarlosdasilva.weixin.core.cache.impl.JsTicketCacheHandler;
+import io.github.rcarlosdasilva.weixin.core.cache.CacheHandler;
 import io.github.rcarlosdasilva.weixin.core.exception.CanNotFetchAccessTokenException;
 import io.github.rcarlosdasilva.weixin.core.exception.CanNotFetchOpenPlatformLicensorAccessTokenException;
 import io.github.rcarlosdasilva.weixin.core.exception.InvalidAccountException;
@@ -27,6 +26,7 @@ import io.github.rcarlosdasilva.weixin.core.json.Json;
 import io.github.rcarlosdasilva.weixin.core.listener.AccessTokenUpdatedListener;
 import io.github.rcarlosdasilva.weixin.core.listener.JsTicketUpdatedListener;
 import io.github.rcarlosdasilva.weixin.model.AccessToken;
+import io.github.rcarlosdasilva.weixin.model.JsTicket;
 import io.github.rcarlosdasilva.weixin.model.JsapiSignature;
 import io.github.rcarlosdasilva.weixin.model.WeixinAccount;
 import io.github.rcarlosdasilva.weixin.model.request.certificate.AccessTokenRequest;
@@ -55,7 +55,7 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
 
   @Override
   public String askAccessToken() {
-    AccessToken token = AccessTokenCacheHandler.getInstance().get(this.accountKey);
+    AccessToken token = CacheHandler.of(AccessToken.class).get(this.accountKey);
 
     if (null == token || token.isExpired()) {
       synchronized (this.lock) {
@@ -109,7 +109,7 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
     String responseMock = String.format("{'access_token':'%s','expires_in':%s}", token,
         (expiresIn / 1000));
     AccessTokenResponse responseModel = Json.fromJson(responseMock, AccessTokenResponse.class);
-    AccessTokenCacheHandler.getInstance().put(this.accountKey, responseModel);
+    CacheHandler.of(AccessToken.class).put(this.accountKey, responseModel);
   }
 
   /**
@@ -135,7 +135,7 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
     }
 
     AccessToken accessToken = response.getLicensedAccessToken();
-    AccessTokenCacheHandler.getInstance().put(this.accountKey, accessToken);
+    CacheHandler.of(AccessToken.class).put(this.accountKey, accessToken);
     logger.debug("For:{} >> 开放平台更新授权方access_token：[{}]", this.accountKey,
         accessToken.getAccessToken());
 
@@ -157,7 +157,7 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
     AccessToken accessToken = get(AccessTokenResponse.class, requestModel);
 
     if (accessToken != null) {
-      AccessTokenCacheHandler.getInstance().put(this.accountKey, accessToken);
+      CacheHandler.of(AccessToken.class).put(this.accountKey, accessToken);
       logger.debug("For:{} >> 获取到access_token：[{}]", this.accountKey, accessToken.getAccessToken());
 
       final AccessTokenUpdatedListener listener = Registry
@@ -176,7 +176,7 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
 
   @Override
   public final String askJsTicket() {
-    JsTicketResponse ticket = JsTicketCacheHandler.getInstance().get(this.accountKey);
+    JsTicket ticket = CacheHandler.of(JsTicket.class).get(this.accountKey);
 
     if (ticket == null || ticket.expired()) {
       synchronized (this.lock) {
@@ -215,7 +215,7 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
         (expiresIn / 1000));
     JsTicketResponse responseModel = Json.fromJson(responseMock, JsTicketResponse.class);
     responseModel.updateExpireAt();
-    JsTicketCacheHandler.getInstance().put(this.accountKey, responseModel);
+    CacheHandler.of(JsTicket.class).put(this.accountKey, responseModel);
   }
 
   /**
@@ -231,7 +231,7 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
 
     if (responseModel != null) {
       responseModel.updateExpireAt();
-      JsTicketCacheHandler.getInstance().put(this.accountKey, responseModel);
+      CacheHandler.of(JsTicket.class).put(this.accountKey, responseModel);
       logger.debug("For:{} >> 获取jsapi_ticket：[{}]", this.accountKey, responseModel.getJsTicket());
 
       final JsTicketUpdatedListener listener = Registry.listener(JsTicketUpdatedListener.class);

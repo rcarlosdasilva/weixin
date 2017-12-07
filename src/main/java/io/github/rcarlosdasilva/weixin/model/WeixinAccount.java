@@ -8,13 +8,14 @@ import com.google.common.base.Strings;
 import io.github.rcarlosdasilva.weixin.common.dictionary.AccountType;
 import io.github.rcarlosdasilva.weixin.common.dictionary.EncryptionType;
 import io.github.rcarlosdasilva.weixin.common.dictionary.WeixinCertificationType;
+import io.github.rcarlosdasilva.weixin.core.cache.Cacheable;
 
 /**
  * 公众号账号模型
  * 
  * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
-public class WeixinAccount implements Serializable {
+public class WeixinAccount implements Serializable, Cacheable {
 
   private static final long serialVersionUID = 9204192729241765932L;
 

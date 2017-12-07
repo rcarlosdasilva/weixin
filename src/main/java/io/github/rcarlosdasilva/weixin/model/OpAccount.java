@@ -2,7 +2,9 @@ package io.github.rcarlosdasilva.weixin.model;
 
 import java.io.Serializable;
 
-public class OpAccount implements Serializable {
+import io.github.rcarlosdasilva.weixin.core.cache.Cacheable;
+
+public class OpAccount implements Serializable, Cacheable {
 
   private static final long serialVersionUID = -4067025457096279300L;
 

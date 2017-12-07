@@ -11,7 +11,8 @@ import io.github.rcarlosdasilva.weixin.common.Convention;
 import io.github.rcarlosdasilva.weixin.common.dictionary.ResultCode;
 import io.github.rcarlosdasilva.weixin.core.Registry;
 import io.github.rcarlosdasilva.weixin.core.Weixin;
-import io.github.rcarlosdasilva.weixin.core.cache.impl.MixCacheHandler;
+import io.github.rcarlosdasilva.weixin.core.cache.CacheHandler;
+import io.github.rcarlosdasilva.weixin.core.cache.GeneralCacheableObject;
 import io.github.rcarlosdasilva.weixin.core.exception.ExecuteException;
 import io.github.rcarlosdasilva.weixin.model.request.helper.HelperResetQuotaRequest;
 
@@ -46,13 +47,15 @@ public class HelperApiImpl extends BasicApi implements HelperApi {
   @Override
   @SuppressWarnings("unchecked")
   public boolean isLegalRequestIp(String ip) {
-    Object obj = MixCacheHandler.getInstance().get(Convention.WEIXIN_IP_CACHE_KEY);
+    GeneralCacheableObject cacheableObject = CacheHandler.of(GeneralCacheableObject.class)
+        .get(Convention.WEIXIN_IP_CACHE_KEY);
     final List<String> ips;
-    if (obj != null && (obj instanceof List)) {
-      ips = (List<String>) obj;
+    if (cacheableObject != null) {
+      ips = (List<String>) cacheableObject.getObj();
     } else {
       ips = Weixin.with(this.accountKey).common().getWeixinIps();
-      MixCacheHandler.getInstance().put(Convention.WEIXIN_IP_CACHE_KEY, ips);
+      CacheHandler.of(GeneralCacheableObject.class).put(Convention.WEIXIN_IP_CACHE_KEY,
+          new GeneralCacheableObject(ips));
     }
 
     return ips.contains(ip.trim());

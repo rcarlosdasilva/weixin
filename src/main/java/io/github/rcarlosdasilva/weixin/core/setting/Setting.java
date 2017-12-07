@@ -1,12 +1,13 @@
 package io.github.rcarlosdasilva.weixin.core.setting;
 
+import io.github.rcarlosdasilva.weixin.core.cache.CacheType;
+
 public class Setting {
 
   private int retries = 2;
   private boolean strictUseOpenPlatform = false;
   private boolean throwException = true;
-  private boolean useRedisCache = false;
-  private boolean useSpringRedis = false;
+  private CacheType cacheType = CacheType.SMART;
   private boolean autoLoadAuthorizedWeixinData = true;
   private RedisSetting redisSetting = null;
 
@@ -66,32 +67,18 @@ public class Setting {
     this.throwException = throwException;
   }
 
-  public boolean isUseRedisCache() {
-    return useRedisCache;
+  public CacheType getCacheType() {
+    return cacheType;
   }
 
   /**
-   * 是否使用Redis做缓存.
+   * 缓存方式
    * 
-   * @param useRedisCache
-   *          boolean
+   * @param cacheType
+   *          type
    */
-  public void setUseRedisCache(boolean useRedisCache) {
-    this.useRedisCache = useRedisCache;
-  }
-
-  public boolean isUseSpringRedis() {
-    return useSpringRedis;
-  }
-
-  /**
-   * 是否使用Spring中配置的Redis做缓存.
-   * 
-   * @param useSpringRedis
-   *          boolean
-   */
-  public void setUseSpringRedis(boolean useSpringRedis) {
-    this.useSpringRedis = useSpringRedis;
+  public void setCacheType(CacheType cacheType) {
+    this.cacheType = cacheType;
   }
 
   public boolean isAutoLoadAuthorizedWeixinData() {
@@ -121,8 +108,7 @@ public class Setting {
    *          config
    */
   public void setRedisSetting(RedisSetting redisSetting) {
-    this.useRedisCache = true;
-    this.useSpringRedis = false;
+    this.cacheType = CacheType.SIMPLE_REDIS;
     this.redisSetting = redisSetting;
   }
 

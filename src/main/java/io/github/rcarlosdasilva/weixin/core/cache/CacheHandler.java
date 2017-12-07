@@ -1,69 +1,92 @@
 package io.github.rcarlosdasilva.weixin.core.cache;
 
-import java.util.Collection;
+import java.lang.reflect.Field;
+import java.util.Map;
 
-/**
- * 缓存
- * 
- * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
- */
-public interface CacheHandler<V> {
+import com.google.common.collect.Maps;
 
-  /**
-   * 所有键.
-   * 
-   * @return 键
-   */
-  Collection<String> keys();
+import io.github.rcarlosdasilva.weixin.core.Registry;
+import io.github.rcarlosdasilva.weixin.core.cache.storage.JdkMapStorage;
+import io.github.rcarlosdasilva.weixin.core.cache.storage.SimpleRedisStorage;
+import io.github.rcarlosdasilva.weixin.core.cache.storage.SpringRedisStorage;
+import io.github.rcarlosdasilva.weixin.core.cache.storage.redis.RedisHandler;
 
-  /**
-   * 缓存大小
-   * 
-   * @return int
-   */
-  int size();
+public class CacheHandler {
 
-  /**
-   * 清空
-   */
-  void clear();
+  public static final String CACHEABLE_CLASS_GROUP_MARK_FIELD_NAME = "GROUP_NAME";
+  private static final Map<Class<? extends Cacheable>, CacheStorage<? extends Cacheable>> STORAGES = Maps
+      .newHashMap();
 
-  /**
-   * 获取.
-   * 
-   * @param key
-   *          键
-   * @return 值
-   */
-  V get(final String key);
+  private CacheHandler() {
+    throw new IllegalStateException("CacheHandler class");
+  }
 
-  /**
-   * 放入.
-   * 
-   * @param key
-   *          键
-   * @param object
-   *          值
-   * @return 值
-   */
-  V put(final String key, final V object);
+  public static <V extends Cacheable> CacheStorage<V> of(Class<V> clazz) {
+    @SuppressWarnings("unchecked")
+    CacheStorage<V> storage = (CacheStorage<V>) STORAGES.get(clazz);
 
-  /**
-   * 移除.
-   * 
-   * @param key
-   *          键
-   * @return 值
-   */
-  V remove(final String key);
+    if (storage == null) {
+      synchronized (STORAGES) {
+        storage = newStorage(clazz);
+        STORAGES.put(clazz, storage);
+      }
+    }
 
-  /**
-   * 查找.
-   * 
-   * @param value
-   *          值
-   * @return boolean
-   */
-  V lookup(final V value);
+    return storage;
+  }
+
+  private static <V extends Cacheable> CacheStorage<V> newStorage(Class<V> clazz) {
+    String group = groupName(clazz);
+    CacheType cacheType = Registry.setting().getCacheType();
+    if (cacheType == CacheType.SMART) {
+      cacheType = smartCacheType();
+    }
+    switch (cacheType) {
+      case SPRING_REDIS:
+        return new SpringRedisStorage<>(group);
+      case SIMPLE_REDIS:
+        return new SimpleRedisStorage<>(group);
+      case JDK_MAP:
+        return new JdkMapStorage<>();
+      default:
+        return null;
+    }
+  }
+
+  private static CacheType smartCacheType() {
+    if (RedisHandler.getRedisTemplate() != null) {
+      return CacheType.SPRING_REDIS;
+    }
+
+    try {
+      Class.forName("redis.clients.jedis.Jedis");
+      return CacheType.SIMPLE_REDIS;
+    } catch (Exception ex) {
+      return CacheType.SIMPLE_REDIS;
+    }
+  }
+
+  private static String groupName(Class<?> clazz) {
+    try {
+      Field field = clazz.getField(CACHEABLE_CLASS_GROUP_MARK_FIELD_NAME);
+      return field.get(clazz).toString();
+    } catch (Exception ex) {
+      String clazzName = clazz.getSimpleName();
+      int length = clazzName.length();
+      StringBuffer sb = new StringBuffer();
+      for (int i = 0; i < length; i++) {
+        char c = clazzName.charAt(i);
+        if (c >= 'a' && c <= 'z') {
+          sb.append(c);
+        } else if (c >= 'A' && c <= 'Z') {
+          if (i > 0) {
+            sb.append('_');
+          }
+          sb.append(c + 32);
+        }
+      }
+      return sb.toString();
+    }
+  }
 
 }

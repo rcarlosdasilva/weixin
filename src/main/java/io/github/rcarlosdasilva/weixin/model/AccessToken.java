@@ -5,8 +5,9 @@ import java.io.Serializable;
 import com.google.common.base.Strings;
 
 import io.github.rcarlosdasilva.weixin.common.Convention;
+import io.github.rcarlosdasilva.weixin.core.cache.Cacheable;
 
-public abstract class AccessToken implements Serializable {
+public abstract class AccessToken implements Serializable, Cacheable {
 
   private static final long serialVersionUID = 3553323869805808582L;
 

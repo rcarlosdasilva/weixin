@@ -13,7 +13,8 @@ import io.github.rcarlosdasilva.weixin.common.Utils;
 import io.github.rcarlosdasilva.weixin.common.dictionary.ResultCode;
 import io.github.rcarlosdasilva.weixin.core.OpenPlatform;
 import io.github.rcarlosdasilva.weixin.core.Registry;
-import io.github.rcarlosdasilva.weixin.core.cache.impl.MixCacheHandler;
+import io.github.rcarlosdasilva.weixin.core.cache.CacheHandler;
+import io.github.rcarlosdasilva.weixin.core.cache.GeneralCacheableObject;
 import io.github.rcarlosdasilva.weixin.core.exception.CanNotFetchOpenPlatformAccessTokenException;
 import io.github.rcarlosdasilva.weixin.core.exception.CanNotFetchOpenPlatformPreAuthCodeException;
 import io.github.rcarlosdasilva.weixin.core.exception.ExecuteException;
@@ -21,6 +22,7 @@ import io.github.rcarlosdasilva.weixin.core.exception.OpenPlatformNotFoundExcept
 import io.github.rcarlosdasilva.weixin.core.exception.OpenPlatformTicketNotFoundException;
 import io.github.rcarlosdasilva.weixin.core.listener.OpenPlatformAccessTokenUpdatedListener;
 import io.github.rcarlosdasilva.weixin.core.listener.OpenPlatformLisensorAccessTokenUpdatedListener;
+import io.github.rcarlosdasilva.weixin.model.AccessToken;
 import io.github.rcarlosdasilva.weixin.model.OpAccount;
 import io.github.rcarlosdasilva.weixin.model.request.open.auth.OpenPlatformAuthAccessTokenRequest;
 import io.github.rcarlosdasilva.weixin.model.request.open.auth.OpenPlatformAuthGetLicenseInformationRequest;
@@ -56,12 +58,8 @@ public class OpCertificateApiImpl extends BasicApi implements OpCertificateApi {
 
   @Override
   public String askAccessToken() {
-    Object tokenObject = MixCacheHandler.getInstance()
+    AccessToken token = CacheHandler.of(AccessToken.class)
         .get(Convention.DEFAULT_CACHE_KEY_OPEN_PLATFORM_ACCESS_TOKEN);
-    OpenPlatformAuthAccessTokenResponse token = null;
-    if (tokenObject != null) {
-      token = (OpenPlatformAuthAccessTokenResponse) tokenObject;
-    }
 
     if (null == token || token.isExpired()) {
       synchronized (this.lock) {
@@ -87,11 +85,11 @@ public class OpCertificateApiImpl extends BasicApi implements OpCertificateApi {
 
   private synchronized OpenPlatformAuthAccessTokenResponse requestAccessToken() {
     logger.debug("For: >> 正在获取component_access_token");
-    Object ticketObject = MixCacheHandler.getInstance()
+    GeneralCacheableObject cacheableObject = CacheHandler.of(GeneralCacheableObject.class)
         .get(Convention.DEFAULT_CACHE_KEY_OPEN_PLATFORM_TICKET);
     String ticket = null;
-    if (ticketObject != null) {
-      ticket = ticketObject.toString();
+    if (cacheableObject != null) {
+      ticket = cacheableObject.getObj().toString();
     }
     if (Strings.isNullOrEmpty(ticket)) {
       logger.warn("获取不到微信开放平台的ticket，可能微信还未将ticket通知到当前服务器");
@@ -108,8 +106,8 @@ public class OpCertificateApiImpl extends BasicApi implements OpCertificateApi {
         OpenPlatformAuthAccessTokenResponse.class, requestModel);
 
     if (responseModel != null) {
-      MixCacheHandler.getInstance().put(Convention.DEFAULT_CACHE_KEY_OPEN_PLATFORM_ACCESS_TOKEN,
-          responseModel);
+      CacheHandler.of(AccessToken.class)
+          .put(Convention.DEFAULT_CACHE_KEY_OPEN_PLATFORM_ACCESS_TOKEN, responseModel);
       logger.debug("For: >> 获取到access_token：[{}]", responseModel.getAccessToken());
 
       final OpenPlatformAccessTokenUpdatedListener listener = Registry

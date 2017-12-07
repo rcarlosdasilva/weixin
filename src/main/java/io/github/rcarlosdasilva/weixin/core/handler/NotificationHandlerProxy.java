@@ -12,8 +12,8 @@ import io.github.rcarlosdasilva.weixin.common.dictionary.NotificationInfoType;
 import io.github.rcarlosdasilva.weixin.common.dictionary.NotificationMessageType;
 import io.github.rcarlosdasilva.weixin.core.OpenPlatform;
 import io.github.rcarlosdasilva.weixin.core.Registry;
-import io.github.rcarlosdasilva.weixin.core.cache.impl.AccessTokenCacheHandler;
-import io.github.rcarlosdasilva.weixin.core.cache.impl.MixCacheHandler;
+import io.github.rcarlosdasilva.weixin.core.cache.CacheHandler;
+import io.github.rcarlosdasilva.weixin.core.cache.GeneralCacheableObject;
 import io.github.rcarlosdasilva.weixin.core.encryption.Encryptor;
 import io.github.rcarlosdasilva.weixin.core.exception.CanNotFetchOpenPlatformLiceningInformationException;
 import io.github.rcarlosdasilva.weixin.core.exception.CanNotFetchOpenPlatformLicenseException;
@@ -415,7 +415,8 @@ public class NotificationHandlerProxy {
       logger.warn("无法获取到开放平台发放的Ticket");
       throw new CanNotFetchOpenPlatformTicketException();
     } else {
-      MixCacheHandler.getInstance().put(Convention.DEFAULT_CACHE_KEY_OPEN_PLATFORM_TICKET, ticket);
+      CacheHandler.of(GeneralCacheableObject.class).put(
+          Convention.DEFAULT_CACHE_KEY_OPEN_PLATFORM_TICKET, new GeneralCacheableObject(ticket));
     }
 
     handler.doInfoOfComponentVerifyTicket(builder, notification, info.getTicket());
@@ -445,7 +446,7 @@ public class NotificationHandlerProxy {
         licensingInformation, licensorInfromation);
 
     Registry.update(account);
-    AccessTokenCacheHandler.getInstance().put(account.getKey(), accessToken);
+    CacheHandler.of(AccessToken.class).put(account.getKey(), accessToken);
   }
 
   private void processInfoWhenCanceled(OpenInfo info, NotificationResponseBuilder builder,
@@ -485,7 +486,7 @@ public class NotificationHandlerProxy {
         licensingInformation, licensorInfromation);
 
     Registry.update(account);
-    AccessTokenCacheHandler.getInstance().put(account.getKey(), accessToken);
+    CacheHandler.of(AccessToken.class).put(account.getKey(), accessToken);
   }
 
   /**
