@@ -96,7 +96,7 @@ public class SpringRedisStorage<V extends Cacheable> implements CacheStorage<V> 
       if (obj == null) {
         continue;
       }
-      if (lookup.isYou((V) obj)) {
+      if (lookup.isYou(key, (V) obj)) {
         return (V) obj;
       }
     }
@@ -113,7 +113,7 @@ public class SpringRedisStorage<V extends Cacheable> implements CacheStorage<V> 
       if (obj == null) {
         continue;
       }
-      if (lookup.isYou((V) obj)) {
+      if (lookup.isYou(key, (V) obj)) {
         result.add((V) obj);
       }
     }

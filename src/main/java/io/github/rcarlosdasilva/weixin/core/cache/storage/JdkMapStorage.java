@@ -72,7 +72,7 @@ public final class JdkMapStorage<V extends Cacheable> implements CacheStorage<V>
     Collection<String> keys = keys();
     for (String key : keys) {
       V obj = get(key);
-      if (lookup.isYou(obj)) {
+      if (lookup.isYou(key, obj)) {
         return obj;
       }
     }
@@ -85,7 +85,7 @@ public final class JdkMapStorage<V extends Cacheable> implements CacheStorage<V>
     List<V> result = Lists.newArrayList();
     for (String key : keys) {
       V obj = get(key);
-      if (lookup.isYou(obj)) {
+      if (lookup.isYou(key, obj)) {
         result.add(obj);
       }
     }

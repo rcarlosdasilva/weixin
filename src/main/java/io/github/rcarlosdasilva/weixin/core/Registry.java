@@ -285,11 +285,12 @@ public class Registry {
         return account;
       }
 
+      final String shrotKey = key;
       return CacheHandler.of(WeixinAccount.class).lookup(new Lookup<WeixinAccount>() {
 
         @Override
-        public boolean isYou(WeixinAccount obj) {
-          return key.equals(obj.getAppId()) || key.equals(obj.getMpId());
+        public boolean isYou(String key, WeixinAccount obj) {
+          return shrotKey.equals(obj.getAppId()) || shrotKey.equals(obj.getMpId());
         }
       });
     }

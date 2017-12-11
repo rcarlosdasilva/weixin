@@ -131,7 +131,7 @@ public class SimpleRedisStorage<V extends Cacheable> implements CacheStorage<V> 
         continue;
       }
       V obj = Utils.unserialize(value);
-      if (lookup.isYou(obj)) {
+      if (lookup.isYou(key, obj)) {
         jedis.close();
         return obj;
       }
@@ -152,7 +152,7 @@ public class SimpleRedisStorage<V extends Cacheable> implements CacheStorage<V> 
         continue;
       }
       V obj = Utils.unserialize(value);
-      if (lookup.isYou(obj)) {
+      if (lookup.isYou(key, obj)) {
         result.add(obj);
       }
     }
