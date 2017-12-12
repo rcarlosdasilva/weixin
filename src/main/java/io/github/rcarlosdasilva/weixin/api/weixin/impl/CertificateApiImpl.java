@@ -108,8 +108,9 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
     }
     String responseMock = String.format("{'access_token':'%s','expires_in':%s}", token,
         (expiresIn / 1000));
-    AccessTokenResponse responseModel = Json.fromJson(responseMock, AccessTokenResponse.class);
-    CacheHandler.of(AccessToken.class).put(this.accountKey, responseModel);
+    AccessToken accessToken = Json.fromJson(responseMock, AccessTokenResponse.class);
+    accessToken.setAccountMark(this.accountKey);
+    CacheHandler.of(AccessToken.class).put(this.accountKey, accessToken);
   }
 
   /**
@@ -135,6 +136,7 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
     }
 
     AccessToken accessToken = response.getLicensedAccessToken();
+    accessToken.setAccountMark(this.accountKey);
     CacheHandler.of(AccessToken.class).put(this.accountKey, accessToken);
     logger.debug("For:{} >> 开放平台更新授权方access_token：[{}]", this.accountKey,
         accessToken.getAccessToken());
@@ -157,6 +159,7 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
     AccessToken accessToken = get(AccessTokenResponse.class, requestModel);
 
     if (accessToken != null) {
+      accessToken.setAccountMark(this.accountKey);
       CacheHandler.of(AccessToken.class).put(this.accountKey, accessToken);
       logger.debug("For:{} >> 获取到access_token：[{}]", this.accountKey, accessToken.getAccessToken());
 

@@ -444,9 +444,13 @@ public class NotificationHandlerProxy {
     WeixinAccount account = handler.doInfoOfAuthorizeSucceeded(builder, notification,
         info.getLicensorAppId(), info.getLicense(), info.getLicenseExpireAt(), accessToken,
         licensingInformation, licensorInfromation);
-
-    Registry.update(account);
-    CacheHandler.of(AccessToken.class).put(account.getKey(), accessToken);
+    if (account != null) {
+      Registry.update(account);
+      if (accessToken != null) {
+        accessToken.setAccountMark(account.getKey());
+        CacheHandler.of(AccessToken.class).put(account.getKey(), accessToken);
+      }
+    }
   }
 
   private void processInfoWhenCanceled(OpenInfo info, NotificationResponseBuilder builder,
@@ -485,8 +489,13 @@ public class NotificationHandlerProxy {
         info.getLicensorAppId(), info.getLicense(), info.getLicenseExpireAt(), accessToken,
         licensingInformation, licensorInfromation);
 
-    Registry.update(account);
-    CacheHandler.of(AccessToken.class).put(account.getKey(), accessToken);
+    if (account != null) {
+      Registry.update(account);
+      if (accessToken != null) {
+        accessToken.setAccountMark(account.getKey());
+        CacheHandler.of(AccessToken.class).put(account.getKey(), accessToken);
+      }
+    }
   }
 
   /**

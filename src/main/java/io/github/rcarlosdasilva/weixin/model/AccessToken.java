@@ -11,10 +11,19 @@ public abstract class AccessToken implements Serializable, Cacheable {
 
   private static final long serialVersionUID = 3553323869805808582L;
 
+  private String accountMark;
   private String accessToken;
   private String refreshToken;
   private int expiresIn;
   private long expireAt;
+
+  public String getAccountMark() {
+    return accountMark;
+  }
+
+  public void setAccountMark(String accountMark) {
+    this.accountMark = accountMark;
+  }
 
   /**
    * 获取到的凭证.

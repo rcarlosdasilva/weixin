@@ -1,14 +1,18 @@
 package io.github.rcarlosdasilva.weixin.core.setting;
 
 import io.github.rcarlosdasilva.weixin.core.cache.CacheType;
+import io.github.rcarlosdasilva.weixin.core.inspect.InspectDispatcher;
 
 public class Setting {
+
+  private static final long DEFAULT_INSPECT_DISPATCH_INTERVAL_TIME = 10000;
 
   private int retries = 2;
   private boolean strictUseOpenPlatform = false;
   private boolean throwException = true;
   private CacheType cacheType = CacheType.SMART;
   private boolean autoLoadAuthorizedWeixinData = true;
+  private long inspectDispatchIntervalInMill = DEFAULT_INSPECT_DISPATCH_INTERVAL_TIME;
   private RedisSetting redisSetting = null;
 
   /**
@@ -95,6 +99,22 @@ public class Setting {
    */
   public void setAutoLoadAuthorizedWeixinData(boolean autoLoadAuthorizedWeixinData) {
     this.autoLoadAuthorizedWeixinData = autoLoadAuthorizedWeixinData;
+  }
+
+  public long getInspectDispatchIntervalInMill() {
+    return inspectDispatchIntervalInMill;
+  }
+
+  /**
+   * 设置轮询access_token是否过期（重新获取）的间隔时间，默认10秒.
+   * <p>
+   * <b>注意：需要先设置，然后再调用 {@link InspectDispatcher#startup()}开启</b>
+   * 
+   * @param inspectDispatchIntervalInMill
+   *          单位毫秒
+   */
+  public void setInspectDispatchIntervalInMill(long inspectDispatchIntervalInMill) {
+    this.inspectDispatchIntervalInMill = inspectDispatchIntervalInMill;
   }
 
   public RedisSetting getRedisSetting() {

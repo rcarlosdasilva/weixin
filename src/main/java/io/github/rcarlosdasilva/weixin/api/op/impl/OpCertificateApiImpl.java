@@ -83,7 +83,7 @@ public class OpCertificateApiImpl extends BasicApi implements OpCertificateApi {
     return token.getAccessToken();
   }
 
-  private synchronized OpenPlatformAuthAccessTokenResponse requestAccessToken() {
+  private synchronized AccessToken requestAccessToken() {
     logger.debug("For: >> 正在获取component_access_token");
     GeneralCacheableObject cacheableObject = CacheHandler.of(GeneralCacheableObject.class)
         .get(Convention.DEFAULT_CACHE_KEY_OPEN_PLATFORM_TICKET);
@@ -102,22 +102,22 @@ public class OpCertificateApiImpl extends BasicApi implements OpCertificateApi {
     requestModel.setAppSecret(openPlatform.getAppSecret());
     requestModel.setTicket(ticket);
 
-    OpenPlatformAuthAccessTokenResponse responseModel = post(
-        OpenPlatformAuthAccessTokenResponse.class, requestModel);
+    AccessToken accessToken = post(OpenPlatformAuthAccessTokenResponse.class, requestModel);
 
-    if (responseModel != null) {
+    if (accessToken != null) {
+      accessToken.setAccountMark(Convention.DEFAULT_CACHE_KEY_OPEN_PLATFORM_ACCESS_TOKEN);
       CacheHandler.of(AccessToken.class)
-          .put(Convention.DEFAULT_CACHE_KEY_OPEN_PLATFORM_ACCESS_TOKEN, responseModel);
-      logger.debug("For: >> 获取到access_token：[{}]", responseModel.getAccessToken());
+          .put(Convention.DEFAULT_CACHE_KEY_OPEN_PLATFORM_ACCESS_TOKEN, accessToken);
+      logger.debug("For: >> 获取到access_token：[{}]", accessToken.getAccessToken());
 
       final OpenPlatformAccessTokenUpdatedListener listener = Registry
           .listener(OpenPlatformAccessTokenUpdatedListener.class);
       if (listener != null) {
         logger.debug("For: >> 调用监听器OpenPlatformAccessTokenUpdatedListener");
-        listener.updated(responseModel.getAccessToken(), responseModel.getExpiresIn());
+        listener.updated(accessToken.getAccessToken(), accessToken.getExpiresIn());
       }
 
-      return responseModel;
+      return accessToken;
     }
 
     return null;
