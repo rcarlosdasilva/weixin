@@ -9,7 +9,6 @@ import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.google.common.collect.Maps;
 
-import io.github.rcarlosdasilva.weixin.common.Convention;
 import io.github.rcarlosdasilva.weixin.core.cache.CacheHandler;
 import io.github.rcarlosdasilva.weixin.core.cache.Lookup;
 import io.github.rcarlosdasilva.weixin.core.exception.InvalidAccountException;
@@ -214,9 +213,6 @@ public class Registry {
       }
 
       if (verify(account)) {
-        if (Strings.isNullOrEmpty(account.getKey())) {
-          account.setKey(Convention.DEFAULT_UNIQUE_WEIXIN_KEY);
-        }
         CacheHandler.of(WeixinAccount.class).put(account.getKey(), account);
         logger.info("注册公众号：[KEY: {}, APPID: {}]", account.getKey(), account.getAppId());
       }
@@ -231,7 +227,7 @@ public class Registry {
 
     void del(String key) {
       if (Strings.isNullOrEmpty(key)) {
-        key = Convention.DEFAULT_UNIQUE_WEIXIN_KEY;
+        return;
       }
 
       final WeixinAccount account = get(key);

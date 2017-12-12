@@ -20,21 +20,21 @@ public class OtherCommons {
   public static void main(String[] args) throws Exception {
     RegisterAndUse.reg();
     // 微信ip
-    List<String> ips = Weixin.unique().common().getWeixinIps();
+    List<String> ips = Weixin.with(RegisterAndUse.DEFAULT_KEY).common().getWeixinIps();
     // 获取短连接
-    String shortUrl = Weixin.unique().common().getShortUrl("http://www.google.com");
+    String shortUrl = Weixin.with(RegisterAndUse.DEFAULT_KEY).common().getShortUrl("http://www.google.com");
     // System.out.println(shortUrl);
 
     // 下面代码与二维码相关
     // 创建二维码
-    // Weixin.unique().common().createQrWithTemporary(1, 1);
-    // Weixin.unique().common().createQrWithUnlimited(1);
-    // Weixin.unique().common().createQrWithUnlimited("1");
+    // Weixin.with(RegisterAndUse.DEFAULT_KEY).common().createQrWithTemporary(1, 1);
+    // Weixin.with(RegisterAndUse.DEFAULT_KEY).common().createQrWithUnlimited(1);
+    // Weixin.with(RegisterAndUse.DEFAULT_KEY).common().createQrWithUnlimited("1");
     // 获取二维码图片
-    // InputStream is = Weixin.unique().common().qrImage(response);
+    // InputStream is = Weixin.with(RegisterAndUse.DEFAULT_KEY).common().qrImage(response);
 
     // 或者直接获取二维码图片
-    byte[] data = Weixin.unique().common().qrImageWithTemporary(1, 1);
+    byte[] data = Weixin.with(RegisterAndUse.DEFAULT_KEY).common().qrImageWithTemporary(1, 1);
     File imageFile = new File("qr.jpg");
     FileOutputStream outStream = new FileOutputStream(imageFile);
     outStream.write(data);

@@ -14,18 +14,18 @@ public class AboutCertification {
    */
   public static void main(String[] args) {
     RegisterAndUse.reg();
-    System.out.println("Access Token: " + Weixin.unique().certificate().askAccessToken());
-    System.out.println("jsapi_ticket: " + Weixin.unique().certificate().askJsTicket());
+    System.out.println("Access Token: " + Weixin.with(RegisterAndUse.DEFAULT_KEY).certificate().askAccessToken());
+    System.out.println("jsapi_ticket: " + Weixin.with(RegisterAndUse.DEFAULT_KEY).certificate().askJsTicket());
 
     /*
      * 下面代码是网页授权相关
      */
     System.out.println("Access Token in Web Page: "
-        + Weixin.unique().certificate().askWebAuthorizeAccessToken("code").getAccessToken());
+        + Weixin.with(RegisterAndUse.DEFAULT_KEY).certificate().askWebAuthorizeAccessToken("code").getAccessToken());
     System.out.println("Refresh Token -- "
-        + Weixin.unique().certificate().refreshWebAuthorizeAccessToken("refreshToken"));
+        + Weixin.with(RegisterAndUse.DEFAULT_KEY).certificate().refreshWebAuthorizeAccessToken("refreshToken"));
     System.out.println(""
-        + Weixin.unique().certificate().verifyWebAuthorizeAccessToken("accessToken", "openId"));
+        + Weixin.with(RegisterAndUse.DEFAULT_KEY).certificate().verifyWebAuthorizeAccessToken("accessToken", "openId"));
   }
 
 }

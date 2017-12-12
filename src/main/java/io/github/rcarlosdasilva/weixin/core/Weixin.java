@@ -31,7 +31,6 @@ import io.github.rcarlosdasilva.weixin.api.weixin.impl.StatisticsApiImpl;
 import io.github.rcarlosdasilva.weixin.api.weixin.impl.TemplateApiImpl;
 import io.github.rcarlosdasilva.weixin.api.weixin.impl.UserApiImpl;
 import io.github.rcarlosdasilva.weixin.api.weixin.impl.UserTagApiImpl;
-import io.github.rcarlosdasilva.weixin.common.Convention;
 
 /**
  * 微信公众号API使用统一入口
@@ -102,15 +101,6 @@ public class Weixin {
       }
     }
     return HOLDER.get(key);
-  }
-
-  /**
-   * 获取唯一的公众号配置.
-   * 
-   * @return API入口
-   */
-  public static Weixin unique() {
-    return with(Convention.DEFAULT_UNIQUE_WEIXIN_KEY);
   }
 
   /**

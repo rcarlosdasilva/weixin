@@ -1,7 +1,7 @@
 package io.github.rcarlosdasilva.weixin.test.basic;
 
-import io.github.rcarlosdasilva.weixin.core.Weixin;
 import io.github.rcarlosdasilva.weixin.core.Registry;
+import io.github.rcarlosdasilva.weixin.core.Weixin;
 import io.github.rcarlosdasilva.weixin.model.WeixinAccount;
 import io.github.rcarlosdasilva.weixin.test.Property;
 
@@ -11,6 +11,8 @@ import io.github.rcarlosdasilva.weixin.test.Property;
  * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 public class RegisterAndUse {
+
+  public static final String DEFAULT_KEY = "sample";
 
   public static void main(String[] args) {
     reg();
@@ -26,7 +28,8 @@ public class RegisterAndUse {
      * sample.properties 文件中的appId与appSecret替换成有效的值，可正常运行，
      * appId与appSecret就能满足所有的对微信API的主动调用
      */
-    Registry.checkin(WeixinAccount.create(Property.get("appid"), Property.get("appsecret")));
+    Registry.checkin(WeixinAccount.create(Property.get("appid"), Property.get("appsecret"))
+        .withKey(DEFAULT_KEY));
     /*
      * 注册并完整其他信息。使用setBasic指定公众号为已认证的服务号。使用setServerSecurity指定服务器配置，用于消息加解密
      */
@@ -40,7 +43,7 @@ public class RegisterAndUse {
      * 用 Weixin.with(KEY) 获取到 KEY 对应的公众号接口操作入口。helper为其中一个入口，
      * 具体查看每个入口的注释。下面代码演示判断一个IP是否是真正的微信服务器IP
      */
-    boolean canBeTrust = Weixin.unique().helper().isLegalRequestIp("101.226.62.78");
+    boolean canBeTrust = Weixin.with(DEFAULT_KEY).helper().isLegalRequestIp("101.226.62.78");
     System.out.println("IP can be trust: " + canBeTrust);
   }
 
