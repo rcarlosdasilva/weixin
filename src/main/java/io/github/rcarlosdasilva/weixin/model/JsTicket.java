@@ -47,7 +47,7 @@ public class JsTicket implements Serializable, Cacheable {
    * 
    * @return is expired
    */
-  public boolean expired() {
+  public boolean isExpired() {
     return this.expireAt < System.currentTimeMillis() || Strings.isNullOrEmpty(this.jsTicket);
   }
 

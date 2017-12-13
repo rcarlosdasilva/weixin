@@ -47,39 +47,55 @@ import io.github.rcarlosdasilva.weixin.model.response.open.auth.OpenPlatformAuth
 public class CertificateApiImpl extends BasicApi implements CertificateApi {
 
   private final Logger logger = LoggerFactory.getLogger(CertificateApiImpl.class);
-  private final Object lock = new Object();
 
   public CertificateApiImpl(String accountKey) {
     super(accountKey);
   }
 
   @Override
-  public String askAccessToken() {
+  public synchronized String askAccessToken() {
     AccessToken token = CacheHandler.of(AccessToken.class).get(this.accountKey);
+    if (token != null && !token.isExpired()) {
+      return token.getAccessToken();
+    }
 
-    if (null == token || token.isExpired()) {
-      synchronized (this.lock) {
-        if (null == token) {
-          logger.debug("For:{} >> 无缓存过的access_token，请求access_token", this.accountKey);
-        } else {
-          logger.debug("For:{} >> 因access_token过期，重新请求。失效的access_token：[{}]", this.accountKey,
-              token);
-        }
+    if (null == token) {
+      logger.debug("For:{} >> 无缓存过的access_token，请求access_token", this.accountKey);
+    } else {
+      logger.debug("For:{} >> 因access_token过期，重新请求。失效的access_token：[{}]", this.accountKey, token);
+    }
 
-        final WeixinAccount account = Registry.lookup(this.accountKey);
-        if (account == null) { // 不应该为空
-          throw new InvalidAccountException();
-        }
-        if (account.isWithOpenPlatform()) {
-          // 使用微信开放平台获取access_token。在公众号授权后，会自动获取第一次授权方的access_token
-          final String refreshToken = null == token ? account.getRefreshToken()
-              : token.getRefreshToken();
-          token = refreshLicensedAccessToken(account.getAppId(), refreshToken);
-        } else {
-          // 使用公众号appid和appsecret获取access_token
-          token = requestAccessToken();
+    final WeixinAccount account = Registry.lookup(this.accountKey);
+    if (account == null) { // 不应该为空
+      throw new InvalidAccountException();
+    }
+
+    while (true) {
+      token = CacheHandler.of(AccessToken.class).get(this.accountKey);
+      if (token != null && !token.isExpired()) {
+        break;
+      }
+
+      String identifier = CacheHandler.of(AccessToken.class).lock(this.accountKey, 2000, true);
+      if (Strings.isNullOrEmpty(identifier)) {
+        try {
+          Thread.sleep(100);
+          continue;
+        } catch (InterruptedException e) {
+          Thread.currentThread().interrupt();
         }
       }
+
+      if (account.isWithOpenPlatform()) {
+        // 使用微信开放平台获取access_token。在公众号授权后，会自动获取第一次授权方的access_token
+        final String refreshToken = null == token ? account.getRefreshToken()
+            : token.getRefreshToken();
+        token = refreshLicensedAccessToken(account.getAppId(), refreshToken);
+      } else {
+        // 使用公众号appid和appsecret获取access_token
+        token = requestAccessToken();
+      }
+      CacheHandler.of(AccessToken.class).unlock(this.accountKey, identifier);
     }
 
     if (token == null) {
@@ -180,19 +196,34 @@ public class CertificateApiImpl extends BasicApi implements CertificateApi {
   @Override
   public final String askJsTicket() {
     JsTicket ticket = CacheHandler.of(JsTicket.class).get(this.accountKey);
+    if (ticket != null && !ticket.isExpired()) {
+      return ticket.getJsTicket();
+    }
 
-    if (ticket == null || ticket.expired()) {
-      synchronized (this.lock) {
-        if (null == ticket || ticket.expired()) {
-          if (null == ticket) {
-            logger.debug("For:{} >> 无缓存过的jsapi_ticket，请求jsapi_ticket", this.accountKey);
-          } else {
-            logger.debug("For:{} >> 因jsapi_ticket过期，重新请求。失效的jsapi_ticket：[{}]", this.accountKey,
-                ticket);
-          }
-          ticket = requestJsTicket();
+    if (null == ticket) {
+      logger.debug("For:{} >> 无缓存过的jsapi_ticket，请求jsapi_ticket", this.accountKey);
+    } else {
+      logger.debug("For:{} >> 因jsapi_ticket过期，重新请求。失效的jsapi_ticket：[{}]", this.accountKey, ticket);
+    }
+
+    while (true) {
+      ticket = CacheHandler.of(JsTicket.class).get(this.accountKey);
+      if (ticket != null && !ticket.isExpired()) {
+        break;
+      }
+
+      String identifier = CacheHandler.of(JsTicket.class).lock(this.accountKey, 2000, true);
+      if (Strings.isNullOrEmpty(identifier)) {
+        try {
+          Thread.sleep(100);
+          continue;
+        } catch (InterruptedException e) {
+          Thread.currentThread().interrupt();
         }
       }
+
+      ticket = requestJsTicket();
+      CacheHandler.of(AccessToken.class).unlock(this.accountKey, identifier);
     }
 
     return null == ticket ? null : ticket.getJsTicket();

@@ -41,7 +41,6 @@ import io.github.rcarlosdasilva.weixin.model.response.open.auth.bean.LicensedAcc
 public class OpCertificateApiImpl extends BasicApi implements OpCertificateApi {
 
   private final Logger logger = LoggerFactory.getLogger(OpCertificateApiImpl.class);
-  private final Object lock = new Object();
 
   public OpCertificateApiImpl() {
     super();
@@ -60,19 +59,38 @@ public class OpCertificateApiImpl extends BasicApi implements OpCertificateApi {
   public String askAccessToken() {
     AccessToken token = CacheHandler.of(AccessToken.class)
         .get(Convention.DEFAULT_CACHE_KEY_OPEN_PLATFORM_ACCESS_TOKEN);
+    if (token != null && !token.isExpired()) {
+      return token.getAccessToken();
+    }
 
-    if (null == token || token.isExpired()) {
-      synchronized (this.lock) {
-        if (null == token || token.isExpired()) {
-          if (null == token) {
-            logger.debug("For: >> 无缓存过的component_access_token，请求access_token");
-          } else {
-            logger.debug("For: >> 因component_access_token过期，重新请求。失效的access_token：[{}]",
-                token.getAccessToken());
-          }
-          token = requestAccessToken();
+    if (null == token) {
+      logger.debug("For: >> 无缓存过的component_access_token，请求access_token");
+    } else {
+      logger.debug("For: >> 因component_access_token过期，重新请求。失效的access_token：[{}]",
+          token.getAccessToken());
+    }
+
+    while (true) {
+      token = CacheHandler.of(AccessToken.class)
+          .get(Convention.DEFAULT_CACHE_KEY_OPEN_PLATFORM_ACCESS_TOKEN);
+      if (token != null && !token.isExpired()) {
+        break;
+      }
+
+      String identifier = CacheHandler.of(AccessToken.class)
+          .lock(Convention.DEFAULT_CACHE_KEY_OPEN_PLATFORM_ACCESS_TOKEN, 2000, true);
+      if (Strings.isNullOrEmpty(identifier)) {
+        try {
+          Thread.sleep(100);
+          continue;
+        } catch (InterruptedException e) {
+          Thread.currentThread().interrupt();
         }
       }
+
+      token = requestAccessToken();
+      CacheHandler.of(AccessToken.class)
+          .unlock(Convention.DEFAULT_CACHE_KEY_OPEN_PLATFORM_ACCESS_TOKEN, identifier);
     }
 
     if (token == null) {
