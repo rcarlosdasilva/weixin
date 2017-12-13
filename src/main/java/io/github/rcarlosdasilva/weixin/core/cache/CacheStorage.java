@@ -82,8 +82,8 @@ public interface CacheStorage<V extends Cacheable> {
    * <p>
    * 返回查找到的第一个值
    * 
-   * @param value
-   *          值
+   * @param lookup
+   *          查找实现
    * @return boolean
    */
   V lookup(Lookup<V> lookup);
@@ -93,8 +93,8 @@ public interface CacheStorage<V extends Cacheable> {
    * <p>
    * 返回查找到的所有值
    * 
-   * @param value
-   *          值
+   * @param lookup
+   *          查找实现
    * @return boolean
    */
   List<V> lookupAll(Lookup<V> lookup);

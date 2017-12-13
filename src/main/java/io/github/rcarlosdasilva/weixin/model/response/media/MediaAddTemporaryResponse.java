@@ -42,7 +42,7 @@ public class MediaAddTemporaryResponse {
   /**
    * 媒体文件上传后，获取时的唯一标识(用于缩略图文件).
    * 
-   * @return
+   * @return thumb_media_id
    */
   public String getThumbMediaId() {
     return thumbMediaId;

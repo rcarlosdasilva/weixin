@@ -15,16 +15,16 @@ public class Setting {
   private long inspectDispatchIntervalInMill = DEFAULT_INSPECT_DISPATCH_INTERVAL_TIME;
   private RedisSetting redisSetting = null;
 
-  /**
-   * 接口请求失败后的重试次数.
-   * 
-   * @param retryTimes
-   *          次数
-   */
   public int getRetries() {
     return retries;
   }
 
+  /**
+   * 接口请求失败后的重试次数.
+   * 
+   * @param retries
+   *          次数
+   */
   public void setRetries(int retries) {
     this.retries = retries;
   }

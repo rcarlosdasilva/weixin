@@ -8,6 +8,7 @@ import com.google.common.base.Strings;
 import io.github.rcarlosdasilva.weixin.common.dictionary.AccountType;
 import io.github.rcarlosdasilva.weixin.common.dictionary.EncryptionType;
 import io.github.rcarlosdasilva.weixin.common.dictionary.WeixinCertificationType;
+import io.github.rcarlosdasilva.weixin.core.Registry;
 import io.github.rcarlosdasilva.weixin.core.cache.Cacheable;
 
 /**
@@ -112,8 +113,8 @@ public class WeixinAccount implements Serializable, Cacheable {
    * 
    * @param accountType
    *          公众号类型
-   * @param certified
-   *          是否认证
+   * @param certificationType
+   *          认证类型
    * @return {@link WeixinAccount}
    */
   public WeixinAccount setBasic(AccountType accountType,
@@ -128,8 +129,8 @@ public class WeixinAccount implements Serializable, Cacheable {
    * 
    * @param accountType
    *          公众号类型
-   * @param certified
-   *          是否认证
+   * @param certificationType
+   *          认证类型
    * @param mpId
    *          公众号原始ID
    * @param nickname
@@ -293,7 +294,7 @@ public class WeixinAccount implements Serializable, Cacheable {
   /**
    * 可用来设置与业务层面相关的扩展参数，当做传递载体使用.
    * <p>
-   * 开在代码中借用{@link Registration#get(String)}获取公众号信息
+   * 开在代码中借用{@link Registry#lookup(String)}获取公众号信息
    * 
    * @param extension
    *          扩展信息

@@ -58,7 +58,7 @@ public class Registry {
   /**
    * 注册开放平台信息.
    * <p>
-   * 注册后，使用{@link #weixin(WeixinAccount)}方法注册的公众号信息：
+   * 注册后，使用{@link #checkin(WeixinAccount)}方法注册的公众号信息：
    * <ol>
    * <li>{@link WeixinAccount#isWithOpenPlatform()}为true，并且
    * {@link WeixinAccount#getRefreshToken()}有值，则该公众号将由开放平台代理调用API
@@ -94,7 +94,7 @@ public class Registry {
    * 否则会直接使用appid和appsecret（可兼容使用）管理公众号API调用凭证</b>
    * 
    * <p>
-   * 当key未指定时，将使用默认key，调用API时使用 {@link Weixin#unique()}获取API入口
+   * 当key未指定时，将使用appid作为key
    * 
    * @param account
    *          公众号信息
@@ -140,7 +140,10 @@ public class Registry {
   }
 
   /**
-   * 添加监听器
+   * 添加监听器.
+   * 
+   * @param listener
+   *          监听器
    */
   public static void listener(WeixinListener listener) {
     registryHandler.addListener(listener);
