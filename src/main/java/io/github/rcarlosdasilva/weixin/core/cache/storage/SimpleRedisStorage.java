@@ -3,6 +3,7 @@ package io.github.rcarlosdasilva.weixin.core.cache.storage;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
@@ -16,6 +17,7 @@ import io.github.rcarlosdasilva.weixin.core.cache.Lookup;
 import io.github.rcarlosdasilva.weixin.core.cache.storage.redis.RedisHandler;
 import io.github.rcarlosdasilva.weixin.core.cache.storage.redis.RedisKey;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.Transaction;
 
 public class SimpleRedisStorage<V extends Cacheable> implements CacheStorage<V> {
 
@@ -158,6 +160,85 @@ public class SimpleRedisStorage<V extends Cacheable> implements CacheStorage<V> 
     }
     jedis.close();
     return result;
+  }
+
+  @Override
+  public String lock(String key, long timeout, boolean noWait) {
+    Preconditions.checkNotNull(key);
+    Preconditions.checkArgument(timeout > 0);
+
+    String fullKey = RedisKey.fullKey(group, key) + LOCKER_NAME_SUFFIX;
+    String identifier = UUID.randomUUID().toString();
+    long lastTtl = -1;
+    Jedis jedis = RedisHandler.getJedis();
+
+    while (true) {
+      if (jedis.setnx(fullKey, identifier) == 1) {
+        jedis.pexpire(fullKey, timeout);
+        // 正常获取锁
+        break;
+      }
+
+      long ttl = jedis.pttl(fullKey);
+      if (ttl == -1) {
+        // 没设置过期时间
+        jedis.pexpire(fullKey, timeout);
+      } else if (ttl == -2) {
+        // 神奇，万一setnx之后到这里key过期了呢
+        continue;
+      } else {
+        // 每次获取ttl肯定是越来越小，如果突然变大了，只能说明，有另一个贱人比你提前获取到锁，那就不惜当等了
+        if (lastTtl > 0 && ttl > lastTtl) {
+          jedis.close();
+          return null;
+        }
+        lastTtl = ttl;
+      }
+
+      if (noWait) {
+        jedis.close();
+        return null;
+      }
+
+      try {
+        Thread.sleep(10);
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+      }
+    }
+
+    jedis.close();
+    return identifier;
+  }
+
+  @Override
+  public boolean unlock(String key, String identifier) {
+    Preconditions.checkNotNull(key);
+    Preconditions.checkNotNull(identifier);
+
+    String fullKey = RedisKey.fullKey(group, key) + LOCKER_NAME_SUFFIX;
+    Jedis jedis = RedisHandler.getJedis();
+
+    while (true) {
+      // 监视lock，准备开始事务
+      jedis.watch(fullKey);
+      // 看看是不是自己的锁
+      if (identifier.equals(jedis.get(fullKey))) {
+        Transaction transaction = jedis.multi();
+        transaction.del(fullKey);
+        List<Object> results = transaction.exec();
+        if (results == null) {
+          continue;
+        }
+        jedis.close();
+        return true;
+      }
+      jedis.unwatch();
+      break;
+    }
+
+    jedis.close();
+    return false;
   }
 
 }

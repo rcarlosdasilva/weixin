@@ -3,8 +3,10 @@ package io.github.rcarlosdasilva.weixin.core.cache.storage;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 
@@ -119,4 +121,78 @@ public class SpringRedisStorage<V extends Cacheable> implements CacheStorage<V> 
     }
     return result;
   }
+
+  @Override
+  public String lock(String key, long timeout, boolean noWait) {
+    Preconditions.checkNotNull(key);
+    Preconditions.checkArgument(timeout > 0);
+
+    String fullKey = RedisKey.fullKey(group, key) + LOCKER_NAME_SUFFIX;
+    String identifier = UUID.randomUUID().toString();
+    long lastTtl = -1;
+
+    while (true) {
+      if (RedisHandler.getRedisTemplate().opsForValue().setIfAbsent(fullKey, identifier)) {
+        RedisHandler.getRedisTemplate().expire(fullKey, timeout, TimeUnit.MILLISECONDS);
+        // 正常获取锁
+        break;
+      }
+
+      long ttl = RedisHandler.getRedisTemplate().getExpire(fullKey, TimeUnit.MILLISECONDS);
+      if (ttl == -1) {
+        // 没设置过期时间
+        RedisHandler.getRedisTemplate().expire(fullKey, timeout, TimeUnit.MILLISECONDS);
+      } else if (ttl == -2) {
+        // 神奇，万一setnx之后到这里key过期了呢
+        continue;
+      } else {
+        // 每次获取ttl肯定是越来越小，如果突然变大了，只能说明，有另一个贱人比你提前获取到锁，那就不惜当等了
+        if (lastTtl > 0 && ttl > lastTtl) {
+          return null;
+        }
+        lastTtl = ttl;
+      }
+
+      if (noWait) {
+        return null;
+      }
+
+      try {
+        Thread.sleep(10);
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+      }
+    }
+
+    return identifier;
+  }
+
+  @Override
+  public boolean unlock(String key, String identifier) {
+    Preconditions.checkNotNull(key);
+    Preconditions.checkNotNull(identifier);
+
+    String fullKey = RedisKey.fullKey(group, key) + LOCKER_NAME_SUFFIX;
+
+    while (true) {
+      // 监视lock，准备开始事务
+      RedisHandler.getRedisTemplate().watch(fullKey);
+      // 看看是不是自己的锁
+      Object obj = RedisHandler.getRedisTemplate().opsForValue().get(fullKey);
+      if (obj != null && identifier.equals(obj)) {
+        RedisHandler.getRedisTemplate().multi();
+        RedisHandler.getRedisTemplate().delete(fullKey);
+        List<Object> results = RedisHandler.getRedisTemplate().exec();
+        if (results == null) {
+          continue;
+        }
+        return true;
+      }
+      RedisHandler.getRedisTemplate().unwatch();
+      break;
+    }
+
+    return false;
+  }
+
 }

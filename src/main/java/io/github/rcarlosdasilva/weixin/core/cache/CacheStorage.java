@@ -5,6 +5,8 @@ import java.util.List;
 
 public interface CacheStorage<V extends Cacheable> {
 
+  static final String LOCKER_NAME_SUFFIX = "__lock";
+
   /**
    * 所有键.
    * 
@@ -96,5 +98,29 @@ public interface CacheStorage<V extends Cacheable> {
    * @return boolean
    */
   List<V> lookupAll(Lookup<V> lookup);
+
+  /**
+   * 加锁.
+   * 
+   * @param key
+   *          与 {@link #put(String, Cacheable)}、 {@link #get(String)}等方法的key一样
+   * @param timeout
+   *          锁时效（单位：毫秒）
+   * @param noWait
+   *          不等待，为true时，获取不到锁，直接返回null。否则会不断去尝试获取锁，如果当前锁失效，但被其他线程获取到锁，则不再继续
+   * @return 锁标识，解锁用，获取失败返回null
+   */
+  String lock(final String key, final long timeout, final boolean noWait);
+
+  /**
+   * 解锁.
+   * 
+   * @param key
+   *          键
+   * @param identifier
+   *          锁标识，加锁时获取
+   * @return 解锁是否成功
+   */
+  boolean unlock(final String key, final String identifier);
 
 }

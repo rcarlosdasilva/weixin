@@ -92,4 +92,20 @@ public final class JdkMapStorage<V extends Cacheable> implements CacheStorage<V>
     return result;
   }
 
+  /**
+   * 暂不支持.
+   */
+  @Override
+  public String lock(String key, long timeout, boolean noWait) {
+    return null;
+  }
+
+  /**
+   * 暂不支持.
+   */
+  @Override
+  public boolean unlock(String key, String identifier) {
+    return false;
+  }
+
 }
