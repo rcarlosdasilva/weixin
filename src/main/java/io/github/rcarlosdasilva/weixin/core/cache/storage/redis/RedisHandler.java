@@ -22,7 +22,7 @@ public class RedisHandler {
     return redisTemplate;
   }
 
-  static void setRedisTemplate(RedisTemplate redisTemplate) {
+  public static void setRedisTemplate(RedisTemplate redisTemplate) {
     RedisHandler.redisTemplate = redisTemplate;
   }
 
