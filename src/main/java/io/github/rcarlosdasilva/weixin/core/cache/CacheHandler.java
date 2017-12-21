@@ -73,7 +73,7 @@ public class CacheHandler {
     } catch (Exception ex) {
       String clazzName = clazz.getSimpleName();
       int length = clazzName.length();
-      StringBuffer sb = new StringBuffer();
+      StringBuilder sb = new StringBuilder();
       for (int i = 0; i < length; i++) {
         char c = clazzName.charAt(i);
         if (c >= 'a' && c <= 'z') {
@@ -82,7 +82,8 @@ public class CacheHandler {
           if (i > 0) {
             sb.append('_');
           }
-          sb.append(c + 32);
+          c += 32;
+          sb.append(c);
         }
       }
       return sb.toString();
