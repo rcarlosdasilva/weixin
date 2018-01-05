@@ -1,5 +1,6 @@
 package io.github.rcarlosdasilva.weixin.core.cache.storage;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -31,7 +32,7 @@ public class SpringRedisStorage<V extends Cacheable> implements CacheStorage<V> 
   @Override
   public Collection<String> keys() {
     Set<String> keys = RedisHandler.getRedisTemplate().keys(keyPattern);
-    return RedisKey.shortKeys(keys);
+    return new ArrayList<>(keys);
   }
 
   @Override

@@ -1,5 +1,6 @@
 package io.github.rcarlosdasilva.weixin.core.cache.storage;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -34,7 +35,7 @@ public class SimpleRedisStorage<V extends Cacheable> implements CacheStorage<V> 
     Jedis jedis = RedisHandler.getJedis();
     Set<String> keys = jedis.keys(keyPattern);
     jedis.close();
-    return RedisKey.shortKeys(keys);
+    return new ArrayList<>(keys);
   }
 
   @Override
