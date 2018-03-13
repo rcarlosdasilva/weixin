@@ -17,6 +17,10 @@ import io.github.rcarlosdasilva.weixin.core.cache.Cacheable;
 import io.github.rcarlosdasilva.weixin.core.cache.Lookup;
 import io.github.rcarlosdasilva.weixin.core.cache.storage.redis.RedisHandler;
 import io.github.rcarlosdasilva.weixin.core.cache.storage.redis.RedisKey;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.core.RedisOperations;
+import org.springframework.data.redis.core.SessionCallback;
+import org.springframework.data.redis.core.StringRedisTemplate;
 
 @SuppressWarnings("unchecked")
 public class SpringRedisStorage<V extends Cacheable> implements CacheStorage<V> {
@@ -173,7 +177,7 @@ public class SpringRedisStorage<V extends Cacheable> implements CacheStorage<V> 
     Preconditions.checkNotNull(key);
     Preconditions.checkNotNull(identifier);
 
-    String fullKey = RedisKey.fullKey(group, key) + LOCKER_NAME_SUFFIX;
+    final String fullKey = RedisKey.fullKey(group, key) + LOCKER_NAME_SUFFIX;
 
     while (true) {
       // 监视lock，准备开始事务
@@ -181,9 +185,16 @@ public class SpringRedisStorage<V extends Cacheable> implements CacheStorage<V> 
       // 看看是不是自己的锁
       Object obj = RedisHandler.getRedisTemplate().opsForValue().get(fullKey);
       if (obj != null && identifier.equals(obj)) {
-        RedisHandler.getRedisTemplate().multi();
-        RedisHandler.getRedisTemplate().delete(fullKey);
-        List<Object> results = RedisHandler.getRedisTemplate().exec();
+        SessionCallback<Object> sessionCallback = new SessionCallback<Object>() {
+          @Override
+          public Object execute(RedisOperations operations) throws DataAccessException {
+            operations.multi();
+            operations.delete(fullKey);
+            return operations.exec();
+          }
+        };
+        Object results = RedisHandler.getRedisTemplate().execute(sessionCallback);
+
         if (results == null) {
           continue;
         }
