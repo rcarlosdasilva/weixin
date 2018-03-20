@@ -1,11 +1,13 @@
 package io.github.rcarlosdasilva.weixin.api
 
+interface WeixinListener
+
 /**
  * 公众号AccessToken更新监听器
  *
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
-interface MpAccessTokenUpdatedListener {
+interface MpAccessTokenUpdatedListener : WeixinListener {
 
   /**
    * @param key 注册时的key
@@ -22,7 +24,7 @@ interface MpAccessTokenUpdatedListener {
  *
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
-interface MpJsTicketUpdatedListener {
+interface MpJsTicketUpdatedListener : WeixinListener {
 
   /**
    * @param key 注册时的key
@@ -39,7 +41,7 @@ interface MpJsTicketUpdatedListener {
  *
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
-interface OpAccessTokenUpdatedListener {
+interface OpAccessTokenUpdatedListener : WeixinListener {
 
   /**
    * @param token 第三方平台access_token
@@ -54,7 +56,7 @@ interface OpAccessTokenUpdatedListener {
  *
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
-interface OpLisensorMpAccessTokenUpdatedListener {
+interface OpLisensorMpAccessTokenUpdatedListener : WeixinListener {
 
   /**
    * @param appid 授权方appid

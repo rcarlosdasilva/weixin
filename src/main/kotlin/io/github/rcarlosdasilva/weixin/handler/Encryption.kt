@@ -46,7 +46,7 @@ object Encryptor {
   private val BASE64 = Base64()
 
   /**
-   * 将公众平台回复用户的消息加密打包.
+   * 将公众平台回复用户的消息加密打包
    *
    *  1. 对要发送的消息进行AES-CBC加密
    *  1. 生成安全签名
@@ -112,7 +112,7 @@ object Encryptor {
   }
 
   /**
-   * 检验消息的真实性，并且获取解密后的明文.
+   * 检验消息的真实性，并且获取解密后的明文
    *
    *  1. 利用收到的密文生成安全签名，进行签名验证
    *  1. 若验证通过，则提取xml中的加密消息
@@ -195,7 +195,7 @@ object Encryptor {
   }
 
   /**
-   * 生成4个字节的网络字节序.
+   * 生成4个字节的网络字节序
    */
   private fun getNetworkBytesOrder(sourceNumber: Int): ByteArray {
     val orderBytes = ByteArray(4)
@@ -285,7 +285,7 @@ object Pkcs7Encoder {
   private const val BLOCK_SIZE = 32
 
   /**
-   * 获得对明文进行补位填充的字节.
+   * 获得对明文进行补位填充的字节
    *
    * @param count
    * 需要进行填充补位操作的明文字节个数
@@ -308,7 +308,7 @@ object Pkcs7Encoder {
   }
 
   /**
-   * 删除解密后明文的补位字符.
+   * 删除解密后明文的补位字符
    *
    * @param decrypted
    * 解密后的明文
@@ -323,7 +323,7 @@ object Pkcs7Encoder {
   }
 
   /**
-   * 将数字转化成ASCII码对应的字符，用于对明文进行补码.
+   * 将数字转化成ASCII码对应的字符，用于对明文进行补码
    *
    * @param number
    * 需要转化的数字

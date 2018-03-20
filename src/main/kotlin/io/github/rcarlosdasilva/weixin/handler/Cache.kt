@@ -11,31 +11,30 @@ const val CONFIG_GROUP_KEY = "group"
  *
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
+@Suppress("UNCHECKED_CAST")
 object CacheHandler {
 
   @Suppress("UNCHECKED_CAST")
-  private val cacheStorageClass: Class<CacheStorage<Cacheable>>  by lazy {
+  private val cacheStorageClass: Class<*>  by lazy {
     // TODO 配置   获取缓存器类型
-    Class.forName("io.github.rcarlosdasilva.weixin.handler.cache.JvmMapStorage") as Class<CacheStorage<Cacheable>>
+    Class.forName("io.github.rcarlosdasilva.weixin.handler.cache.JvmMapStorage")
   }
   /**
    * 针对不同缓存器实现的差异化配置
    */
   val config = mutableMapOf<String, Any>()
-
-  private val storages =
-    mutableMapOf<String, CacheStorage<Cacheable>>()
+  private val storages = mutableMapOf<String, CacheStorage<*>>()
 
   /**
    * 对每一个实现[Cacheable]的对象，会生成一个缓存器
    */
-  fun <V : Cacheable> of(clazz: Class<V>): CacheStorage<Cacheable> =
-    storages[clazz.toString()] ?: synchronized(storages) {
+  fun <V : Cacheable> of(clazz: Class<V>): CacheStorage<V> =
+    storages[clazz.toString()] as CacheStorage<V>? ?: synchronized(storages) {
       newStorage(clazz).also { storages[clazz.toString()] = it }
     }
 
-  private fun <V : Cacheable> newStorage(clazz: Class<V>): CacheStorage<Cacheable> =
-    cacheStorageClass.newInstance().also {
+  private fun <V : Cacheable> newStorage(clazz: Class<V>): CacheStorage<V> =
+    (cacheStorageClass.newInstance() as CacheStorage<V>).also {
       config[CONFIG_GROUP_KEY] = groupName(clazz)
       it.initialize(config)
     }

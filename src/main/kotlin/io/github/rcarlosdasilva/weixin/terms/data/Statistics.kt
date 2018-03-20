@@ -8,39 +8,39 @@ package io.github.rcarlosdasilva.weixin.terms.data
 enum class StatisticsUserSource(val code: Int) {
 
   /**
-   * 0代表其他合计.
+   * 0代表其他合计
    */
   SUMMATION(0),
   /**
-   * 1代表公众号搜索.
+   * 1代表公众号搜索
    */
   SEARCH(1),
   /**
-   * 17代表名片分享.
+   * 17代表名片分享
    */
   SHARE(17),
   /**
-   * 30代表扫描二维码.
+   * 30代表扫描二维码
    */
   QR_SCAN(30),
   /**
-   * 43代表图文页右上角菜单.
+   * 43代表图文页右上角菜单
    */
   NEWS_MENU(43),
   /**
-   * 51代表支付后关注（在支付完成页）.
+   * 51代表支付后关注（在支付完成页）
    */
   AFTER_PAY(51),
   /**
-   * 57代表图文页内公众号名称.
+   * 57代表图文页内公众号名称
    */
   NEWS_MP_NAME(57),
   /**
-   * 75代表公众号文章广告.
+   * 75代表公众号文章广告
    */
   ARTICLE_AD(75),
   /**
-   * 78代表朋友圈广告.
+   * 78代表朋友圈广告
    */
   MOMENTS_AD(78);
 
@@ -58,23 +58,23 @@ enum class StatisticsUserSource(val code: Int) {
 enum class StatisticsMessageType(val code: Int) {
 
   /**
-   * 1代表文字.
+   * 1代表文字
    */
   TEXT(1),
   /**
-   * 2代表图片.
+   * 2代表图片
    */
   IMAGE(2),
   /**
-   * 3代表语音.
+   * 3代表语音
    */
   VOICE(3),
   /**
-   * 4代表视频.
+   * 4代表视频
    */
   VIDEO(4),
   /**
-   * 6代表第三方应用消息（链接消息）.
+   * 6代表第三方应用消息（链接消息）
    */
   APP(6);
 
@@ -92,19 +92,19 @@ enum class StatisticsMessageType(val code: Int) {
 enum class StatisticsNewsShareScene(val code: Int) {
 
   /**
-   * 1代表好友转发.
+   * 1代表好友转发
    */
   REPOST(1),
   /**
-   * 2代表朋友圈.
+   * 2代表朋友圈
    */
   MOMENTS(2),
   /**
-   * 3代表腾讯微博.
+   * 3代表腾讯微博
    */
   TX_WEIBO(3),
   /**
-   * 255代表其他.
+   * 255代表其他
    */
   OTHER(255);
 
@@ -123,27 +123,27 @@ enum class StatisticsNewsShareScene(val code: Int) {
 enum class StatisticsNewsUserSource(val code: Int) {
 
   /**
-   * 0代表会话.
+   * 0代表会话
    */
   SESSION(0),
   /**
-   * 1代表好友.
+   * 1代表好友
    */
   FRIEND(1),
   /**
-   * 2代表朋友圈.
+   * 2代表朋友圈
    */
   MOMENTS(2),
   /**
-   * 3代表腾讯微博.
+   * 3代表腾讯微博
    */
   TX_WEIBO(3),
   /**
-   * 4代表历史消息页.
+   * 4代表历史消息页
    */
   HISTORY(4),
   /**
-   * 51代表其他.
+   * 51代表其他
    */
   OTHER(5);
 

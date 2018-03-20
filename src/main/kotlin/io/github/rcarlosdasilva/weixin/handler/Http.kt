@@ -101,87 +101,87 @@ enum class HttpMethod { GET, HEAD, POST, PUT, PATCH, DELETE }
 enum class ContentType(val text: String) {
 
   /**
-   * .*（ 二进制流，不知道下载文件类型）.
+   * .*（ 二进制流，不知道下载文件类型）
    */
   ANY("application/octet-stream"),
   /**
-   * JSON.
+   * JSON
    */
   JSON("application/json; charset=utf-8"),
   /**
-   * XML.
+   * XML
    */
   XML("application/xml; charset=utf-8"),
   /**
-   * TEXT.
+   * TEXT
    */
   TEXT("text/plain"),
   /**
-   * video/avi.
+   * video/avi
    */
   AVI("video/avi"),
   /**
-   * BMP.
+   * BMP
    */
   BMP("application/x-bmp"),
   /**
-   * DOC.
+   * DOC
    */
   DOC("application/msword"),
   /**
-   * GIF.
+   * GIF
    */
   GIF("image/gif"),
   /**
-   * HTML.
+   * HTML
    */
   HTML("text/html"),
   /**
-   * ICO.
+   * ICO
    */
   ICO("image/x-icon"),
   /**
-   * JPEG.
+   * JPEG
    */
   JPEG("image/jpeg"),
   /**
-   * MDB.
+   * MDB
    */
   MDB("application/msaccess"),
   /**
-   * MP4.
+   * MP4
    */
   MP4("video/mpeg4"),
   /**
-   * PDF.
+   * PDF
    */
   PDF("application/pdf"),
   /**
-   * PNG.
+   * PNG
    */
   PNG("image/png"),
   /**
-   * PPT.
+   * PPT
    */
   PPT("application/vnd.ms-powerpoint"),
   /**
-   * SWF.
+   * SWF
    */
   SWF("application/x-shockwave-flash"),
   /**
-   * VCF.
+   * VCF
    */
   VCF("text/x-vcard"),
   /**
-   * WMA.
+   * WMA
    */
   WMA("audio/x-ms-wma"),
   /**
-   * WMV.
+   * WMV
    */
   WMV("video/x-ms-wmv"),
   /**
-   * XLS.
+   * XLS
    */
   XLS("application/vnd.ms-excel");
 
