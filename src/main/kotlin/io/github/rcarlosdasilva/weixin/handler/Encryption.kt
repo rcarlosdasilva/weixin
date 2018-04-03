@@ -1,16 +1,16 @@
 package io.github.rcarlosdasilva.weixin.handler
 
 import com.google.common.base.Preconditions
-import io.github.rcarlosdasilva.weixin.Notification
+import io.github.rcarlosdasilva.weixin.model.notification.EncryptedNotificationResponse
+import io.github.rcarlosdasilva.weixin.model.notification.Notification
+import mu.KotlinLogging
 import org.apache.commons.codec.binary.Base64
 import org.apache.commons.codec.digest.DigestUtils
-import org.slf4j.LoggerFactory
 import java.nio.charset.Charset
 import java.util.*
 import javax.crypto.Cipher
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
-import kotlin.experimental.and
 
 internal const val ENCODING = "UTF-8"
 internal val CHARSET = Charset.forName(ENCODING)
@@ -36,7 +36,7 @@ internal val CHARSET = Charset.forName(ENCODING)
  */
 object Encryptor {
 
-  private val LOGGER = LoggerFactory.getLogger(Encryptor::class.java)
+  private val logger = KotlinLogging.logger {}
 
   private const val RANDOM_START = '0'.toInt() - 1
   private const val RANDOM_END = 'z'.toInt() + 1
@@ -52,32 +52,30 @@ object Encryptor {
    *  1. 生成安全签名
    *  1. 将消息密文和安全签名打包成xml格式
    *
-   * @param appid 公众平台appid
+   * @param appId 公众平台appid
    * @param token 公众平台上，开发者设置的token
    * @param key 公众平台上，开发者设置的EncodingAESKey
    * @param originalContent 公众平台待回复用户的消息，xml格式的字符串
    * @return 加密后的可以直接回复用户的密文，包括msg_signature, timestamp, nonce, encrypt的xml格式的字符串
    */
-  fun encrypt(appid: String, token: String, key: String, originalContent: String): String? {
-    Preconditions.checkNotNull(appid)
-    Preconditions.checkNotNull(token)
-    Preconditions.checkNotNull(key)
-    Preconditions.checkNotNull(originalContent)
-
-    var ciphertext: String
+  fun encrypt(
+    appId: String,
+    token: String,
+    key: String,
+    originalContent: String
+  ): EncryptedNotificationResponse? {
     val annex = random(16)
     val aesKey = Base64.decodeBase64("$key=")
     val byteCollector = ByteGroup()
     val annexBytes = annex.toByteArray(CHARSET)
     val contentBytes = originalContent.toByteArray(CHARSET)
     val networkBytesOrder = getNetworkBytesOrder(contentBytes.size)
-    val appidBytes = appid.toByteArray(CHARSET)
+    val appIdBytes = appId.toByteArray(CHARSET)
 
-    // annex + networkBytesOrder + originalContent + appid
     byteCollector.addBytes(annexBytes)
     byteCollector.addBytes(networkBytesOrder)
     byteCollector.addBytes(contentBytes)
-    byteCollector.addBytes(appidBytes)
+    byteCollector.addBytes(appIdBytes)
 
     // ... + pad: 使用自定义的填充方式对明文进行补位填充
     val padBytes = Pkcs7Encoder.encode(byteCollector.size())
@@ -86,6 +84,7 @@ object Encryptor {
     // 获得最终的字节流, 未加密
     val unencrypted = byteCollector.toBytes()
 
+    val cipherText: String
     try {
       // 设置加密模式为AES的CBC模式
       val cipher = Cipher.getInstance("AES/CBC/NoPadding")
@@ -97,18 +96,16 @@ object Encryptor {
       val encrypted = cipher.doFinal(unencrypted)
 
       // 使用BASE64对加密后的字符串进行编码
-      ciphertext = BASE64.encodeToString(encrypted)
+      cipherText = BASE64.encodeToString(encrypted)
     } catch (ex: Exception) {
-      LOGGER.error("weixin encryptor", ex)
+      logger.error(ex) { "微信内容加密异常" }
       return null
     }
 
     val timestamp = Calendar.getInstance().timeInMillis
     val nonce = random(16)
-    val signature = sha1(tidy(token, timestamp, nonce, ciphertext))
-//    val responseEncrypted = NotificationResponseEncrypted(ciphertext, signature, timestamp, nonce)
-//    return NotificationParser.toXml(responseEncrypted)
-    return null
+    val signature = sha1(tidy(token, timestamp, nonce, cipherText))
+    return EncryptedNotificationResponse(cipherText, signature, timestamp, nonce)
   }
 
   /**
@@ -118,33 +115,24 @@ object Encryptor {
    *  1. 若验证通过，则提取xml中的加密消息
    *  1. 对消息进行解密
    *
-   *
-   * @param token
-   * 公众平台上，开发者设置的token
-   * @param key
-   * 公众平台上，开发者设置的EncodingAESKey
-   * @param ciphertext
-   * 密文，对应POST请求的数据
-   * @param signature
-   * 签名串，对应URL参数的msg_signature
-   * @param timestamp
-   * 时间戳，对应URL参数的timestamp
-   * @param nonce
-   * 随机串，对应URL参数的nonce
+   * @param token 公众平台上，开发者设置的token
+   * @param key 公众平台上，开发者设置的EncodingAESKey
+   * @param cipherText 密文，对应POST请求的数据
+   * @param signature 签名串，对应URL参数的msg_signature
+   * @param timestamp 时间戳，对应URL参数的timestamp
+   * @param nonce 随机串，对应URL参数的nonce
    * @return 解密后的原文模型
    */
   fun decrypt(
-    token: String, key: String, ciphertext: String, signature: String,
-    timestamp: Long, nonce: String
+    token: String,
+    key: String,
+    cipherText: String,
+    signature: String,
+    timestamp: Long,
+    nonce: String
   ): Notification? {
-    Preconditions.checkNotNull(token)
-    Preconditions.checkNotNull(key)
-    Preconditions.checkNotNull(ciphertext)
-    Preconditions.checkNotNull(signature)
-    Preconditions.checkNotNull(nonce)
-
-    val resignature = sha1(tidy(token, timestamp, nonce, ciphertext))
-    if (signature != resignature) {
+    val reSignature = sha1(tidy(token, timestamp, nonce, cipherText))
+    if (signature != reSignature) {
       return null
     }
 
@@ -158,18 +146,18 @@ object Encryptor {
       cipher.init(Cipher.DECRYPT_MODE, keySpec, iv)
 
       // 使用BASE64对密文进行解码
-      val encrypted = Base64.decodeBase64(ciphertext)
+      val encrypted = Base64.decodeBase64(cipherText)
 
       // 解密
       original = cipher.doFinal(encrypted)
     } catch (ex: Exception) {
-      LOGGER.error("weixin encryptor", ex)
+      logger.error(ex) { "微信内容解密异常A" }
       return null
     }
 
-    var notification: Notification? = null
-    var originalContent: String? = null
+    var notification: Notification
     var appId: String? = null
+    var originalContent: String? = null
     try {
       // 去除补位字符
       val bytes = Pkcs7Encoder.decode(original)
@@ -181,17 +169,16 @@ object Encryptor {
 
       originalContent = String(Arrays.copyOfRange(bytes, 20, 20 + xmlLength), CHARSET)
       appId = String(Arrays.copyOfRange(bytes, 20 + xmlLength, bytes.size), CHARSET)
-//      notification = NotificationParser.parse(originalContent)
-//      notification!!.setAppId(appId)
+      notification = NotificationParser.parse(originalContent)
     } catch (ex: Exception) {
-      LOGGER.debug("weixin encryptor", ex)
-
+      logger.warn(ex) { "微信内容解密异常B" }
       notification = Notification()
-//      notification!!.setAppId(appId)
-//      notification!!.setPlaintext(originalContent)
     }
 
-    return notification
+    return notification.apply {
+      this.appId = appId
+      this.plaintext = originalContent
+    }
   }
 
   /**
@@ -225,7 +212,7 @@ object Encryptor {
     while (count-- != 0) {
       val ch = (RANDOM.nextInt(RANDOM_GAP) + RANDOM_START).toChar()
 
-      if (ch >= '0' && ch <= '9' || ch >= 'A' && ch <= 'Z' || ch >= 'a' && ch <= 'z') {
+      if (ch in '0'..'9' || ch in 'A'..'Z' || ch in 'a'..'z') {
         buffer[count] = ch
       } else {
         count++
@@ -252,7 +239,7 @@ object Encryptor {
 
 internal class ByteGroup {
 
-  var byteContainer = ArrayList<Byte>()
+  private var byteContainer = ArrayList<Byte>()
 
   fun toBytes(): ByteArray {
     val bytes = ByteArray(byteContainer.size)
@@ -329,7 +316,7 @@ object Pkcs7Encoder {
    * 需要转化的数字
    * @return 转化得到的字符
    */
-  fun charOf(number: Int): Char {
+  private fun charOf(number: Int): Char {
     val target = (number and 0xFF).toByte()
     return target.toChar()
   }

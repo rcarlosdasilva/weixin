@@ -47,7 +47,7 @@ enum class MessageType(val text: String) {
   override fun toString(): String = text
 
   companion object {
-    fun with(text: String): MessageType? = values().find { it.text.equals(text, ignoreCase = true) }
+    fun with(text: String?): MessageType? = text?.let { values().find { it.text.equals(text, ignoreCase = true) } }
   }
 
 }

@@ -55,7 +55,7 @@ enum class MpType(val code: Int) {
   ENTERPRISE(3);
 
   companion object {
-    fun with(code: Int): MpType? = values().find { it.code == code }
+    fun with(code: Int?): MpType? = code?.let { values().find { it.code == code } }
   }
 
 }

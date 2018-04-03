@@ -150,6 +150,7 @@ class Weixin private constructor() {
        * 获取监听
        */
       @JvmStatic
+      @Suppress("UNCHECKED_CAST")
       fun <T : WeixinListener> listener(classType: Class<T>): T? = instance.listeners[classType.name] as T
 
     }

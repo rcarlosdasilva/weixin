@@ -55,7 +55,8 @@ enum class NotificationEvent(val text: String) {
   override fun toString(): String = text
 
   companion object {
-    fun with(text: String): NotificationEvent? = values().find { it.text.equals(text, ignoreCase = true) }
+    fun with(text: String?): NotificationEvent? =
+      text?.let { values().find { it.text.equals(text, ignoreCase = true) } }
   }
 
 }
@@ -103,7 +104,8 @@ enum class NotificationMessage(val text: String) {
   override fun toString(): String = text
 
   companion object {
-    fun with(text: String): NotificationMessage? = values().find { it.text.equals(text, ignoreCase = true) }
+    fun with(text: String?): NotificationMessage? =
+      text?.let { values().find { it.text.equals(text, ignoreCase = true) } }
   }
 
 }
@@ -113,7 +115,7 @@ enum class NotificationMessage(val text: String) {
  *
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
-enum class NotificationInfo(val text: String) {
+enum class NotificationOpInfo(val text: String) {
 
   /**
    * 推送component_verify_ticket协议ticket内容
@@ -135,7 +137,8 @@ enum class NotificationInfo(val text: String) {
   override fun toString(): String = text
 
   companion object {
-    fun with(text: String): NotificationInfo? = values().find { it.text.equals(text, ignoreCase = true) }
+    fun with(text: String?): NotificationOpInfo? =
+      text?.let { values().find { it.text.equals(text, ignoreCase = true) } }
   }
 
 }

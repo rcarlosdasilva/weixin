@@ -45,7 +45,7 @@ enum class StatisticsUserSource(val code: Int) {
   MOMENTS_AD(78);
 
   companion object {
-    fun with(code: Int): StatisticsUserSource? = values().find { it.code == code }
+    fun with(code: Int?): StatisticsUserSource? = code?.let { values().find { it.code == code } }
   }
 
 }
@@ -79,7 +79,7 @@ enum class StatisticsMessageType(val code: Int) {
   APP(6);
 
   companion object {
-    fun with(code: Int): StatisticsMessageType? = values().find { it.code == code }
+    fun with(code: Int?): StatisticsMessageType? = code?.let { values().find { it.code == code } }
   }
 
 }
@@ -110,7 +110,7 @@ enum class StatisticsNewsShareScene(val code: Int) {
 
 
   companion object {
-    fun with(code: Int): StatisticsNewsShareScene? = values().find { it.code == code }
+    fun with(code: Int?): StatisticsNewsShareScene? = code?.let { values().find { it.code == code } }
   }
 
 }

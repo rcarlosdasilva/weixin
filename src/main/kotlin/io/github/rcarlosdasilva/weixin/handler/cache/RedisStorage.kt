@@ -12,7 +12,6 @@ import io.github.rcarlosdasilva.weixin.terms.DEFAULT_REDIS_KEY_SEPARATOR
 import org.springframework.data.redis.core.RedisOperations
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.data.redis.core.SessionCallback
-import org.springframework.util.SerializationUtils.serialize
 import redis.clients.jedis.Jedis
 import redis.clients.jedis.JedisPool
 import redis.clients.jedis.JedisPoolConfig
@@ -109,17 +108,17 @@ class JedisStorage<V : Cacheable> : CacheStorage<V> {
     val keys = keys()
     var result: V? = null
 
-    loop@ run {
-      keys.forEach { key ->
-        get(key.toByteArray())?.let {
-          val value = unserialize<V>(it)
-          if (lookup.isYou(key, value)) {
-            result = value
-            return@loop
-          }
+    for (key: String in keys) {
+      val obj = get(key.toByteArray())
+      if (obj != null) {
+        val value = unserialize<V>(obj)
+        if (lookup.isYou(key, value)) {
+          result = value
+          break
         }
       }
     }
+
     close()
     result
   }

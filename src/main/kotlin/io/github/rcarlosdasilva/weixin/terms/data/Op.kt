@@ -23,7 +23,7 @@ enum class OpMpAuthentication(val code: Int) {
   QUALIFICATION_AND_TENCENT_WEIBO_VERIFIED(5);
 
   companion object {
-    fun with(code: Int): OpMpAuthentication? = values().find { it.code == code }
+    fun with(code: Int?): OpMpAuthentication? = code?.let { values().find { it.code == code } }
   }
 
 }
@@ -92,7 +92,7 @@ enum class OpLicenseFunction(val code: Int) {
   MENU(15);
 
   companion object {
-    fun with(code: Int): OpLicenseFunction? = values().find { it.code == code }
+    fun with(code: Int?): OpLicenseFunction? = code?.let { values().find { it.code == code } }
   }
 
 }
