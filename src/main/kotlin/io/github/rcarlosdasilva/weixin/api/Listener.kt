@@ -8,7 +8,6 @@ interface WeixinListener
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
 interface MpAccessTokenUpdatedListener : WeixinListener {
-
   /**
    * @param key 注册时的key
    * @param appid 公众号appid
@@ -16,8 +15,8 @@ interface MpAccessTokenUpdatedListener : WeixinListener {
    * @param expiredIn 凭证有效时间，单位：秒
    */
   fun updated(key: String, appid: String, token: String, expiredIn: Long)
-
 }
+
 
 /**
  * 公众号JsTicket更新监听器
@@ -25,7 +24,6 @@ interface MpAccessTokenUpdatedListener : WeixinListener {
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
 interface MpJsTicketUpdatedListener : WeixinListener {
-
   /**
    * @param key 注册时的key
    * @param appid appid
@@ -33,8 +31,8 @@ interface MpJsTicketUpdatedListener : WeixinListener {
    * @param expiredIn 有效期
    */
   fun updated(key: String, appid: String, ticket: String, expiredIn: Long)
-
 }
+
 
 /**
  * 开放平台AccessToken更新监听器
@@ -42,14 +40,13 @@ interface MpJsTicketUpdatedListener : WeixinListener {
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
 interface OpAccessTokenUpdatedListener : WeixinListener {
-
   /**
    * @param token 第三方平台access_token
    * @param expiredIn 有效期
    */
   fun updated(token: String, expiredIn: Long)
-
 }
+
 
 /**
  * 开放平台中授权方公众号AccessToken更新监听器

@@ -1,5 +1,7 @@
 package io.github.rcarlosdasilva.weixin.handler
 
+import java.io.Serializable
+
 /**
  * 指定特殊值（可缓存的类，放入缓存时的分组名）的字段名称
  */
@@ -70,6 +72,13 @@ object CacheHandler {
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
 interface Cacheable
+
+class GeneralCacheableObject(var obj: Any?) : Serializable, Cacheable {
+  companion object {
+    private const val serialVersionUID = 6464095895660138441L
+  }
+}
+
 
 /**
  * 缓存器

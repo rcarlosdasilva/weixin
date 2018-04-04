@@ -28,7 +28,7 @@ object HttpHandler {
    * @param type  指定请求内容格式，JSON或XML
    * @return response字符串
    */
-  fun request(url: String, method: HttpMethod, content: String, type: ContentType): String? =
+  fun request(url: String, method: HttpMethod, content: String, type: ContentType): String =
     generate(url, method, content, type).run { doRequest(this)?.body()!!.string() }
 
   /**
@@ -40,7 +40,7 @@ object HttpHandler {
    * @param type  指定请求内容格式，JSON或XML
    * @return response二进制流
    */
-  fun requestStream(url: String, method: HttpMethod, content: String, type: ContentType): InputStream? =
+  fun requestStream(url: String, method: HttpMethod, content: String, type: ContentType): InputStream =
     generate(url, method, content, type).run { doRequest(this)?.body()!!.byteStream() }
 
   /**
@@ -51,7 +51,7 @@ object HttpHandler {
    * @param additionalData 附加表单数据
    * @return response字符串
    */
-  fun requestByFiles(url: String, multiFiles: List<MultiFile>, additionalData: List<FormData>?): String? {
+  fun requestByFiles(url: String, multiFiles: List<MultiFile>, additionalData: List<FormData>?): String {
     val bodyBuilder = MultipartBody.Builder().setType(MultipartBody.FORM)
 
     additionalData?.forEach { bodyBuilder.addFormDataPart(it.key, it.value) }

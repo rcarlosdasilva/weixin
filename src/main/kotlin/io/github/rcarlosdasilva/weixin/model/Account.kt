@@ -1,23 +1,38 @@
 package io.github.rcarlosdasilva.weixin.model
 
 import io.github.rcarlosdasilva.weixin.handler.Cacheable
+import io.github.rcarlosdasilva.weixin.terms.ACCOUNT_PLATFORM_TYPE_MP
+import io.github.rcarlosdasilva.weixin.terms.ACCOUNT_PLATFORM_TYPE_OP
+import io.github.rcarlosdasilva.weixin.terms.UNIQUE_OP_ACCOUNT_CACHE_KEY
 import io.github.rcarlosdasilva.weixin.terms.data.EncryptionType
 import io.github.rcarlosdasilva.weixin.terms.data.MpAuthentication
 import io.github.rcarlosdasilva.weixin.terms.data.MpType
 import java.io.Serializable
 
-data class Op(
-  val appId: String,
-  val appSecret: String,
-  val aesToken: String,
-  val aesKey: String
+open class Account(
+  open val appId: String,
+  internal val ap: String
 ) : Serializable, Cacheable {
+  /**
+   * 注册到缓存器中的key值，方便日志查找，默认为appid
+   */
+  open lateinit var key: String
+
   companion object {
     private const val serialVersionUID = 1L
   }
 }
 
-data class Mp(val appId: String) : Serializable, Cacheable {
+data class Op(
+  override val appId: String,
+  val appSecret: String,
+  val aesToken: String,
+  val aesKey: String
+) : Account(appId, ACCOUNT_PLATFORM_TYPE_OP) {
+  override var key = UNIQUE_OP_ACCOUNT_CACHE_KEY
+}
+
+data class Mp(override val appId: String) : Account(appId, ACCOUNT_PLATFORM_TYPE_MP) {
 
   /**
    * 不推荐使用appid与appsecret调用微信API （如开发自持有单公众号例外）
@@ -30,12 +45,10 @@ data class Mp(val appId: String) : Serializable, Cacheable {
     this.proxyWithOp = false
   }
 
+  override var key = appId
+
   var appSecret: String? = null
     set(value) {}
-  /**
-   * 注册到缓存器中的key值，方便日志查找，默认为appid
-   */
-  var key: String = appId
   /**
    * 原始id
    */
@@ -73,7 +86,7 @@ data class Mp(val appId: String) : Serializable, Cacheable {
    */
   var proxyWithOp = true
   /**
-   * 公众号在开放平台的RefreshToken
+   * 公众号在开放平台的RefreshTokeno
    */
   var refreshToken: String? = null
 

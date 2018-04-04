@@ -31,6 +31,10 @@ enum class OpMpAuthentication(val code: Int) {
 enum class OpLicenseFunction(val code: Int) {
 
   /**
+   * 未知，为兼容微信新加权限
+   */
+  UNKNOWN(-1),
+  /**
    * 消息管理权限
    */
   MESSAGE_MANAGEMENT(1),
@@ -92,7 +96,7 @@ enum class OpLicenseFunction(val code: Int) {
   MENU(15);
 
   companion object {
-    fun with(code: Int?): OpLicenseFunction? = code?.let { values().find { it.code == code } }
+    fun with(code: Int?): OpLicenseFunction = code?.let { values().find { it.code == code } ?: UNKNOWN } ?: UNKNOWN
   }
 
 }

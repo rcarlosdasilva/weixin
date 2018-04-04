@@ -215,7 +215,8 @@ enum class ResultCode(val code: Int, val text: String) {
   RESULT_UNKNOWN(-2, "未收录的微信错误代码");
 
   companion object {
-    fun with(code: Int?): ResultCode? = code?.let { values().find { it.code == code } ?: RESULT_UNKNOWN }
+    fun with(code: Int?): ResultCode =
+      code?.let { values().find { it.code == code } ?: RESULT_UNKNOWN } ?: RESULT_UNKNOWN
   }
 
 }

@@ -5,9 +5,14 @@ import com.thoughtworks.xstream.core.util.QuickWriter
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter
 import com.thoughtworks.xstream.io.xml.PrettyPrintWriter
 import com.thoughtworks.xstream.io.xml.Xpp3Driver
+import io.github.rcarlosdasilva.weixin.core.ExecuteException
+import io.github.rcarlosdasilva.weixin.core.MaydayMaydaySaveMeBecauseAccessTokenSetMeFuckUpException
+import io.github.rcarlosdasilva.weixin.core.Weixin
 import io.github.rcarlosdasilva.weixin.model.notification.*
+import io.github.rcarlosdasilva.weixin.model.response.Response
 import io.github.rcarlosdasilva.weixin.terms.*
 import io.github.rcarlosdasilva.weixin.terms.data.NotificationMessage
+import mu.KotlinLogging
 import java.io.Writer
 
 
@@ -108,3 +113,60 @@ object NotificationParser {
 }
 
 
+/**
+ * 响应内容解析器
+ *
+ * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
+ */
+object ResponseParser {
+
+
+  private val logger = KotlinLogging.logger { }
+
+  /**
+   * 解析并封装响应结果为一个指定类型.
+   *
+   * @param <T> The Type of element
+   * @param target 指定封装类型
+   * @param json json响应字符串
+   * @return 封装对象
+  </T> */
+  fun <T> parse(target: Class<T>, json: String): T? {
+    if (Response.seemsLikeError(json)) {
+      val errorResponse = JsonHandler.fromJson(json, Response::class.java)
+      val success = errorResponse.errorCode == ResultCode.RESULT_0.code
+
+      if (!success) {
+        val resultCode = ResultCode.with(errorResponse.errorCode)
+
+        if (errorResponse.isBadAccessToken) {
+          logger.debug("微信说我access_token不大行，那我觉着是不是还可以再抢救一下，再试一遍来")
+          throw MaydayMaydaySaveMeBecauseAccessTokenSetMeFuckUpException()
+        }
+
+        if (resultCode == ResultCode.RESULT_UNKNOWN) {
+          logger.debug { "未收录的微信错误代码: code [${errorResponse.errorCode}]" }
+        }
+        logger.error { "微信请求错误：code [${errorResponse.errorCode}] -- message [${errorResponse.errorMessage}]" }
+        if (Weixin.registry.setting.isThrowException) {
+          throw ExecuteException(errorResponse, resultCode)
+        }
+
+        return if (target == Boolean::class.java) {
+          @Suppress("UNCHECKED_CAST")
+          false as T
+        } else {
+          null
+        }
+      }
+    }
+
+    return if (target == Boolean::class.java) {
+      @Suppress("UNCHECKED_CAST")
+      true as T
+    } else {
+      JsonHandler.fromJson(json, target)
+    }
+  }
+
+}

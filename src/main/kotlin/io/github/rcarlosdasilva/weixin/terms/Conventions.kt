@@ -12,6 +12,10 @@ const val DEFAULT_REDIS_KEY_PREFIX = "weixin"
 const val DEFAULT_REDIS_KEY_SEPARATOR = ":"
 const val DEFAULT_REDIS_KEY_PATTERN = "*"
 
+const val UNIQUE_OP_ACCOUNT_CACHE_KEY = "unique_op_account"
+const val ACCOUNT_PLATFORM_TYPE_OP = "op"
+const val ACCOUNT_PLATFORM_TYPE_MP = "mp"
+
 // -------------------- 接口请求 JSON 约定内容值 -------------------
 const val GLOBAL_TRUE_NUMBER = 1
 const val GLOBAL_FALSE_NUMBER = 0

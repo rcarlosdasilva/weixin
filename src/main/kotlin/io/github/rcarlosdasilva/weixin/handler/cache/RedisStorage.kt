@@ -2,16 +2,14 @@ package io.github.rcarlosdasilva.weixin.handler.cache
 
 import com.google.common.base.Joiner
 import com.google.common.base.Splitter
-import io.github.rcarlosdasilva.weixin.handler.CONFIG_GROUP_KEY
-import io.github.rcarlosdasilva.weixin.handler.CacheStorage
-import io.github.rcarlosdasilva.weixin.handler.Cacheable
-import io.github.rcarlosdasilva.weixin.handler.Lookup
+import io.github.rcarlosdasilva.weixin.handler.*
 import io.github.rcarlosdasilva.weixin.terms.DEFAULT_REDIS_KEY_PATTERN
 import io.github.rcarlosdasilva.weixin.terms.DEFAULT_REDIS_KEY_PREFIX
 import io.github.rcarlosdasilva.weixin.terms.DEFAULT_REDIS_KEY_SEPARATOR
 import org.springframework.data.redis.core.RedisOperations
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.data.redis.core.SessionCallback
+import org.springframework.util.SerializationUtils.serialize
 import redis.clients.jedis.Jedis
 import redis.clients.jedis.JedisPool
 import redis.clients.jedis.JedisPoolConfig
@@ -353,28 +351,6 @@ class SpringRedisStorage<V : Cacheable> : CacheStorage<V> {
 }
 
 // ---------------------- 通用方法 --------------------------
-
-internal fun <T> serialize(obj: T): ByteArray? =
-  try {
-    ByteArrayOutputStream().use { baos ->
-      ObjectOutputStream(baos).use { oos ->
-        oos.writeObject(obj)
-        return baos.toByteArray()
-      }
-    }
-  } catch (ex: Exception) {
-    null
-  }
-
-internal fun <T> unserialize(bytes: ByteArray): T? =
-  try {
-    ObjectInputStream(ByteArrayInputStream(bytes)).use {
-      return it.readObject() as T
-    }
-  } catch (ex: Exception) {
-    null
-  }
-
 
 private val JOINER = Joiner.on(DEFAULT_REDIS_KEY_SEPARATOR)
 private val SPLITTER = Splitter.on(DEFAULT_REDIS_KEY_SEPARATOR)
