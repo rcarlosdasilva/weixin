@@ -17,7 +17,7 @@ import java.io.Writer
 
 
 /**
- * 微信推送通知，消息解析器.
+ * 微信推送通知，消息解析器
  *
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
@@ -64,7 +64,7 @@ object NotificationParser {
   }
 
   /**
-   * 解析微信推送过来的XML.
+   * 解析微信推送过来的XML
    *
    * @param xmlString 规范的XML格式字符串
    * @return 微信推送消息封装
@@ -124,7 +124,7 @@ object ResponseParser {
   private val logger = KotlinLogging.logger { }
 
   /**
-   * 解析并封装响应结果为一个指定类型.
+   * 解析并封装响应结果为一个指定类型
    *
    * @param <T> The Type of element
    * @param target 指定封装类型

@@ -7,7 +7,7 @@
   <version>0.7-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>Aha-Weixin</name>
+  <name>Weixin-SDK</name>
   <description>微信API封装，支持多账号操作，简单易用</description>
   <url>https://github.com/rcarlosdasilva/weixin</url>
 
@@ -177,6 +177,11 @@
     </dependency>
     <dependency>
       <groupId>org.jetbrains.kotlin</groupId>
+      <artifactId>kotlin-stdlib</artifactId>
+      <version>${kotlin.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains.kotlin</groupId>
       <artifactId>kotlin-stdlib-jdk8</artifactId>
       <version>${kotlin.version}</version>
     </dependency>
@@ -201,7 +206,6 @@
       <plugin>
         <artifactId>kotlin-maven-plugin</artifactId>
         <groupId>org.jetbrains.kotlin</groupId>
-        <version>${kotlin.version}</version>
         <executions>
           <execution>
             <id>compile</id>

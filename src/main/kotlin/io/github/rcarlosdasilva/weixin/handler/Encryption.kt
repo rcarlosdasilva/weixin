@@ -1,6 +1,5 @@
 package io.github.rcarlosdasilva.weixin.handler
 
-import com.google.common.base.Preconditions
 import io.github.rcarlosdasilva.weixin.model.notification.EncryptedNotificationResponse
 import io.github.rcarlosdasilva.weixin.model.notification.Notification
 import mu.KotlinLogging
@@ -204,18 +203,16 @@ object Encryptor {
   }
 
   private fun random(count: Int): String {
-    var count = count
-    Preconditions.checkArgument(count > 0)
+    var c = count
+    val buffer = CharArray(c)
 
-    val buffer = CharArray(count)
-
-    while (count-- != 0) {
+    while (c-- != 0) {
       val ch = (RANDOM.nextInt(RANDOM_GAP) + RANDOM_START).toChar()
 
       if (ch in '0'..'9' || ch in 'A'..'Z' || ch in 'a'..'z') {
-        buffer[count] = ch
+        buffer[c] = ch
       } else {
-        count++
+        c++
       }
     }
     return String(buffer)

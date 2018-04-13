@@ -65,7 +65,7 @@ class Weixin private constructor() {
           logger.warn { "未找到公众号的app_secret，该公众号将不被注册" }
           false
         }
-        !mp.proxyWithOp && !hasOp -> {
+        mp.proxyWithOp && !hasOp -> {
           logger.warn { "未找到开放平台信息，但该公众号配置为使用开放平台，将不被注册" }
           false
         }
@@ -113,7 +113,7 @@ class Weixin private constructor() {
      * 获取监听
      */
     @Suppress("UNCHECKED_CAST")
-    fun <T : WeixinListener> listener(classType: Class<T>): T? = listeners[classType.name] as T
+    fun <T : WeixinListener> listener(classType: Class<T>): T? = listeners[classType.name] as T?
 
   }
 

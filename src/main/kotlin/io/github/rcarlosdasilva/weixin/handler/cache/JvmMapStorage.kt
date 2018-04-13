@@ -48,12 +48,12 @@ class JvmMapStorage<V : Cacheable> : CacheStorage<V> {
   /**
    * 暂不支持
    */
-  override fun lock(key: String, timeout: Long, promptly: Boolean): String? = null
+  override fun lock(key: String, timeout: Long, promptly: Boolean): String? = ""
 
   /**
    * 暂不支持
    */
-  override fun unlock(key: String, identifier: String): Boolean = false
+  override fun unlock(key: String, identifier: String): Boolean = true
 
 }
 

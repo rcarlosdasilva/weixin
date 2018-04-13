@@ -9,7 +9,7 @@ private const val URL_API_DOMAIN_WITHOUT_SSL = "http://api.weixin.qq.com/"
 // ------------------------ Certificate ----------------------
 const val URL_CERTIFICATE_TOKEN = "${URL_API_DOMAIN}cgi-bin/token"
 const val URL_CERTIFICATE_SERVER_IP = "${URL_API_DOMAIN}cgi-bin/getcallbackip"
-const val URL_CERTIFICATE_JS_TICKET = "${URL_API_DOMAIN}cgi-bin/ticket/getticket"
+const val URL_CERTIFICATE_JSAPI_TICKET = "${URL_API_DOMAIN}cgi-bin/ticket/getticket"
 const val URL_CERTIFICATE_WEB_AUTHORIZE_TOKEN = "${URL_API_DOMAIN}sns/oauth2/access_token"
 const val URL_CERTIFICATE_WEB_AUTHORIZE_TOKEN_REFRESH = "${URL_API_DOMAIN}sns/oauth2/refresh_token"
 const val URL_CERTIFICATE_WEB_AUTHORIZE_TOKEN_VERIFY = "${URL_API_DOMAIN}sns/auth"

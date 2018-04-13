@@ -143,7 +143,7 @@ interface CacheStorage<V : Cacheable> {
   fun lookupAll(lookup: Lookup<V>): List<V>
 
   /**
-   * 加锁
+   * 加锁，如不支持请返回空字符串，不要返回null
    *
    * @param key 与 {@link #put(String, Cacheable)}、 {@link #get(String)}等方法的key一样
    * @param timeout 锁时效（单位：毫秒）
@@ -153,7 +153,7 @@ interface CacheStorage<V : Cacheable> {
   fun lock(key: String, timeout: Long, promptly: Boolean): String?
 
   /**
-   * 解锁
+   * 解锁，如不支持请返回true
    *
    * @param key 键
    * @param identifier 锁标识，加锁时获取

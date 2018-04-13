@@ -21,8 +21,8 @@ class MpAccessTokenRequest(
  *
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
-class JsTicketRequest : MpRequest() {
-  override fun toString(): String = "$URL_CERTIFICATE_JS_TICKET?access_token=$accessToken&type=$JS_TICKET_TYPE"
+class JsapiTicketRequest : MpRequest() {
+  override fun toString(): String = "$URL_CERTIFICATE_JSAPI_TICKET?access_token=$accessToken&type=$JSAPI_TICKET_TYPE"
 }
 
 

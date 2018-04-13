@@ -38,7 +38,7 @@ abstract class Api(private val account: Account) {
   }
 
   /**
-   * 发送post请求.
+   * 发送post请求
    *
    * @param <T> The Type of element
    * @param target 响应的封装类型
@@ -63,7 +63,7 @@ abstract class Api(private val account: Account) {
   }
 
   /**
-   * 使用get方法获取二进制流.
+   * 使用get方法获取二进制流
    *
    * @param requestModel 请求模型
    * @return 二进制流
@@ -83,7 +83,7 @@ abstract class Api(private val account: Account) {
   }
 
   /**
-   * 发送get请求.
+   * 发送get请求
    *
    * @param <T> The Type of element
    * @param target 响应的封装类型
@@ -103,7 +103,7 @@ abstract class Api(private val account: Account) {
   }
 
   /**
-   * 使用get方法获取二进制流.
+   * 使用get方法获取二进制流
    *
    * @param requestModel 请求模型
    * @return 二进制流
@@ -123,7 +123,7 @@ abstract class Api(private val account: Account) {
   }
 
   /**
-   * 上传一个文件（post）.
+   * 上传一个文件（post）
    *
    * @param <T> The Type of element
    * @param target 响应的封装类型
@@ -181,7 +181,7 @@ abstract class Api(private val account: Account) {
       get() = Weixin.registry.setting.retries
 
     /**
-     * 执行.
+     * 执行
      *
      *
      * 开始执行方法 pending 中定义的内容，并在access_token无效时，进行刷新access_token同时重新尝试执行
@@ -211,7 +211,7 @@ abstract class Api(private val account: Account) {
     }
 
     /**
-     * 具体接口请求执行内容.
+     * 具体接口请求执行内容
      */
     abstract fun pending(): R?
 

@@ -11,35 +11,35 @@ import com.thoughtworks.xstream.annotations.XStreamConverter
 class LocationInfo {
 
   /**
-   * X坐标信息 (Location_X).
+   * X坐标信息 (Location_X)
    *
    * @return 坐标
    */
   @XStreamAlias("Location_X")
   val locationX: Double = 0.toDouble()
   /**
-   * Y坐标信息 (Location_Y).
+   * Y坐标信息 (Location_Y)
    *
    * @return 坐标
    */
   @XStreamAlias("Location_Y")
   val locationY: Double = 0.toDouble()
   /**
-   * 精度，可理解为精度或者比例尺、越精细的话 scale越高 (Scale).
+   * 精度，可理解为精度或者比例尺、越精细的话 scale越高 (Scale)
    *
    * @return 精度
    */
   @XStreamAlias("Scale")
   val scale: Int = 0
   /**
-   * 地理位置的字符串信息 (Label).
+   * 地理位置的字符串信息 (Label)
    *
    * @return 位置
    */
   @XStreamAlias("Label")
   val address: String? = null
   /**
-   * 朋友圈POI的名字，可能为空 (Poiname).
+   * 朋友圈POI的名字，可能为空 (Poiname)
    *
    * @return 名字
    */
@@ -57,14 +57,14 @@ class LocationInfo {
 class PicsInfo {
 
   /**
-   * 发送的图片数量 (Count).
+   * 发送的图片数量 (Count)
    *
    * @return count
    */
   @XStreamAlias("Count")
   val count: Int = 0
   /**
-   * 图片的MD5值，开发者若需要，可用于验证接收到图片.
+   * 图片的MD5值，开发者若需要，可用于验证接收到图片
    *
    * @return 图片md5列表
    */
@@ -93,7 +93,7 @@ class ResponseAdditionalInfo {
   constructor()
 
   /**
-   * 图文消息用.
+   * 图文消息用
    *
    * @param title
    * title
@@ -122,14 +122,14 @@ class ResponseAdditionalInfo {
 class ScanCodeInfo {
 
   /**
-   * 扫描类型，一般是qrcode (ScanType).
+   * 扫描类型，一般是qrcode (ScanType)
    *
    * @return type
    */
   @XStreamAlias("ScanType")
   val type: String? = null
   /**
-   * 扫描结果，即二维码对应的字符串信息 (ScanResult).
+   * 扫描结果，即二维码对应的字符串信息 (ScanResult)
    *
    * @return result
    */

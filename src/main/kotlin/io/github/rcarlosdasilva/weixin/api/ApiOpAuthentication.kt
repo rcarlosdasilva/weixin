@@ -26,7 +26,7 @@ class ApiOpAuthentication(private val account: Op) : Api(account) {
   private val logger = KotlinLogging.logger { }
 
   /**
-   * 获取微信开放平台服务凭证(component_access_token).
+   * 获取微信开放平台服务凭证(component_access_token)
    *
    * 第三方平台component_access_token是第三方平台的下文中接口的调用凭据，也叫做令牌（component_access_token）。
    * 每个令牌是存在有效期（2小时）的，且令牌的调用不是无限制的，请第三方平台做好令牌的管理，在令牌快过期时（比如1小时50分）再进行刷新。
@@ -53,7 +53,7 @@ class ApiOpAuthentication(private val account: Op) : Api(account) {
 
       val identifier =
         CacheHandler.of(AccessToken::class.java).lock(DEFAULT_CACHE_KEY_OPEN_PLATFORM_ACCESS_TOKEN, 2000, true)
-      if (identifier?.isNotBlank() != true) {
+      if (identifier == null) {
         try {
           Thread.sleep(100)
           continue
@@ -86,7 +86,7 @@ class ApiOpAuthentication(private val account: Op) : Api(account) {
     return accessToken?.apply {
       accountMark = UNIQUE_OP_ACCOUNT_CACHE_KEY
       CacheHandler.of(AccessToken::class.java).put(DEFAULT_CACHE_KEY_OPEN_PLATFORM_ACCESS_TOKEN, accessToken)
-      logger.debug("For: >> 获取到access_token：[{}]", accessToken!!.accessToken)
+      logger.debug("For: >> 获取到access_token：[{}]", accessToken.accessToken)
 
       val listener = Weixin.registry.listener(OpAccessTokenUpdatedListener::class.java)
       listener?.run {
@@ -97,11 +97,11 @@ class ApiOpAuthentication(private val account: Op) : Api(account) {
   }
 
   /**
-   * 获取预授权码pre_auth_code.
+   * 获取预授权码pre_auth_code
    *
    * 该API用于获取预授权码。预授权码用于公众号或小程序授权时的第三方平台方安全验证。
    *
-   * **直接调用[.openPlatformAuthorize]接口，不需要单独调用获取预授权码**
+   * **直接调用[authorize]接口，不需要单独调用获取预授权码**
    *
    * @return pre_auth_code
    */
@@ -111,7 +111,7 @@ class ApiOpAuthentication(private val account: Op) : Api(account) {
   }
 
   /**
-   * 使用授权码换取公众号或小程序的接口调用凭据和授权信息.
+   * 使用授权码换取公众号或小程序的接口调用凭据和授权信息
    *
    * 该API用于使用授权码换取授权公众号或小程序的授权信息，并换取authorizer_access_token和authorizer_refresh_token。
    * 授权码的获取，需要在用户在第三方平台授权页中完成授权流程后，在回调URI中通过URL参数提供给第三方平台方。
@@ -133,16 +133,16 @@ class ApiOpAuthentication(private val account: Op) : Api(account) {
         logger.debug("For: >> 调用监听器OpenPlatformLisensorAccessTokenUpdatedListener")
         updated(
           responseModel.licensingInformation!!.appId!!,
-          responseModel.licensedAccessToken!!.accessToken!!,
-          responseModel.licensedAccessToken!!.refreshToken!!,
-          responseModel.licensedAccessToken!!.expiresIn
+          responseModel.licensedAccessToken.accessToken!!,
+          responseModel.licensedAccessToken.refreshToken!!,
+          responseModel.licensedAccessToken.expiresIn
         )
       }
     } ?: throw ApiRequestException("无法获取授权方的授权信息")
   }
 
   /**
-   * 获取（刷新）授权公众号或小程序的接口调用凭据（令牌）.
+   * 获取（刷新）授权公众号或小程序的接口调用凭据（令牌）
    *
    * 该API用于在授权方令牌（authorizer_access_token）失效时，可用刷新令牌（authorizer_refresh_token）获取新的令牌。
    * **请注意，此处token是2小时刷新一次，开发者需要自行进行token的缓存，避免token的获取次数达到每日的限定额度。
@@ -150,14 +150,14 @@ class ApiOpAuthentication(private val account: Op) : Api(account) {
    *
    * **这里的授权access_token会自动更新，开发者无需关心**
    *
-   * @param licensoraAppId 授权方appid
+   * @param licensorAppId 授权方appid
    * @param refreshToken 授权方的刷新令牌，刷新令牌主要用于第三方平台获取和刷新已授权用户的access_token，只会在授权时刻提供，请妥善保存。一旦丢失，只能让用户重新授权，才能再次拿到新的刷新令牌
    * @return [OpGetLicenseInformationResponse]
    */
-  fun refreshLicensorAccessToken(licensoraAppId: String, refreshToken: String): OpGetLicenseInformationResponse {
+  fun refreshLicensorAccessToken(licensorAppId: String, refreshToken: String): OpGetLicenseInformationResponse {
     val responseModel = post(
       OpGetLicenseInformationResponse::class.java,
-      OpRefreshLicensorAccessTokenRequest(account.appId, licensoraAppId, refreshToken)
+      OpRefreshLicensorAccessTokenRequest(account.appId, licensorAppId, refreshToken)
     )
 
     return responseModel?.apply {
@@ -166,21 +166,20 @@ class ApiOpAuthentication(private val account: Op) : Api(account) {
         logger.debug("For: >> 调用监听器OpenPlatformLisensorAccessTokenUpdatedListener")
         updated(
           responseModel.licensingInformation!!.appId!!,
-          responseModel.licensedAccessToken!!.accessToken!!,
-          responseModel.licensedAccessToken!!.refreshToken!!,
-          responseModel.licensedAccessToken!!.expiresIn
+          responseModel.licensedAccessToken.accessToken!!,
+          responseModel.licensedAccessToken.refreshToken!!,
+          responseModel.licensedAccessToken.expiresIn
         )
       }
     } ?: throw ApiRequestException("无法获取授权方的授权信息")
   }
 
   /**
-   * 获取授权方的帐号基本信息.
+   * 获取授权方的帐号基本信息
    *
    * 该API用于获取授权方的基本信息，包括头像、昵称、帐号类型、认证类型、微信号、原始ID和二维码图片URL。
    * 需要特别记录授权方的帐号类型，在消息及事件推送时，对于不具备客服接口的公众号，需要在5秒内立即响应；
    * 而若有客服接口，则可以选择暂时不响应，而选择后续通过客服接口来发送消息触达粉丝。
-   *
    *
    * **已使用[NotificationHandlerProxy]自动获取接口调用凭据和授权信息，如无特殊需要，无需调用**
    *
@@ -193,21 +192,21 @@ class ApiOpAuthentication(private val account: Op) : Api(account) {
   ) ?: throw ApiRequestException("无法获取授权方的授权信息")
 
   /**
-   * 获取授权方的选项设置信息.
+   * 获取授权方的选项设置信息
    *
    * 该API用于获取授权方的公众号或小程序的选项设置信息，如：地理位置上报，语音识别开关，
    * 多客服开关。注意，获取各项选项设置信息，需要有授权方的授权，详见权限集说明。
    *
-   * @param licensoraAppId 授权方appid
+   * @param licensorAppId 授权方appid
    * @param optionName 选项名称
    * @return [OpGetLicensorOptionResponse]
    */
-  fun getLicensorOption(licensoraAppId: String, optionName: String): OpGetLicensorOptionResponse =
-    post(OpGetLicensorOptionResponse::class.java, OpGetLicensorOptionRequest(account.appId, licensoraAppId, optionName))
+  fun getLicensorOption(licensorAppId: String, optionName: String): OpGetLicensorOptionResponse =
+    post(OpGetLicensorOptionResponse::class.java, OpGetLicensorOptionRequest(account.appId, licensorAppId, optionName))
         ?: throw ApiRequestException("无法获取授权方的选项设置信息")
 
   /**
-   * 设置授权方的选项信息.
+   * 设置授权方的选项信息
    *
    * 该API用于设置授权方的公众号或小程序的选项信息，如：地理位置上报，语音识别开关，
    * 多客服开关。注意，设置各项选项设置信息，需要有授权方的授权，详见权限集说明。
@@ -222,7 +221,7 @@ class ApiOpAuthentication(private val account: Op) : Api(account) {
         ?: throw ApiRequestException("无法设置授权方的选项设置信息")
 
   /**
-   * 微信开放平台第三方平台授权页面地址.
+   * 微信开放平台第三方平台授权页面地址
    *
    * 第三方平台方可以在自己的网站:中放置“微信公众号授权”或者“小程序授权”的入口，引导公众号和小程序管理员进入授权页。 授权页网址为 [https://mp.weixin.qq.com/cgi-bin/componentloginpage?component_appid=xxxx&amp;pre_auth_code=xxxxx&amp;redirect_uri=xxxx](#)
    * ， 该网址中第三方平台方需要提供第三方平台方appid、预授权码和回调URI<br></br>
@@ -243,21 +242,18 @@ class ApiOpAuthentication(private val account: Op) : Api(account) {
         "&redirect_uri=${urlEncode(redirectTo)}"
 
   /**
-   * 第三方平台对其所有API调用次数清零（只与第三方平台相关，与公众号无关，接口如api_component_token）.
+   * 第三方平台对其所有API调用次数清零（只与第三方平台相关，与公众号无关，接口如api_component_token）
    *
    * @return 如果是超出清零的请求次数限制返回false
    */
-  fun resetQuota(): Boolean {
-    val requestModel = OpResetQuotaRequest(account.appId)
-
+  fun resetQuota(): Boolean =
     try {
-      return post(Boolean::class.java, requestModel)!!
+      post(Boolean::class.java, OpResetQuotaRequest(account.appId))!!
     } catch (ex: ExecuteException) {
       if (ex.code === ResultCode.RESULT_48006) {
-        return false
+        @Suppress("UNUSED_EXPRESSION") false
       }
       throw ex
     }
-  }
 
 }

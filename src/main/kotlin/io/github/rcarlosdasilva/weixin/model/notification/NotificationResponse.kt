@@ -49,7 +49,7 @@ class PlaintextNotificationResponse : NotificationResponse {
   @XStreamAlias("CreateTime")
   var time: Long = 0
   /**
-   * 不能为 [MessageType.NEWS_INTERNAL] 和 [MessageType.CARD].
+   * 不能为 [MessageType.NEWS_INTERNAL] 和 [MessageType.CARD]
    */
   @XStreamAlias("MsgType")
   @XStreamConverter(EnumStringConverter::class)

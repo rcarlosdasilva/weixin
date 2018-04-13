@@ -1,13 +1,12 @@
 package io.github.rcarlosdasilva.weixin.model
 
-import com.google.gson.annotations.SerializedName
 import io.github.rcarlosdasilva.weixin.handler.Cacheable
 import io.github.rcarlosdasilva.weixin.terms.AHEAD_OF_EXPIRED_SECONDS
 import java.io.Serializable
 
 abstract class Certification : Serializable, Cacheable {
   open val code: String? = null
-  val expiresIn = 0L
+  var expiresIn = 0L
   /**
    * 凭证有效时间,单位:秒，准确的过期时间，默认提前180秒过期
    */
@@ -35,7 +34,7 @@ abstract class Certification : Serializable, Cacheable {
 abstract class AccessToken : Certification() {
   override val code: String?
     get() = accessToken
-  val accessToken: String? = null
+  var accessToken: String? = null
   var accountMark: String? = null
   /**
    * （当使用开放平台时）授权方票据的刷新令牌(对应的是authorizer_refresh_token)
@@ -51,11 +50,10 @@ abstract class AccessToken : Certification() {
  *
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
-abstract class JsTicket : Certification() {
+abstract class JsapiTicket : Certification() {
   override val code: String?
-    get() = jsTicket
-  @SerializedName("ticket")
-  val jsTicket: String? = null
+    get() = ticket
+  val ticket: String? = null
 }
 
 /**

@@ -1,3 +1,5 @@
+@file:Suppress("UNCHECKED_CAST")
+
 package io.github.rcarlosdasilva.weixin.handler
 
 import io.github.rcarlosdasilva.weixin.terms.DEFAULT_ENCODING

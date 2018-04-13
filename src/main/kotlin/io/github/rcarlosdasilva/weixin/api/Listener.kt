@@ -19,11 +19,11 @@ interface MpAccessTokenUpdatedListener : WeixinListener {
 
 
 /**
- * 公众号JsTicket更新监听器
+ * 公众号JsapiTicket更新监听器
  *
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
-interface MpJsTicketUpdatedListener : WeixinListener {
+interface MpJsapiTicketUpdatedListener : WeixinListener {
   /**
    * @param key 注册时的key
    * @param appid appid

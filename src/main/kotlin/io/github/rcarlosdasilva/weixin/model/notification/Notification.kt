@@ -16,23 +16,23 @@ import java.util.*
 class Notification : NotificationMeta() {
 
   /**
-   * xml明文原文，在安全模式下，微信验证URL时解密后有值，对应URL中的echostr.
+   * xml明文原文，在安全模式下，微信验证URL时解密后有值，对应URL中的echostr
    */
   var plaintext: String? = null
   /**
-   * 获取事件相关内容.
+   * 获取事件相关内容
    */
   var event: Event? = null
   /**
-   * 获取消息相关内容.
+   * 获取消息相关内容
    */
   var message: Message? = null
   /**
-   * 获取开放平台相关内容.
+   * 获取开放平台相关内容
    */
   var opInfo: OpInfo? = null
   /**
-   * 获取推送对应的公众号配置信息.
+   * 获取推送对应的公众号配置信息
    */
   var account: Mp? = null
 
@@ -55,12 +55,12 @@ open class NotificationMeta {
   @XStreamAlias("AppId")
   var appId: String? = null
   /**
-   * 开发者微信号 (ToUserName).
+   * 开发者微信号 (ToUserName)
    */
   @XStreamAlias("ToUserName")
   val toUser: String? = null
   /**
-   * 发送方帐号（一个OpenID）(FromUserName).
+   * 发送方帐号（一个OpenID）(FromUserName)
    */
   @XStreamAlias("FromUserName")
   val fromUser: String? = null
@@ -99,12 +99,12 @@ class OpInfo {
   @XStreamAlias("ComponentVerifyTicket")
   val ticket: String? = null
   /**
-   * 公众号或小程序的appid.
+   * 公众号或小程序的appid
    */
   @XStreamAlias("AuthorizerAppid")
   val licensorAppId: String? = null
   /**
-   * 授权码，可用于换取公众号的接口调用凭据，详细见上面的说明.
+   * 授权码，可用于换取公众号的接口调用凭据，详细见上面的说明
    */
   @XStreamAlias("AuthorizationCode")
   val license: String? = null

@@ -48,7 +48,6 @@ data class Mp(override val appId: String) : Account(appId, ACCOUNT_PLATFORM_TYPE
   override var key = appId
 
   var appSecret: String? = null
-    set(value) {}
   /**
    * 原始id
    */

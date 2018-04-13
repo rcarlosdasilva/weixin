@@ -1,14 +1,16 @@
 package io.github.rcarlosdasilva.weixin.handler
 
 import com.google.common.base.Preconditions
-import com.google.common.base.Strings
 import com.google.gson.*
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonWriter
+import io.github.rcarlosdasilva.weixin.model.response.OpAccessTokenResponse
+import io.github.rcarlosdasilva.weixin.model.response.OpGetLicenseInformationResponse
 import io.github.rcarlosdasilva.weixin.terms.*
-import org.slf4j.LoggerFactory
-import java.io.IOException
+import io.github.rcarlosdasilva.weixin.terms.data.MpType
+import io.github.rcarlosdasilva.weixin.terms.data.OpMpAuthentication
+import mu.KotlinLogging
 
 /**
  * JSON工具
@@ -55,260 +57,193 @@ object JsonHandler {
 annotation class Freeze
 
 
+@Suppress("UNCHECKED_CAST")
 class CustomTypeAdapterFactory : TypeAdapterFactory {
 
-  override fun <T> create(gson: Gson, type: TypeToken<T>): TypeAdapter<T>? {
-    val clazz = type.rawType
-    return when (clazz) {
-      MessageSendWithMassRequestUser::class.java -> MessageSendWithMassRequestUserTypeAdapter().nullSafe()
-      AccessTokenResponse::class.java -> AccessTokenResponseTypeAdapter().nullSafe()
-      OpenPlatformAuthAccessTokenResponse::class.java -> OpenPlatformAuthAccessTokenResponseTypeAdapter().nullSafe()
-      OpenPlatformAuthGetLicenseInformationResponse::class.java -> OpenPlatformAuthGetLicenseInformationResponseTypeAdapter().nullSafe()
+  override fun <T> create(gson: Gson, type: TypeToken<T>): TypeAdapter<T>? =
+    when (type.rawType) {
+//      MessageSendWithMassRequestUser::class.java -> MessageSendWithMassRequestUserTypeAdapter().nullSafe()
+      OpAccessTokenResponse::class.java -> OpAccessTokenResponseTypeAdapter().nullSafe()
+      OpGetLicenseInformationResponse::class.java -> OpGetLicenseInformationResponseTypeAdapter().nullSafe()
       else -> null
-    }
-  }
+    } as TypeAdapter<T>?
 
 }
 
 
-class MessageSendWithMassRequestUserTypeAdapter : TypeAdapter<MessageSendWithMassRequestUser>() {
+//class MessageSendWithMassRequestUserTypeAdapter : TypeAdapter<MessageSendWithMassRequestUser>() {
+//
+//  override fun write(out: JsonWriter, value: MessageSendWithMassRequestUser) {
+//    if (!Strings.isNullOrEmpty(value.getUser())) {
+//      out.value(value.getUser())
+//    } else if (value.getUsers() != null && value.getUsers().size() > 1) {
+//      out.beginArray()
+//      for (user in value.getUsers()) {
+//        out.value(user)
+//      }
+//      out.endArray()
+//    } else {
+//      out.nullValue()
+//    }
+//  }
+//
+//  override fun read(`in`: JsonReader): MessageSendWithMassRequestUser? {
+//    // 不需要实现
+//    return null
+//  }
+//
+//}
 
-  @Throws(IOException::class)
-  override fun write(out: JsonWriter, value: MessageSendWithMassRequestUser) {
-    if (!Strings.isNullOrEmpty(value.getUser())) {
-      out.value(value.getUser())
-    } else if (value.getUsers() != null && value.getUsers().size() > 1) {
-      out.beginArray()
-      for (user in value.getUsers()) {
-        out.value(user)
-      }
-      out.endArray()
-    } else {
-      out.nullValue()
-    }
-  }
 
-  @Throws(IOException::class)
-  override fun read(`in`: JsonReader): MessageSendWithMassRequestUser? {
+class OpAccessTokenResponseTypeAdapter : TypeAdapter<OpAccessTokenResponse>() {
+
+  private val logger = KotlinLogging.logger { }
+
+  override fun write(out: JsonWriter, value: OpAccessTokenResponse) {
     // 不需要实现
-    return null
   }
 
-}
-
-
-class AccessTokenResponseTypeAdapter : TypeAdapter<AccessTokenResponse>() {
-
-  private val logger = LoggerFactory.getLogger(javaClass)
-
-  @Throws(IOException::class)
-  override fun write(out: JsonWriter, value: AccessTokenResponse) {
-  }
-
-  @Throws(IOException::class)
-  override fun read(`in`: JsonReader): AccessTokenResponse {
-    val model = AccessTokenResponse()
-
+  override fun read(`in`: JsonReader): OpAccessTokenResponse = OpAccessTokenResponse().apply {
     `in`.beginObject()
     while (`in`.hasNext()) {
       val key = `in`.nextName()
       when (key) {
-        WEIXIN_ACCESS_TOKEN_KEY -> model.setAccessToken(`in`.nextString())
-        WEIXIN_ACCESS_TOKEN_EXPIRES_IN_KEY -> model.setExpiresIn(`in`.nextInt())
+        OPEN_PLATFORM_AUTH_ACCESS_TOKEN_KEY -> accessToken = `in`.nextString()
+        WEIXIN_ACCESS_TOKEN_EXPIRES_IN_KEY -> expiresIn = `in`.nextLong()
         else -> if (`in`.hasNext()) {
-          val value = `in`.nextString()
-          logger.warn("未知的json键值： [{}: {}]", key, value)
+          logger.warn { "未知的json键值： [{$key}: {${`in`.nextString()}}]" }
         }
       }
     }
     `in`.endObject()
-
-    return model
   }
 
 }
 
 
-class OpenPlatformAuthAccessTokenResponseTypeAdapter : TypeAdapter<OpenPlatformAuthAccessTokenResponse>() {
+class OpGetLicenseInformationResponseTypeAdapter : TypeAdapter<OpGetLicenseInformationResponse>() {
 
-  private val logger = LoggerFactory.getLogger(javaClass)
+  private val logger = KotlinLogging.logger { }
 
-  @Throws(IOException::class)
-  override fun write(out: JsonWriter, value: OpenPlatformAuthAccessTokenResponse) {
+  override fun write(out: JsonWriter, value: OpGetLicenseInformationResponse) {
     // 不需要实现
   }
 
-  @Throws(IOException::class)
-  override fun read(`in`: JsonReader): OpenPlatformAuthAccessTokenResponse {
-    val model = OpenPlatformAuthAccessTokenResponse()
-
+  override fun read(`in`: JsonReader): OpGetLicenseInformationResponse = OpGetLicenseInformationResponse().apply {
     `in`.beginObject()
     while (`in`.hasNext()) {
       val key = `in`.nextName()
       when (key) {
-        OPEN_PLATFORM_AUTH_ACCESS_TOKEN_KEY -> model.setAccessToken(`in`.nextString())
-
-        WEIXIN_ACCESS_TOKEN_EXPIRES_IN_KEY -> model.setExpiresIn(`in`.nextInt())
+        OPEN_PLATFORM_AUTH_LICENSING_INFORMATION_KEY -> readLicensingInformation(`in`, this)
+        OPEN_PLATFORM_AUTH_LICENSOR_INFORMATION_KEY -> readLicensorInformation(`in`, this)
+        OPEN_PLATFORM_AUTH_LICENSED_ACCESS_TOKEN_KEY -> licensedAccessToken.accessToken = `in`.nextString()
+        OPEN_PLATFORM_AUTH_LICENSED_ACCESS_TOKEN_EXPIRES_IN_KEY -> licensedAccessToken.expiresIn = `in`.nextLong()
+        OPEN_PLATFORM_AUTH_LICENSED_REFRESH_TOKEN_KEY -> licensedAccessToken.refreshToken = `in`.nextString()
         else -> if (`in`.hasNext()) {
-          val value = `in`.nextString()
-          logger.warn("未知的json键值： [{}: {}]", key, value)
+          logger.warn { "未知的json键值： [{$key}: {${`in`.nextString()}}]" }
         }
       }
     }
     `in`.endObject()
-
-    return model
   }
 
-}
+  private fun readLicensingInformation(`in`: JsonReader, model: OpGetLicenseInformationResponse) {
+    model.licensingInformation = OpGetLicenseInformationResponse.LicensingInformation().apply {
+      `in`.beginObject()
 
+      while (`in`.hasNext()) {
+        val key = `in`.nextName()
+        when (key) {
+          OPEN_PLATFORM_AUTH_LICENSED_APPID_ALIAS_KEY, OPEN_PLATFORM_AUTH_LICENSED_APPID_KEY ->
+            appId = `in`.nextString()
+          OPEN_PLATFORM_AUTH_LICENSED_ACCESS_TOKEN_KEY ->
+            model.licensedAccessToken.accessToken = `in`.nextString()
+          OPEN_PLATFORM_AUTH_LICENSED_ACCESS_TOKEN_EXPIRES_IN_KEY ->
+            model.licensedAccessToken.expiresIn = `in`.nextLong()
+          OPEN_PLATFORM_AUTH_LICENSED_REFRESH_TOKEN_KEY ->
+            model.licensedAccessToken.refreshToken = `in`.nextString()
+          OPEN_PLATFORM_AUTH_LICENSED_FUNCTIONS_INFO_KEY -> {
+            `in`.beginArray()
 
-class OpenPlatformAuthGetLicenseInformationResponseTypeAdapter :
-  TypeAdapter<OpenPlatformAuthGetLicenseInformationResponse>() {
+            while (`in`.hasNext()) {
+              `in`.beginObject()
+              `in`.nextName()
+              `in`.beginObject()
+              `in`.nextName()
+              functionIds.add(`in`.nextInt())
+              `in`.endObject()
+              `in`.endObject()
+            }
 
-  private val logger = LoggerFactory.getLogger(javaClass)
-
-  @Throws(IOException::class)
-  override fun write(out: JsonWriter, value: OpenPlatformAuthGetLicenseInformationResponse) {
-    // 不需要实现
-  }
-
-  @Throws(IOException::class)
-  override fun read(`in`: JsonReader): OpenPlatformAuthGetLicenseInformationResponse {
-    val model = OpenPlatformAuthGetLicenseInformationResponse()
-
-    `in`.beginObject()
-    while (`in`.hasNext()) {
-      val key = `in`.nextName()
-      when (key) {
-        OPEN_PLATFORM_AUTH_LICENSED_INFORMATION_KEY -> readLicensedAccessToken(`in`, model)
-        OPEN_PLATFORM_AUTH_LICENSOR_INFORMATION_KEY -> readLicensorInformation(`in`, model)
-        OPEN_PLATFORM_AUTH_LICENSED_ACCESS_TOKEN_KEY -> model.getLicensedAccessToken().setAccessToken(`in`.nextString())
-        OPEN_PLATFORM_AUTH_LICENSED_ACCESS_TOKEN_EXPIRES_IN_KEY -> model.getLicensedAccessToken().setExpiresIn(
-          `in`.nextInt()
-        )
-        OPEN_PLATFORM_AUTH_LICENSED_REFRESH_TOKEN_KEY -> model.getLicensedAccessToken().setRefreshToken(`in`.nextString())
-        else -> if (`in`.hasNext()) {
-          val value = `in`.nextString()
-          logger.warn(LOG_UNKNOWN_JSON_KEY, key, value)
+            `in`.endArray()
+          }
+          else -> if (`in`.hasNext()) {
+            logger.warn { "未知的json键值： [{$key}: {${`in`.nextString()}}]" }
+          }
         }
       }
+
+      `in`.endObject()
     }
-
-    `in`.endObject()
-
-    return model
   }
 
-  @Throws(IOException::class)
-  private fun readLicensedAccessToken(
-    `in`: JsonReader,
-    model: OpenPlatformAuthGetLicenseInformationResponse
-  ) {
-    val licensingInformation = LicensingInformation()
-    `in`.beginObject()
+  private fun readLicensorInformation(`in`: JsonReader, model: OpGetLicenseInformationResponse) {
+    model.licensorInformation = OpGetLicenseInformationResponse.LicensorInformation().apply {
+      `in`.beginObject()
 
-    while (`in`.hasNext()) {
-      val key = `in`.nextName()
-      when (key) {
-        OPEN_PLATFORM_AUTH_LICENSED_APPID_ALIAS_KEY, OPEN_PLATFORM_AUTH_LICENSED_APPID_KEY -> licensingInformation.setAppId(
-          `in`.nextString()
-        )
-        OPEN_PLATFORM_AUTH_LICENSED_ACCESS_TOKEN_KEY -> model.getLicensedAccessToken().setAccessToken(`in`.nextString())
-        OPEN_PLATFORM_AUTH_LICENSED_ACCESS_TOKEN_EXPIRES_IN_KEY -> model.getLicensedAccessToken().setExpiresIn(
-          `in`.nextInt()
-        )
-        OPEN_PLATFORM_AUTH_LICENSED_REFRESH_TOKEN_KEY -> model.getLicensedAccessToken().setRefreshToken(`in`.nextString())
-        OPEN_PLATFORM_AUTH_LICENSED_FUNCTIONS_INFO_KEY -> {
-          `in`.beginArray()
-
-          while (`in`.hasNext()) {
+      while (`in`.hasNext()) {
+        val key = `in`.nextName()
+        when (key) {
+          OPEN_PLATFORM_AUTH_LICENSOR_NICKNAME_KEY -> nickName = `in`.nextString()
+          OPEN_PLATFORM_AUTH_LICENSOR_LOGO_KEY -> logo = `in`.nextString()
+          OPEN_PLATFORM_AUTH_LICENSOR_ACCOUNT_TYPE_KEY -> {
             `in`.beginObject()
             `in`.nextName()
-            `in`.beginObject()
-            `in`.nextName()
-            licensingInformation.addLicencedFunction(`in`.nextInt())
-            `in`.endObject()
+            accountType = MpType.with(`in`.nextInt())
             `in`.endObject()
           }
-
-          `in`.endArray()
-        }
-        else -> if (`in`.hasNext()) {
-          val value = `in`.nextString()
-          logger.warn(LOG_UNKNOWN_JSON_KEY, key, value)
-        }
-      }
-    }
-
-    `in`.endObject()
-    model.setLicensingInformation(licensingInformation)
-  }
-
-  @Throws(IOException::class)
-  private fun readLicensorInformation(
-    `in`: JsonReader,
-    model: OpenPlatformAuthGetLicenseInformationResponse
-  ) {
-    val licensorInfromation = LicensorInfromation()
-    `in`.beginObject()
-
-    while (`in`.hasNext()) {
-      val key = `in`.nextName()
-      when (key) {
-        OPEN_PLATFORM_AUTH_LICENSOR_NICKNAME_KEY -> licensorInfromation.setNickName(`in`.nextString())
-        OPEN_PLATFORM_AUTH_LICENSOR_LOGO_KEY -> licensorInfromation.setLogo(`in`.nextString())
-        OPEN_PLATFORM_AUTH_LICENSOR_ACCOUNT_TYPE_KEY -> {
-          `in`.beginObject()
-          `in`.nextName()
-          licensorInfromation.setAccountType(`in`.nextInt())
-          `in`.endObject()
-        }
-        OPEN_PLATFORM_AUTH_LICENSOR_ACCOUNT_VERIFIED_TYPE_KEY -> {
-          `in`.beginObject()
-          `in`.nextName()
-          licensorInfromation.setAccountVerifiedType(`in`.nextInt())
-          `in`.endObject()
-        }
-        OPEN_PLATFORM_AUTH_LICENSOR_MPID_KEY -> licensorInfromation.setMpId(`in`.nextString())
-        OPEN_PLATFORM_AUTH_LICENSOR_PRINCIPAL_NAME_KEY -> licensorInfromation.setPrincipalName(`in`.nextString())
-        OPEN_PLATFORM_AUTH_LICENSOR_ACCOUNT_NAME_KEY -> licensorInfromation.setAccountName(`in`.nextString())
-        OPEN_PLATFORM_AUTH_LICENSOR_QRCODE_URL_KEY -> licensorInfromation.setQrCodeUrl(`in`.nextString())
-        OPEN_PLATFORM_AUTH_LICENSOR_BUSINESS_INFO_KEY -> readBusinessInfo(`in`, licensorInfromation)
-        else -> if (`in`.hasNext()) {
-          val value = `in`.nextString()
-          logger.warn(LOG_UNKNOWN_JSON_KEY, key, value)
+          OPEN_PLATFORM_AUTH_LICENSOR_ACCOUNT_VERIFIED_TYPE_KEY -> {
+            `in`.beginObject()
+            `in`.nextName()
+            accountVerifiedType = OpMpAuthentication.with(`in`.nextInt())
+            `in`.endObject()
+          }
+          OPEN_PLATFORM_AUTH_LICENSOR_MPID_KEY -> mpId = `in`.nextString()
+          OPEN_PLATFORM_AUTH_LICENSOR_PRINCIPAL_NAME_KEY -> principalName = `in`.nextString()
+          OPEN_PLATFORM_AUTH_LICENSOR_ACCOUNT_NAME_KEY -> accountName = `in`.nextString()
+          OPEN_PLATFORM_AUTH_LICENSOR_QRCODE_URL_KEY -> qrCodeUrl = `in`.nextString()
+          OPEN_PLATFORM_AUTH_LICENSOR_BUSINESS_INFO_KEY -> readBusinessInfo(`in`, this)
+          else -> if (`in`.hasNext()) {
+            logger.warn { "未知的json键值： [{$key}: {${`in`.nextString()}}]" }
+          }
         }
       }
-    }
 
-    `in`.endObject()
-    model.setLicensorInfromation(licensorInfromation)
+      `in`.endObject()
+    }
   }
 
-  @Throws(IOException::class)
-  private fun readBusinessInfo(`in`: JsonReader, licensorInfromation: LicensorInfromation) {
+  private fun readBusinessInfo(`in`: JsonReader, information: OpGetLicenseInformationResponse.LicensorInformation) {
     `in`.beginObject()
     while (`in`.hasNext()) {
       val key = `in`.nextName()
       when (key) {
-        OPEN_PLATFORM_AUTH_LICENSOR_BUSINESS_STORE_KEY -> licensorInfromation.setBusinessStoreOpened(`in`.nextInt() == GLOBAL_TRUE_NUMBER)
-        OPEN_PLATFORM_AUTH_LICENSOR_BUSINESS_SCAN_KEY -> licensorInfromation.setBusinessScanOpened(`in`.nextInt() == GLOBAL_TRUE_NUMBER)
-        OPEN_PLATFORM_AUTH_LICENSOR_BUSINESS_PAY_KEY -> licensorInfromation.setBusinessPayOpened(`in`.nextInt() == GLOBAL_TRUE_NUMBER)
-        OPEN_PLATFORM_AUTH_LICENSOR_BUSINESS_CARD_KEY -> licensorInfromation.setBusinessCardOpened(`in`.nextInt() == GLOBAL_TRUE_NUMBER)
-        OPEN_PLATFORM_AUTH_LICENSOR_BUSINESS_SHAKE_KEY -> licensorInfromation.setBusinessShakeOpened(`in`.nextInt() == GLOBAL_TRUE_NUMBER)
+        OPEN_PLATFORM_AUTH_LICENSOR_BUSINESS_STORE_KEY ->
+          information.isBusinessCardOpened = `in`.nextInt() == GLOBAL_TRUE_NUMBER
+        OPEN_PLATFORM_AUTH_LICENSOR_BUSINESS_SCAN_KEY ->
+          information.isBusinessCardOpened = `in`.nextInt() == GLOBAL_TRUE_NUMBER
+        OPEN_PLATFORM_AUTH_LICENSOR_BUSINESS_PAY_KEY ->
+          information.isBusinessCardOpened = `in`.nextInt() == GLOBAL_TRUE_NUMBER
+        OPEN_PLATFORM_AUTH_LICENSOR_BUSINESS_CARD_KEY ->
+          information.isBusinessCardOpened = `in`.nextInt() == GLOBAL_TRUE_NUMBER
+        OPEN_PLATFORM_AUTH_LICENSOR_BUSINESS_SHAKE_KEY ->
+          information.isBusinessCardOpened = `in`.nextInt() == GLOBAL_TRUE_NUMBER
         else -> if (`in`.hasNext()) {
-          val value = `in`.nextString()
-          logger.warn(LOG_UNKNOWN_JSON_KEY, key, value)
+          logger.warn { "未知的json键值： [{$key}: {${`in`.nextString()}}]" }
         }
       }
     }
     `in`.endObject()
-  }
-
-  companion object {
-
-    private val LOG_UNKNOWN_JSON_KEY = "未知的json键值： [{}: {}]"
   }
 
 }

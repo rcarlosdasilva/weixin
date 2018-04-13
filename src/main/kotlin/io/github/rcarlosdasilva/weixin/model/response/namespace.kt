@@ -11,19 +11,19 @@ import io.github.rcarlosdasilva.weixin.terms.ResultCode
 class Response {
 
   /**
-   * 错误代码.
+   * 错误代码
    */
   @SerializedName("errcode")
   val errorCode = 0
   /**
-   * 错误信息.
+   * 错误信息
    */
   @SerializedName("errmsg")
   val errorMessage: String? = null
 
   /**
    * 判断微信错误代码是否因为access_token导致，如果access_token过期或非法，
-   * 有可能是因为其他地方请求过access_token，可以再抢救一下（用新的access_token重新请求一次）.
+   * 有可能是因为其他地方请求过access_token，可以再抢救一下（用新的access_token重新请求一次）
    *
    * @return can retry
    */
@@ -37,7 +37,7 @@ class Response {
     private val errorResponseRegex = ".*errcode.*errmsg.*".toRegex()
 
     /**
-     * 响应数据类似错误代码，只包含errcode和errmsg.
+     * 响应数据类似错误代码，只包含errcode和errmsg
      *
      * @param json 结果json
      * @return is error
