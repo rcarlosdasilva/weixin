@@ -1,8 +1,17 @@
 package io.github.rcarlosdasilva.weixin.handler.cache
 
+import com.github.benmanes.caffeine.cache.Caffeine
+import com.google.common.cache.CacheBuilder
 import io.github.rcarlosdasilva.weixin.handler.CacheStorage
 import io.github.rcarlosdasilva.weixin.handler.Cacheable
 import io.github.rcarlosdasilva.weixin.handler.Lookup
+import java.util.concurrent.TimeUnit
+import com.github.benmanes.caffeine.cache.Cache as CaffeineCache
+import com.google.common.cache.Cache as GuavaCache
+
+const val EXPIRE_TIME_AFTER_WRITE = "EXPIRE_TIME_AFTER_WRITE"
+const val EXPIRE_TIME_AFTER_LAST_ACCESS = "EXPIRE_TIME_AFTER_LAST_ACCESS"
+const val MAX_SIZE = "MAX_SIZE"
 
 /**
  * 基于JVM的缓存器，包含简单HashMap实现，与Guava和Caffeine实现
@@ -23,7 +32,7 @@ class JvmMapStorage<V : Cacheable> : CacheStorage<V> {
 
   override fun keys(): List<String> = cache.keys.toList()
 
-  override fun size(): Int = cache.size
+  override fun size(): Long = cache.size.toLong()
 
   override fun clear() = cache.clear()
 
@@ -64,56 +73,51 @@ class JvmMapStorage<V : Cacheable> : CacheStorage<V> {
  */
 class GuavaStorage<V : Cacheable> : CacheStorage<V> {
 
+  private lateinit var cache: GuavaCache<String, V>
+
   override fun initialize(config: Map<String, Any>) {
+    val builder = CacheBuilder.newBuilder()
+    config[EXPIRE_TIME_AFTER_WRITE]?.run { builder.expireAfterWrite(this.toString().toLong(), TimeUnit.SECONDS) }
+    config[EXPIRE_TIME_AFTER_LAST_ACCESS]?.run { builder.expireAfterAccess(this.toString().toLong(), TimeUnit.SECONDS) }
+    config[MAX_SIZE]?.run { builder.maximumSize(this.toString().toLong()) }
+    cache = builder.build()
   }
 
-  override fun keys(): List<String> {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
+  override fun keys(): List<String> = cache.asMap().keys.toList()
 
-  override fun size(): Int {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
+  override fun size(): Long = cache.size()
 
-  override fun clear() {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
+  override fun clear() = cache.invalidateAll()
 
-  override fun exists(key: String): Boolean {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
+  override fun exists(key: String): Boolean = cache.getIfPresent(key) != null
 
-  override fun get(key: String): V? {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
+  override fun get(key: String): V? = cache.getIfPresent(key)
 
   override fun put(key: String, value: V): V? {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    val oldValue = get(key)
+    cache.put(key, value)
+    return oldValue
   }
 
-  override fun put(key: String, value: V, timeout: Int): V? {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
+  override fun put(key: String, value: V, timeout: Int): V? = put(key, value)
 
-  override fun remove(key: String) {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
+  override fun remove(key: String) = cache.invalidate(key)
 
-  override fun lookup(lookup: Lookup<V>): V? {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
+  override fun lookup(lookup: Lookup<V>): V? =
+    cache.asMap().toList().firstOrNull { lookup.isYou(it.first, it.second) }?.second
 
-  override fun lookupAll(lookup: Lookup<V>): List<V> {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
+  override fun lookupAll(lookup: Lookup<V>): List<V> =
+    cache.asMap().filter { lookup.isYou(it.key, it.value) }.map { it.value }
 
-  override fun lock(key: String, timeout: Long, promptly: Boolean): String? {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
+  /**
+   * 暂不支持
+   */
+  override fun lock(key: String, timeout: Long, promptly: Boolean): String? = ""
 
-  override fun unlock(key: String, identifier: String): Boolean {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
+  /**
+   * 暂不支持
+   */
+  override fun unlock(key: String, identifier: String): Boolean = true
 
 }
 
@@ -124,56 +128,50 @@ class GuavaStorage<V : Cacheable> : CacheStorage<V> {
  */
 class CaffeineStorage<V : Cacheable> : CacheStorage<V> {
 
+  private lateinit var cache: CaffeineCache<String, V>
+
   override fun initialize(config: Map<String, Any>) {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    val builder = Caffeine.newBuilder()
+    config[EXPIRE_TIME_AFTER_WRITE]?.run { builder.expireAfterWrite(this.toString().toLong(), TimeUnit.SECONDS) }
+    config[EXPIRE_TIME_AFTER_LAST_ACCESS]?.run { builder.expireAfterAccess(this.toString().toLong(), TimeUnit.SECONDS) }
+    config[MAX_SIZE]?.run { builder.maximumSize(this.toString().toLong()) }
+    cache = builder.build()
   }
 
-  override fun keys(): List<String> {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
+  override fun keys(): List<String> = cache.asMap().keys.toList()
 
-  override fun size(): Int {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
+  override fun size(): Long = cache.estimatedSize()
 
-  override fun clear() {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
+  override fun clear() = cache.invalidateAll()
 
-  override fun exists(key: String): Boolean {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
+  override fun exists(key: String): Boolean = cache.getIfPresent(key) != null
 
-  override fun get(key: String): V? {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
+  override fun get(key: String): V? = cache.getIfPresent(key)
 
   override fun put(key: String, value: V): V? {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    val oldValue = get(key)
+    cache.put(key, value)
+    return oldValue
   }
 
-  override fun put(key: String, value: V, timeout: Int): V? {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
+  override fun put(key: String, value: V, timeout: Int): V? = put(key, value)
 
-  override fun remove(key: String) {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
+  override fun remove(key: String) = cache.invalidate(key)
 
-  override fun lookup(lookup: Lookup<V>): V? {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
+  override fun lookup(lookup: Lookup<V>): V? =
+    cache.asMap().toList().firstOrNull { lookup.isYou(it.first, it.second) }?.second
 
-  override fun lookupAll(lookup: Lookup<V>): List<V> {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
+  override fun lookupAll(lookup: Lookup<V>): List<V> =
+    cache.asMap().filter { lookup.isYou(it.key, it.value) }.map { it.value }
 
-  override fun lock(key: String, timeout: Long, promptly: Boolean): String? {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
+  /**
+   * 暂不支持
+   */
+  override fun lock(key: String, timeout: Long, promptly: Boolean): String? = ""
 
-  override fun unlock(key: String, identifier: String): Boolean {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
+  /**
+   * 暂不支持
+   */
+  override fun unlock(key: String, identifier: String): Boolean = true
 
 }

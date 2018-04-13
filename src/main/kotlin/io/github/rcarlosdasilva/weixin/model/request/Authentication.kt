@@ -171,7 +171,7 @@ class OpSetLicensorOptionRequest(
   @SerializedName("option_value") private val value: String
 ) : OpRequest() {
   init {
-    this.path = URL_OPEN_PLATFORM_SET_LICENSOR_OPTION;
+    this.path = URL_OPEN_PLATFORM_SET_LICENSOR_OPTION
   }
 }
 

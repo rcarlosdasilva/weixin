@@ -100,7 +100,7 @@ interface CacheStorage<V : Cacheable> {
   /**
    * 缓存大小
    */
-  fun size(): Int
+  fun size(): Long
 
   /**
    * 清空

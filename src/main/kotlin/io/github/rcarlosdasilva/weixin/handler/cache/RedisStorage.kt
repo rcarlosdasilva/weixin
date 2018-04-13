@@ -14,10 +14,6 @@ import redis.clients.jedis.Jedis
 import redis.clients.jedis.JedisPool
 import redis.clients.jedis.JedisPoolConfig
 import redis.clients.jedis.Protocol
-import java.io.ByteArrayInputStream
-import java.io.ByteArrayOutputStream
-import java.io.ObjectInputStream
-import java.io.ObjectOutputStream
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -64,7 +60,7 @@ class JedisStorage<V : Cacheable> : CacheStorage<V> {
     keys.toList()
   }
 
-  override fun size(): Int = keys().size
+  override fun size(): Long = keys().size.toLong()
 
   override fun clear() = jedis.run {
     keys(keyPattern).forEach { del(it) }
@@ -228,7 +224,7 @@ class JedisSetting {
  *
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
-const val CONFIG_SPRING_REDIS_TEMPLATE_KEY = "srt"
+const val CONFIG_SPRING_REDIS_TEMPLATE_KEY = "CONFIG_SPRING_REDIS_TEMPLATE_KEY"
 
 @Suppress("UNCHECKED_CAST")
 class SpringRedisStorage<V : Cacheable> : CacheStorage<V> {
@@ -244,7 +240,7 @@ class SpringRedisStorage<V : Cacheable> : CacheStorage<V> {
 
   override fun keys(): List<String> = redisTemplate.keys(keyPattern).toList()
 
-  override fun size(): Int = keys().size
+  override fun size(): Long = keys().size.toLong()
 
   override fun clear() = redisTemplate.delete(keys())
 
@@ -353,8 +349,8 @@ class SpringRedisStorage<V : Cacheable> : CacheStorage<V> {
 // ---------------------- 通用方法 --------------------------
 
 private val JOINER = Joiner.on(DEFAULT_REDIS_KEY_SEPARATOR)
-private val SPLITTER = Splitter.on(DEFAULT_REDIS_KEY_SEPARATOR)
+//private val SPLITTER = Splitter.on(DEFAULT_REDIS_KEY_SEPARATOR)
 
 internal fun fullKey(group: String, shortKey: String): String = JOINER.join(DEFAULT_REDIS_KEY_PREFIX, group, shortKey)
 
-internal fun shortKey(fullKey: String): String = SPLITTER.splitToList(fullKey).last()
+//internal fun shortKey(fullKey: String): String = SPLITTER.splitToList(fullKey).last()
