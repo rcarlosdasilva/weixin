@@ -84,7 +84,7 @@ class ApiOpAuthentication(private val account: Op) : Api(account) {
       post(OpAccessTokenResponse::class.java, OpAccessTokenRequest(account.appId, account.appSecret, ticket))
 
     return accessToken?.apply {
-      accountMark = UNIQUE_OP_ACCOUNT_CACHE_KEY
+      accountKey = UNIQUE_OP_ACCOUNT_CACHE_KEY
       CacheHandler.of(AccessToken::class.java).put(DEFAULT_CACHE_KEY_OPEN_PLATFORM_ACCESS_TOKEN, accessToken)
       logger.debug("For: >> 获取到access_token：[{}]", accessToken.accessToken)
 

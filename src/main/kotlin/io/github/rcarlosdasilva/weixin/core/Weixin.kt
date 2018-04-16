@@ -140,8 +140,8 @@ class Weixin private constructor() {
     @JvmStatic
     fun lookup(key: String): Mp? =
       CacheHandler.of(Mp::class.java).get(key) ?: CacheHandler.of(Mp::class.java).lookup(object : Lookup<Mp> {
-        override fun isYou(key: String, obj: Mp?): Boolean {
-          return obj?.let { key == it.appId || key == it.mpId } ?: false
+        override fun isYou(key: String, obj: Mp): Boolean {
+          return obj.let { key == it.appId || key == it.mpId }
         }
       })
   }

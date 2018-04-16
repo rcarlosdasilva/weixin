@@ -140,7 +140,7 @@ interface CacheStorage<V : Cacheable> {
   /**
    * 返回查找到的所有值
    */
-  fun lookupAll(lookup: Lookup<V>): List<V>
+  fun lookupAll(lookup: Lookup<V>): Map<String, V>
 
   /**
    * 加锁，如不支持请返回空字符串，不要返回null
@@ -164,7 +164,5 @@ interface CacheStorage<V : Cacheable> {
 }
 
 interface Lookup<in V : Cacheable> {
-
-  fun isYou(key: String, obj: V?): Boolean
-
+  fun isYou(key: String, obj: V): Boolean
 }

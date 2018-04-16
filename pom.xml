@@ -49,6 +49,8 @@
   </distributionManagement>
 
   <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <kotlin.version>1.2.30</kotlin.version>
     <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
@@ -106,11 +108,6 @@
         <version>${commons.codec.version}</version>
       </dependency>
       <dependency>
-        <groupId>io.github.lukehutch</groupId>
-        <artifactId>fast-classpath-scanner</artifactId>
-        <version>${classpath.scanner.version}</version>
-      </dependency>
-      <dependency>
         <groupId>redis.clients</groupId>
         <artifactId>jedis</artifactId>
         <version>${jedis.version}</version>
@@ -152,10 +149,6 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.github.lukehutch</groupId>
-      <artifactId>fast-classpath-scanner</artifactId>
     </dependency>
 
     <dependency>

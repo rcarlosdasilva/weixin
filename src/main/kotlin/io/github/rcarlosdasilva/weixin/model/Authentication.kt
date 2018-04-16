@@ -7,6 +7,7 @@ import java.io.Serializable
 abstract class Certification : Serializable, Cacheable {
   open val code: String? = null
   var expiresIn = 0L
+  var accountKey: String? = null
   /**
    * 凭证有效时间,单位:秒，准确的过期时间，默认提前180秒过期
    */
@@ -35,7 +36,6 @@ abstract class AccessToken : Certification() {
   override val code: String?
     get() = accessToken
   var accessToken: String? = null
-  var accountMark: String? = null
   /**
    * （当使用开放平台时）授权方票据的刷新令牌(对应的是authorizer_refresh_token)
    *

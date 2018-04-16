@@ -108,7 +108,7 @@ class ApiMpAuthentication(private val account: Mp) : Api(account) {
     }
     val responseMock = "{'access_token':'$token','expires_in':$expiresIn}"
     val accessToken = JsonHandler.fromJson(responseMock, MpAccessTokenResponse::class.java)
-    accessToken.accountMark = account.key
+    accessToken.accountKey = account.key
     CacheHandler.of(AccessToken::class.java).put(account.key, accessToken)
   }
 
@@ -121,12 +121,10 @@ class ApiMpAuthentication(private val account: Mp) : Api(account) {
   private fun refreshLicensedAccessToken(licensorAppId: String, refreshToken: String): AccessToken {
     val response = Weixin.op().authentication.refreshLicensorAccessToken(licensorAppId, refreshToken)
 
-    return response.let {
-      val accessToken = it.licensedAccessToken
-      accessToken.accountMark = account.key
-      CacheHandler.of(AccessToken::class.java).put(account.key, accessToken)
-      logger.debug { "For:{${account.key}} >> 开放平台更新授权方access_token：[{${accessToken.accessToken}}]" }
-      accessToken
+    return response.licensedAccessToken.apply {
+      accountKey = account.key
+      CacheHandler.of(AccessToken::class.java).put(account.key, this)
+      logger.debug { "For:{${account.key}} >> 开放平台更新授权方access_token：[{$accessToken}]" }
     }
   }
 
@@ -142,7 +140,7 @@ class ApiMpAuthentication(private val account: Mp) : Api(account) {
     val accessToken = get(MpAccessTokenResponse::class.java, requestModel)
 
     return accessToken?.apply {
-      accountMark = account.key
+      accountKey = account.key
       CacheHandler.of(AccessToken::class.java).put(account.key, this)
       logger.debug { "For:{$account.key} >> 获取到access_token：[{$accessToken}]" }
 
@@ -220,8 +218,9 @@ class ApiMpAuthentication(private val account: Mp) : Api(account) {
       expiresIn = expiredAt - System.currentTimeMillis()
     }
     val responseMock = "{'ticket':'$ticket','expires_in':$expiresIn}"
-    val responseModel = JsonHandler.fromJson(responseMock, JsapiTicketResponse::class.java)
-    CacheHandler.of(JsapiTicket::class.java).put(account.key, responseModel)
+    val jsapiTicket = JsonHandler.fromJson(responseMock, JsapiTicketResponse::class.java)
+    jsapiTicket.accountKey = account.key
+    CacheHandler.of(JsapiTicket::class.java).put(account.key, jsapiTicket)
   }
 
   /**
@@ -236,6 +235,7 @@ class ApiMpAuthentication(private val account: Mp) : Api(account) {
     val jsapiTicket = get(JsapiTicketResponse::class.java, requestModel)
 
     return jsapiTicket?.apply {
+      accountKey = account.key
       CacheHandler.of(JsapiTicket::class.java).put(account.key, this)
       logger.debug { "For:{${account.key}} >> 获取jsapi_ticket：[{$jsapiTicket}]" }
 

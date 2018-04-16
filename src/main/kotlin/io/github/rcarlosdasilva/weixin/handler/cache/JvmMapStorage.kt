@@ -51,8 +51,8 @@ class JvmMapStorage<V : Cacheable> : CacheStorage<V> {
   override fun lookup(lookup: Lookup<V>): V? =
     cache.entries.firstOrNull { lookup.isYou(it.key, it.value) }?.value
 
-  override fun lookupAll(lookup: Lookup<V>): List<V> =
-    cache.entries.filter { lookup.isYou(it.key, it.value) }.map { it.value }
+  override fun lookupAll(lookup: Lookup<V>): Map<String, V> =
+    cache.filter { lookup.isYou(it.key, it.value) }
 
   /**
    * 暂不支持
@@ -106,8 +106,8 @@ class GuavaStorage<V : Cacheable> : CacheStorage<V> {
   override fun lookup(lookup: Lookup<V>): V? =
     cache.asMap().toList().firstOrNull { lookup.isYou(it.first, it.second) }?.second
 
-  override fun lookupAll(lookup: Lookup<V>): List<V> =
-    cache.asMap().filter { lookup.isYou(it.key, it.value) }.map { it.value }
+  override fun lookupAll(lookup: Lookup<V>): Map<String, V> =
+    cache.asMap().filter { lookup.isYou(it.key, it.value) }
 
   /**
    * 暂不支持
@@ -161,8 +161,8 @@ class CaffeineStorage<V : Cacheable> : CacheStorage<V> {
   override fun lookup(lookup: Lookup<V>): V? =
     cache.asMap().toList().firstOrNull { lookup.isYou(it.first, it.second) }?.second
 
-  override fun lookupAll(lookup: Lookup<V>): List<V> =
-    cache.asMap().filter { lookup.isYou(it.key, it.value) }.map { it.value }
+  override fun lookupAll(lookup: Lookup<V>): Map<String, V> =
+    cache.asMap().filter { lookup.isYou(it.key, it.value) }
 
   /**
    * 暂不支持

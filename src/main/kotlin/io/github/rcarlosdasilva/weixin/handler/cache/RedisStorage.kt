@@ -1,7 +1,6 @@
 package io.github.rcarlosdasilva.weixin.handler.cache
 
 import com.google.common.base.Joiner
-import com.google.common.base.Splitter
 import io.github.rcarlosdasilva.weixin.handler.*
 import io.github.rcarlosdasilva.weixin.terms.DEFAULT_REDIS_KEY_PATTERN
 import io.github.rcarlosdasilva.weixin.terms.DEFAULT_REDIS_KEY_PREFIX
@@ -99,34 +98,21 @@ class JedisStorage<V : Cacheable> : CacheStorage<V> {
   }
 
   override fun lookup(lookup: Lookup<V>): V? = jedis.run {
-    val keys = keys()
-    var result: V? = null
-
-    for (key: String in keys) {
-      val obj = get(key.toByteArray())
-      if (obj != null) {
-        val value = unserialize<V>(obj)
-        if (lookup.isYou(key, value)) {
-          result = value
-          break
-        }
-      }
+    val key = keys().firstOrNull { k ->
+      val v = get(k.toByteArray()).let { unserialize<V>(it) }
+      v?.let { lookup.isYou(k, v) } ?: false
     }
-
     close()
-    result
+    key?.let { this@JedisStorage.get(it) }
   }
 
-  override fun lookupAll(lookup: Lookup<V>): List<V> = jedis.run {
-    val keys = keys()
-    val result = mutableListOf<V>()
-
-    keys.forEach { key ->
-      jedis.get(key.toByteArray())?.let {
-        val value = unserialize<V>(it)
-        if (lookup.isYou(key, value)) {
-          result.add(value!!)
-        }
+  override fun lookupAll(lookup: Lookup<V>): Map<String, V> = jedis.run {
+    val result = keys().associateNotNull { k ->
+      val v = get(k.toByteArray()).let { unserialize<V>(it) }
+      v?.let {
+        if (lookup.isYou(k, v)) {
+          k to v
+        } else null
       }
     }
     close()
@@ -262,16 +248,18 @@ class SpringRedisStorage<V : Cacheable> : CacheStorage<V> {
 
   override fun remove(key: String) = redisTemplate.delete(key)
 
-  override fun lookup(lookup: Lookup<V>): V? = keys().find { key ->
+  override fun lookup(lookup: Lookup<V>): V? = keys().firstOrNull { key ->
     redisTemplate.opsForValue().get(key)?.let { value ->
       lookup.isYou(key, value as V)
     } ?: false
   }?.let { get(it) }
 
-  override fun lookupAll(lookup: Lookup<V>): List<V> = keys().map { key ->
-    redisTemplate.opsForValue().get(key).takeIf { value ->
-      lookup.isYou(key, value as V)
-    } as V
+  override fun lookupAll(lookup: Lookup<V>): Map<String, V> = keys().associateNotNull { key ->
+    redisTemplate.opsForValue().get(key)?.let { value ->
+      if (lookup.isYou(key, value as V)) {
+        key to value
+      } else null
+    }
   }
 
   override fun lock(key: String, timeout: Long, promptly: Boolean): String? {
@@ -354,3 +342,13 @@ private val JOINER = Joiner.on(DEFAULT_REDIS_KEY_SEPARATOR)
 internal fun fullKey(group: String, shortKey: String): String = JOINER.join(DEFAULT_REDIS_KEY_PREFIX, group, shortKey)
 
 //internal fun shortKey(fullKey: String): String = SPLITTER.splitToList(fullKey).last()
+
+internal inline fun <T, K, V> Iterable<T>.associateNotNull(transform: (T) -> Pair<K, V>?): Map<K, V> {
+  val destination = mutableMapOf<K, V>()
+  for (element in this) {
+    transform(element)?.run {
+      destination += this
+    }
+  }
+  return destination.toMap()
+}
