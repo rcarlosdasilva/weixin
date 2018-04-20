@@ -167,11 +167,13 @@ enum class Sex(val code: Int) {
  */
 enum class QrCodeAction(val text: String) {
 
-  /** 临时二维码 */
-  TEMPORARY("QR_SCENE"),
-  /** 带id参数的永久二维码 */
+  /** 临时的整型参数值 */
+  TEMPORARY_WITH_ID("QR_SCENE"),
+  /** 临时的字符串参数值 */
+  TEMPORARY_WITH_STRING("QR_STR_SCENE"),
+  /** 永久的整型参数值 */
   UNLIMITED_WITH_ID("QR_LIMIT_SCENE"),
-  /** 带字符串参数的永久二维码 */
+  /** 永久的字符串参数值 */
   UNLIMITED_WITH_STRING("QR_LIMIT_STR_SCENE");
 
   override fun toString(): String = text

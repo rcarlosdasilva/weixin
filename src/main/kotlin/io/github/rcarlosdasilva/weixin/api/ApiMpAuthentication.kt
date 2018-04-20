@@ -10,7 +10,7 @@ import io.github.rcarlosdasilva.weixin.model.JsapiSignature
 import io.github.rcarlosdasilva.weixin.model.JsapiTicket
 import io.github.rcarlosdasilva.weixin.model.Mp
 import io.github.rcarlosdasilva.weixin.model.request.*
-import io.github.rcarlosdasilva.weixin.model.response.JsapiTicketResponse
+import io.github.rcarlosdasilva.weixin.model.response.MpJsapiTicketResponse
 import io.github.rcarlosdasilva.weixin.model.response.MpAccessTokenResponse
 import io.github.rcarlosdasilva.weixin.model.response.WaAccessTokenResponse
 import io.github.rcarlosdasilva.weixin.terms.URL_WEB_AUTHORIZE
@@ -218,7 +218,7 @@ class ApiMpAuthentication(private val account: Mp) : Api(account) {
       expiresIn = expiredAt - System.currentTimeMillis()
     }
     val responseMock = "{'ticket':'$ticket','expires_in':$expiresIn}"
-    val jsapiTicket = JsonHandler.fromJson(responseMock, JsapiTicketResponse::class.java)
+    val jsapiTicket = JsonHandler.fromJson(responseMock, MpJsapiTicketResponse::class.java)
     jsapiTicket.accountKey = account.key
     CacheHandler.of(JsapiTicket::class.java).put(account.key, jsapiTicket)
   }
@@ -229,10 +229,10 @@ class ApiMpAuthentication(private val account: Mp) : Api(account) {
    * @return 请求结果
    */
   @Synchronized
-  private fun requestJsapiTicket(): JsapiTicketResponse {
+  private fun requestJsapiTicket(): MpJsapiTicketResponse {
     logger.debug("For:{} >> 正在获取jsapi_ticket", account.key)
     val requestModel = JsapiTicketRequest()
-    val jsapiTicket = get(JsapiTicketResponse::class.java, requestModel)
+    val jsapiTicket = get(MpJsapiTicketResponse::class.java, requestModel)
 
     return jsapiTicket?.apply {
       accountKey = account.key

@@ -175,3 +175,5 @@ class Setting {
   var redisSetting: JedisSetting? = null
 
 }
+
+// TODO 所有的api类中的throw message格式统一

@@ -222,6 +222,7 @@ abstract class Api(private val account: Account) {
 class MpApiWrapper(private val account: Mp) {
 
   val authentication = ApiMpAuthentication(account)
+  val commonality = ApiMpCommonality(account)
 
 }
 

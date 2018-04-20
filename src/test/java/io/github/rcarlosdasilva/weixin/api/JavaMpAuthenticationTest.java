@@ -3,14 +3,16 @@ package io.github.rcarlosdasilva.weixin.api;
 import io.github.rcarlosdasilva.weixin.core.Weixin;
 import io.github.rcarlosdasilva.weixin.mix.TestHelper;
 import io.github.rcarlosdasilva.weixin.model.JsapiSignature;
-import io.github.rcarlosdasilva.weixin.model.Mp;
 import io.github.rcarlosdasilva.weixin.terms.data.WebAuthorizeScope;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class JavaMpAuthenticationTest {
 
   private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -19,12 +21,7 @@ public class JavaMpAuthenticationTest {
 
   @Before
   public void before() {
-    String appid = TestHelper.INSTANCE.get("mp.appid");
-    String appsecret = TestHelper.INSTANCE.get("mp.appsecret");
-    key = TestHelper.INSTANCE.get("mp.key");
-    Mp mp = new Mp(appid, appsecret);
-    mp.setKey(key);
-    Weixin.Companion.getRegistry().checkin(mp);
+    key = TestHelper.INSTANCE.initSingle();
   }
 
   /**

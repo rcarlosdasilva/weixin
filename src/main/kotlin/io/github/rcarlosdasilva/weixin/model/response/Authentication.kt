@@ -14,7 +14,7 @@ class MpAccessTokenResponse : AccessToken() {
   }
 }
 
-class JsapiTicketResponse : JsapiTicket() {
+class MpJsapiTicketResponse : JsapiTicket() {
   companion object {
     private const val serialVersionUID = -1273892049807763672L
   }
@@ -176,7 +176,6 @@ class OpGetLicenseInformationResponse : Serializable {
     private const val serialVersionUID = 1897892931876269454L
   }
 }
-
 
 class OpGetLicensorOptionResponse {
   /**

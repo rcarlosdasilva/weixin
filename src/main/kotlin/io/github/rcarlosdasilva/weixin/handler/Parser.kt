@@ -147,7 +147,8 @@ object ResponseParser {
         if (resultCode == ResultCode.RESULT_UNKNOWN) {
           logger.debug { "未收录的微信错误代码: code [${errorResponse.errorCode}]" }
         }
-        logger.error { "微信请求错误：code [${errorResponse.errorCode}] -- message [${errorResponse.errorMessage}]" }
+
+        logger.error { "微信请求错误：[${errorResponse.errorCode}] - ${errorResponse.errorMessage} <${resultCode.text}>" }
         if (Weixin.registry.setting.isThrowException) {
           throw ExecuteException(errorResponse, resultCode)
         }
