@@ -154,10 +154,6 @@ class Setting {
    */
   var retries = 2
   /**
-   * 当调用api接口出错时，是否抛出异常，否则只打印日志。默认true
-   */
-  var isThrowException = true
-  /**
    * 缓存器实现类，建议使用SpringRedisStorage。默认JvmMapStorage
    */
   var cacheClass = "io.github.rcarlosdasilva.weixin.handler.cache.JvmMapStorage"

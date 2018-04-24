@@ -7,7 +7,6 @@ import com.thoughtworks.xstream.io.xml.PrettyPrintWriter
 import com.thoughtworks.xstream.io.xml.Xpp3Driver
 import io.github.rcarlosdasilva.weixin.core.ExecuteException
 import io.github.rcarlosdasilva.weixin.core.MaydayMaydaySaveMeBecauseAccessTokenSetMeFuckUpException
-import io.github.rcarlosdasilva.weixin.core.Weixin
 import io.github.rcarlosdasilva.weixin.model.notification.*
 import io.github.rcarlosdasilva.weixin.model.response.Response
 import io.github.rcarlosdasilva.weixin.terms.*
@@ -131,7 +130,7 @@ object ResponseParser {
    * @param json json响应字符串
    * @return 封装对象
   </T> */
-  fun <T> parse(target: Class<T>, json: String): T? {
+  fun <T> parse(target: Class<T>, json: String): T {
     if (Response.seemsLikeError(json)) {
       val errorResponse = JsonHandler.fromJson(json, Response::class.java)
       val success = errorResponse.errorCode == ResultCode.RESULT_0.code
@@ -149,15 +148,12 @@ object ResponseParser {
         }
 
         logger.error { "微信请求错误：[${errorResponse.errorCode}] - ${errorResponse.errorMessage} <${resultCode.text}>" }
-        if (Weixin.registry.setting.isThrowException) {
-          throw ExecuteException(errorResponse, resultCode)
-        }
 
         return if (target == Boolean::class.java) {
           @Suppress("UNCHECKED_CAST")
           false as T
         } else {
-          null
+          throw ExecuteException(errorResponse, resultCode)
         }
       }
     }

@@ -83,7 +83,7 @@ class ApiOpAuthentication(private val account: Op) : Api(account) {
     val accessToken =
       post(OpAccessTokenResponse::class.java, OpAccessTokenRequest(account.appId, account.appSecret, ticket))
 
-    return accessToken?.apply {
+    return accessToken.apply {
       accountKey = UNIQUE_OP_ACCOUNT_CACHE_KEY
       CacheHandler.of(AccessToken::class.java).put(DEFAULT_CACHE_KEY_OPEN_PLATFORM_ACCESS_TOKEN, accessToken)
       logger.debug("For: >> 获取到access_token：[{}]", accessToken.accessToken)
@@ -93,7 +93,7 @@ class ApiOpAuthentication(private val account: Op) : Api(account) {
         logger.debug("For: >> 调用监听器OpenPlatformAccessTokenUpdatedListener")
         updated(accessToken.accessToken!!, expiresIn)
       }
-    } ?: throw ApiRequestException("无法正常请求component_access_token")
+    }
   }
 
   /**
@@ -107,7 +107,7 @@ class ApiOpAuthentication(private val account: Op) : Api(account) {
    */
   fun askPreAuthCode(): String {
     val responseModel = post(OpPreAuthCodeResponse::class.java, OpAuthPreAuthCodeRequest(account.appId))
-    return responseModel?.preAuthCode ?: throw ApiRequestException("无法获取微信开放平台预授权码")
+    return responseModel.preAuthCode ?: throw ApiRequestException("无法获取微信开放平台预授权码")
   }
 
   /**
@@ -127,7 +127,7 @@ class ApiOpAuthentication(private val account: Op) : Api(account) {
     val responseModel =
       post(OpGetLicenseInformationResponse::class.java, OpGetLicensingInformationRequest(account.appId, license))
 
-    return responseModel?.apply {
+    return responseModel.apply {
       val listener = Weixin.registry.listener(OpLisensorMpAccessTokenUpdatedListener::class.java)
       listener?.run {
         logger.debug("For: >> 调用监听器OpenPlatformLisensorAccessTokenUpdatedListener")
@@ -138,7 +138,7 @@ class ApiOpAuthentication(private val account: Op) : Api(account) {
           responseModel.licensedAccessToken.expiresIn
         )
       }
-    } ?: throw ApiRequestException("无法获取授权方的授权信息")
+    }
   }
 
   /**
@@ -160,7 +160,7 @@ class ApiOpAuthentication(private val account: Op) : Api(account) {
       OpRefreshLicensorAccessTokenRequest(account.appId, licensorAppId, refreshToken)
     )
 
-    return responseModel?.apply {
+    return responseModel.apply {
       val listener = Weixin.registry.listener(OpLisensorMpAccessTokenUpdatedListener::class.java)
       listener?.run {
         logger.debug("For: >> 调用监听器OpenPlatformLisensorAccessTokenUpdatedListener")
@@ -171,7 +171,7 @@ class ApiOpAuthentication(private val account: Op) : Api(account) {
           responseModel.licensedAccessToken.expiresIn
         )
       }
-    } ?: throw ApiRequestException("无法获取授权方的授权信息")
+    }
   }
 
   /**
@@ -189,7 +189,7 @@ class ApiOpAuthentication(private val account: Op) : Api(account) {
   fun getLicensorInformation(licensorAppId: String): OpGetLicenseInformationResponse = post(
     OpGetLicenseInformationResponse::class.java,
     OpGetLicensorInformationRequest(account.appId, licensorAppId)
-  ) ?: throw ApiRequestException("无法获取授权方的授权信息")
+  )
 
   /**
    * 获取授权方的选项设置信息
@@ -203,7 +203,6 @@ class ApiOpAuthentication(private val account: Op) : Api(account) {
    */
   fun getLicensorOption(licensorAppId: String, optionName: String): OpGetLicensorOptionResponse =
     post(OpGetLicensorOptionResponse::class.java, OpGetLicensorOptionRequest(account.appId, licensorAppId, optionName))
-        ?: throw ApiRequestException("无法获取授权方的选项设置信息")
 
   /**
    * 设置授权方的选项信息
@@ -218,7 +217,6 @@ class ApiOpAuthentication(private val account: Op) : Api(account) {
    */
   fun setLicensorOption(licensorAppId: String, optionName: String, value: String): Boolean =
     post(Boolean::class.java, OpSetLicensorOptionRequest(account.appId, licensorAppId, optionName, value))
-        ?: throw ApiRequestException("无法设置授权方的选项设置信息")
 
   /**
    * 微信开放平台第三方平台授权页面地址
@@ -248,7 +246,7 @@ class ApiOpAuthentication(private val account: Op) : Api(account) {
    */
   fun resetQuota(): Boolean =
     try {
-      post(Boolean::class.java, OpResetQuotaRequest(account.appId))!!
+      post(Boolean::class.java, OpResetQuotaRequest(account.appId))
     } catch (ex: ExecuteException) {
       if (ex.code === ResultCode.RESULT_48006) {
         @Suppress("UNUSED_EXPRESSION") false

@@ -139,7 +139,7 @@ class ApiMpAuthentication(private val account: Mp) : Api(account) {
     val requestModel = MpAccessTokenRequest(account.appId, account.appSecret!!)
     val accessToken = get(MpAccessTokenResponse::class.java, requestModel)
 
-    return accessToken?.apply {
+    return accessToken.apply {
       accountKey = account.key
       CacheHandler.of(AccessToken::class.java).put(account.key, this)
       logger.debug { "For:{$account.key} >> 获取到access_token：[{$accessToken}]" }
@@ -151,7 +151,7 @@ class ApiMpAuthentication(private val account: Mp) : Api(account) {
           account.key, account.appId, accessToken.accessToken!!, expiresIn
         )
       }
-    } ?: throw ApiRequestException("无法正常请求access_token")
+    }
   }
 
   /**
@@ -234,7 +234,7 @@ class ApiMpAuthentication(private val account: Mp) : Api(account) {
     val requestModel = JsapiTicketRequest()
     val jsapiTicket = get(MpJsapiTicketResponse::class.java, requestModel)
 
-    return jsapiTicket?.apply {
+    return jsapiTicket.apply {
       accountKey = account.key
       CacheHandler.of(JsapiTicket::class.java).put(account.key, this)
       logger.debug { "For:{${account.key}} >> 获取jsapi_ticket：[{$jsapiTicket}]" }
@@ -244,7 +244,7 @@ class ApiMpAuthentication(private val account: Mp) : Api(account) {
         logger.debug { "For:{${account.key}} >> 调用监听器JsapiTicketUpdatedListener" }
         updated(account.key, account.appId, jsapiTicket.ticket!!, expiresIn)
       }
-    } ?: throw ApiRequestException("无法正常请求jsapi_ticket")
+    }
   }
 
   /**

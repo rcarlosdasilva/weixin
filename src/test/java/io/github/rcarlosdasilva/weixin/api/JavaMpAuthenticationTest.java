@@ -4,10 +4,7 @@ import io.github.rcarlosdasilva.weixin.core.Weixin;
 import io.github.rcarlosdasilva.weixin.mix.TestHelper;
 import io.github.rcarlosdasilva.weixin.model.JsapiSignature;
 import io.github.rcarlosdasilva.weixin.terms.data.WebAuthorizeScope;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.FixMethodOrder;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runners.MethodSorters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,10 +14,10 @@ public class JavaMpAuthenticationTest {
 
   private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-  private String key;
+  private static String key;
 
-  @Before
-  public void before() {
+  @BeforeClass
+  public static void before() {
     key = TestHelper.INSTANCE.initSingle();
   }
 

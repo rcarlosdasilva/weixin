@@ -1,6 +1,7 @@
 package io.github.rcarlosdasilva.weixin.api
 
 import com.google.common.io.ByteStreams
+import io.github.rcarlosdasilva.weixin.core.ExecuteException
 import io.github.rcarlosdasilva.weixin.core.MaydayMaydaySaveMeBecauseAccessTokenSetMeFuckUpException
 import io.github.rcarlosdasilva.weixin.core.Weixin
 import io.github.rcarlosdasilva.weixin.handler.*
@@ -45,11 +46,11 @@ abstract class Api(private val account: Account) {
    * @param requestModel 请求模型
    * @return 响应封装对象
    */
-  fun <T> post(target: Class<T>, requestModel: Request): T? {
+  fun <T> post(target: Class<T>, requestModel: Request): T {
     updateAccessToken(requestModel)
 
     return object : RetryableRunner<T>() {
-      override fun pending(): T? {
+      override fun pending(): T {
         val responseText = HttpHandler.request(
           requestModel.url(),
           HttpMethod.POST,
@@ -68,11 +69,11 @@ abstract class Api(private val account: Account) {
    * @param requestModel 请求模型
    * @return 二进制流
    */
-  protected fun postStream(requestModel: Request): InputStream? {
+  protected fun postStream(requestModel: Request): InputStream {
     updateAccessToken(requestModel)
 
     return object : RetryableRunner<InputStream>() {
-      override fun pending(): InputStream? = HttpHandler.requestStream(
+      override fun pending(): InputStream = HttpHandler.requestStream(
         requestModel.url(),
         HttpMethod.POST,
         requestModel.json(),
@@ -90,11 +91,11 @@ abstract class Api(private val account: Account) {
    * @param requestModel 请求模型
    * @return 响应封装对象
    */
-  protected operator fun <T> get(target: Class<T>, requestModel: Request): T? {
+  protected operator fun <T> get(target: Class<T>, requestModel: Request): T {
     updateAccessToken(requestModel)
 
     return object : RetryableRunner<T>() {
-      override fun pending(): T? {
+      override fun pending(): T {
         val responseText = HttpHandler.request(requestModel.url(), HttpMethod.GET, "", ContentType.JSON)
         return ResponseParser.parse(target, responseText)
       }
@@ -108,11 +109,11 @@ abstract class Api(private val account: Account) {
    * @param requestModel 请求模型
    * @return 二进制流
    */
-  protected fun getStream(requestModel: Request): InputStream? {
+  protected fun getStream(requestModel: Request): InputStream {
     updateAccessToken(requestModel)
 
     return object : RetryableRunner<InputStream>() {
-      override fun pending(): InputStream? = HttpHandler.requestStream(
+      override fun pending(): InputStream = HttpHandler.requestStream(
         requestModel.url(),
         HttpMethod.GET,
         "",
@@ -141,11 +142,11 @@ abstract class Api(private val account: Account) {
     fileName: String,
     file: File,
     additionalData: List<FormData>
-  ): T? {
+  ): T {
     updateAccessToken(requestModel)
 
     return object : RetryableRunner<T>() {
-      override fun pending(): T? {
+      override fun pending(): T {
         val responseText = HttpHandler.requestByFiles(
           requestModel.url(),
           listOf(MultiFile(key, fileName, file, ContentType.ANY)),
@@ -157,14 +158,13 @@ abstract class Api(private val account: Account) {
 
   }
 
-  protected fun readStream(`is`: InputStream): ByteArray? =
+  protected fun readStream(`is`: InputStream): ByteArray =
     try {
       `is`.use {
         ByteStreams.toByteArray(it)
       }
     } catch (ex: IOException) {
-      logger.error(ex) { "流读取失败" }
-      null
+      throw ExecuteException("无法读取数据流", ex)
     }
 
   /**
@@ -190,30 +190,27 @@ abstract class Api(private val account: Account) {
      * 重试次数：在使用WeixinRegistry.registry()注册时可用setRetryTimes方法设置，默认2次，表示当 pending
      * 方法因 access_token 执行失败时的重试次数
      */
-    fun run(): R? {
+    fun run(): R {
       var times = 0
-      var result: R? = null
       while (true) {
         try {
-          result = pending()
-          break
+          return pending()
         } catch (ex: MaydayMaydaySaveMeBecauseAccessTokenSetMeFuckUpException) {
           if (times++ >= retryTimes) {
             logger.error { "For:{${account.key}} >> 失败！已尝试重新执行${times - 1}次" }
-            break
+            throw ExecuteException("请检查请求access_token凭证的信息，如appid和appsecret")
           }
           logger.error { "For:{${account.key}} >> 失败！第${times}次尝试重新执行" }
 
           Weixin.mp(account.key).authentication.refreshAccessToken()
         }
       }
-      return result
     }
 
     /**
      * 具体接口请求执行内容
      */
-    abstract fun pending(): R?
+    abstract fun pending(): R
 
   }
 
@@ -223,6 +220,7 @@ class MpApiWrapper(private val account: Mp) {
 
   val authentication = ApiMpAuthentication(account)
   val commonality = ApiMpCommonality(account)
+  val user = ApiMpUser(account)
 
 }
 

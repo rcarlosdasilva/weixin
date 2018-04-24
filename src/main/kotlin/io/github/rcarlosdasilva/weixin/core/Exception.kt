@@ -3,7 +3,18 @@ package io.github.rcarlosdasilva.weixin.core
 import io.github.rcarlosdasilva.weixin.model.response.Response
 import io.github.rcarlosdasilva.weixin.terms.ResultCode
 
-class ExecuteException(val errorResponse: Response, val code: ResultCode) : RuntimeException() {
+class ExecuteException : RuntimeException {
+  lateinit var errorResponse: Response
+  lateinit var code: ResultCode
+
+  constructor(errorResponse: Response, code: ResultCode) {
+    this.errorResponse = errorResponse
+    this.code = code
+  }
+
+  constructor(message: String?, cause: Throwable?) : super(message, cause)
+  constructor(message: String?) : super(message)
+
   companion object {
     private const val serialVersionUID = -7464703447095351195L
   }
@@ -20,11 +31,7 @@ class MaydayMaydaySaveMeBecauseAccessTokenSetMeFuckUpException : RuntimeExceptio
   }
 }
 
-class ApiRequestException : RuntimeException {
-  constructor(message: String?) : super(message)
-  constructor(message: String?, cause: Throwable?) : super(message, cause)
-  constructor(cause: Throwable?) : super(cause)
-
+class ApiRequestException(message: String?) : RuntimeException(message) {
   companion object {
     private const val serialVersionUID = -4734762830146513711L
   }

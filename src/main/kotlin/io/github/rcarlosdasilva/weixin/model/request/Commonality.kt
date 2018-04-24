@@ -21,7 +21,7 @@ class ServerIpsRequest : MpRequest() {
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
 class ShortUrlRequest(
-  @SerializedName("long_url") private var url: String? = null
+  @SerializedName("long_url") private val url: String? = null
 ) : MpRequest() {
   @SerializedName("action")
   private val action = SHROT_URL_ACTION
@@ -53,7 +53,7 @@ class QrCodeCreateRequest(
  *
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
-class QrCodeDownloadRequest(private var ticket: String) : MpRequest() {
+class QrCodeDownloadRequest(private val ticket: String) : MpRequest() {
   init {
     this.path = URL_COMMON_QR_SHOW
   }
@@ -61,7 +61,7 @@ class QrCodeDownloadRequest(private var ticket: String) : MpRequest() {
   override fun toString(): String = "$path?ticket=$ticket"
 }
 
-class ResetQuotaRequest(private var appid: String) : MpRequest() {
+class ResetQuotaRequest(@SerializedName("openid") private val appId: String) : MpRequest() {
   init {
     this.path = URL_HELPER_RESET_QUOTA
   }
