@@ -216,13 +216,14 @@ abstract class Api(private val account: Account) {
 
 }
 
-class MpApiWrapper(private val account: Mp) {
+class MpApiWrapper(account: Mp) {
 
   val authentication = ApiMpAuthentication(account)
   val commonality = ApiMpCommonality(account)
   val user = ApiMpUser(account)
   val userTag = ApiMpUserTag(account)
   val menu = ApiMpMenu(account)
+  val template = ApiMpTemplate(account)
 
 }
 

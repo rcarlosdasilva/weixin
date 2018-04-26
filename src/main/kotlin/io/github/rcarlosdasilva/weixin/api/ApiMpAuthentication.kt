@@ -10,8 +10,8 @@ import io.github.rcarlosdasilva.weixin.model.JsapiSignature
 import io.github.rcarlosdasilva.weixin.model.JsapiTicket
 import io.github.rcarlosdasilva.weixin.model.Mp
 import io.github.rcarlosdasilva.weixin.model.request.*
-import io.github.rcarlosdasilva.weixin.model.response.MpJsapiTicketResponse
 import io.github.rcarlosdasilva.weixin.model.response.MpAccessTokenResponse
+import io.github.rcarlosdasilva.weixin.model.response.MpJsapiTicketResponse
 import io.github.rcarlosdasilva.weixin.model.response.WaAccessTokenResponse
 import io.github.rcarlosdasilva.weixin.terms.URL_WEB_AUTHORIZE
 import io.github.rcarlosdasilva.weixin.terms.data.WebAuthorizeScope

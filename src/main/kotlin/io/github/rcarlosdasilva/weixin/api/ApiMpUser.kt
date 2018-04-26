@@ -14,7 +14,7 @@ import mu.KotlinLogging
  *
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
-class ApiMpUser(private val account: Mp) : Api(account) {
+class ApiMpUser(account: Mp) : Api(account) {
 
   private val logger = KotlinLogging.logger { }
 

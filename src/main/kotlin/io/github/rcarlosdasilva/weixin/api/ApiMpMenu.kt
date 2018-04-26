@@ -12,7 +12,7 @@ import io.github.rcarlosdasilva.weixin.model.response.MenuInfoResponse
  *
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
-class ApiMpMenu(private val account: Mp) : Api(account) {
+class ApiMpMenu(account: Mp) : Api(account) {
 
   /**
    * 创建自定义菜单

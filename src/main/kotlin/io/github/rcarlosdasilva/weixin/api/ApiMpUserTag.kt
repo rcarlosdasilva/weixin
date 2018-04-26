@@ -12,7 +12,7 @@ import io.github.rcarlosdasilva.weixin.model.response.UserTagListResponse
  *
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
-class ApiMpUserTag(private val account: Mp) : Api(account) {
+class ApiMpUserTag(account: Mp) : Api(account) {
 
   /**
    * 创建标签
