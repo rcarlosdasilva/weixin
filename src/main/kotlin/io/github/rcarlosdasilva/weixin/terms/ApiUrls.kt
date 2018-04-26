@@ -17,16 +17,6 @@ const val URL_CERTIFICATE_WEB_AUTHORIZE_TOKEN_VERIFY = "${URL_API_DOMAIN}sns/aut
 const val URL_WEB_AUTHORIZE = "${URL_OPEN_DOMAIN}connect/oauth2/authorize"
 // ======================== Certificate ======================
 
-// ------------------------ User Group ----------------------
-const val URL_USER_GROUP_CREATE = "${URL_API_DOMAIN}cgi-bin/groups/create"
-const val URL_USER_GROUP_LIST = "${URL_API_DOMAIN}cgi-bin/groups/get"
-const val URL_USER_GROUP_GET = "${URL_API_DOMAIN}cgi-bin/groups/getid"
-const val URL_USER_GROUP_UPDATE = "${URL_API_DOMAIN}cgi-bin/groups/update"
-const val URL_USER_GROUP_MOVE_MEMBER = "${URL_API_DOMAIN}cgi-bin/groups/members/update"
-const val URL_USER_GROUP_MOVE_MEMBER_BATCH = "${URL_API_DOMAIN}cgi-bin/groups/members/batchupdate"
-const val URL_USER_GROUP_DELETE = "${URL_API_DOMAIN}cgi-bin/groups/delete"
-// ======================== User Group ======================
-
 // ------------------------ User Tag ----------------------
 const val URL_USER_TAG_CREATE = "${URL_API_DOMAIN}cgi-bin/tags/create"
 const val URL_USER_TAG_LIST = "${URL_API_DOMAIN}cgi-bin/tags/get"

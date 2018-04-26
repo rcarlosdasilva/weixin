@@ -222,6 +222,7 @@ class MpApiWrapper(private val account: Mp) {
   val commonality = ApiMpCommonality(account)
   val user = ApiMpUser(account)
   val userTag = ApiMpUserTag(account)
+  val menu = ApiMpMenu(account)
 
 }
 

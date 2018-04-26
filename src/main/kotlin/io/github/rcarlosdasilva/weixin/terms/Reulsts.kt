@@ -49,6 +49,7 @@ enum class ResultCode(val code: Int, val text: String) {
   RESULT_40050(40050, "不合法的分组id"),
   RESULT_40051(40051, "分组名字不合法"),
   RESULT_40052(40052, "不合法的action"),
+  RESULT_40055(40055, "不合法的菜单按钮url"),
   RESULT_40060(40060, "删除单篇图文时，指定的 article_idx 不合法"),
   RESULT_40097(40097, "参数不合法"),
   RESULT_40117(40117, "分组名字不合法"),
