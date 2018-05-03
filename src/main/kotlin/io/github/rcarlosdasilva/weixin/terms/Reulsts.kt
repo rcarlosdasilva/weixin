@@ -52,6 +52,7 @@ enum class ResultCode(val code: Int, val text: String) {
   RESULT_40055(40055, "不合法的菜单按钮url"),
   RESULT_40060(40060, "删除单篇图文时，指定的 article_idx 不合法"),
   RESULT_40097(40097, "参数不合法"),
+  RESULT_40113(40113, "不支持的文件类型"),
   RESULT_40117(40117, "分组名字不合法"),
   RESULT_40118(40118, "media_id大小不合法"),
   RESULT_40119(40119, "button类型错误"),

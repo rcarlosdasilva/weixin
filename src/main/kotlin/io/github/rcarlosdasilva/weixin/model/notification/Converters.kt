@@ -97,12 +97,12 @@ class ResponseConverter(mapper: Mapper, reflectionProvider: ReflectionProvider) 
         writer.endNode()
       }
       IMAGE, VOICE -> {
-        writer.startNode(WEIXIN_NOTIFICATION_KEY_RESPONSE_MEDIA_ID)
+        writer.startNode(WEIXIN_NOTIFICATION_KEY_RESPONSE_MATERIAL_ID)
         writer.setValue(info.mediaId)
         writer.endNode()
       }
       VIDEO -> {
-        writer.startNode(WEIXIN_NOTIFICATION_KEY_RESPONSE_MEDIA_ID)
+        writer.startNode(WEIXIN_NOTIFICATION_KEY_RESPONSE_MATERIAL_ID)
         writer.setValue(info.mediaId)
         writer.endNode()
         writer.startNode(WEIXIN_NOTIFICATION_KEY_RESPONSE_TITLE)
@@ -125,7 +125,7 @@ class ResponseConverter(mapper: Mapper, reflectionProvider: ReflectionProvider) 
         writer.startNode(WEIXIN_NOTIFICATION_KEY_RESPONSE_MUSIC_URL_HQ)
         writer.setValue(info.otherUrl)
         writer.endNode()
-        writer.startNode(WEIXIN_NOTIFICATION_KEY_RESPONSE_MEDIA_THUMB_ID)
+        writer.startNode(WEIXIN_NOTIFICATION_KEY_RESPONSE_MATERIAL_THUMB_ID)
         writer.setValue(info.mediaThumbId)
         writer.endNode()
       }

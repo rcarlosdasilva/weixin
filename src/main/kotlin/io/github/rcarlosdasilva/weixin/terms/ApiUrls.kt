@@ -88,19 +88,19 @@ const val URL_MESSAGE_QUERY_MASS_STATUS = "${URL_API_DOMAIN}cgi-bin/message/mass
 // ======================== Message ======================
 
 // ------------------------ Media ----------------------
-const val URL_MEDIA_TEMPORARY_ADD = "${URL_API_DOMAIN}cgi-bin/media/upload"
-const val URL_MEDIA_TEMPORARY_GET = "${URL_API_DOMAIN}cgi-bin/media/get"
-const val URL_MEDIA_TEMPORARY_GET_HQ_AUDIO = "${URL_API_DOMAIN}cgi-bin/media/get/jssdk"
-const val URL_MEDIA_TIMELESS_ADD = "${URL_API_DOMAIN}cgi-bin/material/add_material"
-const val URL_MEDIA_TIMELESS_ADD_NEWS = "${URL_API_DOMAIN}cgi-bin/material/add_news"
-const val URL_MEDIA_TIMELESS_GET = "${URL_API_DOMAIN}cgi-bin/material/get_material"
-const val URL_MEDIA_TIMELESS_DELETE = "${URL_API_DOMAIN}cgi-bin/material/del_material"
-const val URL_MEDIA_TIMELESS_UPDATE = "${URL_API_DOMAIN}cgi-bin/material/update_news"
-const val URL_MEDIA_TIMELESS_COUNT = "${URL_API_DOMAIN}cgi-bin/material/get_materialcount"
-const val URL_MEDIA_TIMELESS_LIST = "${URL_API_DOMAIN}cgi-bin/material/batchget_material"
-const val URL_MEDIA_MASS_ADD_IMAGE = "${URL_API_DOMAIN}cgi-bin/media/uploadimg"
-const val URL_MEDIA_MASS_ADD_NEWS = "${URL_API_DOMAIN}cgi-bin/media/uploadnews"
-const val URL_MEDIA_MASS_TRANSFORM_VIDEO = "${URL_API_DOMAIN}cgi-bin/media/uploadvideo"
+const val URL_MATERIAL_TEMPORARY_ADD = "${URL_API_DOMAIN}cgi-bin/media/upload"
+const val URL_MATERIAL_TEMPORARY_GET = "${URL_API_DOMAIN}cgi-bin/media/get"
+const val URL_MATERIAL_TEMPORARY_GET_HQ_AUDIO = "${URL_API_DOMAIN}cgi-bin/media/get/jssdk"
+const val URL_MATERIAL_TIMELESS_ADD = "${URL_API_DOMAIN}cgi-bin/material/add_material"
+const val URL_MATERIAL_TIMELESS_ADD_NEWS = "${URL_API_DOMAIN}cgi-bin/material/add_news"
+const val URL_MATERIAL_TIMELESS_GET = "${URL_API_DOMAIN}cgi-bin/material/get_material"
+const val URL_MATERIAL_TIMELESS_DELETE = "${URL_API_DOMAIN}cgi-bin/material/del_material"
+const val URL_MATERIAL_TIMELESS_UPDATE = "${URL_API_DOMAIN}cgi-bin/material/update_news"
+const val URL_MATERIAL_TIMELESS_COUNT = "${URL_API_DOMAIN}cgi-bin/material/get_materialcount"
+const val URL_MATERIAL_TIMELESS_LIST = "${URL_API_DOMAIN}cgi-bin/material/batchget_material"
+const val URL_MATERIAL_ADD_NEWS_IMAGE = "${URL_API_DOMAIN}cgi-bin/media/uploadimg"
+const val URL_MATERIAL_ADD_NEWS = "${URL_API_DOMAIN}cgi-bin/media/uploadnews"
+const val URL_MATERIAL_TRANSFORM_VIDEO = "${URL_API_DOMAIN}cgi-bin/media/uploadvideo"
 // ======================== Media ======================
 
 // ------------------------ Comment ----------------------

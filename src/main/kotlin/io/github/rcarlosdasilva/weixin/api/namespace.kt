@@ -25,8 +25,6 @@ import java.io.InputStream
 @Suppress("UNCHECKED_CAST")
 abstract class Api(private val account: Account) {
 
-  private val logger = KotlinLogging.logger { }
-
   private fun updateAccessToken(requestModel: Request) {
     if (requestModel !is MpAccessTokenRequest && requestModel !is OpAccessTokenRequest) {
       val accessToken = if (account.ap == ACCOUNT_PLATFORM_TYPE_OP) {
@@ -141,7 +139,7 @@ abstract class Api(private val account: Account) {
     key: String,
     fileName: String,
     file: File,
-    additionalData: List<FormData>
+    additionalData: List<FormData>?
   ): T {
     updateAccessToken(requestModel)
 
@@ -155,7 +153,6 @@ abstract class Api(private val account: Account) {
         return ResponseParser.parse(target, responseText)
       }
     }.run()
-
   }
 
   protected fun readStream(`is`: InputStream): ByteArray =
@@ -224,10 +221,11 @@ class MpApiWrapper(account: Mp) {
   val userTag = ApiMpUserTag(account)
   val menu = ApiMpMenu(account)
   val template = ApiMpTemplate(account)
+  val material = ApiMpMaterial(account)
 
 }
 
-class OpApiWrapper(private val account: Op) {
+class OpApiWrapper(account: Op) {
 
   val authentication = ApiOpAuthentication(account)
 
