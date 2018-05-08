@@ -222,6 +222,7 @@ class MpApiWrapper(account: Mp) {
   val menu = ApiMpMenu(account)
   val template = ApiMpTemplate(account)
   val material = ApiMpMaterial(account)
+  val message = ApiMpMessage(account)
 
 }
 

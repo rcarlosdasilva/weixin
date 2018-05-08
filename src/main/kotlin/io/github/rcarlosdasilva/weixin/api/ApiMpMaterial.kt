@@ -24,7 +24,7 @@ import java.io.File
 class ApiMpMaterial(account: Mp) : Api(account) {
 
   /**
-   * 新增临时素材.
+   * 新增临时素材
    *
    * 公众号经常有需要用到一些临时性的多媒体素材的场景，例如在使用接口特别是发送消息时，对多媒体文件、多媒体消息的获取和调用等操作，
    * 是通过media_id来进行的。素材管理接口对所有认证的订阅号和服务号开放。通过本接口，公众号可以新增临时素材（即上传临时多媒体文件）。
@@ -58,7 +58,7 @@ class ApiMpMaterial(account: Mp) : Api(account) {
   }
 
   /**
-   * 获取临时素材.
+   * 获取临时素材
    *
    * 公众号可以使用本接口获取临时素材（即下载临时的多媒体文件）。请注意，视频文件不支持https下载，调用该接口需http协议。本接口即为原“下载多媒体文件”接口。
    *
@@ -83,7 +83,7 @@ class ApiMpMaterial(account: Mp) : Api(account) {
     }
 
   /**
-   * 获取临时素材（高清语音素材获取接口）.
+   * 获取临时素材（高清语音素材获取接口）
    *
    * 公众号可以使用本接口获取从JSSDK的uploadVoice接口上传的临时语音素材，格式为speex，16K采样率。
    * 该音频比上文的临时素材获取接口（格式为amr，8K采样率）更加清晰，适合用作语音识别等对音质要求较高的业务。
@@ -95,7 +95,7 @@ class ApiMpMaterial(account: Mp) : Api(account) {
     readStream(getStream(MaterialGetTemporaryWithHqAudioRequest(materialId)))
 
   /**
-   * 新增其他类型永久素材（不包括视频，和图文）.
+   * 新增其他类型永久素材（不包括视频，和图文）
    *
    * 通过POST表单来调用接口，表单id为media，包含需要上传的素材内容，有filename、filelength、content-type等信息。请注意：图片素材将进入公众平台官网素材管理模块中的默认分组。
    *
@@ -122,7 +122,7 @@ class ApiMpMaterial(account: Mp) : Api(account) {
   }
 
   /**
-   * 新增其他类型永久素材（视频）.
+   * 新增其他类型永久素材（视频）
    *
    * 新增永久视频素材需特别注意 在上传视频素材时需要POST另一个表单，id为description，包含素材的描述信息，内容格式为JSON
    *
@@ -167,7 +167,7 @@ class ApiMpMaterial(account: Mp) : Api(account) {
     post(MaterialAddTimelessResponse::class.java, MaterialAddTimelessNewsRequest(articles)).url!!
 
   /**
-   * 获取永久素材.
+   * 获取永久素材
    *
    * 在新增了永久素材后，开发者可以根据media_id通过本接口下载永久素材。公众号在公众平台官网素材管理模块中新建的永久素材，
    * 可通过"获取素材列表"获知素材的media_id。临时素材无法通过本接口获取
@@ -189,7 +189,7 @@ class ApiMpMaterial(account: Mp) : Api(account) {
     }
 
   /**
-   * 删除永久素材.
+   * 删除永久素材
    *
    * 在新增了永久素材后，开发者可以根据本接口来删除不再需要的永久素材，节省空间。
    * 请注意：
@@ -205,7 +205,7 @@ class ApiMpMaterial(account: Mp) : Api(account) {
     post(Boolean::class.java, MaterialDeleteTimelessRequest(materialId))
 
   /**
-   * 修改永久图文素材.
+   * 修改永久图文素材
    *
    * 开发者可以通过本接口对永久图文素材进行修改。
    * 请注意：
@@ -221,7 +221,7 @@ class ApiMpMaterial(account: Mp) : Api(account) {
     post(Boolean::class.java, MaterialUpdateTimelessNewsRequest(materialId, index, article))
 
   /**
-   * 获取永久素材总数.
+   * 获取永久素材总数
    *
    * 开发者可以根据本接口来获取永久素材的列表，需要时也可保存到本地。
    * 请注意：
@@ -235,7 +235,7 @@ class ApiMpMaterial(account: Mp) : Api(account) {
     get(MaterialCountTimelessResponse::class.java, MaterialCountTimelessRequest())
 
   /**
-   * 获取永久素材列表.
+   * 获取永久素材列表
    *
    * 在新增了永久素材后，开发者可以分类型获取永久素材的列表。
    * 请注意：
@@ -271,7 +271,7 @@ class ApiMpMaterial(account: Mp) : Api(account) {
     ).url!!
 
   /**
-   * 上传图文消息素材（群发）.
+   * 上传图文消息素材（群发）
    *
    * @param articles 图文内容列表
    * @return see [MaterialAddNewsResponse]
@@ -284,7 +284,7 @@ class ApiMpMaterial(account: Mp) : Api(account) {
     post(MaterialAddNewsResponse::class.java, MaterialAddNewsRequest(articles))
 
   /**
-   * 转换视频素材media_id.
+   * 转换视频素材media_id
    *
    * 请注意，此处视频的media_id需通过POST请求到下述接口特别地得到：
    * https://api.weixin.qq.com/cgi-bin/media/uploadvideo?access_token=ACCESS_TOKEN

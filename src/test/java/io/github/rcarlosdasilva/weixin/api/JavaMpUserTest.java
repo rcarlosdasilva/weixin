@@ -88,11 +88,13 @@ public class JavaMpUserTest {
     UserOpenIdListResponse response = Weixin.mp(key).getUser().listUsersInBlack();
     Assert.assertNotNull(response);
 
+    boolean empty = false;
     List<String> users = Lists.newArrayList();
     if (response.getCount() == 0) {
       // 黑名单为空的话，使用默认用户
       String openId = TestHelper.INSTANCE.get("openid.my");
       users.add(openId);
+      empty = true;
     } else {
       // 取黑名单第一个，先取消黑名单
       String openId = response.getOpenIds().getList().get(0);
@@ -104,6 +106,11 @@ public class JavaMpUserTest {
     // 加入黑名单
     boolean appended = Weixin.mp(key).getUser().appendUsersToBlack(users);
     Assert.assertTrue(appended);
+
+    if (empty) {
+      boolean cancelAgain = Weixin.mp(key).getUser().cancelUsersFromBlack(users);
+      Assert.assertTrue(cancelAgain);
+    }
   }
 
 }

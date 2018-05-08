@@ -47,15 +47,16 @@ public class JavaMpTemplateTest {
    */
   @Test
   public void test02() {
+    String templateCode = TestHelper.INSTANCE.get("template.code");
     // TM00221 - 放假通知
-    String code = Weixin.mp(key).getTemplate().append("TM00221");
-    Assert.assertNotNull(code);
+    String templateId = Weixin.mp(key).getTemplate().append(templateCode);
+    Assert.assertNotNull(templateId);
 
     List<Template> temps = Weixin.mp(key).getTemplate().query();
     Assert.assertNotNull(temps);
     Assert.assertTrue(temps.size() > 0);
 
-    boolean deleted = Weixin.mp(key).getTemplate().delete(code);
+    boolean deleted = Weixin.mp(key).getTemplate().delete(templateId);
     Assert.assertTrue(deleted);
   }
 

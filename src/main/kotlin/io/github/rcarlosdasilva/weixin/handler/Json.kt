@@ -5,6 +5,7 @@ import com.google.gson.*
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonWriter
+import io.github.rcarlosdasilva.weixin.model.request.MessageSendWithMassRequest.MassRequestUser
 import io.github.rcarlosdasilva.weixin.model.response.OpAccessTokenResponse
 import io.github.rcarlosdasilva.weixin.model.response.OpGetLicenseInformationResponse
 import io.github.rcarlosdasilva.weixin.terms.*
@@ -62,7 +63,7 @@ class CustomTypeAdapterFactory : TypeAdapterFactory {
 
   override fun <T> create(gson: Gson, type: TypeToken<T>): TypeAdapter<T>? =
     when (type.rawType) {
-//      MessageSendWithMassRequestUser::class.java -> MessageSendWithMassRequestUserTypeAdapter().nullSafe()
+      MassRequestUser::class.java -> MessageSendWithMassRequestUserTypeAdapter().nullSafe()
       OpAccessTokenResponse::class.java -> OpAccessTokenResponseTypeAdapter().nullSafe()
       OpGetLicenseInformationResponse::class.java -> OpGetLicenseInformationResponseTypeAdapter().nullSafe()
       else -> null
@@ -71,28 +72,28 @@ class CustomTypeAdapterFactory : TypeAdapterFactory {
 }
 
 
-//class MessageSendWithMassRequestUserTypeAdapter : TypeAdapter<MessageSendWithMassRequestUser>() {
-//
-//  override fun write(out: JsonWriter, value: MessageSendWithMassRequestUser) {
-//    if (!Strings.isNullOrEmpty(value.getUser())) {
-//      out.value(value.getUser())
-//    } else if (value.getUsers() != null && value.getUsers().size() > 1) {
-//      out.beginArray()
-//      for (user in value.getUsers()) {
-//        out.value(user)
-//      }
-//      out.endArray()
-//    } else {
-//      out.nullValue()
-//    }
-//  }
-//
-//  override fun read(`in`: JsonReader): MessageSendWithMassRequestUser? {
-//    // 不需要实现
-//    return null
-//  }
-//
-//}
+class MessageSendWithMassRequestUserTypeAdapter : TypeAdapter<MassRequestUser>() {
+
+  override fun write(out: JsonWriter, value: MassRequestUser) {
+    when {
+      value.user?.isNotEmpty() == true -> out.value(value.user)
+      value.users?.isNotEmpty() == true -> {
+        out.beginArray()
+        for (user in value.users!!) {
+          out.value(user)
+        }
+        out.endArray()
+      }
+      else -> out.nullValue()
+    }
+  }
+
+  override fun read(`in`: JsonReader): MassRequestUser? {
+    // 不需要实现
+    return null
+  }
+
+}
 
 
 class OpAccessTokenResponseTypeAdapter : TypeAdapter<OpAccessTokenResponse>() {
