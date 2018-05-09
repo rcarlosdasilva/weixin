@@ -148,7 +148,7 @@ enum class StatisticsNewsUserSource(val code: Int) {
   OTHER(5);
 
   companion object {
-    fun byCode(code: Int): StatisticsNewsUserSource? = values().find { it.code == code }
+    fun with(code: Int): StatisticsNewsUserSource? = values().find { it.code == code }
   }
 
 }
