@@ -58,10 +58,10 @@ object Encryptor {
    * @return 加密后的可以直接回复用户的密文，包括msg_signature, timestamp, nonce, encrypt的xml格式的字符串
    */
   fun encrypt(
-    appId: String,
-    token: String,
-    key: String,
-    originalContent: String
+      appId: String,
+      token: String,
+      key: String,
+      originalContent: String
   ): EncryptedNotificationResponse? {
     val annex = random(16)
     val aesKey = Base64.decodeBase64("$key=")
@@ -123,12 +123,12 @@ object Encryptor {
    * @return 解密后的原文模型
    */
   fun decrypt(
-    token: String,
-    key: String,
-    cipherText: String,
-    signature: String,
-    timestamp: Long,
-    nonce: String
+      token: String,
+      key: String,
+      cipherText: String,
+      signature: String,
+      timestamp: Long,
+      nonce: String
   ): Notification? {
     val reSignature = sha1(tidy(token, timestamp, nonce, cipherText))
     if (signature != reSignature) {

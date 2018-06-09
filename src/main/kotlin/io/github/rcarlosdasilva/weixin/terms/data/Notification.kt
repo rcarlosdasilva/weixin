@@ -56,7 +56,7 @@ enum class NotificationEvent(val text: String) {
 
   companion object {
     fun with(text: String?): NotificationEvent? =
-      text?.let { values().find { it.text.equals(text, ignoreCase = true) } }
+        text?.let { values().find { it.text.equals(text, ignoreCase = true) } }
   }
 
 }
@@ -105,7 +105,7 @@ enum class NotificationMessage(val text: String) {
 
   companion object {
     fun with(text: String?): NotificationMessage? =
-      text?.let { values().find { it.text.equals(text, ignoreCase = true) } }
+        text?.let { values().find { it.text.equals(text, ignoreCase = true) } }
   }
 
 }
@@ -138,7 +138,7 @@ enum class NotificationOpInfo(val text: String) {
 
   companion object {
     fun with(text: String?): NotificationOpInfo? =
-      text?.let { values().find { it.text.equals(text, ignoreCase = true) } }
+        text?.let { values().find { it.text.equals(text, ignoreCase = true) } }
   }
 
 }

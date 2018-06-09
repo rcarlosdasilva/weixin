@@ -69,10 +69,10 @@ abstract class JsapiTicket : Certification() {
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
 data class JsapiSignature(
-  val appId: String,
-  val ticket: String,
-  val signature: String,
-  val url: String,
-  val timestamp: String,
-  val nonce: String
+    val appId: String,
+    val ticket: String,
+    val signature: String,
+    val url: String,
+    val timestamp: String,
+    val nonce: String
 )

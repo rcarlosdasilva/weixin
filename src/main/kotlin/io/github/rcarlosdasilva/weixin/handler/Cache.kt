@@ -31,38 +31,38 @@ object CacheHandler {
    * 对每一个实现[Cacheable]的对象，会生成一个缓存器
    */
   fun <V : Cacheable> of(clazz: Class<V>): CacheStorage<V> =
-    storages[clazz.toString()] as CacheStorage<V>? ?: synchronized(storages) {
-      newStorage(clazz).also { storages[clazz.toString()] = it }
-    }
+      storages[clazz.toString()] as CacheStorage<V>? ?: synchronized(storages) {
+        newStorage(clazz).also { storages[clazz.toString()] = it }
+      }
 
   private fun <V : Cacheable> newStorage(clazz: Class<V>): CacheStorage<V> =
-    (cacheStorageClass.newInstance() as CacheStorage<V>).also {
-      config[CONFIG_GROUP_KEY] = groupName(clazz)
-      it.initialize(config)
-    }
+      (cacheStorageClass.newInstance() as CacheStorage<V>).also {
+        config[CONFIG_GROUP_KEY] = groupName(clazz)
+        it.initialize(config)
+      }
 
   private fun groupName(clazz: Class<*>): String =
-    try {
-      val field = clazz.getField(CACHEABLE_CLASS_GROUP_MARK_FIELD_NAME)
-      field.get(clazz).toString()
-    } catch (ex: Exception) {
-      val clazzName = clazz.simpleName
-      val length = clazzName.length
-      val sb = StringBuilder()
-      for (i in 0 until length) {
-        var c = clazzName[i]
-        if (c in 'a'..'z') {
-          sb.append(c)
-        } else if (c in 'A'..'Z') {
-          if (i > 0) {
-            sb.append('_')
+      try {
+        val field = clazz.getField(CACHEABLE_CLASS_GROUP_MARK_FIELD_NAME)
+        field.get(clazz).toString()
+      } catch (ex: Exception) {
+        val clazzName = clazz.simpleName
+        val length = clazzName.length
+        val sb = StringBuilder()
+        for (i in 0 until length) {
+          var c = clazzName[i]
+          if (c in 'a'..'z') {
+            sb.append(c)
+          } else if (c in 'A'..'Z') {
+            if (i > 0) {
+              sb.append('_')
+            }
+            c += 32
+            sb.append(c)
           }
-          c += 32
-          sb.append(c)
         }
+        sb.toString()
       }
-      sb.toString()
-    }
 
 }
 

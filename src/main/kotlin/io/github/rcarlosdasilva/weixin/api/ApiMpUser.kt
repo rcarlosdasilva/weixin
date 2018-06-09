@@ -28,7 +28,7 @@ class ApiMpUser(account: Mp) : Api(account) {
    * @return 是否成功
    */
   fun remarkName(openId: String, name: String): Boolean =
-    post(Boolean::class.java, UserRemarkNameRequest(openId, name))
+      post(Boolean::class.java, UserRemarkNameRequest(openId, name))
 
   /**
    * 获取用户信息
@@ -39,7 +39,7 @@ class ApiMpUser(account: Mp) : Api(account) {
    **/
   @JvmOverloads
   fun getUserInfo(openId: String, language: Language = Language.ZH_CN): UserResponse =
-    get(UserResponse::class.java, UserInfoRequest(openId, language))
+      get(UserResponse::class.java, UserInfoRequest(openId, language))
 
   /**
    * 批量获取用户信息
@@ -50,9 +50,9 @@ class ApiMpUser(account: Mp) : Api(account) {
    **/
   @JvmOverloads
   fun getUsersInfo(openIds: List<String>, language: Language = Language.ZH_CN): List<UserResponse> =
-    post(UserListResponse::class.java, UserInfoListRequest().apply {
-      openIds.forEach { userList.add(UserInfoRequest(it, language)) }
-    }).userList!!
+      post(UserListResponse::class.java, UserInfoListRequest().apply {
+        openIds.forEach { userList.add(UserInfoRequest(it, language)) }
+      }).userList!!
 
   /**
    * 获取公众号的关注者列表
@@ -65,7 +65,7 @@ class ApiMpUser(account: Mp) : Api(account) {
    */
   @JvmOverloads
   fun listAllUsersOpenId(nextOpenId: String? = null): UserOpenIdListResponse =
-    get(UserOpenIdListResponse::class.java, UserOpenIdListRequest(nextOpenId))
+      get(UserOpenIdListResponse::class.java, UserOpenIdListRequest(nextOpenId))
 
   /**
    * 网页授权，拉取用户信息(需scope为 snsapi_userinfo)
@@ -79,11 +79,11 @@ class ApiMpUser(account: Mp) : Api(account) {
    */
   @JvmOverloads
   fun getUserInfoByWebAuthorize(
-    webAccessToken: String,
-    openId: String,
-    language: Language = Language.ZH_CN
+      webAccessToken: String,
+      openId: String,
+      language: Language = Language.ZH_CN
   ): UserResponse =
-    get(UserResponse::class.java, UserInfoByWebAuthorizeRequest(webAccessToken, openId, language))
+      get(UserResponse::class.java, UserInfoByWebAuthorizeRequest(webAccessToken, openId, language))
 
 
   /**
@@ -95,7 +95,7 @@ class ApiMpUser(account: Mp) : Api(account) {
    */
   @JvmOverloads
   fun listUsersOpenIdWithTag(tagId: Int, nextOpenId: String? = null): UserOpenIdListResponse =
-    post(UserOpenIdListResponse::class.java, UserOpenIdListWithTagRequest(tagId, nextOpenId))
+      post(UserOpenIdListResponse::class.java, UserOpenIdListWithTagRequest(tagId, nextOpenId))
 
   /**
    * 获取黑名单中的用户列表
@@ -108,7 +108,7 @@ class ApiMpUser(account: Mp) : Api(account) {
    */
   @JvmOverloads
   fun listUsersInBlack(nextOpenId: String? = null): UserOpenIdListResponse =
-    post(UserOpenIdListResponse::class.java, BlackListOpenIdListRequest(nextOpenId))
+      post(UserOpenIdListResponse::class.java, BlackListOpenIdListRequest(nextOpenId))
 
   /**
    * 把用户拉黑

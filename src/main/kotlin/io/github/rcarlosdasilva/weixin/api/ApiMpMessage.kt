@@ -28,13 +28,13 @@ class ApiMpMessage(account: Mp) : Api(account) {
    * @return 消息编号
    */
   fun sendWithTemplate(
-    to: String,
-    templateId: String,
-    url: String,
-    data: Map<String, Template>
+      to: String,
+      templateId: String,
+      url: String,
+      data: Map<String, Template>
   ): Long = post(
-    MessageSendWithTemplateResponse::class.java,
-    MessageSendWithTemplateRequest(to, templateId, url, data)
+      MessageSendWithTemplateResponse::class.java,
+      MessageSendWithTemplateRequest(to, templateId, url, data)
   ).messageId
 
   /**
@@ -53,14 +53,14 @@ class ApiMpMessage(account: Mp) : Api(account) {
    * @return 消息编号
    */
   fun sendWithTemplate(
-    to: String,
-    templateId: String,
-    data: Map<String, Template>,
-    appid: String,
-    route: String
+      to: String,
+      templateId: String,
+      data: Map<String, Template>,
+      appid: String,
+      route: String
   ): Long = post(
-    MessageSendWithTemplateResponse::class.java,
-    MessageSendWithTemplateRequest(to, templateId, data, appid, route)
+      MessageSendWithTemplateResponse::class.java,
+      MessageSendWithTemplateRequest(to, templateId, data, appid, route)
   ).messageId
 
   /**
@@ -93,7 +93,7 @@ class ApiMpMessage(account: Mp) : Api(account) {
    * @return [MessageQueryAutoReplyResponse]
    */
   fun queryAutoReplyStatus(): MessageQueryAutoReplyResponse =
-    get(MessageQueryAutoReplyResponse::class.java, MessageQueryAutoReplyRequest())
+      get(MessageQueryAutoReplyResponse::class.java, MessageQueryAutoReplyRequest())
 
   /**
    * 根据标签进行群发
@@ -265,9 +265,9 @@ class ApiMpMessage(account: Mp) : Api(account) {
    * @return see [MessageSendWithMassResponse]
    */
   fun sendWithMassPreview(
-    isOpenId: Boolean,
-    target: String,
-    messageContainer: MessageContainer
+      isOpenId: Boolean,
+      target: String,
+      messageContainer: MessageContainer
   ): MessageSendWithMassResponse {
     val requestModel = MessageSendWithMassRequest().apply {
       this.forPreview(isOpenId, target)
@@ -294,7 +294,7 @@ class ApiMpMessage(account: Mp) : Api(account) {
    * @return 是否成功
    */
   fun deleteMass(messageId: String, index: Int): Boolean =
-    post(Boolean::class.java, MessageDeleteMassRequest(messageId, index))
+      post(Boolean::class.java, MessageDeleteMassRequest(messageId, index))
 
   /**
    * 查询群发消息发送状态

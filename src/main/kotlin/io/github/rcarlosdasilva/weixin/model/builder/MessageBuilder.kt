@@ -53,9 +53,9 @@ object MessageBuilder {
    * @return [MessageContainer]
    */
   fun buildVideo(mediaId: String, mediaThumbId: String, title: String, description: String) =
-    MessageContainer(MessageType.MPVIDEO).also {
-      it.bean = Video(mediaId, mediaThumbId, title, description)
-    }
+      MessageContainer(MessageType.MPVIDEO).also {
+        it.bean = Video(mediaId, mediaThumbId, title, description)
+      }
 
   /**
    * 构建音乐消息
@@ -68,8 +68,8 @@ object MessageBuilder {
    * @return [MessageContainer]
    */
   fun buildMusic(
-    mediaThumbId: String, url: String, url4hq: String, title: String,
-    description: String
+      mediaThumbId: String, url: String, url4hq: String, title: String,
+      description: String
   ) = MessageContainer(MessageType.MUSIC).also {
     it.bean = Music(mediaThumbId, url, url4hq, title, description)
   }

@@ -13,9 +13,8 @@ import org.slf4j.LoggerFactory;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class JavaMpCommonalityTest {
 
-  private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
   private static String key;
+  private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
   @BeforeClass
   public static void before() {

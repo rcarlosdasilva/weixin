@@ -79,7 +79,7 @@ class AccessTokenInspector : Inspector {
 class AccessTokenWorker : Worker {
 
   override fun support(problem: Problem): Boolean =
-    AccessToken::class.java == problem.type
+      AccessToken::class.java == problem.type
 
   override fun run(problem: Problem) {
     thread(start = true, isDaemon = true) {
@@ -122,7 +122,7 @@ class JsapiTicketInspector : Inspector {
 class JsapiTicketWorker : Worker {
 
   override fun support(problem: Problem): Boolean =
-    JsapiTicket::class.java == problem.type
+      JsapiTicket::class.java == problem.type
 
   override fun run(problem: Problem) {
     thread(start = true, isDaemon = true) {

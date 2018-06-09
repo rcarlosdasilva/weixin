@@ -20,8 +20,8 @@ class TemplateIndustryGetReqeust : MpRequest() {
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
 class TemplateIndustrySetReqeust(
-  @SerializedName("industry_id1") private val primary: Int,
-  @SerializedName("industry_id2") private val secondary: Int
+    @SerializedName("industry_id1") private val primary: Int,
+    @SerializedName("industry_id2") private val secondary: Int
 ) : MpRequest() {
   init {
     this.path = URL_TEMPLATE_INDUSTRY_SET

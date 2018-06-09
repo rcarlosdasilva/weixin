@@ -10,8 +10,8 @@ import io.github.rcarlosdasilva.weixin.terms.data.Language
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
 class UserRemarkNameRequest(
-  @SerializedName("openid") private val openId: String,
-  @SerializedName("remark") private val name: String
+    @SerializedName("openid") private val openId: String,
+    @SerializedName("remark") private val name: String
 ) : MpRequest() {
   init {
     this.path = URL_USER_REMARK_NAME
@@ -24,8 +24,8 @@ class UserRemarkNameRequest(
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
 class UserInfoRequest(
-  @SerializedName("openid") private val openId: String,
-  @SerializedName("lang") private val language: Language?
+    @SerializedName("openid") private val openId: String,
+    @SerializedName("lang") private val language: Language?
 ) : MpRequest() {
   init {
     this.path = URL_USER_INFO
@@ -67,9 +67,9 @@ class UserOpenIdListRequest(private val nextOpenId: String? = null) : MpRequest(
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
 class UserInfoByWebAuthorizeRequest(
-  private val webAccessToken: String,
-  private val openId: String,
-  private val language: Language
+    private val webAccessToken: String,
+    private val openId: String,
+    private val language: Language
 ) : MpRequest() {
   init {
     this.path = URL_USER_INFO_BY_WEB_AUTHORIZE
@@ -84,8 +84,8 @@ class UserInfoByWebAuthorizeRequest(
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
 class UserOpenIdListWithTagRequest(
-  @SerializedName("tagid") private val tagId: Int,
-  @SerializedName("next_openid") private val nextOpenId: String? = null
+    @SerializedName("tagid") private val tagId: Int,
+    @SerializedName("next_openid") private val nextOpenId: String? = null
 ) : MpRequest() {
   init {
     this.path = URL_USER_OPENID_LIST_WITH_TAG
@@ -98,7 +98,7 @@ class UserOpenIdListWithTagRequest(
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
 class BlackListOpenIdListRequest(
-  @SerializedName("begin_openid") private val beginOpenId: String? = null
+    @SerializedName("begin_openid") private val beginOpenId: String? = null
 ) : MpRequest() {
   init {
     this.path = URL_BLACK_LIST_QUERY

@@ -50,10 +50,10 @@ abstract class Api(private val account: Account) {
     return object : RetryableRunner<T>() {
       override fun pending(): T {
         val responseText = HttpHandler.request(
-          requestModel.url(),
-          HttpMethod.POST,
-          requestModel.json(),
-          ContentType.JSON
+            requestModel.url(),
+            HttpMethod.POST,
+            requestModel.json(),
+            ContentType.JSON
         )
         return ResponseParser.parse(target, responseText)
       }
@@ -72,10 +72,10 @@ abstract class Api(private val account: Account) {
 
     return object : RetryableRunner<InputStream>() {
       override fun pending(): InputStream = HttpHandler.requestStream(
-        requestModel.url(),
-        HttpMethod.POST,
-        requestModel.json(),
-        ContentType.JSON
+          requestModel.url(),
+          HttpMethod.POST,
+          requestModel.json(),
+          ContentType.JSON
       )
     }.run()
 
@@ -112,10 +112,10 @@ abstract class Api(private val account: Account) {
 
     return object : RetryableRunner<InputStream>() {
       override fun pending(): InputStream = HttpHandler.requestStream(
-        requestModel.url(),
-        HttpMethod.GET,
-        "",
-        ContentType.JSON
+          requestModel.url(),
+          HttpMethod.GET,
+          "",
+          ContentType.JSON
       )
     }.run()
 
@@ -134,21 +134,21 @@ abstract class Api(private val account: Account) {
    * @return 响应封装对象
    */
   protected fun <T> upload(
-    target: Class<T>,
-    requestModel: Request,
-    key: String,
-    fileName: String,
-    file: File,
-    additionalData: List<FormData>?
+      target: Class<T>,
+      requestModel: Request,
+      key: String,
+      fileName: String,
+      file: File,
+      additionalData: List<FormData>?
   ): T {
     updateAccessToken(requestModel)
 
     return object : RetryableRunner<T>() {
       override fun pending(): T {
         val responseText = HttpHandler.requestByFiles(
-          requestModel.url(),
-          listOf(MultiFile(key, fileName, file, ContentType.ANY)),
-          additionalData
+            requestModel.url(),
+            listOf(MultiFile(key, fileName, file, ContentType.ANY)),
+            additionalData
         )
         return ResponseParser.parse(target, responseText)
       }
@@ -156,13 +156,13 @@ abstract class Api(private val account: Account) {
   }
 
   protected fun readStream(`is`: InputStream): ByteArray =
-    try {
-      `is`.use {
-        ByteStreams.toByteArray(it)
+      try {
+        `is`.use {
+          ByteStreams.toByteArray(it)
+        }
+      } catch (ex: IOException) {
+        throw ExecuteException("无法读取数据流", ex)
       }
-    } catch (ex: IOException) {
-      throw ExecuteException("无法读取数据流", ex)
-    }
 
   /**
    * 接口请求执行器

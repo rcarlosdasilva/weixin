@@ -24,10 +24,10 @@ interface NotificationResponse
  */
 @XStreamAlias("xml")
 class EncryptedNotificationResponse(
-  @field:XStreamAlias("Encrypt") val ciphertext: String,
-  @field:XStreamAlias("MsgSignature") val signature: String,
-  @field:XStreamAlias("TimeStamp") val timestamp: Long,
-  @field:XStreamAlias("Nonce") val nonce: String
+    @field:XStreamAlias("Encrypt") val ciphertext: String,
+    @field:XStreamAlias("MsgSignature") val signature: String,
+    @field:XStreamAlias("TimeStamp") val timestamp: Long,
+    @field:XStreamAlias("Nonce") val nonce: String
 ) : NotificationResponse
 
 

@@ -43,13 +43,13 @@ class JedisStorage<V : Cacheable> : CacheStorage<V> {
     // TODO 获取配置
     val redisSetting = JedisSetting()
     pool = JedisPool(
-      redisSetting.config,
-      redisSetting.host,
-      redisSetting.port,
-      redisSetting.timeout,
-      redisSetting.password,
-      redisSetting.database,
-      redisSetting.useSsl
+        redisSetting.config,
+        redisSetting.host,
+        redisSetting.port,
+        redisSetting.timeout,
+        redisSetting.password,
+        redisSetting.database,
+        redisSetting.useSsl
     )
   }
 

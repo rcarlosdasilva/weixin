@@ -18,9 +18,8 @@ import java.util.Random;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class JavaMpUserTagTest {
 
-  private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
   private static String key;
+  private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
   @BeforeClass
   public static void before() {

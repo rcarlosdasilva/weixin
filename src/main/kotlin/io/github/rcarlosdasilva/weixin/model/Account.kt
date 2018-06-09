@@ -10,8 +10,8 @@ import io.github.rcarlosdasilva.weixin.terms.data.MpType
 import java.io.Serializable
 
 open class Account(
-  open val appId: String,
-  internal val ap: String
+    open val appId: String,
+    internal val ap: String
 ) : Serializable, Cacheable {
   /**
    * 注册到缓存器中的key值，方便日志查找，默认为appid
@@ -24,10 +24,10 @@ open class Account(
 }
 
 data class Op(
-  override val appId: String,
-  val appSecret: String,
-  val aesToken: String,
-  val aesKey: String
+    override val appId: String,
+    val appSecret: String,
+    val aesToken: String,
+    val aesKey: String
 ) : Account(appId, ACCOUNT_PLATFORM_TYPE_OP) {
   override var key = UNIQUE_OP_ACCOUNT_CACHE_KEY
 }
@@ -38,8 +38,8 @@ data class Mp(override val appId: String) : Account(appId, ACCOUNT_PLATFORM_TYPE
    * 不推荐使用appid与appsecret调用微信API （如开发自持有单公众号例外）
    */
   constructor(
-    appId: String,
-    appSecret: String
+      appId: String,
+      appSecret: String
   ) : this(appId) {
     this.appSecret = appSecret
     this.proxyWithOp = false

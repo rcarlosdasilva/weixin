@@ -17,7 +17,7 @@ object HttpHandler {
   private val logger = KotlinLogging.logger {}
 
   private val client: OkHttpClient =
-    OkHttpClient.Builder().connectTimeout(3, TimeUnit.SECONDS).readTimeout(10, TimeUnit.SECONDS).build()
+      OkHttpClient.Builder().connectTimeout(3, TimeUnit.SECONDS).readTimeout(10, TimeUnit.SECONDS).build()
 
   /**
    * 普通请求
@@ -29,7 +29,7 @@ object HttpHandler {
    * @return response字符串
    */
   fun request(url: String, method: HttpMethod, content: String, type: ContentType): String =
-    generate(url, method, content, type).run { doRequest(this)?.body()!!.string() }
+      generate(url, method, content, type).run { doRequest(this)?.body()!!.string() }
 
   /**
    * 发送请求，并返回二进制流
@@ -41,7 +41,7 @@ object HttpHandler {
    * @return response二进制流
    */
   fun requestStream(url: String, method: HttpMethod, content: String, type: ContentType): InputStream =
-    generate(url, method, content, type).run { doRequest(this)?.body()!!.byteStream() }
+      generate(url, method, content, type).run { doRequest(this)?.body()!!.byteStream() }
 
   /**
    * 以POST方法上传一个Multipart数据，内含多个文件
@@ -65,30 +65,30 @@ object HttpHandler {
   }
 
   private fun doRequest(request: Request): Response? =
-    try {
-      val response = client.newCall(request).execute()
-      if (!response.isSuccessful) {
-        logger.error { response.message() }
+      try {
+        val response = client.newCall(request).execute()
+        if (!response.isSuccessful) {
+          logger.error { response.message() }
+          null
+        } else {
+          response
+        }
+      } catch (ex: IOException) {
+        logger.error(ex) { "OkHttp Request Exception" }
         null
-      } else {
-        response
       }
-    } catch (ex: IOException) {
-      logger.error(ex) { "OkHttp Request Exception" }
-      null
-    }
 
   private fun generate(url: String, method: HttpMethod, content: String, type: ContentType): Request =
-    Request.Builder().url(url).let {
-      when (method) {
-        HttpMethod.GET -> it.build()
-        HttpMethod.HEAD -> it.head().build()
-        HttpMethod.POST -> it.post(RequestBody.create(type.mediaType, content)).build()
-        HttpMethod.PUT -> it.put(RequestBody.create(type.mediaType, content)).build()
-        HttpMethod.PATCH -> it.patch(RequestBody.create(type.mediaType, content)).build()
-        HttpMethod.DELETE -> it.delete(RequestBody.create(type.mediaType, content)).build()
+      Request.Builder().url(url).let {
+        when (method) {
+          HttpMethod.GET -> it.build()
+          HttpMethod.HEAD -> it.head().build()
+          HttpMethod.POST -> it.post(RequestBody.create(type.mediaType, content)).build()
+          HttpMethod.PUT -> it.put(RequestBody.create(type.mediaType, content)).build()
+          HttpMethod.PATCH -> it.patch(RequestBody.create(type.mediaType, content)).build()
+          HttpMethod.DELETE -> it.delete(RequestBody.create(type.mediaType, content)).build()
+        }
       }
-    }
 
 }
 

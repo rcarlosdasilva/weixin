@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import io.github.rcarlosdasilva.weixin.core.Weixin;
 import io.github.rcarlosdasilva.weixin.mix.TestHelper;
 import io.github.rcarlosdasilva.weixin.model.request.Article;
-import io.github.rcarlosdasilva.weixin.model.response.*;
 import io.github.rcarlosdasilva.weixin.terms.data.MaterialType;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -23,9 +22,8 @@ import java.util.Random;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class JavaMpMaterialTest {
 
-  private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
   private static String key;
+  private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
   @BeforeClass
   public static void before() {

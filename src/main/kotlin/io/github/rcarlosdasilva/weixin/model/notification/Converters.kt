@@ -65,7 +65,7 @@ class SendPicsConverter : Converter {
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
 class ResponseConverter(mapper: Mapper, reflectionProvider: ReflectionProvider) :
-  ReflectionConverter(mapper, reflectionProvider) {
+    ReflectionConverter(mapper, reflectionProvider) {
 
   override fun canConvert(type: Class<*>): Boolean = type == PlaintextNotificationResponse::class.java
 

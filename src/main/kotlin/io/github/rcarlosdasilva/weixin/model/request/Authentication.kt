@@ -9,11 +9,11 @@ import io.github.rcarlosdasilva.weixin.terms.*
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
 class MpAccessTokenRequest(
-  private val appId: String,
-  private val appSecret: String
+    private val appId: String,
+    private val appSecret: String
 ) : MpRequest() {
   override fun toString(): String =
-    "$URL_CERTIFICATE_TOKEN?grant_type=$ACCESS_TOKEN_GRANT_TYPE&appid=$appId&secret=$appSecret"
+      "$URL_CERTIFICATE_TOKEN?grant_type=$ACCESS_TOKEN_GRANT_TYPE&appid=$appId&secret=$appSecret"
 }
 
 /**
@@ -32,12 +32,12 @@ class JsapiTicketRequest : MpRequest() {
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
 class WaAccessTokenRequest(
-  private val appId: String,
-  private val appSecret: String,
-  private val code: String
+    private val appId: String,
+    private val appSecret: String,
+    private val code: String
 ) : MpRequest() {
   override fun toString(): String =
-    "$URL_CERTIFICATE_WEB_AUTHORIZE_TOKEN?appid=$appId&secret=$appSecret&code=$code&grant_type=$WEB_AUTHORIZE_ACCESS_TOKEN_GRANT_TYPE"
+      "$URL_CERTIFICATE_WEB_AUTHORIZE_TOKEN?appid=$appId&secret=$appSecret&code=$code&grant_type=$WEB_AUTHORIZE_ACCESS_TOKEN_GRANT_TYPE"
 }
 
 /**
@@ -46,11 +46,11 @@ class WaAccessTokenRequest(
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
 class WaAccessTokenRefreshRequest(
-  private val appId: String,
-  private val refreshToken: String
+    private val appId: String,
+    private val refreshToken: String
 ) : MpRequest() {
   override fun toString(): String =
-    "$URL_CERTIFICATE_WEB_AUTHORIZE_TOKEN_REFRESH?appid=$appId&grant_type=$WEB_AUTHORIZE_ACCESS_TOKEN_REFRESH_GRANT_TYPE&refresh_token=$refreshToken"
+      "$URL_CERTIFICATE_WEB_AUTHORIZE_TOKEN_REFRESH?appid=$appId&grant_type=$WEB_AUTHORIZE_ACCESS_TOKEN_REFRESH_GRANT_TYPE&refresh_token=$refreshToken"
 }
 
 /**
@@ -59,11 +59,11 @@ class WaAccessTokenRefreshRequest(
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
 class WaAccessTokenVerifyRequest(
-  private val waAccessToken: String,
-  private val openId: String
+    private val waAccessToken: String,
+    private val openId: String
 ) : MpRequest() {
   override fun toString(): String =
-    "$URL_CERTIFICATE_WEB_AUTHORIZE_TOKEN_VERIFY?access_token=$waAccessToken&openid=$openId"
+      "$URL_CERTIFICATE_WEB_AUTHORIZE_TOKEN_VERIFY?access_token=$waAccessToken&openid=$openId"
 }
 
 // ------------------------- 开放平台 ------------------------------
@@ -77,9 +77,9 @@ class WaAccessTokenVerifyRequest(
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
 class OpAccessTokenRequest(
-  @SerializedName("component_appid") val appId: String,
-  @SerializedName("component_appsecret") val appSecret: String,
-  @SerializedName("component_verify_ticket") val ticket: String
+    @SerializedName("component_appid") val appId: String,
+    @SerializedName("component_appsecret") val appSecret: String,
+    @SerializedName("component_verify_ticket") val ticket: String
 ) : OpRequest() {
   override fun toString(): String = URL_OPEN_PLATFORM_ACCESS_TOKEN
 }
@@ -90,7 +90,7 @@ class OpAccessTokenRequest(
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
 class OpAuthPreAuthCodeRequest(
-  @SerializedName("component_appid") private val appId: String
+    @SerializedName("component_appid") private val appId: String
 ) : OpRequest() {
   init {
     this.path = URL_OPEN_PLATFORM_PRE_AUTH_CODE
@@ -106,8 +106,8 @@ class OpAuthPreAuthCodeRequest(
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
 class OpGetLicensingInformationRequest(
-  @SerializedName("component_appid") private val appId: String,
-  @SerializedName("authorization_code") private val authCode: String
+    @SerializedName("component_appid") private val appId: String,
+    @SerializedName("authorization_code") private val authCode: String
 ) : OpRequest() {
   init {
     this.path = URL_OPEN_PLATFORM_LICENSE_INFORMATION
@@ -123,9 +123,9 @@ class OpGetLicensingInformationRequest(
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
 class OpRefreshLicensorAccessTokenRequest(
-  @SerializedName("component_appid") private val appId: String,
-  @SerializedName("authorizer_appid") private val licensorAppId: String,
-  @SerializedName("authorizer_refresh_token") private val licensorRefreshToken: String
+    @SerializedName("component_appid") private val appId: String,
+    @SerializedName("authorizer_appid") private val licensorAppId: String,
+    @SerializedName("authorizer_refresh_token") private val licensorRefreshToken: String
 ) : OpRequest() {
   init {
     this.path = URL_OPEN_PLATFORM_REFRESH_LICENSOR_ACCESS_TOKEN
@@ -136,8 +136,8 @@ class OpRefreshLicensorAccessTokenRequest(
  * 获取授权方信息请求模型
  */
 class OpGetLicensorInformationRequest(
-  @SerializedName("component_appid") private val appId: String,
-  @SerializedName("authorizer_appid") private val licensorAppId: String
+    @SerializedName("component_appid") private val appId: String,
+    @SerializedName("authorizer_appid") private val licensorAppId: String
 ) : OpRequest() {
   init {
     this.path = URL_OPEN_PLATFORM_LICENSOR_INFORMATION
@@ -150,9 +150,9 @@ class OpGetLicensorInformationRequest(
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
 class OpGetLicensorOptionRequest(
-  @SerializedName("component_appid") private val appId: String,
-  @SerializedName("authorizer_appid") private val licensorAppId: String,
-  @SerializedName("option_name") private val optionName: String
+    @SerializedName("component_appid") private val appId: String,
+    @SerializedName("authorizer_appid") private val licensorAppId: String,
+    @SerializedName("option_name") private val optionName: String
 ) : OpRequest() {
   init {
     this.path = URL_OPEN_PLATFORM_GET_LICENSOR_OPTION
@@ -165,10 +165,10 @@ class OpGetLicensorOptionRequest(
  * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 class OpSetLicensorOptionRequest(
-  @SerializedName("component_appid") private val appId: String,
-  @SerializedName("authorizer_appid") private val licensorAppId: String,
-  @SerializedName("option_name") private val optionName: String,
-  @SerializedName("option_value") private val value: String
+    @SerializedName("component_appid") private val appId: String,
+    @SerializedName("authorizer_appid") private val licensorAppId: String,
+    @SerializedName("option_name") private val optionName: String,
+    @SerializedName("option_value") private val value: String
 ) : OpRequest() {
   init {
     this.path = URL_OPEN_PLATFORM_SET_LICENSOR_OPTION

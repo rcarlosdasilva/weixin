@@ -46,11 +46,11 @@ class MenuBuilder {
    * @return 菜单构造器
    */
   fun addRootClick(title: String, key: String): MenuBuilder =
-    Button(title, MenuType.CLICK.text).let {
-      it.key = key
-      menu.buttons.add(it)
-      this
-    }
+      Button(title, MenuType.CLICK.text).let {
+        it.key = key
+        menu.buttons.add(it)
+        this
+      }
 
   /**
    * 添加一个一级菜单：view：跳转URL
@@ -62,11 +62,11 @@ class MenuBuilder {
    * @return 菜单构造器
    */
   fun addRootView(title: String, url: String): MenuBuilder =
-    Button(title, MenuType.VIEW.text).let {
-      it.url = url
-      menu.buttons.add(it)
-      this
-    }
+      Button(title, MenuType.VIEW.text).let {
+        it.url = url
+        menu.buttons.add(it)
+        this
+      }
 
   /**
    * 添加一个一级菜单：scancode_push：扫码推事件
@@ -79,11 +79,11 @@ class MenuBuilder {
    * @return 菜单构造器
    */
   fun addRootScanQrPush(title: String, key: String): MenuBuilder =
-    Button(title, MenuType.SCAN_QR_PUSH.text).let {
-      it.key = key
-      menu.buttons.add(it)
-      this
-    }
+      Button(title, MenuType.SCAN_QR_PUSH.text).let {
+        it.key = key
+        menu.buttons.add(it)
+        this
+      }
 
   /**
    * 添加一个一级菜单：scancode_waitmsg：扫码推事件且弹出“消息接收中”提示框
@@ -96,11 +96,11 @@ class MenuBuilder {
    * @return 菜单构造器
    */
   fun addRootScanQrWaitMsg(title: String, key: String): MenuBuilder =
-    Button(title, MenuType.SCAN_QR_WAIT_MSG.text).let {
-      it.key = key
-      menu.buttons.add(it)
-      this
-    }
+      Button(title, MenuType.SCAN_QR_WAIT_MSG.text).let {
+        it.key = key
+        menu.buttons.add(it)
+        this
+      }
 
   /**
    * 添加一个一级菜单：pic_sysphoto：弹出系统拍照发图
@@ -113,11 +113,11 @@ class MenuBuilder {
    * @return 菜单构造器
    */
   fun addRootPicPhoto(title: String, key: String): MenuBuilder =
-    Button(title, MenuType.PIC_PHOTO.text).let {
-      it.key = key
-      menu.buttons.add(it)
-      this
-    }
+      Button(title, MenuType.PIC_PHOTO.text).let {
+        it.key = key
+        menu.buttons.add(it)
+        this
+      }
 
   /**
    * 添加一个一级菜单：pic_photo_or_album：弹出拍照或者相册发图
@@ -129,11 +129,11 @@ class MenuBuilder {
    * @return 菜单构造器
    */
   fun addRootPicPhotoOrAlbum(title: String, key: String): MenuBuilder =
-    Button(title, MenuType.PIC_PHOTO_OR_ALBUM.text).let {
-      it.key = key
-      menu.buttons.add(it)
-      this
-    }
+      Button(title, MenuType.PIC_PHOTO_OR_ALBUM.text).let {
+        it.key = key
+        menu.buttons.add(it)
+        this
+      }
 
   /**
    * 添加一个一级菜单：pic_weixin：弹出微信相册发图器
@@ -146,11 +146,11 @@ class MenuBuilder {
    * @return 菜单构造器
    */
   fun addRootPicWxAlbum(title: String, key: String): MenuBuilder =
-    Button(title, MenuType.PIC_WX_ALBUM.text).let {
-      it.key = key
-      menu.buttons.add(it)
-      this
-    }
+      Button(title, MenuType.PIC_WX_ALBUM.text).let {
+        it.key = key
+        menu.buttons.add(it)
+        this
+      }
 
   /**
    * 添加一个一级菜单：location_select：弹出地理位置选择器
@@ -163,11 +163,11 @@ class MenuBuilder {
    * @return 菜单构造器
    */
   fun addRootLocation(title: String, key: String): MenuBuilder =
-    Button(title, MenuType.LOCATION.text).let {
-      it.key = key
-      menu.buttons.add(it)
-      this
-    }
+      Button(title, MenuType.LOCATION.text).let {
+        it.key = key
+        menu.buttons.add(it)
+        this
+      }
 
   /**
    * 添加一个一级菜单：media_id：下发消息（除文本消息）
@@ -180,11 +180,11 @@ class MenuBuilder {
    * @return 菜单构造器
    */
   fun addRootSendMedia(title: String, mediaId: String): MenuBuilder =
-    Button(title, MenuType.SEND_MEDIA.text).let {
-      it.mediaId = mediaId
-      menu.buttons.add(it)
-      this
-    }
+      Button(title, MenuType.SEND_MEDIA.text).let {
+        it.mediaId = mediaId
+        menu.buttons.add(it)
+        this
+      }
 
   /**
    * 添加一个一级菜单：view_limited：跳转图文消息URL
@@ -197,11 +197,11 @@ class MenuBuilder {
    * @return 菜单构造器
    */
   fun addRootRedirectView(title: String, mediaId: String): MenuBuilder =
-    Button(title, MenuType.REDIRECT_VIEW.text).let {
-      it.mediaId = mediaId
-      menu.buttons.add(it)
-      this
-    }
+      Button(title, MenuType.REDIRECT_VIEW.text).let {
+        it.mediaId = mediaId
+        menu.buttons.add(it)
+        this
+      }
 
   /**
    * 添加一个一级菜单：miniprogram：小程序
@@ -213,13 +213,13 @@ class MenuBuilder {
    * @return 菜单构造器
    */
   fun addRootMiniProgram(title: String, url: String, appid: String, path: String): MenuBuilder =
-    Button(title, MenuType.MINI_PROGRAM.text).let {
-      it.url = url
-      it.appid = appid
-      it.path = path
-      menu.buttons.add(it)
-      this
-    }
+      Button(title, MenuType.MINI_PROGRAM.text).let {
+        it.url = url
+        it.appid = appid
+        it.path = path
+        menu.buttons.add(it)
+        this
+      }
 
   /**
    * 添加一个二级菜单，并开始配置
@@ -229,10 +229,10 @@ class MenuBuilder {
    * @see SubMenuBuilder
    */
   fun addRootWithSubButtons(title: String): SubMenuBuilder =
-    Button(title, "").let {
-      menu.buttons.add(it)
-      SubMenuBuilder(this, it)
-    }
+      Button(title, "").let {
+        menu.buttons.add(it)
+        SubMenuBuilder(this, it)
+      }
 
   /**
    * 构造菜单数据
@@ -259,11 +259,11 @@ class MenuBuilder {
      * @return 菜单构造器
      */
     fun addClick(title: String, key: String): SubMenuBuilder =
-      SubButton(title, MenuType.CLICK.text).let {
-        it.key = key
-        rootButton.subButtons.add(it)
-        this
-      }
+        SubButton(title, MenuType.CLICK.text).let {
+          it.key = key
+          rootButton.subButtons.add(it)
+          this
+        }
 
     /**
      * 添加一个二级菜单：view：跳转URL
@@ -275,11 +275,11 @@ class MenuBuilder {
      * @return 菜单构造器
      */
     fun addView(title: String, url: String): SubMenuBuilder =
-      SubButton(title, MenuType.VIEW.text).let {
-        it.url = url
-        rootButton.subButtons.add(it)
-        this
-      }
+        SubButton(title, MenuType.VIEW.text).let {
+          it.url = url
+          rootButton.subButtons.add(it)
+          this
+        }
 
     /**
      * 添加一个二级菜单：scancode_push：扫码推事件
@@ -292,11 +292,11 @@ class MenuBuilder {
      * @return 菜单构造器
      */
     fun addScanQrPush(title: String, key: String): SubMenuBuilder =
-      SubButton(title, MenuType.SCAN_QR_PUSH.text).let {
-        it.key = key
-        rootButton.subButtons.add(it)
-        this
-      }
+        SubButton(title, MenuType.SCAN_QR_PUSH.text).let {
+          it.key = key
+          rootButton.subButtons.add(it)
+          this
+        }
 
     /**
      * 添加一个二级菜单：scancode_waitmsg：扫码推事件且弹出“消息接收中”提示框
@@ -309,11 +309,11 @@ class MenuBuilder {
      * @return 菜单构造器
      */
     fun addScanQrWaitMsg(title: String, key: String): SubMenuBuilder =
-      SubButton(title, MenuType.SCAN_QR_WAIT_MSG.text).let {
-        it.key = key
-        rootButton.subButtons.add(it)
-        this
-      }
+        SubButton(title, MenuType.SCAN_QR_WAIT_MSG.text).let {
+          it.key = key
+          rootButton.subButtons.add(it)
+          this
+        }
 
     /**
      * 添加一个二级菜单：pic_sysphoto：弹出系统拍照发图
@@ -326,11 +326,11 @@ class MenuBuilder {
      * @return 菜单构造器
      */
     fun addPicPhoto(title: String, key: String): SubMenuBuilder =
-      SubButton(title, MenuType.PIC_PHOTO.text).let {
-        it.key = key
-        rootButton.subButtons.add(it)
-        this
-      }
+        SubButton(title, MenuType.PIC_PHOTO.text).let {
+          it.key = key
+          rootButton.subButtons.add(it)
+          this
+        }
 
     /**
      * 添加一个二级菜单：pic_photo_or_album：弹出拍照或者相册发图
@@ -342,11 +342,11 @@ class MenuBuilder {
      * @return 菜单构造器
      */
     fun addPicPhotoOrAlbum(title: String, key: String): SubMenuBuilder =
-      SubButton(title, MenuType.PIC_PHOTO_OR_ALBUM.text).let {
-        it.key = key
-        rootButton.subButtons.add(it)
-        this
-      }
+        SubButton(title, MenuType.PIC_PHOTO_OR_ALBUM.text).let {
+          it.key = key
+          rootButton.subButtons.add(it)
+          this
+        }
 
     /**
      * 添加一个二级菜单：pic_weixin：弹出微信相册发图器
@@ -359,11 +359,11 @@ class MenuBuilder {
      * @return 菜单构造器
      */
     fun addPicWxAlbum(title: String, key: String): SubMenuBuilder =
-      SubButton(title, MenuType.PIC_WX_ALBUM.text).let {
-        it.key = key
-        rootButton.subButtons.add(it)
-        this
-      }
+        SubButton(title, MenuType.PIC_WX_ALBUM.text).let {
+          it.key = key
+          rootButton.subButtons.add(it)
+          this
+        }
 
     /**
      * 添加一个二级菜单：location_select：弹出地理位置选择器
@@ -376,11 +376,11 @@ class MenuBuilder {
      * @return 菜单构造器
      */
     fun addLocation(title: String, key: String): SubMenuBuilder =
-      SubButton(title, MenuType.LOCATION.text).let {
-        it.key = key
-        rootButton.subButtons.add(it)
-        this
-      }
+        SubButton(title, MenuType.LOCATION.text).let {
+          it.key = key
+          rootButton.subButtons.add(it)
+          this
+        }
 
     /**
      * 添加一个二级菜单：media_id：下发消息（除文本消息）
@@ -393,11 +393,11 @@ class MenuBuilder {
      * @return 菜单构造器
      */
     fun addSendMedia(title: String, mediaId: String): SubMenuBuilder =
-      SubButton(title, MenuType.SEND_MEDIA.text).let {
-        it.mediaId = mediaId
-        rootButton.subButtons.add(it)
-        this
-      }
+        SubButton(title, MenuType.SEND_MEDIA.text).let {
+          it.mediaId = mediaId
+          rootButton.subButtons.add(it)
+          this
+        }
 
     /**
      * 添加一个二级菜单：view_limited：跳转图文消息URL
@@ -410,11 +410,11 @@ class MenuBuilder {
      * @return 菜单构造器
      */
     fun addRedirectView(title: String, mediaId: String): SubMenuBuilder =
-      SubButton(title, MenuType.REDIRECT_VIEW.text).let {
-        it.mediaId = mediaId
-        rootButton.subButtons.add(it)
-        this
-      }
+        SubButton(title, MenuType.REDIRECT_VIEW.text).let {
+          it.mediaId = mediaId
+          rootButton.subButtons.add(it)
+          this
+        }
 
     /**
      * 添加一个二级菜单：miniprogram：小程序
@@ -426,13 +426,13 @@ class MenuBuilder {
      * @return 菜单构造器
      */
     fun addMiniProgram(title: String, url: String, appid: String, path: String): SubMenuBuilder =
-      SubButton(title, MenuType.MINI_PROGRAM.text).let {
-        it.url = url
-        it.appid = appid
-        it.path = path
-        rootButton.subButtons.add(it)
-        this
-      }
+        SubButton(title, MenuType.MINI_PROGRAM.text).let {
+          it.url = url
+          it.appid = appid
+          it.path = path
+          rootButton.subButtons.add(it)
+          this
+        }
 
     /**
      * 返回一级菜单构造器

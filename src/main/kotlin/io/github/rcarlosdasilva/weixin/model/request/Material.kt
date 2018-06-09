@@ -14,13 +14,13 @@ import io.github.rcarlosdasilva.weixin.terms.*
  * @param sourceUrl 图文消息的原文地址，即点击“阅读原文”后的URL
  */
 class Article(
-  private val title: String,
-  @SerializedName("thumb_media_id") private val thumbnailMaterialId: String,
-  private val author: String,
-  private val digest: String?,
-  @Expose private val showCover: Boolean,
-  private val content: String,
-  @SerializedName("content_source_url") private val sourceUrl: String
+    private val title: String,
+    @SerializedName("thumb_media_id") private val thumbnailMaterialId: String,
+    private val author: String,
+    private val digest: String?,
+    @Expose private val showCover: Boolean,
+    private val content: String,
+    @SerializedName("content_source_url") private val sourceUrl: String
 ) {
   @SerializedName("show_cover_pic")
   private val showCoverPic = if (showCover) GLOBAL_TRUE_NUMBER else GLOBAL_FALSE_NUMBER
@@ -34,15 +34,15 @@ class Article(
    * @param onlyFansComment 是否粉丝才可评论，0所有人可评论，1粉丝才可评论
    */
   constructor(
-    title: String,
-    thumbnailMaterialId: String,
-    author: String,
-    digest: String,
-    showCover: Boolean,
-    content: String,
-    sourceUrl: String,
-    openComment: Boolean,
-    onlyFansComment: Boolean
+      title: String,
+      thumbnailMaterialId: String,
+      author: String,
+      digest: String,
+      showCover: Boolean,
+      content: String,
+      sourceUrl: String,
+      openComment: Boolean,
+      onlyFansComment: Boolean
   ) : this(title, thumbnailMaterialId, author, digest, showCover, content, sourceUrl) {
     this.openComment = if (openComment) GLOBAL_TRUE_NUMBER else GLOBAL_FALSE_NUMBER
     this.onlyFansComment = if (onlyFansComment) GLOBAL_TRUE_NUMBER else GLOBAL_FALSE_NUMBER
@@ -181,9 +181,9 @@ class MaterialGetTimelessRequest(@SerializedName("media_id") private val materia
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
 class MaterialListTimelessRequest(
-  private val type: String,
-  private val offset: Int,
-  private val count: Int
+    private val type: String,
+    private val offset: Int,
+    private val count: Int
 ) : MpRequest() {
   init {
     this.path = URL_MATERIAL_TIMELESS_LIST
@@ -196,9 +196,9 @@ class MaterialListTimelessRequest(
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
 class MaterialTransformVideoRequest(
-  @SerializedName("media_id") private val materialId: String,
-  private val title: String,
-  private val description: String
+    @SerializedName("media_id") private val materialId: String,
+    private val title: String,
+    private val description: String
 ) : MpRequest() {
   init {
     this.path = URL_MATERIAL_TRANSFORM_VIDEO
@@ -211,9 +211,9 @@ class MaterialTransformVideoRequest(
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
 class MaterialUpdateTimelessNewsRequest(
-  @SerializedName("media_id") private val materialId: String,
-  private val index: Int,
-  @SerializedName("articles") private val article: Article
+    @SerializedName("media_id") private val materialId: String,
+    private val index: Int,
+    @SerializedName("articles") private val article: Article
 ) : MpRequest() {
   init {
     this.path = URL_MATERIAL_TIMELESS_UPDATE

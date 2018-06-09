@@ -4,7 +4,6 @@ import io.github.rcarlosdasilva.weixin.core.Weixin;
 import io.github.rcarlosdasilva.weixin.mix.TestHelper;
 import io.github.rcarlosdasilva.weixin.model.JsapiSignature;
 import io.github.rcarlosdasilva.weixin.terms.data.WebAuthorizeScope;
-import org.junit.*;
 import org.junit.runners.MethodSorters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,9 +11,8 @@ import org.slf4j.LoggerFactory;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class JavaMpAuthenticationTest {
 
-  private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
   private static String key;
+  private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
   @BeforeClass
   public static void before() {

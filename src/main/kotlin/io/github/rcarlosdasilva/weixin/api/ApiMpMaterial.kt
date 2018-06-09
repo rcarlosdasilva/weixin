@@ -50,10 +50,10 @@ class ApiMpMaterial(account: Mp) : Api(account) {
     }
 
     return upload(
-      MaterialAddTemporaryResponse::class.java,
-      MaterialAddTemporaryRequest(type.text),
-      MATERIAL_FILE_UPLOAD_KEY,
-      fileName, file, null
+        MaterialAddTemporaryResponse::class.java,
+        MaterialAddTemporaryRequest(type.text),
+        MATERIAL_FILE_UPLOAD_KEY,
+        fileName, file, null
     )
   }
 
@@ -66,21 +66,21 @@ class ApiMpMaterial(account: Mp) : Api(account) {
    * @return 二进制流
    */
   fun getTemporaryMaterial(materialId: String): ByteArray =
-    getStream(MaterialGetTemporaryRequest(materialId)).let { uncertainStream ->
-      // 该接口如果是图片，则返回文件流，如是视频则返回json字符串
-      val result = uncertainStream.use { readStream(it) }
+      getStream(MaterialGetTemporaryRequest(materialId)).let { uncertainStream ->
+        // 该接口如果是图片，则返回文件流，如是视频则返回json字符串
+        val result = uncertainStream.use { readStream(it) }
 
-      return try {
-        // 假设返回的是json字符串
-        val jsonText = String(result)
-        // 尝试解析前面请求返回的json字符串
-        val videoResponse = ResponseParser.parse(MaterialGetTemporaryWithVideoResponse::class.java, jsonText)
-        // 如果能执行到这里，代表是视频，则再发一个请求将视频文件流拉回，否则上边会解析出错，直接返回前面请求的文件流
-        getStream(MaterialGetTemporaryVideoRequest(videoResponse.videoUrl!!)).use { readStream(it) }
-      } catch (ex: Exception) {
-        result
+        return try {
+          // 假设返回的是json字符串
+          val jsonText = String(result)
+          // 尝试解析前面请求返回的json字符串
+          val videoResponse = ResponseParser.parse(MaterialGetTemporaryWithVideoResponse::class.java, jsonText)
+          // 如果能执行到这里，代表是视频，则再发一个请求将视频文件流拉回，否则上边会解析出错，直接返回前面请求的文件流
+          getStream(MaterialGetTemporaryVideoRequest(videoResponse.videoUrl!!)).use { readStream(it) }
+        } catch (ex: Exception) {
+          result
+        }
       }
-    }
 
   /**
    * 获取临时素材（高清语音素材获取接口）
@@ -92,7 +92,7 @@ class ApiMpMaterial(account: Mp) : Api(account) {
    * @return 二进制流
    */
   fun getTemporaryMaterialWithHqAudio(materialId: String): ByteArray =
-    readStream(getStream(MaterialGetTemporaryWithHqAudioRequest(materialId)))
+      readStream(getStream(MaterialGetTemporaryWithHqAudioRequest(materialId)))
 
   /**
    * 新增其他类型永久素材（不包括视频，和图文）
@@ -112,12 +112,12 @@ class ApiMpMaterial(account: Mp) : Api(account) {
     }
 
     return upload(
-      MaterialAddTimelessResponse::class.java,
-      MaterialAddTimelessRequest(type.text),
-      MATERIAL_FILE_UPLOAD_KEY,
-      fileName,
-      file,
-      null
+        MaterialAddTimelessResponse::class.java,
+        MaterialAddTimelessRequest(type.text),
+        MATERIAL_FILE_UPLOAD_KEY,
+        fileName,
+        file,
+        null
     )
   }
 
@@ -133,10 +133,10 @@ class ApiMpMaterial(account: Mp) : Api(account) {
    * @return see [MaterialAddTimelessResponse]
    */
   fun addTimelessMaterialVideo(
-    fileName: String,
-    file: File,
-    title: String,
-    description: String
+      fileName: String,
+      file: File,
+      title: String,
+      description: String
   ): MaterialAddTimelessResponse {
     val obj = JsonObject().apply {
       addProperty(MATERIAL_VIDEO_FORM_TITLE, title)
@@ -144,12 +144,12 @@ class ApiMpMaterial(account: Mp) : Api(account) {
     }
 
     return upload(
-      MaterialAddTimelessResponse::class.java,
-      MaterialAddTimelessRequest(MaterialType.VIDEO.text),
-      MATERIAL_FILE_UPLOAD_KEY,
-      fileName,
-      file,
-      listOf(FormData(MATERIAL_VIDEO_FORM_KEY, obj.toString()))
+        MaterialAddTimelessResponse::class.java,
+        MaterialAddTimelessRequest(MaterialType.VIDEO.text),
+        MATERIAL_FILE_UPLOAD_KEY,
+        fileName,
+        file,
+        listOf(FormData(MATERIAL_VIDEO_FORM_KEY, obj.toString()))
     )
   }
 
@@ -164,7 +164,7 @@ class ApiMpMaterial(account: Mp) : Api(account) {
    * @return 新增的图文消息素材的media_id
    */
   fun addTimelessMaterialNews(articles: List<Article>): String =
-    post(MaterialAddTimelessResponse::class.java, MaterialAddTimelessNewsRequest(articles)).url!!
+      post(MaterialAddTimelessResponse::class.java, MaterialAddTimelessNewsRequest(articles)).url!!
 
   /**
    * 获取永久素材
@@ -179,14 +179,14 @@ class ApiMpMaterial(account: Mp) : Api(account) {
    * @return see [MaterialGetTimelessResponse]
    */
   fun getTimelessMaterial(materialId: String): MaterialGetTimelessResponse =
-    try {
-      post(MaterialGetTimelessResponse::class.java, MaterialGetTimelessRequest(materialId))
-    } catch (ex: JsonSyntaxException) {
-      // Json字符串解析错误，尝试获取二进制流（文件），可能是在获取永久图片、音频素材
-      postStream(MaterialGetTimelessRequest(materialId)).use { readStream(it) }.let {
-        MaterialGetTimelessResponse().apply { stream = it }
+      try {
+        post(MaterialGetTimelessResponse::class.java, MaterialGetTimelessRequest(materialId))
+      } catch (ex: JsonSyntaxException) {
+        // Json字符串解析错误，尝试获取二进制流（文件），可能是在获取永久图片、音频素材
+        postStream(MaterialGetTimelessRequest(materialId)).use { readStream(it) }.let {
+          MaterialGetTimelessResponse().apply { stream = it }
+        }
       }
-    }
 
   /**
    * 删除永久素材
@@ -202,7 +202,7 @@ class ApiMpMaterial(account: Mp) : Api(account) {
    * @return 是否成功
    */
   fun deleteTimelessMaterial(materialId: String): Boolean =
-    post(Boolean::class.java, MaterialDeleteTimelessRequest(materialId))
+      post(Boolean::class.java, MaterialDeleteTimelessRequest(materialId))
 
   /**
    * 修改永久图文素材
@@ -218,7 +218,7 @@ class ApiMpMaterial(account: Mp) : Api(account) {
    * @return 是否成功
    */
   fun updateTimelessMaterialNews(materialId: String, index: Int, article: Article): Boolean =
-    post(Boolean::class.java, MaterialUpdateTimelessNewsRequest(materialId, index, article))
+      post(Boolean::class.java, MaterialUpdateTimelessNewsRequest(materialId, index, article))
 
   /**
    * 获取永久素材总数
@@ -232,7 +232,7 @@ class ApiMpMaterial(account: Mp) : Api(account) {
    * @return see [MaterialCountTimelessResponse]
    */
   fun countTimelessMaterial(): MaterialCountTimelessResponse =
-    get(MaterialCountTimelessResponse::class.java, MaterialCountTimelessRequest())
+      get(MaterialCountTimelessResponse::class.java, MaterialCountTimelessRequest())
 
   /**
    * 获取永久素材列表
@@ -249,7 +249,7 @@ class ApiMpMaterial(account: Mp) : Api(account) {
    * @return see [MaterialListTimelessResponse]
    */
   fun listTimelessMaterial(type: MaterialType, offset: Int, count: Int): MaterialListTimelessResponse =
-    post(MaterialListTimelessResponse::class.java, MaterialListTimelessRequest(type.text, offset, count))
+      post(MaterialListTimelessResponse::class.java, MaterialListTimelessRequest(type.text, offset, count))
 
   /**
    * 上传图文消息内的图片获取URL
@@ -261,14 +261,14 @@ class ApiMpMaterial(account: Mp) : Api(account) {
    * @return 上传图片的URL，可用于后续群发中，放置到图文消息中
    */
   fun addNewsImage(fileName: String, file: File): String =
-    upload(
-      Material::class.java,
-      MaterialAddNewsImageRequest(),
-      MATERIAL_FILE_UPLOAD_KEY,
-      fileName,
-      file,
-      null
-    ).url!!
+      upload(
+          Material::class.java,
+          MaterialAddNewsImageRequest(),
+          MATERIAL_FILE_UPLOAD_KEY,
+          fileName,
+          file,
+          null
+      ).url!!
 
   /**
    * 上传图文消息素材（群发）
@@ -277,11 +277,11 @@ class ApiMpMaterial(account: Mp) : Api(account) {
    * @return see [MaterialAddNewsResponse]
    */
   @Deprecated(
-    "接口地址为 media/uploadnews，与另一个接口 material/add_news作用相同，只保留一个即可",
-    ReplaceWith(".addTimelessMaterialNews")
+      "接口地址为 media/uploadnews，与另一个接口 material/add_news作用相同，只保留一个即可",
+      ReplaceWith(".addTimelessMaterialNews")
   )
   fun addNews(articles: List<Article>): MaterialAddNewsResponse =
-    post(MaterialAddNewsResponse::class.java, MaterialAddNewsRequest(articles))
+      post(MaterialAddNewsResponse::class.java, MaterialAddNewsRequest(articles))
 
   /**
    * 转换视频素材media_id
@@ -297,12 +297,12 @@ class ApiMpMaterial(account: Mp) : Api(account) {
    * @return see [MaterialTransformVideoResponse]
    */
   fun transformVideo(
-    materialId: String, title: String,
-    description: String
+      materialId: String, title: String,
+      description: String
   ): MaterialTransformVideoResponse =
-    post(
-      MaterialTransformVideoResponse::class.java,
-      MaterialTransformVideoRequest(materialId, title, description)
-    )
+      post(
+          MaterialTransformVideoResponse::class.java,
+          MaterialTransformVideoRequest(materialId, title, description)
+      )
 
 }

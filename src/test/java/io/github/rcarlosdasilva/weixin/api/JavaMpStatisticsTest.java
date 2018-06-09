@@ -17,9 +17,8 @@ import java.util.Date;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class JavaMpStatisticsTest {
 
-  private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
   private static String key;
+  private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
   @BeforeClass
   public static void before() {

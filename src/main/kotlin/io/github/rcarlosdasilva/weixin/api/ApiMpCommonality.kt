@@ -30,10 +30,10 @@ class ApiMpCommonality(private val account: Mp) : Api(account) {
    * @return IP地址列表
    */
   fun getWeixinIps(): List<String> =
-    get(ServerIpsResponse::class.java, ServerIpsRequest()).ipList!!.also {
-      logger.info { "获取到新的微信服务器IP地址列表（size=${it.size}）：" }
-      it.forEach { logger.info { "  weixin ip: $it" } }
-    }
+      get(ServerIpsResponse::class.java, ServerIpsRequest()).ipList!!.also {
+        logger.info { "获取到新的微信服务器IP地址列表（size=${it.size}）：" }
+        it.forEach { logger.info { "  weixin ip: $it" } }
+      }
 
   /**
    * 判断ip是否是可信任的微信ip
@@ -65,7 +65,7 @@ class ApiMpCommonality(private val account: Mp) : Api(account) {
    * @return 短链接
    */
   fun getShortUrl(url: String): String =
-    post(ShortUrlResponse::class.java, ShortUrlRequest(url)).shortUrl!!
+      post(ShortUrlResponse::class.java, ShortUrlRequest(url)).shortUrl!!
 
   private fun requestCreateQr(requestModel: QrCodeCreateRequest): QrCodeCreateResponse {
     return post(QrCodeCreateResponse::class.java, requestModel)
@@ -82,17 +82,17 @@ class ApiMpCommonality(private val account: Mp) : Api(account) {
    * @return [QrCodeCreateResponse] 包含ticket和url两个有效值
    */
   fun createTemporaryQr(expireSeconds: Long, sceneId: Int): QrCodeCreateResponse =
-    requestCreateQr(QrCodeCreateRequest(expireSeconds, QrCodeAction.TEMPORARY_WITH_ID.toString()).apply {
-      info["scene"] = mapOf("scene_id" to sceneId)
-    })
+      requestCreateQr(QrCodeCreateRequest(expireSeconds, QrCodeAction.TEMPORARY_WITH_ID.toString()).apply {
+        info["scene"] = mapOf("scene_id" to sceneId)
+      })
 
   /**
    * 同[createTemporaryQr]
    */
   fun createTemporaryQr(expireSeconds: Long, sceneString: String): QrCodeCreateResponse =
-    requestCreateQr(QrCodeCreateRequest(expireSeconds, QrCodeAction.TEMPORARY_WITH_STRING.toString()).apply {
-      info["scene"] = mapOf("scene_str" to sceneString)
-    })
+      requestCreateQr(QrCodeCreateRequest(expireSeconds, QrCodeAction.TEMPORARY_WITH_STRING.toString()).apply {
+        info["scene"] = mapOf("scene_str" to sceneString)
+      })
 
   /**
    * 生成带参数的永久二维码
@@ -103,17 +103,17 @@ class ApiMpCommonality(private val account: Mp) : Api(account) {
    * @return [QrCodeCreateResponse] 包含ticket和url两个有效值
    */
   fun createUnlimitedQr(sceneId: Int): QrCodeCreateResponse =
-    requestCreateQr(QrCodeCreateRequest(null, QrCodeAction.UNLIMITED_WITH_ID.toString()).apply {
-      info["scene"] = mapOf("scene_id" to sceneId)
-    })
+      requestCreateQr(QrCodeCreateRequest(null, QrCodeAction.UNLIMITED_WITH_ID.toString()).apply {
+        info["scene"] = mapOf("scene_id" to sceneId)
+      })
 
   /**
    * 同[createUnlimitedQr]
    */
   fun createUnlimitedQr(sceneString: String): QrCodeCreateResponse =
-    requestCreateQr(QrCodeCreateRequest(null, QrCodeAction.UNLIMITED_WITH_STRING.toString()).apply {
-      info["scene"] = mapOf("scene_str" to sceneString)
-    })
+      requestCreateQr(QrCodeCreateRequest(null, QrCodeAction.UNLIMITED_WITH_STRING.toString()).apply {
+        info["scene"] = mapOf("scene_str" to sceneString)
+      })
 
   /**
    * 通过创建二维码结果获取图片
@@ -136,17 +136,17 @@ class ApiMpCommonality(private val account: Mp) : Api(account) {
    * @return 图片文件流
    */
   fun downloadTemporaryQrImage(expireSeconds: Long, sceneId: Int): ByteArray =
-    createTemporaryQr(expireSeconds, sceneId).let {
-      downloadQrImage(it.ticket!!)
-    }
+      createTemporaryQr(expireSeconds, sceneId).let {
+        downloadQrImage(it.ticket!!)
+      }
 
   /**
    * 同[downloadTemporaryQrImage]
    */
   fun downloadTemporaryQrImage(expireSeconds: Long, sceneString: String): ByteArray =
-    createTemporaryQr(expireSeconds, sceneString).let {
-      downloadQrImage(it.ticket!!)
-    }
+      createTemporaryQr(expireSeconds, sceneString).let {
+        downloadQrImage(it.ticket!!)
+      }
 
   /**
    * 直接获取带参数的永久二维码
@@ -157,17 +157,17 @@ class ApiMpCommonality(private val account: Mp) : Api(account) {
    * @return 图片文件流
    */
   fun downloadUnlimitedQrImage(senceId: Int): ByteArray =
-    createUnlimitedQr(senceId).let {
-      downloadQrImage(it.ticket!!)
-    }
+      createUnlimitedQr(senceId).let {
+        downloadQrImage(it.ticket!!)
+      }
 
   /**
    * 同[downloadUnlimitedQrImage]
    */
   fun downloadUnlimitedQrImage(sceneString: String): ByteArray =
-    createUnlimitedQr(sceneString).let {
-      downloadQrImage(it.ticket!!)
-    }
+      createUnlimitedQr(sceneString).let {
+        downloadQrImage(it.ticket!!)
+      }
 
   /**
    * 公众号调用接口调用次数清零API

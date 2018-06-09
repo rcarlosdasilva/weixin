@@ -9,8 +9,8 @@ import io.github.rcarlosdasilva.weixin.terms.*
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
 data class UserTag(
-  val id: Int? = null,
-  val name: String? = null
+    val id: Int? = null,
+    val name: String? = null
 )
 
 /**
@@ -69,8 +69,8 @@ class UserTagListRequest : MpRequest() {
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
 class UserTagTaggingRequest(
-  @SerializedName("tagid") private var id: Int,
-  @SerializedName("openid_list") private var openIds: List<String>
+    @SerializedName("tagid") private var id: Int,
+    @SerializedName("openid_list") private var openIds: List<String>
 ) : MpRequest() {
   init {
     this.path = URL_USER_TAG_TAGGING_USER
@@ -83,8 +83,8 @@ class UserTagTaggingRequest(
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
 class UserTagUntaggingRequest(
-  @SerializedName("tagid") private var id: Int,
-  @SerializedName("openid_list") private var openIds: List<String>
+    @SerializedName("tagid") private var id: Int,
+    @SerializedName("openid_list") private var openIds: List<String>
 ) : MpRequest() {
   init {
     this.path = URL_USER_TAG_UNTAGGING_FROM_USER

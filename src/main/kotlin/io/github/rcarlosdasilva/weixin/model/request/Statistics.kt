@@ -12,8 +12,8 @@ import java.util.*
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
 class StatisticsRequest(
-  @Freeze private val beginTime: Date,
-  @Freeze private val endTime: Date
+    @Freeze private val beginTime: Date,
+    @Freeze private val endTime: Date
 ) : MpRequest() {
 
   @SerializedName("begin_date")

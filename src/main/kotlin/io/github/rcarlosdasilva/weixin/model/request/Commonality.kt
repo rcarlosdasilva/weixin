@@ -21,7 +21,7 @@ class ServerIpsRequest : MpRequest() {
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
 class ShortUrlRequest(
-  @SerializedName("long_url") private val url: String? = null
+    @SerializedName("long_url") private val url: String? = null
 ) : MpRequest() {
   @SerializedName("action")
   private val action = SHROT_URL_ACTION
@@ -37,8 +37,8 @@ class ShortUrlRequest(
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
 class QrCodeCreateRequest(
-  @SerializedName("expire_seconds") private val expireSeconds: Long? = null,
-  @SerializedName("action_name") private val action: String
+    @SerializedName("expire_seconds") private val expireSeconds: Long? = null,
+    @SerializedName("action_name") private val action: String
 ) : MpRequest() {
   @SerializedName("action_info")
   val info = mutableMapOf<String, Any>()

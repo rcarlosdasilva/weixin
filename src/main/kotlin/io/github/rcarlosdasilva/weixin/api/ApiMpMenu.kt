@@ -39,10 +39,10 @@ class ApiMpMenu(account: Mp) : Api(account) {
    * @return 个性化菜单id
    */
   fun createWithConditional(menu: Menu): Long =
-    post(MenuCreateResponse::class.java, MenuCreateRequest(menu.buttons).also {
-      it.matchRule = menu.matchRule
-      it.withConditional()
-    }).menuId
+      post(MenuCreateResponse::class.java, MenuCreateRequest(menu.buttons).also {
+        it.matchRule = menu.matchRule
+        it.withConditional()
+      }).menuId
 
   /**
    * 使用接口创建自定义菜单后，开发者还可使用接口查询自定义菜单的结构。另外请注意，在设置了个性化菜单后，
@@ -77,7 +77,7 @@ class ApiMpMenu(account: Mp) : Api(account) {
    * @return 是否删除
    */
   fun deleteWithConditional(menuId: Long): Boolean =
-    post(Boolean::class.java, MenuDeleteRequest(menuId).also { it.withConditional() })
+      post(Boolean::class.java, MenuDeleteRequest(menuId).also { it.withConditional() })
 
   /**
    * 测试个性化菜单匹配结果
@@ -86,6 +86,6 @@ class ApiMpMenu(account: Mp) : Api(account) {
    * @return 菜单结果
    */
   fun testWithConditional(userLabel: String): MenuInfoResponse =
-    post(MenuInfoResponse::class.java, MenuTestRequest(userLabel))
+      post(MenuInfoResponse::class.java, MenuTestRequest(userLabel))
 
 }

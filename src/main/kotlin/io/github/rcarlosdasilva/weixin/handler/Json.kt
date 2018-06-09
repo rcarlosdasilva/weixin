@@ -21,19 +21,19 @@ import mu.KotlinLogging
 object JsonHandler {
 
   private val gson = GsonBuilder().enableComplexMapKeySerialization()
-    .disableHtmlEscaping().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-    .registerTypeAdapterFactory(CustomTypeAdapterFactory())
-    .addSerializationExclusionStrategy(object : ExclusionStrategy {
+      .disableHtmlEscaping().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+      .registerTypeAdapterFactory(CustomTypeAdapterFactory())
+      .addSerializationExclusionStrategy(object : ExclusionStrategy {
 
-      override fun shouldSkipField(field: FieldAttributes): Boolean {
-        val ann = field.getAnnotation(Freeze::class.java)
-        return ann != null
-      }
+        override fun shouldSkipField(field: FieldAttributes): Boolean {
+          val ann = field.getAnnotation(Freeze::class.java)
+          return ann != null
+        }
 
-      override fun shouldSkipClass(clazz: Class<*>): Boolean {
-        return false
-      }
-    }).create()
+        override fun shouldSkipClass(clazz: Class<*>): Boolean {
+          return false
+        }
+      }).create()
 
   fun <T> toJson(obj: Any, clazz: Class<T>): String {
     Preconditions.checkNotNull(obj)
@@ -62,12 +62,12 @@ annotation class Freeze
 class CustomTypeAdapterFactory : TypeAdapterFactory {
 
   override fun <T> create(gson: Gson, type: TypeToken<T>): TypeAdapter<T>? =
-    when (type.rawType) {
-      MassRequestUser::class.java -> MessageSendWithMassRequestUserTypeAdapter().nullSafe()
-      OpAccessTokenResponse::class.java -> OpAccessTokenResponseTypeAdapter().nullSafe()
-      OpGetLicenseInformationResponse::class.java -> OpGetLicenseInformationResponseTypeAdapter().nullSafe()
-      else -> null
-    } as TypeAdapter<T>?
+      when (type.rawType) {
+        MassRequestUser::class.java -> MessageSendWithMassRequestUserTypeAdapter().nullSafe()
+        OpAccessTokenResponse::class.java -> OpAccessTokenResponseTypeAdapter().nullSafe()
+        OpGetLicenseInformationResponse::class.java -> OpGetLicenseInformationResponseTypeAdapter().nullSafe()
+        else -> null
+      } as TypeAdapter<T>?
 
 }
 

@@ -63,7 +63,7 @@ class ApiMpUserTag(account: Mp) : Api(account) {
    * @return 是否成功
    */
   fun untag(id: Int, openIds: List<String>): Boolean =
-    post(Boolean::class.java, UserTagUntaggingRequest(id, openIds))
+      post(Boolean::class.java, UserTagUntaggingRequest(id, openIds))
 
   /**
    * 获取用户身上的标签列表
@@ -72,6 +72,6 @@ class ApiMpUserTag(account: Mp) : Api(account) {
    * @return 标签列表
    */
   fun listBasedUser(openId: String): List<Int> =
-    post(UserTagListBasedUserResposne::class.java, UserTagListBasedUserRequest(openId)).tags!!
+      post(UserTagListBasedUserResposne::class.java, UserTagListBasedUserRequest(openId)).tags!!
 
 }

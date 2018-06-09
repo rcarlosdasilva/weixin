@@ -13,8 +13,8 @@ import io.github.rcarlosdasilva.weixin.terms.data.MessageType.*
  * @author <a href="mailto:rcarlosdasilva@qq.com">Dean Zhao</a>
  */
 data class Template(
-  private val value: String,
-  private val color: String
+    private val value: String,
+    private val color: String
 )
 
 interface Message
@@ -24,18 +24,18 @@ class Card(@SerializedName("card_id") private val cardId: String) : Message
 class Image(@SerializedName("media_id") private val mediaId: String) : Message
 
 class Music(
-  @SerializedName("musicurl") private val url: String,
-  @SerializedName("hqmusicurl") private val url4hq: String,
-  @SerializedName("thumb_media_id") private val mediaThumbId: String,
-  private val title: String,
-  private val description: String
+    @SerializedName("musicurl") private val url: String,
+    @SerializedName("hqmusicurl") private val url4hq: String,
+    @SerializedName("thumb_media_id") private val mediaThumbId: String,
+    private val title: String,
+    private val description: String
 ) : Message
 
 class News(
-  private val title: String,
-  private val url: String,
-  private val description: String,
-  @SerializedName("picurl") private val picUrl: String
+    private val title: String,
+    private val url: String,
+    private val description: String,
+    @SerializedName("picurl") private val picUrl: String
 )
 
 class NewsExternal : Message {
@@ -48,10 +48,10 @@ class NewsInternal(@SerializedName("media_id") private val mediaId: String) : Me
 class Text(private val content: String) : Message
 
 class Video(
-  @SerializedName("media_id") private val mediaId: String,
-  @SerializedName("thumb_media_id") private val mediaThumbId: String,
-  private val title: String,
-  private val description: String
+    @SerializedName("media_id") private val mediaId: String,
+    @SerializedName("thumb_media_id") private val mediaThumbId: String,
+    private val title: String,
+    private val description: String
 ) : Message
 
 class Voice(@SerializedName("media_id") private val mediaId: String) : Message
@@ -94,10 +94,10 @@ class MassFilter {
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
 class MessageSendWithTemplateRequest(
-  @SerializedName("touser") private val to: String,
-  @SerializedName("template_id") private val templateId: String,
-  @Expose private val redirect: String,
-  private val data: Map<String, Template>
+    @SerializedName("touser") private val to: String,
+    @SerializedName("template_id") private val templateId: String,
+    @Expose private val redirect: String,
+    private val data: Map<String, Template>
 ) : MpRequest() {
   private var url: String? = redirect
   @SerializedName("miniprogram")
@@ -108,19 +108,19 @@ class MessageSendWithTemplateRequest(
   }
 
   constructor(
-    to: String,
-    templateId: String,
-    data: Map<String, Template>,
-    appId: String,
-    route: String
+      to: String,
+      templateId: String,
+      data: Map<String, Template>,
+      appId: String,
+      route: String
   ) : this(to, templateId, "", data) {
     miniProgram = MiniProgram(appId, route)
     url = null
   }
 
   inner class MiniProgram(
-    private val appId: String,
-    @SerializedName("pagepath") private val route: String
+      private val appId: String,
+      @SerializedName("pagepath") private val route: String
   )
 }
 
@@ -286,8 +286,8 @@ class MessageSendWithCustomRequest(@SerializedName("touser") private val to: Str
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
 class MessageDeleteMassRequest(
-  @SerializedName("msg_id") private val messageId: String,
-  @SerializedName("article_idx") private val index: Int
+    @SerializedName("msg_id") private val messageId: String,
+    @SerializedName("article_idx") private val index: Int
 ) : MpRequest() {
   init {
     this.path = URL_MESSAGE_DELETE_MASS

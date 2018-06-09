@@ -52,13 +52,13 @@ object NotificationParser {
 
     xs.ignoreUnknownElements()
     xs.processAnnotations(
-      arrayOf(
-        Notification::class.java,
-        Event::class.java,
-        Message::class.java,
-        PlaintextNotificationResponse::class.java,
-        EncryptedNotificationResponse::class.java
-      )
+        arrayOf(
+            Notification::class.java,
+            Event::class.java,
+            Message::class.java,
+            PlaintextNotificationResponse::class.java,
+            EncryptedNotificationResponse::class.java
+        )
     )
   }
 
@@ -70,8 +70,8 @@ object NotificationParser {
    */
   fun parse(xmlString: String): Notification {
     var content = xmlString.replace(
-      WEIXIN_NOTIFICATION_XML_TAG_ORIGIN,
-      WEIXIN_NOTIFICATION_XML_TAG_NOTIFICATION
+        WEIXIN_NOTIFICATION_XML_TAG_ORIGIN,
+        WEIXIN_NOTIFICATION_XML_TAG_NOTIFICATION
     )
     val notification = xs.fromXML(content) as Notification
 
@@ -79,15 +79,15 @@ object NotificationParser {
     if (messageType != null) {
       if (messageType === NotificationMessage.EVENT) {
         content = content.replace(
-          WEIXIN_NOTIFICATION_XML_TAG_NOTIFICATION,
-          WEIXIN_NOTIFICATION_XML_TAG_EVENT
+            WEIXIN_NOTIFICATION_XML_TAG_NOTIFICATION,
+            WEIXIN_NOTIFICATION_XML_TAG_EVENT
         )
         val event = xs.fromXML(content) as Event
         notification.event = event
       } else {
         content = content.replace(
-          WEIXIN_NOTIFICATION_XML_TAG_NOTIFICATION,
-          WEIXIN_NOTIFICATION_XML_TAG_MESSAGE
+            WEIXIN_NOTIFICATION_XML_TAG_NOTIFICATION,
+            WEIXIN_NOTIFICATION_XML_TAG_MESSAGE
         )
         val message = xs.fromXML(content) as Message
         notification.message = message
@@ -97,8 +97,8 @@ object NotificationParser {
     val infoType = notification.infoType
     if (infoType != null) {
       content = content.replace(
-        WEIXIN_NOTIFICATION_XML_TAG_NOTIFICATION,
-        WEIXIN_NOTIFICATION_XML_TAG_INFO
+          WEIXIN_NOTIFICATION_XML_TAG_NOTIFICATION,
+          WEIXIN_NOTIFICATION_XML_TAG_INFO
       )
       val opInfo = xs.fromXML(content) as OpInfo
       notification.opInfo = opInfo

@@ -84,11 +84,11 @@ class ApiMpAuthentication(private val account: Mp) : Api(account) {
    * @return 凭证
    */
   fun refreshAccessToken(): String =
-    if (account.proxyWithOp) {
-      refreshLicensedAccessToken(account.appId, account.refreshToken!!)
-    } else {
-      requestAccessToken()
-    }.accessToken!!
+      if (account.proxyWithOp) {
+        refreshLicensedAccessToken(account.appId, account.refreshToken!!)
+      } else {
+        requestAccessToken()
+      }.accessToken!!
 
   /**
    * 更新微信服务凭证(access_token)为指定的token
@@ -148,7 +148,7 @@ class ApiMpAuthentication(private val account: Mp) : Api(account) {
       listener?.run {
         logger.debug("For:{} >> 调用监听器AccessTokenUpdatedListener", account.key)
         updated(
-          account.key, account.appId, accessToken.accessToken!!, expiresIn
+            account.key, account.appId, accessToken.accessToken!!, expiresIn
         )
       }
     }
@@ -262,7 +262,7 @@ class ApiMpAuthentication(private val account: Mp) : Api(account) {
    * @return [WaAccessTokenResponse]
    */
   fun askWebAuthorizeAccessToken(code: String): WaAccessTokenResponse? =
-    get(WaAccessTokenResponse::class.java, WaAccessTokenRequest(account.appId, account.appSecret!!, code))
+      get(WaAccessTokenResponse::class.java, WaAccessTokenRequest(account.appId, account.appSecret!!, code))
 
   /**
    * 刷新access_token
@@ -274,7 +274,7 @@ class ApiMpAuthentication(private val account: Mp) : Api(account) {
    * @return [WaAccessTokenResponse]
    */
   fun refreshWebAuthorizeAccessToken(refreshToken: String): WaAccessTokenResponse? =
-    get(WaAccessTokenResponse::class.java, WaAccessTokenRefreshRequest(account.appId, refreshToken))
+      get(WaAccessTokenResponse::class.java, WaAccessTokenRefreshRequest(account.appId, refreshToken))
 
   /**
    * 检验授权凭证（access_token）是否有效
@@ -284,7 +284,7 @@ class ApiMpAuthentication(private val account: Mp) : Api(account) {
    * @return 是否有效
    */
   fun verifyWebAuthorizeAccessToken(waAccessToken: String, openId: String): Boolean? =
-    get(Boolean::class.java, WaAccessTokenVerifyRequest(waAccessToken, openId))
+      get(Boolean::class.java, WaAccessTokenVerifyRequest(waAccessToken, openId))
 
   /**
    * 网页授权获取code地址跳转
@@ -300,8 +300,8 @@ class ApiMpAuthentication(private val account: Mp) : Api(account) {
    */
   @JvmOverloads
   fun webAuthorize(scope: WebAuthorizeScope, redirectTo: String, param: String? = null): String =
-    "$URL_WEB_AUTHORIZE?appid=${account.appId}&redirect_uri=${urlEncode(redirectTo)}&response_type=code" +
-        "&scope=$scope${param?.let { "&state=$param" } ?: ""}#wechat_redirect"
+      "$URL_WEB_AUTHORIZE?appid=${account.appId}&redirect_uri=${urlEncode(redirectTo)}&response_type=code" +
+          "&scope=$scope${param?.let { "&state=$param" } ?: ""}#wechat_redirect"
 
   /**
    * JS-SDK使用权限签名算法

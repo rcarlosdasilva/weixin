@@ -21,7 +21,7 @@ class ApiMpTemplate(account: Mp) : Api(account) {
    * @return 行业信息
    */
   fun getIndustry(): TemplateIndustryGetResponse =
-    get(TemplateIndustryGetResponse::class.java, TemplateIndustryGetReqeust())
+      get(TemplateIndustryGetResponse::class.java, TemplateIndustryGetReqeust())
 
   /**
    * 设置行业可在MP中完成，每月可修改行业1次，账号仅可使用所属行业中相关的模板
@@ -31,7 +31,7 @@ class ApiMpTemplate(account: Mp) : Api(account) {
    * @return 设置成功
    */
   fun setIndustry(primary: Industry, secondary: Industry): Boolean =
-    post(Boolean::class.java, TemplateIndustrySetReqeust(primary.code, secondary.code))
+      post(Boolean::class.java, TemplateIndustrySetReqeust(primary.code, secondary.code))
 
   /**
    * 从行业模板库选择模板到帐号后台
@@ -40,7 +40,7 @@ class ApiMpTemplate(account: Mp) : Api(account) {
    * @return 模板ID
    */
   fun append(templateCode: String): String =
-    post(TemplateAppendResponse::class.java, TemplateAppendRequest(templateCode)).id!!
+      post(TemplateAppendResponse::class.java, TemplateAppendRequest(templateCode)).id!!
 
   /**
    * 删除已添加至帐号下的模板
