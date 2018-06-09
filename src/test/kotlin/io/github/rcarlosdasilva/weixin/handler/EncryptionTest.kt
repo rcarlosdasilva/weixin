@@ -27,8 +27,10 @@ class EncryptionTest {
 
     val notification = decrypt(response as EncryptedNotificationResponse)
     Assert.assertNotNull(notification)
+    Assert.assertNotNull(notification!!.plaintext)
+    Assert.assertEquals(replyMsg, notification.plaintext)
 
-    logger.info { notification!!.plaintext }
+    logger.info { notification.plaintext }
   }
 
   private fun encrypt(): NotificationResponse? =

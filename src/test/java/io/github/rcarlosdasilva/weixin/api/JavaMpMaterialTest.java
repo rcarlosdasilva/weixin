@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import io.github.rcarlosdasilva.weixin.core.Weixin;
 import io.github.rcarlosdasilva.weixin.mix.TestHelper;
 import io.github.rcarlosdasilva.weixin.model.request.Article;
+import io.github.rcarlosdasilva.weixin.model.response.*;
 import io.github.rcarlosdasilva.weixin.terms.data.MaterialType;
 import org.junit.Assert;
 import org.junit.BeforeClass;

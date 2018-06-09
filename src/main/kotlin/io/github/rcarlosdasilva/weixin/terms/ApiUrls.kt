@@ -60,21 +60,21 @@ const val URL_TEMPLATE_DELETE = "${URL_API_DOMAIN}cgi-bin/template/del_private_t
 const val URL_TEMPLATE_QUERY = "${URL_API_DOMAIN}cgi-bin/template/get_all_private_template"
 // ======================== Template ======================
 
-// ------------------------ Custom ----------------------
-const val URL_CUSTOM_ACCOUNT_LIST = "${URL_API_DOMAIN}cgi-bin/customservice/getkflist"
-const val URL_CUSTOM_ACCOUNT_LIST_ONLINE = "${URL_API_DOMAIN}cgi-bin/customservice/getonlinekflist"
-const val URL_CUSTOM_ACCOUNT_INVITE_BINDING = "${URL_API_DOMAIN}customservice/kfaccount/inviteworker"
-const val URL_CUSTOM_ACCOUNT_APPEND = "${URL_API_DOMAIN}customservice/kfaccount/add"
-const val URL_CUSTOM_ACCOUNT_UPDATE = "${URL_API_DOMAIN}customservice/kfaccount/update"
-const val URL_CUSTOM_ACCOUNT_DELETE = "${URL_API_DOMAIN}customservice/kfaccount/del"
-const val URL_CUSTOM_ACCOUNT_UPLOAD_AVATAR = "${URL_API_DOMAIN}customservice/kfaccount/uploadheadimg"
-const val URL_CUSTOM_SESSION_CREATE = "${URL_API_DOMAIN}customservice/kfsession/create"
-const val URL_CUSTOM_SESSION_CLOSE = "${URL_API_DOMAIN}customservice/kfsession/close"
-const val URL_CUSTOM_SESSION_STATUS = "${URL_API_DOMAIN}customservice/kfsession/getsession"
-const val URL_CUSTOM_SESSION_LIST = "${URL_API_DOMAIN}customservice/kfsession/getsessionlist"
-const val URL_CUSTOM_SESSION_WAITINGS = "${URL_API_DOMAIN}customservice/kfsession/getwaitcase"
-const val URL_CUSTOM_MESSAGE_RECORDS = "${URL_API_DOMAIN}customservice/msgrecord/getmsglist"
-// ======================== Custom ======================
+// ------------------------ Customer Service ----------------------
+const val URL_CUSTOMER_SERVICE_ACCOUNT_LIST = "${URL_API_DOMAIN}cgi-bin/customservice/getkflist"
+const val URL_CUSTOMER_SERVICE_ACCOUNT_LIST_ONLINE = "${URL_API_DOMAIN}cgi-bin/customservice/getonlinekflist"
+const val URL_CUSTOMER_SERVICE_ACCOUNT_INVITE_BINDING = "${URL_API_DOMAIN}customservice/kfaccount/inviteworker"
+const val URL_CUSTOMER_SERVICE_ACCOUNT_APPEND = "${URL_API_DOMAIN}customservice/kfaccount/add"
+const val URL_CUSTOMER_SERVICE_ACCOUNT_UPDATE = "${URL_API_DOMAIN}customservice/kfaccount/update"
+const val URL_CUSTOMER_SERVICE_ACCOUNT_DELETE = "${URL_API_DOMAIN}customservice/kfaccount/del"
+const val URL_CUSTOMER_SERVICE_ACCOUNT_UPLOAD_AVATAR = "${URL_API_DOMAIN}customservice/kfaccount/uploadheadimg"
+const val URL_CUSTOMER_SERVICE_SESSION_CREATE = "${URL_API_DOMAIN}customservice/kfsession/create"
+const val URL_CUSTOMER_SERVICE_SESSION_CLOSE = "${URL_API_DOMAIN}customservice/kfsession/close"
+const val URL_CUSTOMER_SERVICE_SESSION_STATUS = "${URL_API_DOMAIN}customservice/kfsession/getsession"
+const val URL_CUSTOMER_SERVICE_SESSION_LIST = "${URL_API_DOMAIN}customservice/kfsession/getsessionlist"
+const val URL_CUSTOMER_SERVICE_SESSION_WAITINGS = "${URL_API_DOMAIN}customservice/kfsession/getwaitcase"
+const val URL_CUSTOMER_SERVICE_MESSAGE_RECORDS = "${URL_API_DOMAIN}customservice/msgrecord/getmsglist"
+// ======================== Customer Service ======================
 
 // ------------------------ Message ----------------------
 const val URL_MESSAGE_SEND_WITH_TEMPLATE = "${URL_API_DOMAIN}cgi-bin/message/template/send"

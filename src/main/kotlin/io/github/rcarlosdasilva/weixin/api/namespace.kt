@@ -224,6 +224,7 @@ class MpApiWrapper(account: Mp) {
   val material = ApiMpMaterial(account)
   val message = ApiMpMessage(account)
   val statistics = ApiMpStatistics(account)
+  val customerService = ApiMpCustomerService(account)
 
 }
 

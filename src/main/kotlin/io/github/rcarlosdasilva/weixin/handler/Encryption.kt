@@ -20,16 +20,16 @@ internal val CHARSET = Charset.forName(ENCODING)
  * 提供接收和推送给公众平台消息的加解密接口(UTF8编码的字符串)
  *
  *  1. 第三方回复加密消息给公众平台
- *  1. 第三方收到公众平台发送的消息，验证消息的安全性，并对消息进行解密
+ *  2. 第三方收到公众平台发送的消息，验证消息的安全性，并对消息进行解密
  *
  * 说明：异常java.security.InvalidKeyException:illegal Key Size的解决方案
  *
- *  1. 在官方网站下载JCE无限制权限策略文件（JDK7的下载地址：
- * http://www.oracle.com/technetwork/java/javase/downloads/jce-7-download-432124.html，
- * JDK8的下载地址：http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html）
- *  1. 下载后解压，可以看到local_policy.jar和US_export_policy.jar以及readme.txt
- *  1. 如果安装了JRE，将两个jar文件放到%JRE_HOME%\lib\security目录下覆盖原来的文件
- *  1. 如果安装了JDK，将两个jar文件放到%JDK_HOME%\jre\lib\security目录下覆盖原来文件
+ *  1. 在官方网站下载JCE无限制权限策略文件：
+ *   JDK7的下载地址：http://www.oracle.com/technetwork/java/javase/downloads/jce-7-download-432124.html，
+ *   JDK8的下载地址：http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html
+ *  2. 下载后解压，可以看到local_policy.jar和US_export_policy.jar以及readme.txt
+ *  3. 如果安装了JRE，将两个jar文件放到%JRE_HOME%\lib\security目录下覆盖原来的文件
+ *  4. 如果安装了JDK，将两个jar文件放到%JDK_HOME%\jre\lib\security目录下覆盖原来文件
  *
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
@@ -97,7 +97,7 @@ object Encryptor {
       // 使用BASE64对加密后的字符串进行编码
       cipherText = BASE64.encodeToString(encrypted)
     } catch (ex: Exception) {
-      logger.error(ex) { "微信内容加密异常" }
+      logger.error(ex) { "微信内容加密异常，请参考io.github.rcarlosdasilva.weixin.handler.Encryptor的类文档" }
       return null
     }
 
