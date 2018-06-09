@@ -103,16 +103,16 @@ const val URL_MATERIAL_ADD_NEWS = "${URL_API_DOMAIN}cgi-bin/media/uploadnews"
 const val URL_MATERIAL_TRANSFORM_VIDEO = "${URL_API_DOMAIN}cgi-bin/media/uploadvideo"
 // ======================== Media ======================
 
-// ------------------------ Comment ----------------------
-const val URL_COMMENT_ABILITY_OPEN = "${URL_API_DOMAIN}cgi-bin/comment/open"
-const val URL_COMMENT_ABILITY_CLOSE = "${URL_API_DOMAIN}cgi-bin/comment/close"
-const val URL_COMMENT_LIST = "${URL_API_DOMAIN}cgi-bin/comment/list"
-const val URL_COMMENT_STAR = "${URL_API_DOMAIN}cgi-bin/comment/markelect"
-const val URL_COMMENT_UNSTAR = "${URL_API_DOMAIN}cgi-bin/comment/unmarkelect"
-const val URL_COMMENT_DELETE = "${URL_API_DOMAIN}cgi-bin/comment/delete"
-const val URL_COMMENT_REPLY = "${URL_API_DOMAIN}cgi-bin/comment/reply/add"
-const val URL_COMMENT_REPLY_DELETE = "${URL_API_DOMAIN}cgi-bin/comment/reply/delete"
-// ======================== Comment ======================
+// ------------------------ NewsComment ----------------------
+const val URL_NEWS_COMMENT_ABILITY_OPEN = "${URL_API_DOMAIN}cgi-bin/comment/open"
+const val URL_NEWS_COMMENT_ABILITY_CLOSE = "${URL_API_DOMAIN}cgi-bin/comment/close"
+const val URL_NEWS_COMMENT_LIST = "${URL_API_DOMAIN}cgi-bin/comment/list"
+const val URL_NEWS_COMMENT_STAR = "${URL_API_DOMAIN}cgi-bin/comment/markelect"
+const val URL_NEWS_COMMENT_UNSTAR = "${URL_API_DOMAIN}cgi-bin/comment/unmarkelect"
+const val URL_NEWS_COMMENT_DELETE = "${URL_API_DOMAIN}cgi-bin/comment/delete"
+const val URL_NEWS_COMMENT_REPLY = "${URL_API_DOMAIN}cgi-bin/comment/newsCommentReply/add"
+const val URL_NEWS_COMMENT_REPLY_DELETE = "${URL_API_DOMAIN}cgi-bin/comment/newsCommentReply/delete"
+// ======================== NewsComment ======================
 
 // ------------------------ Statistics ----------------------
 const val URL_STATISTICS_USER_SUMMARY = "${URL_API_DOMAIN}datacube/getusersummary"

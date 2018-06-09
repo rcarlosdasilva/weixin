@@ -89,7 +89,7 @@ enum class MaterialType(val text: String) {
  *
  * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
  */
-enum class CommentType(val code: Int) {
+enum class NewsCommentType(val code: Int) {
 
   /**
    * 普通评论和精选评论
