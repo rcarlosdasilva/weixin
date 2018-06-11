@@ -9,6 +9,7 @@ import io.github.rcarlosdasilva.weixin.handler.cache.JedisSetting
 import io.github.rcarlosdasilva.weixin.model.AccessToken
 import io.github.rcarlosdasilva.weixin.model.Mp
 import io.github.rcarlosdasilva.weixin.model.Op
+import io.github.rcarlosdasilva.weixin.terms.UNIQUE_OP_ACCOUNT_CACHE_KEY
 import mu.KotlinLogging
 
 /**
@@ -144,6 +145,13 @@ class Weixin private constructor() {
             return obj.let { key == it.appId || key == it.mpId }
           }
         })
+
+    /**
+     * 获取开放平台账号信息
+     */
+    @JvmStatic
+    fun lookup(): Op? =
+        CacheHandler.of(Op::class.java).get(UNIQUE_OP_ACCOUNT_CACHE_KEY)
   }
 }
 

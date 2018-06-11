@@ -109,93 +109,94 @@ object MessageBuilder {
   @JvmOverloads
   fun buildTemplate(color: String = COLOR_BLACK) = TemplateMessageBuilder(color)
 
-}
-
-/**
- * 多图文消息（外链）构建器
- *
- * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
- */
-class NewsExternalBuilder internal constructor() {
-
-  private val news = NewsExternal()
 
   /**
-   * 添加一个外链图文信息
+   * 多图文消息（外链）构建器
    *
-   * @param url 地址
-   * @param title 标题
-   * @param description 描述
-   * @param picUrl 图片地址
-   * @return [NewsExternalBuilder]
+   * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
    */
-  fun add(url: String, title: String, description: String, picUrl: String) = this.also {
-    this.news.articles.add(News(title, url, description, picUrl))
+  class NewsExternalBuilder internal constructor() {
+
+    private val news = NewsExternal()
+
+    /**
+     * 添加一个外链图文信息
+     *
+     * @param url 地址
+     * @param title 标题
+     * @param description 描述
+     * @param picUrl 图片地址
+     * @return [NewsExternalBuilder]
+     */
+    fun add(url: String, title: String, description: String, picUrl: String) = this.also {
+      this.news.articles.add(News(title, url, description, picUrl))
+    }
+
+    /**
+     * 构建
+     *
+     * @return [MessageContainer]
+     */
+    fun build() = MessageContainer(MessageType.NEWS_EXTERNAL).also {
+      it.bean = this.news
+    }
+
   }
 
   /**
-   * 构建
+   * 模板内容构造器
    *
-   * @return [MessageContainer]
+   * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
    */
-  fun build() = MessageContainer(MessageType.NEWS_EXTERNAL).also {
-    it.bean = this.news
+  class TemplateMessageBuilder internal constructor(private val defaultColor: String) {
+
+    private val data = mutableMapOf<String, Template>()
+
+    /**
+     * 设置模板头内容
+     *
+     * @param value 内容
+     * @param color 颜色
+     * @return 模板构造器
+     */
+    @JvmOverloads
+    fun begin(value: String, color: String = defaultColor) = this.also {
+      data[TEMPLATE_DATA_BEGIN_KEY] = Template(value, color)
+      return this
+    }
+
+    /**
+     * 设置模板尾部内容
+     *
+     * @param value 内容
+     * @param color 颜色
+     * @return 模板构造器
+     */
+    @JvmOverloads
+    fun end(value: String, color: String = defaultColor) = this.also {
+      data[TEMPLATE_DATA_END_KEY] = Template(value, color)
+    }
+
+    /**
+     * 添加关键字信息
+     *
+     * @param key 关键字
+     * @param value 内容
+     * @param color 颜色
+     * @return 模板构造器
+     */
+    @JvmOverloads
+    fun keyword(key: String, value: String, color: String = defaultColor) = this.also {
+      data[key] = Template(value, color)
+    }
+
+    /**
+     * 获取模板内容
+     *
+     * @return 模板内容
+     */
+    fun build() = data
+
   }
-
-}
-
-/**
- * 模板内容构造器
- *
- * @author [Dean Zhao](mailto:rcarlosdasilva@qq.com)
- */
-class TemplateMessageBuilder internal constructor(private val defaultColor: String) {
-
-  private val data = mutableMapOf<String, Template>()
-
-  /**
-   * 设置模板头内容
-   *
-   * @param value 内容
-   * @param color 颜色
-   * @return 模板构造器
-   */
-  @JvmOverloads
-  fun begin(value: String, color: String = defaultColor) = this.also {
-    data[TEMPLATE_DATA_BEGIN_KEY] = Template(value, color)
-    return this
-  }
-
-  /**
-   * 设置模板尾部内容
-   *
-   * @param value 内容
-   * @param color 颜色
-   * @return 模板构造器
-   */
-  @JvmOverloads
-  fun end(value: String, color: String = defaultColor) = this.also {
-    data[TEMPLATE_DATA_END_KEY] = Template(value, color)
-  }
-
-  /**
-   * 添加关键字信息
-   *
-   * @param key 关键字
-   * @param value 内容
-   * @param color 颜色
-   * @return 模板构造器
-   */
-  @JvmOverloads
-  fun keyword(key: String, value: String, color: String = defaultColor) = this.also {
-    data[key] = Template(value, color)
-  }
-
-  /**
-   * 获取模板内容
-   *
-   * @return 模板内容
-   */
-  fun build() = data
 
 }

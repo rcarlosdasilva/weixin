@@ -64,6 +64,6 @@ class PlaintextNotificationResponse : NotificationResponse {
   @XStreamOmitField
   val info = ResponseAdditionalInfo()
   @XStreamOmitField
-  val infos = listOf<ResponseAdditionalInfo>()
+  val infos = mutableListOf<ResponseAdditionalInfo>()
 
 }

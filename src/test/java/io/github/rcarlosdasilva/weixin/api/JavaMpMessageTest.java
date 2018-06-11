@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import io.github.rcarlosdasilva.weixin.core.Weixin;
 import io.github.rcarlosdasilva.weixin.mix.TestHelper;
 import io.github.rcarlosdasilva.weixin.model.builder.MessageBuilder;
-import io.github.rcarlosdasilva.weixin.model.builder.TemplateMessageBuilder;
 import io.github.rcarlosdasilva.weixin.model.request.MessageContainer;
 import io.github.rcarlosdasilva.weixin.model.response.MessageQueryAutoReplyResponse;
 import io.github.rcarlosdasilva.weixin.model.response.MessageSendWithMassResponse;
@@ -44,7 +43,7 @@ public class JavaMpMessageTest {
     String templateId = Weixin.mp(key).getTemplate().append(templateCode);
     Assert.assertNotNull(templateId);
 
-    TemplateMessageBuilder builder = MessageBuilder.INSTANCE.buildTemplate();
+    MessageBuilder.TemplateMessageBuilder builder = MessageBuilder.INSTANCE.buildTemplate();
     builder.begin("带薪假期！！")
         .keyword("noticeSender", "老王")
         .keyword("time", "2018年1月1日")

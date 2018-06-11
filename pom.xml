@@ -52,7 +52,7 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <kotlin.version>1.2.30</kotlin.version>
+    <kotlin.version>1.2.41</kotlin.version>
     <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
 
     <guava.version>21.0</guava.version>
@@ -73,7 +73,7 @@
         <groupId>io.spring.platform</groupId>
         <artifactId>platform-bom</artifactId>
         <version>Brussels-SR1</version>
-        <typeNews>pom</typeNews>
+        <type>pom</type>
         <scope>import</scope>
       </dependency>
 

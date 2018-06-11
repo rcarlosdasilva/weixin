@@ -13,7 +13,7 @@ import io.github.rcarlosdasilva.weixin.terms.data.NewsCommentType
 class ApiMpNewsComment(account: Mp) : Api(account) {
 
   /**
-   * 打开已群发文章评论功能.
+   * 打开已群发文章评论功能
    *
    * @param messageDataId 群发返回的msg_data_id
    * @param index 多图文时，用来指定第几篇图文，从0开始，不带默认操作该msg_data_id的第一篇图文，默认0
@@ -23,7 +23,7 @@ class ApiMpNewsComment(account: Mp) : Api(account) {
       post(Boolean::class.java, NewsCommentOpenRequest(messageDataId, index))
 
   /**
-   * 关闭已群发文章评论功能.
+   * 关闭已群发文章评论功能
    *
    * @param messageDataId 群发返回的msg_data_id
    * @param index 多图文时，用来指定第几篇图文，从0开始，不带默认操作该msg_data_id的第一篇图文，默认0
@@ -33,7 +33,7 @@ class ApiMpNewsComment(account: Mp) : Api(account) {
       post(Boolean::class.java, NewsCommentCloseRequest(messageDataId, index))
 
   /**
-   * 查看指定文章的评论数据.
+   * 查看指定文章的评论数据
    *
    * @param messageDataId 群发返回的msg_data_id
    * @param index 多图文时，用来指定第几篇图文，从0开始，不带默认返回该msg_data_id的第一篇图文
@@ -47,7 +47,7 @@ class ApiMpNewsComment(account: Mp) : Api(account) {
       post(NewsCommentListResponse::class.java, NewsCommentListRequest(messageDataId, index, begin, count, typeNews))
 
   /**
-   * 将评论标记精选.
+   * 将评论标记精选
    *
    * @param messageDataId 群发返回的msg_data_id
    * @param index 多图文时，用来指定第几篇图文，从0开始，不带默认操作该msg_data_id的第一篇图文
@@ -58,7 +58,7 @@ class ApiMpNewsComment(account: Mp) : Api(account) {
       post(Boolean::class.java, NewsCommentStarRequest(messageDataId, commentId, index))
 
   /**
-   * 将评论取消精选.
+   * 将评论取消精选
    *
    * @param messageDataId 群发返回的msg_data_id
    * @param index 多图文时，用来指定第几篇图文，从0开始，不带默认操作该msg_data_id的第一篇图文
@@ -69,7 +69,7 @@ class ApiMpNewsComment(account: Mp) : Api(account) {
       post(Boolean::class.java, NewsCommentUnStarRequest(messageDataId, commentId, index))
 
   /**
-   * 删除评论.
+   * 删除评论
    *
    * @param messageDataId 群发返回的msg_data_id
    * @param index 多图文时，用来指定第几篇图文，从0开始，不带默认操作该msg_data_id的第一篇图文
@@ -80,7 +80,7 @@ class ApiMpNewsComment(account: Mp) : Api(account) {
       post(Boolean::class.java, NewsCommentDeleteRequest(messageDataId, commentId, index))
 
   /**
-   * 回复评论.
+   * 回复评论
    *
    * @param messageDataId 群发返回的msg_data_id
    * @param index 多图文时，用来指定第几篇图文，从0开始，不带默认操作该msg_data_id的第一篇图文
@@ -92,7 +92,7 @@ class ApiMpNewsComment(account: Mp) : Api(account) {
       post(Boolean::class.java, NewsCommentReplyRequest(messageDataId, commentId, index, content))
 
   /**
-   * 删除回复.
+   * 删除回复
    *
    * @param messageDataId 群发返回的msg_data_id
    * @param index 多图文时，用来指定第几篇图文，从0开始，不带默认操作该msg_data_id的第一篇图文
